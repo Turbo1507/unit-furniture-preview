@@ -1,0 +1,160 @@
+/* UNIT.FURNITURE — данные каталога, решений и проектов.
+   Модель заложена под будущий e-commerce: карточка = товар с категорией,
+   средой (indoor/outdoor), назначением и тегами — фильтры и корзина
+   работают уже сейчас, цена появится полем price позже. */
+
+/* env: indoor|outdoor · use: home|villa|hotel|restaurant ·
+   tags: sunbeds|poufs|commercial|decor — доп. категории из ТЗ */
+window.PRODUCTS = [
+  // Кровати
+  { id: 'bed1', cat: 'beds', env: 'indoor', use: ['home', 'villa', 'hotel'], fabric: true,
+    name: 'Bed Type 1', img: 'assets/bed-type-1.jpg', life: 'assets/life-bedroom.jpg',
+    dims: '1205 × 3450 × 2230 мм',
+    specs: { 'Изголовье': 'HMR 18 мм, орех', 'Каркас': 'Фанера 18 мм', 'Цвет': 'Серый', 'Производство': 'IDEFAB, Бали' } },
+  { id: 'bed2', cat: 'beds', env: 'indoor', use: ['home', 'villa', 'hotel'], fabric: true,
+    name: 'Bed Type 2', img: 'assets/bed-type-2.jpg',
+    dims: '950 × 1970 × 2270 мм',
+    specs: { 'Изголовье': 'Фанера 18 мм', 'Каркас': 'Фанера 18 мм', 'Цвет': 'Серый', 'Производство': 'Китай' } },
+  { id: 'bed3', cat: 'beds', env: 'indoor', use: ['home', 'villa', 'hotel'], fabric: true,
+    name: 'Bed Type 3', img: 'assets/bed-type-3.jpg',
+    dims: '950 × 1970 × 2590 мм',
+    specs: { 'Изголовье': 'HMR 18 мм, орех', 'Каркас': 'Фанера 18 мм', 'Цвет': 'Серый', 'Производство': 'Kain Interior Hikaron' } },
+
+  // Диваны
+  { id: 'sofaA', cat: 'sofas', env: 'indoor', use: ['home', 'villa'], fabric: true,
+    name: 'Sofa A', img: 'assets/sofa-a.jpg', life: 'assets/hero-loft.jpg',
+    dims: '700 × 2400 × 900 мм',
+    specs: { 'Каркас': 'Фанера 18 мм', 'Ножки': 'Металл', 'Цвет': 'Светлый' } },
+  { id: 'sofaB', cat: 'sofas', env: 'indoor', use: ['home', 'villa'], fabric: true,
+    name: 'Sofa B', img: 'assets/sofa-b.jpg', life: 'assets/life-sofa.jpg',
+    dims: '700 × 2400 × 900 мм',
+    specs: { 'Каркас': 'Фанера 18 мм', 'Ножки': 'Металл', 'Цвет': 'Серый' } },
+  { id: 'sofaObs', cat: 'sofas', env: 'indoor', use: ['home', 'villa'], fabric: true,
+    name: 'Sofa Obsidian', img: 'assets/sofa-obsidian.jpg',
+    dims: '800 × 3795 × 1565 мм',
+    specs: { 'Каркас': 'Фанера 18 мм', 'Цвет': 'Графитовый' } },
+  { id: 'sofaAna', cat: 'sofas', env: 'indoor', use: ['home', 'villa'], fabric: true,
+    name: 'Sofa Anatholy', img: 'assets/sofa-anatholy.jpg',
+    dims: '850 × 4600 × 2950 мм',
+    specs: { 'Каркас': 'Фанера 18 мм', 'Цвет': 'Коричневый', 'Тип': 'Угловой' } },
+  { id: 'sofaRec', cat: 'sofas', env: 'indoor', use: ['hotel', 'restaurant'], fabric: true, tags: ['commercial'],
+    name: 'Sofa Reception Restaurant', img: 'assets/sofa-reception.jpg', life: 'assets/life-lobby.jpg',
+    dims: '650 × 2150 × 1280 мм',
+    specs: { 'Цвет': 'Серый', 'Назначение': 'Ресепшн, ресторан' } },
+  { id: 'sofaUlu', cat: 'sofas', env: 'indoor', use: ['home', 'villa'], fabric: true,
+    name: 'Sofa Uluwatu', img: 'assets/sofa-uluwatu.jpg',
+    dims: '705 × 2570 × 1550 мм',
+    specs: { 'Цвет': 'Серый', 'Тип': 'Угловой, модульный' } },
+
+  // Кресла и стулья
+  { id: 'ch1', cat: 'chairs', env: 'indoor', use: ['home', 'villa', 'restaurant'], fabric: true,
+    name: 'Chair Type 1', img: 'assets/chair-type-1.jpg',
+    dims: '850 × 900 × 700 мм',
+    specs: { 'Каркас': 'Металл', 'Цвет': 'Серый', 'Производство': 'Китай' } },
+  { id: 'ch2', cat: 'chairs', env: 'indoor', use: ['home', 'villa', 'restaurant'],
+    name: 'Chair Type 2', img: 'assets/chair-type-2.jpg',
+    dims: '450 × 400 × 400 мм',
+    specs: { 'Каркас': 'Тиковое дерево', 'Цвет': 'Серый', 'Производство': 'Джепара' } },
+  { id: 'ch3', cat: 'chairs', env: 'indoor', use: ['home', 'villa', 'restaurant'],
+    name: 'Chair Type 3', img: 'assets/chair-type-3.jpg',
+    dims: '—',
+    specs: { 'Каркас': 'Тиковое дерево', 'Цвет': 'Серый', 'Производство': 'Джепара' } },
+  { id: 'ch4', cat: 'chairs', env: 'indoor', use: ['home', 'villa'], fabric: true, tags: ['poufs'],
+    name: 'Chair Type 4 · пуф', img: 'assets/chair-type-4.jpg', life: 'assets/life-chairs.jpg',
+    dims: '450 × 400 × 400 мм',
+    specs: { 'Каркас': 'Фанера 18 мм', 'Цвет': 'Синий', 'Производство': 'Джепара' } },
+  { id: 'ch5', cat: 'chairs', env: 'indoor', use: ['home', 'villa', 'restaurant'],
+    name: 'Chair Type 5', img: 'assets/chair-type-5.jpg',
+    dims: '—',
+    specs: { 'Каркас': 'Тиковое дерево', 'Цвет': 'Серый', 'Производство': 'Джепара' } },
+  { id: 'ch6', cat: 'chairs', env: 'indoor', use: ['hotel', 'restaurant'], tags: ['commercial'],
+    name: 'Chair Type 6 · барный', img: 'assets/chair-type-6.jpg', life: 'assets/life-restaurant.jpg',
+    dims: '950 × 470 × 470 мм',
+    specs: { 'Каркас': 'Тиковое дерево', 'Цвет': 'Серый', 'Производство': 'Джепара' } },
+  { id: 'ch7', cat: 'chairs', env: 'indoor', use: ['home', 'villa'], fabric: true,
+    name: 'Chair Type 7', img: 'assets/chair-type-7.jpg', life: 'assets/life-chairs.jpg',
+    dims: '750 × 550 × 550 мм',
+    specs: { 'Каркас': 'Тиковое дерево', 'Цвет': 'Тёмно-серый', 'Производство': 'Джепара' } },
+  { id: 'ch8', cat: 'chairs', env: 'indoor', use: ['home', 'villa'], fabric: true, tags: ['poufs'],
+    name: 'Chair Type 8 · оттоманка', img: 'assets/chair-type-8.jpg',
+    dims: '400 × 780 × 780 мм',
+    specs: { 'Каркас': 'Фанера 18 мм', 'Цвет': 'Серый', 'Производство': 'Джепара' } },
+  { id: 'ch9', cat: 'chairs', env: 'indoor', use: ['home', 'villa', 'restaurant'],
+    name: 'Chair Type 9', img: 'assets/chair-type-9.jpg',
+    dims: '—',
+    specs: { 'Каркас': 'Тиковое дерево', 'Цвет': 'Серый', 'Производство': 'Джепара' } },
+
+  // Аутдор
+  { id: 'out1', cat: 'outdoor', env: 'outdoor', use: ['villa', 'hotel'], tags: ['sunbeds'],
+    name: 'Sofa Outdoor Type 1 · дейбед', img: 'assets/outdoor-type-1.jpg',
+    dims: '—',
+    specs: { 'Каркас': 'Тиковое дерево', 'Ножки': 'Металл', 'Цвет': 'Серый' } },
+  { id: 'out2', cat: 'outdoor', env: 'outdoor', use: ['villa', 'hotel'], tags: ['sunbeds'],
+    name: 'Sofa Outdoor Type 2 · шезлонг', img: 'assets/outdoor-type-2.jpg', life: 'assets/life-lounger.jpg',
+    dims: '—',
+    specs: { 'Каркас': 'Тиковое дерево', 'Ножки': 'Металл', 'Цвет': 'Серый' } },
+  { id: 'out3', cat: 'outdoor', env: 'outdoor', use: ['home', 'villa', 'hotel'], fabric: true,
+    name: 'Sofa Outdoor Type 3', img: 'assets/outdoor-type-3.jpg', life: 'assets/life-outdoor.jpg',
+    dims: '720 × 2850 × 950 мм',
+    specs: { 'Каркас': 'Тиковое дерево', 'Ножки': 'Металл', 'Цвет': 'Серый' } },
+  { id: 'out4', cat: 'outdoor', env: 'outdoor', use: ['home', 'villa', 'hotel'], fabric: true,
+    name: 'Sofa Outdoor Type 4', img: 'assets/outdoor-type-4.jpg', life: 'assets/life-terrace.jpg',
+    dims: '720 × 1900 × 950 мм',
+    specs: { 'Каркас': 'Тиковое дерево', 'Ножки': 'Металл', 'Цвет': 'Серый' } },
+  { id: 'out5', cat: 'outdoor', env: 'outdoor', use: ['home', 'villa', 'hotel'], fabric: true,
+    name: 'Sofa Outdoor Type 5 · угловой', img: 'assets/outdoor-type-5.jpg', life: 'assets/life-outdoor.jpg',
+    dims: '720 × 2850 × 1900 мм',
+    specs: { 'Каркас': 'Тиковое дерево', 'Ножки': 'Металл', 'Цвет': 'Серый' } },
+
+  // Текстиль и декор
+  { id: 'pilAna', cat: 'textile', env: 'indoor', use: ['home', 'villa'], fabric: true, tags: ['decor'],
+    name: 'Pillows · Sofa Anatholy', img: 'assets/pillows-anatholy.jpg',
+    dims: '—',
+    specs: { 'Варианты': 'A — оранжевый, B — тёмный' } },
+  { id: 'pilObs', cat: 'textile', env: 'indoor', use: ['home', 'villa'], fabric: true, tags: ['decor'],
+    name: 'Pillows · Sofa Obsidian', img: 'assets/pillows-obsidian.jpg',
+    dims: '—',
+    specs: { 'Варианты': 'A — серый меланж, B — графит' } },
+  { id: 'pilOut', cat: 'textile', env: 'outdoor', use: ['home', 'villa', 'hotel'], fabric: true, tags: ['decor'],
+    name: 'Pillows · Sofa Outdoor', img: 'assets/pillows-outdoor.jpg',
+    dims: '—',
+    specs: { 'Варианты': 'A — синий, B — серый' } },
+];
+
+/* Категории витрины каталога (ТЗ, блок 3): ключи i18n + счётчик моделей.
+   Категории без моделей (столы) показываем как «под заказ» — производство кастомное. */
+window.CATEGORIES = [
+  { id: 'beds',       img: 'assets/life-bedroom.jpg' },
+  { id: 'sofas',      img: 'assets/life-sofa.jpg' },
+  { id: 'chairs',     img: 'assets/life-chairs.jpg' },
+  { id: 'outdoor',    img: 'assets/life-outdoor.jpg' },
+  { id: 'sunbeds',    img: 'assets/life-lounger.jpg' },
+  { id: 'poufs',      img: 'assets/chair-type-4.jpg' },
+  { id: 'textile',    img: 'assets/pillows-outdoor.jpg' },
+  { id: 'commercial', img: 'assets/life-lobby.jpg' },
+  { id: 'tables',     img: 'assets/life-restaurant.jpg', custom: true },
+];
+
+/* Готовые решения (ТЗ, блок 4 и страница «Решения») */
+window.SOLUTIONS = [
+  { id: 'bedroom',    img: 'assets/life-bedroom.jpg',    products: ['bed1', 'ch7', 'ch8', 'pilObs'] },
+  { id: 'living',     img: 'assets/life-living.jpg',     products: ['sofaB', 'ch7', 'ch8', 'pilAna'] },
+  { id: 'terrace',    img: 'assets/life-outdoor.jpg',    products: ['out3', 'out4', 'pilOut'] },
+  { id: 'lounge',     img: 'assets/life-terrace.jpg',    products: ['out1', 'out2', 'pilOut'] },
+  { id: 'reception',  img: 'assets/life-lobby.jpg',      products: ['sofaRec', 'ch1', 'ch5'] },
+  { id: 'restaurant', img: 'assets/life-restaurant.jpg', products: ['ch6', 'ch2', 'sofaRec'] },
+  { id: 'turnkey',    img: 'assets/hero-loft.jpg',       products: [], featured: true },
+];
+
+/* Реальные объекты (ТЗ, блок 8 и страница «Проекты»).
+   type: indoor|outdoor · place: villas|commercial */
+window.PROJECTS = [
+  { id: 'pr1', img: 'assets/hero-loft.jpg',        type: 'indoor',  place: 'villas' },
+  { id: 'pr2', img: 'assets/life-bedroom.jpg',     type: 'indoor',  place: 'villas' },
+  { id: 'pr3', img: 'assets/life-outdoor.jpg',     type: 'outdoor', place: 'villas' },
+  { id: 'pr4', img: 'assets/life-lounger.jpg',     type: 'outdoor', place: 'villas' },
+  { id: 'pr5', img: 'assets/life-sofa.jpg',        type: 'indoor',  place: 'villas' },
+  { id: 'pr6', img: 'assets/life-terrace.jpg',     type: 'outdoor', place: 'commercial' },
+  { id: 'pr7', img: 'assets/life-lobby.jpg',       type: 'indoor',  place: 'commercial' },
+  { id: 'pr8', img: 'assets/life-restaurant.jpg',  type: 'indoor',  place: 'commercial' },
+];

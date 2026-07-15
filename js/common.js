@@ -1,0 +1,279 @@
+/* UNIT.FURNITURE — общий слой всех страниц:
+   i18n-хелперы, корзина заявки (localStorage — живёт между страницами),
+   рендер карточек товара, шапка, reveal, мобильная CTA-планка. */
+
+/* защита от XSS при переходе данных на CMS/API в будущем */
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+/* QA-режим: headless-скриншоты без промежуточных состояний анимаций */
+const QA = navigator.webdriver || /[?&]qa=1/.test(location.search);
+if (QA) document.documentElement.classList.add('qa');
+
+/* ---------- i18n helpers ---------- */
+function t(key) {
+  const lang = window.__uf_lang || 'ru';
+  const dict = (window.I18N && window.I18N[lang]) || {};
+  return dict[key] != null ? dict[key] : key;
+}
+function catLabel(cat) { return t(window.CAT_LABEL_KEY[cat] || cat); }
+function trSpecKey(k) {
+  if ((window.__uf_lang || 'ru') === 'ru') return k;
+  return (window.SPEC_TR.keys[k]) || k;
+}
+function trSpecVal(v) {
+  if ((window.__uf_lang || 'ru') === 'ru') return v;
+  return (window.SPEC_TR.values[v]) || v;
+}
+function trDims(d) {
+  if (d === '—') return t('p.dims_unknown');
+  return (window.__uf_lang || 'ru') === 'en' ? d.replace(' мм', ' mm') : d;
+}
+function trName(name) {
+  if ((window.__uf_lang || 'ru') !== 'en') return name;
+  let out = name;
+  Object.entries(window.NAME_SUFFIX_TR).forEach(([ru, en]) => { out = out.replace(ru, en); });
+  return out;
+}
+function productById(id) { return (window.PRODUCTS || []).find(p => p.id === id); }
+
+/* куда ведёт «оформить заявку» с этой страницы (index: #request, остальные: contacts.html#form) */
+const REQUEST_URL = document.body.dataset.requestUrl || 'contacts.html#form';
+
+/* ---------- корзина заявки: persist в localStorage, работает на всех страницах ---------- */
+const reqIds = new Set();
+try { JSON.parse(localStorage.getItem('uf_cart') || '[]').forEach(id => { if (productById(id)) reqIds.add(id); }); } catch (e) {}
+
+function persistCart() {
+  try { localStorage.setItem('uf_cart', JSON.stringify([...reqIds])); } catch (e) {}
+}
+function toggleRequest(id) {
+  reqIds.has(id) ? reqIds.delete(id) : reqIds.add(id);
+  persistCart();
+  syncRequestUI();
+}
+function addRequest(id) {
+  if (!reqIds.has(id)) { reqIds.add(id); persistCart(); syncRequestUI(); }
+}
+function syncAddButtons() {
+  document.querySelectorAll('.p-add').forEach(b => {
+    const on = reqIds.has(b.dataset.add);
+    b.classList.toggle('added', on);
+    b.textContent = on ? '✓' : '+';
+  });
+  document.querySelectorAll('[data-req]').forEach(b => {
+    const on = reqIds.has(b.dataset.req);
+    b.classList.toggle('added', on);
+    b.textContent = on ? t('p.in_request') : t('p.request');
+  });
+}
+function syncRequestUI() {
+  syncAddButtons();
+  const reqCountIcon = document.getElementById('reqCountIcon');
+  if (reqCountIcon) {
+    reqCountIcon.hidden = reqIds.size === 0;
+    reqCountIcon.textContent = reqIds.size;
+  }
+  const reqChips = document.getElementById('reqChips');
+  if (reqChips) {
+    reqChips.innerHTML = [...reqIds].map(id => {
+      const p = productById(id);
+      return `<button type="button" class="chip" data-del="${p.id}">${escapeHtml(trName(p.name))}<span>✕</span></button>`;
+    }).join('');
+    const prev = document.getElementById('reqCartPreview');
+    if (prev) prev.hidden = reqIds.size === 0;
+  }
+  renderCart();
+}
+
+/* ---------- cart drawer ---------- */
+const cartEl = document.getElementById('cart');
+const cartOverlay = document.getElementById('cartOverlay');
+const cartList = document.getElementById('cartList');
+
+function renderCart() {
+  if (!cartList) return;
+  if (reqIds.size === 0) {
+    cartList.innerHTML = `<p class="cart-empty">${t('cart.empty')}</p>`;
+    return;
+  }
+  cartList.innerHTML = [...reqIds].map(id => {
+    const p = productById(id);
+    return `<div class="cart-item">
+      <img src="${p.img}" alt="${escapeHtml(trName(p.name))}">
+      <div><div class="cart-item-name">${escapeHtml(trName(p.name))}</div><div class="cart-item-cat">${escapeHtml(catLabel(p.cat))}</div></div>
+      <button type="button" class="cart-item-del" data-del="${p.id}" aria-label="✕">✕</button>
+    </div>`;
+  }).join('');
+}
+function openCart() {
+  if (!cartEl) return;
+  renderCart();
+  cartOverlay.hidden = false;
+  requestAnimationFrame(() => {
+    cartOverlay.classList.add('show');
+    cartEl.classList.add('open');
+    cartEl.setAttribute('aria-hidden', 'false');
+  });
+  document.body.style.overflow = 'hidden';
+}
+function closeCart() {
+  if (!cartEl) return;
+  cartOverlay.classList.remove('show');
+  cartEl.classList.remove('open');
+  cartEl.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+  setTimeout(() => { cartOverlay.hidden = true; }, 320);
+}
+if (cartEl) {
+  const cartBtn = document.getElementById('cartBtn');
+  if (cartBtn) cartBtn.addEventListener('click', openCart);
+  document.getElementById('cartClose').addEventListener('click', closeCart);
+  cartOverlay.addEventListener('click', closeCart);
+  cartList.addEventListener('click', e => {
+    const del = e.target.closest('[data-del]');
+    if (del) toggleRequest(del.dataset.del);
+  });
+  document.getElementById('cartCheckout').addEventListener('click', () => {
+    closeCart();
+    if (REQUEST_URL.startsWith('#')) {
+      const target = document.querySelector(REQUEST_URL);
+      if (target) { target.scrollIntoView({ behavior: 'smooth' }); return; }
+    }
+    location.href = REQUEST_URL;
+  });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeCart(); });
+}
+
+/* ---------- рендер карточек товара (каталог, витрины, «похожие модели») ---------- */
+function productCard(p) {
+  const photo = p.life || p.img;
+  const teak = Object.values(p.specs).some(v => /тик/i.test(v));
+  const tags = [
+    `<span class="p-tag">${t(p.env === 'outdoor' ? 'tag.outdoor' : 'tag.indoor')}</span>`,
+    `<span class="p-tag">${t('tag.custom')}</span>`,
+    p.fabric ? `<span class="p-tag">${t('tag.fabric')}</span>` : ''
+  ].join('');
+  return `
+  <article class="product" data-id="${p.id}">
+    <a class="p-media" href="product.html?id=${p.id}" aria-label="${escapeHtml(trName(p.name))}">
+      <img class="p-photo" src="${photo}" alt="${escapeHtml(trName(p.name))}" loading="lazy">
+      ${teak ? `<span class="p-badge">${escapeHtml(t('badge.teak'))}</span>` : ''}
+      <button class="p-add" data-add="${p.id}" aria-label="+" type="button">+</button>
+    </a>
+    <div class="p-meta">
+      <div class="p-cat-row"><span class="p-cat">${escapeHtml(catLabel(p.cat))}</span></div>
+      <h3 class="p-name"><a href="product.html?id=${p.id}">${escapeHtml(trName(p.name))}</a></h3>
+      <p class="p-dims">${escapeHtml(trDims(p.dims))}</p>
+      <div class="p-tags">${tags}</div>
+      <div class="p-foot">
+        <span class="p-price">${t('p.price')}</span>
+        <a class="p-link" href="product.html?id=${p.id}">${t('p.more')}</a>
+      </div>
+    </div>
+  </article>`;
+}
+function renderProductsInto(el, list) {
+  el.innerHTML = list.map(productCard).join('');
+  syncAddButtons();
+}
+document.addEventListener('click', e => {
+  const add = e.target.closest('.p-add');
+  if (add) { e.preventDefault(); e.stopPropagation(); toggleRequest(add.dataset.add); }
+});
+
+/* ---------- scroll progress ---------- */
+const bar = document.getElementById('scrollBar');
+if (bar) {
+  let scrollTicking = false;
+  addEventListener('scroll', () => {
+    if (scrollTicking) return;
+    scrollTicking = true;
+    requestAnimationFrame(() => {
+      const h = document.documentElement;
+      const max = h.scrollHeight - h.clientHeight;
+      bar.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
+      scrollTicking = false;
+    });
+  }, { passive: true });
+}
+
+/* ---------- reveal on scroll ---------- */
+const io = new IntersectionObserver(entries => {
+  entries.forEach(en => {
+    if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+/* ---------- burger ---------- */
+const burger = document.getElementById('burger');
+const nav = document.getElementById('nav');
+if (burger && nav) {
+  burger.addEventListener('click', () => {
+    burger.classList.toggle('open');
+    nav.classList.toggle('open');
+  });
+  nav.addEventListener('click', e => {
+    if (e.target.tagName === 'A') { burger.classList.remove('open'); nav.classList.remove('open'); }
+  });
+}
+
+/* подсветка текущего раздела в меню */
+(function markActiveNav() {
+  const page = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.nav a').forEach(a => {
+    const href = a.getAttribute('href') || '';
+    if (href.split('#')[0] === page) a.classList.add('is-here');
+  });
+})();
+
+/* ---------- spotlight on product cards ---------- */
+document.addEventListener('mousemove', e => {
+  const card = e.target.closest && e.target.closest('.product');
+  if (!card) return;
+  const r = card.getBoundingClientRect();
+  card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+  card.style.setProperty('--my', (e.clientY - r.top) + 'px');
+}, { passive: true });
+
+/* ---------- language switch (шапка + футер) ---------- */
+window.__uf_onLangChange = function () {
+  syncRequestUI();
+  if (window.__uf_onLangChangePage) window.__uf_onLangChangePage();
+};
+document.querySelectorAll('.lang-switch').forEach(sw => {
+  sw.addEventListener('click', e => {
+    const b = e.target.closest('[data-lang]');
+    if (b) window.setLang(b.dataset.lang);
+  });
+});
+(function initLang() {
+  let saved = 'ru';
+  try { saved = localStorage.getItem('uf_lang') || 'ru'; } catch (e) {}
+  const urlLang = new URLSearchParams(location.search).get('lang');
+  window.setLang(urlLang === 'en' || urlLang === 'ru' ? urlLang : saved);
+})();
+syncRequestUI();
+
+/* ---------- форма заявки (index + contacts) ---------- */
+const form = document.getElementById('leadForm');
+if (form) {
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const name = document.getElementById('fName');
+    const phone = document.getElementById('fPhone');
+    const agree = document.getElementById('fAgree');
+    let ok = true;
+    [name, phone].forEach(f => {
+      f.classList.toggle('err', !f.value.trim());
+      if (!f.value.trim()) ok = false;
+    });
+    if (!agree.checked) { ok = false; agree.focus(); }
+    if (!ok) return;
+    /* TODO: сюда AJAX → Telegram Bot API, как в unit-bali functions.php */
+    form.querySelector('.btn-submit').disabled = true;
+    document.getElementById('formDone').hidden = false;
+  });
+}
