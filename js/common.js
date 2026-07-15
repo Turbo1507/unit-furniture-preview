@@ -238,9 +238,74 @@ document.addEventListener('mousemove', e => {
   card.style.setProperty('--my', (e.clientY - r.top) + 'px');
 }, { passive: true });
 
+/* ---------- кастомный дропдаун: оборачивает нативный <select>, держит его в синхроне ---------- */
+function buildCustomSelect(select) {
+  if (select.closest('.csel')) return;
+  const wrap = document.createElement('div');
+  wrap.className = 'csel';
+  select.parentNode.insertBefore(wrap, select);
+  select.classList.add('csel-native');
+  wrap.appendChild(select);
+
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'csel-btn';
+  btn.innerHTML = `<span class="csel-label"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>`;
+  wrap.appendChild(btn);
+
+  const list = document.createElement('ul');
+  list.className = 'csel-list';
+  wrap.appendChild(list);
+
+  function render() {
+    list.innerHTML = '';
+    [...select.options].forEach(o => {
+      const li = document.createElement('li');
+      li.className = 'csel-opt' + (o.value === select.value ? ' is-sel' : '');
+      li.textContent = o.textContent;
+      li.dataset.value = o.value;
+      list.appendChild(li);
+    });
+    const sel = select.options[select.selectedIndex];
+    btn.querySelector('.csel-label').textContent = sel ? sel.textContent : '';
+  }
+  render();
+  wrap._render = render;
+
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.csel.open').forEach(o => { if (o !== wrap) o.classList.remove('open'); });
+    wrap.classList.toggle('open');
+  });
+  list.addEventListener('click', e => {
+    const li = e.target.closest('.csel-opt');
+    if (!li) return;
+    select.value = li.dataset.value;
+    select.dispatchEvent(new Event('change', { bubbles: true }));
+    render();
+    wrap.classList.remove('open');
+  });
+  document.addEventListener('click', e => { if (!wrap.contains(e.target)) wrap.classList.remove('open'); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') wrap.classList.remove('open'); });
+}
+function initCustomSelects() { document.querySelectorAll('.filters select').forEach(buildCustomSelect); }
+function refreshCustomSelectLabels() { document.querySelectorAll('.csel').forEach(w => w._render && w._render()); }
+initCustomSelects();
+
+/* ---------- ссылки на юр.страницы: открывать на текущем языке сайта ---------- */
+function syncLegalLinks() {
+  const lang = window.__uf_lang || 'ru';
+  document.querySelectorAll('a[href^="consent.html"], a[href^="legal.html"]').forEach(a => {
+    const [path, hash] = a.getAttribute('href').split('#');
+    const file = path.split('?')[0];
+    a.setAttribute('href', `${file}?lang=${lang}${hash ? '#' + hash : ''}`);
+  });
+}
+
 /* ---------- language switch (шапка + футер) ---------- */
 window.__uf_onLangChange = function () {
   syncRequestUI();
+  syncLegalLinks();
+  refreshCustomSelectLabels();
   if (window.__uf_onLangChangePage) window.__uf_onLangChangePage();
 };
 document.querySelectorAll('.lang-switch').forEach(sw => {

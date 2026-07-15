@@ -11,12 +11,13 @@
 
 <div class="legal-top">
   <div class="container" style="display:flex;justify-content:space-between;align-items:center">
-    <a class="logo" href="index.html">UNIT.<span>FURNITURE</span></a>
+    <a class="logo" href="index.html"><span class="logo-u">UNIT</span>.<span>FURNITURE</span></a>
     <a href="index.html" style="font-size:14px;color:rgba(58,58,58,.6);text-decoration:none">← на сайт / back to site</a>
   </div>
 </div>
 
 <main class="legal-wrap">
+<div class="lang-block" data-lang-block="ru">
   <h1>Согласие на обработку персональных данных</h1>
   <p class="legal-updated">Действует с 15 июля 2026 г. · English version below</p>
 
@@ -69,9 +70,9 @@
       <tr><td>Сайт</td><td>unitdeveloper.com</td></tr>
     </table>
   </div>
+</div>
 
-  <hr style="border:0;border-top:1px solid var(--interlace);margin:64px 0">
-
+<div class="lang-block" data-lang-block="en" hidden>
   <h1 id="en">Consent to Personal Data Processing</h1>
   <p class="legal-updated">Effective from July 15, 2026</p>
 
@@ -123,7 +124,24 @@
       <tr><td>Website</td><td>unitdeveloper.com</td></tr>
     </table>
   </div>
+</div>
 </main>
 
+<script>
+(function () {
+  var params = new URLSearchParams(location.search);
+  var lang = params.get('lang');
+  if (lang !== 'en' && lang !== 'ru') {
+    try { lang = localStorage.getItem('uf_lang') || 'ru'; } catch (e) { lang = 'ru'; }
+  }
+  document.documentElement.lang = lang;
+  document.querySelectorAll('[data-lang-block]').forEach(function (el) {
+    el.hidden = el.dataset.langBlock !== lang;
+  });
+  document.title = lang === 'en'
+    ? 'Consent to Personal Data Processing — UNIT.FURNITURE'
+    : 'Согласие на обработку персональных данных — UNIT.FURNITURE';
+})();
+</script>
 </body>
 </html>
