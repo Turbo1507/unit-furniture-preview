@@ -77,7 +77,13 @@
       </select>
     </div>
     <div class="products" id="products"></div>
-    <p class="catalog-empty" id="catalogEmpty" hidden data-i18n="clg.empty">Под эти фильтры готовых моделей нет&nbsp;— изготовим под&nbsp;заказ. Напишите нам, что ищете.</p>
+    <div class="catalog-empty" id="catalogEmpty" hidden>
+      <p data-i18n="clg.empty">Под эти фильтры готовых моделей нет — изготовим под заказ. Напишите нам, что ищете.</p>
+      <div class="hero-actions" style="margin-top:20px">
+        <a class="btn btn-blue" href="contacts.html#form" data-i18n="clg.empty.cta1">Написать что нужно</a>
+        <button class="btn btn-line" type="button" id="catalogResetFilters" data-i18n="clg.empty.cta2">Сбросить фильтры</button>
+      </div>
+    </div>
   </div>
 </section>
 

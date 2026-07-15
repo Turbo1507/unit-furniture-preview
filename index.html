@@ -451,6 +451,7 @@
           <div class="field">
             <label for="fObject" data-i18n="f.object">Тип объекта</label>
             <select id="fObject" name="object">
+              <option data-i18n="f.o.any" selected>Не важно / уточню в сообщении</option>
               <option data-i18n="f.o.villa">Вилла</option>
               <option data-i18n="f.o.house">Дом</option>
               <option data-i18n="f.o.apt">Апартаменты</option>
@@ -474,6 +475,22 @@
             </select>
           </div>
         </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="fScope" data-i18n="f.scope">Объём заказа</label>
+            <select id="fScope" name="scope">
+              <option data-i18n="f.sc.item">Одна позиция</option>
+              <option data-i18n="f.sc.zone">Комплект на зону / комнату</option>
+              <option data-i18n="f.sc.full">Весь объект целиком</option>
+              <option data-i18n="f.sc.bulk">Несколько юнитов / опт</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="fDeadline" data-i18n="f.deadline">Нужна к дате (если есть)</label>
+            <input id="fDeadline" name="deadline" type="date">
+          </div>
+        </div>
+        <p class="field-note" id="bulkNote" hidden data-i18n="f.bulk_note">При заказе от нескольких юнитов фиксируем единую цену пакета и закрепляем отдельного менеджера.</p>
         <div class="field">
           <label for="fMsg" data-i18n="f.msg">Сообщение</label>
           <textarea id="fMsg" name="message" rows="3" data-i18n-ph="f.msg_ph" placeholder="Например: вилла 3 спальни, нужны кровати и аутдор к декабрю"></textarea>

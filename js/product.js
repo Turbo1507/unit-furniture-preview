@@ -58,6 +58,7 @@ function renderInfo() {
 
 document.getElementById('ppRequest').addEventListener('click', () => {
   addRequest(product.id);
+  try { localStorage.setItem('uf_last_topic', product.cat); } catch (e) {}
   openCart();
 });
 

@@ -33,6 +33,15 @@ tabs.forEach(tb => tb.addEventListener('click', () => activateTab(tb.dataset.cat
 fltEnv.addEventListener('change', applyFilters);
 fltUse.addEventListener('change', applyFilters);
 
+/* сброс фильтров из пустого состояния каталога */
+const resetBtn = document.getElementById('catalogResetFilters');
+if (resetBtn) resetBtn.addEventListener('click', () => {
+  fltEnv.value = 'all';
+  fltUse.value = 'all';
+  refreshCustomSelectLabels();
+  activateTab('all');
+});
+
 /* стартовые фильтры из URL */
 (function initFromURL() {
   const q = new URLSearchParams(location.search);
@@ -40,6 +49,7 @@ fltUse.addEventListener('change', applyFilters);
   const env = q.get('env');
   if (env === 'indoor' || env === 'outdoor') fltEnv.value = env;
   if (cat && [...tabs].some(tb => tb.dataset.cat === cat)) currentCat = cat;
+  refreshCustomSelectLabels();
   activateTab(currentCat);
 })();
 

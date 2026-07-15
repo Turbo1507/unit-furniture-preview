@@ -338,6 +338,24 @@ syncRequestUI();
 /* ---------- форма заявки (index + contacts) ---------- */
 const form = document.getElementById('leadForm');
 if (form) {
+  /* подстановка «Что нужно подобрать» из последнего «Запросить стоимость» на странице товара */
+  const fTopic = document.getElementById('fTopic');
+  if (fTopic) {
+    let lastCat = null;
+    try { lastCat = localStorage.getItem('uf_last_topic'); } catch (e) {}
+    if (lastCat && window.CAT_LABEL_KEY && window.CAT_LABEL_KEY[lastCat]) {
+      const opt = fTopic.querySelector(`[data-i18n="${window.CAT_LABEL_KEY[lastCat]}"]`);
+      if (opt) opt.selected = true;
+      try { localStorage.removeItem('uf_last_topic'); } catch (e) {}
+    }
+  }
+  const scopeSel = document.getElementById('fScope');
+  const bulkNote = document.getElementById('bulkNote');
+  if (scopeSel && bulkNote) {
+    const syncBulkNote = () => { bulkNote.hidden = scopeSel.value !== scopeSel.options[scopeSel.options.length - 1].value; };
+    scopeSel.addEventListener('change', syncBulkNote);
+    syncBulkNote();
+  }
   form.addEventListener('submit', e => {
     e.preventDefault();
     const name = document.getElementById('fName');
