@@ -2,6 +2,20 @@
 
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+/* ---------- прозрачный хедер поверх hero, сплошной после скролла ---------- */
+(function () {
+  const hero = document.querySelector('.hero');
+  const header = document.querySelector('.site-header');
+  if (!hero || !header) return;
+  function sync() {
+    const limit = hero.offsetHeight - header.offsetHeight - 32;
+    header.classList.toggle('is-transparent', scrollY < limit);
+  }
+  sync();
+  addEventListener('scroll', sync, { passive: true });
+  addEventListener('resize', sync);
+})();
+
 /* ---------- hero: word cascade + slideshow ---------- */
 const heroTitle = document.getElementById('heroTitle');
 function cascadeTitle() {

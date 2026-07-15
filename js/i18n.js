@@ -13,6 +13,7 @@ window.I18N = {
     "hero.title": "Авторская мебель и интерьерные решения на Бали",
     "hero.sub": "Создаём мебель для вилл, домов, отелей, ресторанов и outdoor-пространств. От отдельной модели до полной комплектации объекта под ключ.",
     "hero.cta1": "Получить консультацию", "hero.cta2": "Смотреть каталог", "hero.scroll": "Листайте ↓",
+    "hero.badge1": "Собственное производство", "hero.badge2": "Кастомизация", "hero.badge3": "Indoor · Outdoor · Commercial",
 
     "mq.1": "Собственное производство", "mq.2": "Кастомизация под объект",
     "mq.3": "Indoor / Outdoor / Commercial", "mq.4": "Тик и материалы для климата Бали",
@@ -125,6 +126,11 @@ window.I18N = {
     "bento.custom.t": "Кастомизация", "bento.custom.p": "Размер, ткань и цвет под ваш объект", "bento.custom.link": "Подробнее →",
     "bento.stat.t": "лет на Бали", "bento.stat.p": "Собственное производство",
     "bento.pdf.t": "PDF-каталог", "bento.pdf.p": "Полный список моделей и характеристик", "bento.pdf.link": "Скачать →",
+    "mt.bento.made.t": "Джепара + Бали", "mt.bento.made.p": "Собственное производство",
+    "mt.bento.stat.t": "группы материалов", "mt.bento.stat.p": "Дерево, ткани, наполнители, фурнитура",
+    "pj.bento.cat.p": "Все модели по категориям",
+    "pj.bento.stat.t": "реализованных пространств", "pj.bento.stat.p": "Виллы и коммерческие объекты",
+    "pj.bento.des.p": "Работаете над проектом клиента?",
 
     /* --- карточки товара --- */
     "p.price": "Цена по запросу", "p.more": "Подробнее →", "p.dims_unknown": "Размеры по запросу",
@@ -284,6 +290,7 @@ window.I18N = {
     "hero.title": "Signature furniture and interior solutions in Bali",
     "hero.sub": "We create furniture for villas, homes, hotels, restaurants and outdoor spaces. From a single model to full turnkey furnishing of a property.",
     "hero.cta1": "Get a consultation", "hero.cta2": "View catalog", "hero.scroll": "Scroll ↓",
+    "hero.badge1": "In-house production", "hero.badge2": "Customization", "hero.badge3": "Indoor · Outdoor · Commercial",
 
     "mq.1": "In-house production", "mq.2": "Customized for your property",
     "mq.3": "Indoor / Outdoor / Commercial", "mq.4": "Teak and materials for the Bali climate",
@@ -396,6 +403,11 @@ window.I18N = {
     "bento.custom.t": "Customization", "bento.custom.p": "Size, fabric and color for your property", "bento.custom.link": "Learn more →",
     "bento.stat.t": "years in Bali", "bento.stat.p": "In-house production",
     "bento.pdf.t": "PDF catalog", "bento.pdf.p": "Full list of models and specifications", "bento.pdf.link": "Download →",
+    "mt.bento.made.t": "Jepara + Bali", "mt.bento.made.p": "In-house production",
+    "mt.bento.stat.t": "material groups", "mt.bento.stat.p": "Wood, fabrics, fillings, hardware",
+    "pj.bento.cat.p": "All models by category",
+    "pj.bento.stat.t": "completed spaces", "pj.bento.stat.p": "Villas and commercial properties",
+    "pj.bento.des.p": "Working on a client project?",
 
     /* --- product cards --- */
     "p.price": "Price on request", "p.more": "Details →", "p.dims_unknown": "Size on request",

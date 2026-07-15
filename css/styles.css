@@ -66,7 +66,24 @@ h3 { font-size: 20px; font-weight: 600; }
   position: sticky; top: 0; z-index: 100;
   background: var(--white);
   border-bottom: 1px solid var(--interlace);
+  transition: background .3s var(--ease), border-color .3s var(--ease);
 }
+/* прозрачный хедер поверх hero-фото на главной, до скролла */
+.site-header.is-transparent {
+  background: transparent; border-bottom-color: transparent;
+}
+.site-header.is-transparent .logo,
+.site-header.is-transparent .nav a,
+.site-header.is-transparent .cart-btn,
+.site-header.is-transparent .lang-mini button {
+  color: var(--white);
+}
+.site-header.is-transparent .cart-btn,
+.site-header.is-transparent .lang-mini {
+  border-color: rgba(255,255,255,.4);
+}
+.site-header.is-transparent .lang-mini button.is-active { background: rgba(255,255,255,.18); color: var(--white); }
+.site-header.is-transparent .burger span { background: var(--white); }
 .header-in {
   display: flex; align-items: center; justify-content: space-between;
   height: 72px; gap: 32px;
@@ -110,6 +127,7 @@ h3 { font-size: 20px; font-weight: 600; }
 /* ---------- hero: карусель из нескольких интерьеров, текст у нижнего края (реф) ---------- */
 .hero {
   position: relative;
+  margin-top: -73px; /* хедер прозрачный поверх hero, фото уходит под шапку */
   height: 100vh; min-height: 620px; max-height: 920px;
   overflow: hidden;
   display: flex; align-items: flex-end;
@@ -139,6 +157,20 @@ h3 { font-size: 20px; font-weight: 600; }
 .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 32px; }
 .btn-ghost { border: 1px solid rgba(255,255,255,.75); color: var(--white); background: transparent; }
 @media (hover: hover) { .btn-ghost:hover { background: var(--blue); border-color: var(--blue); } }
+/* метки первого экрана из ТЗ: Собственное производство / Кастомизация / Indoor·Outdoor·Commercial */
+.hero-badges { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 36px; }
+.hero-badges span {
+  font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: .06em;
+  color: rgba(255,255,255,.85);
+  border: 1px solid rgba(255,255,255,.35); border-radius: var(--r-pill);
+  padding: 7px 14px;
+}
+/* десктоп: текст по центру full-bleed фото, а не прижат к нижнему краю */
+@media (min-width: 1025px) {
+  .hero { align-items: center; }
+  .hero-in { padding-bottom: 0; padding-top: 73px; }
+  .hero-dots { bottom: 56px; }
+}
 .hero-dots {
   position: absolute; z-index: 3; right: 40px; bottom: 78px;
   display: flex; flex-direction: column; gap: 8px;
@@ -252,7 +284,7 @@ h3 { font-size: 20px; font-weight: 600; }
   border-top: 1px solid var(--stone);
 }
 .p-price { font-size: 13px; font-weight: 300; }
-.p-link { font-size: 14px; font-weight: 500; color: var(--blue); }
+.p-link { font-size: 14px; font-weight: 500; color: var(--blue); text-decoration: none; }
 
 /* ---------- hero title cascade + parallax ---------- */
 .hero-title .w {
@@ -854,6 +886,8 @@ h3 { font-size: 20px; font-weight: 600; }
 .legal-wrap p + p { margin-top: 12px; }
 .legal-wrap ul { padding-left: 20px; margin: 12px 0; }
 .legal-wrap li { margin: 6px 0; }
+.legal-wrap a { color: var(--blue); text-decoration: none; }
+.legal-wrap a:hover { text-decoration: none; }
 .legal-req { border: 1px solid var(--interlace); border-radius: var(--r-md); padding: 24px 28px; margin-top: 24px; }
 .legal-req td { font-size: 15px; padding: 8px 0; vertical-align: top; }
 .legal-req td:first-child { font-weight: 300; color: rgba(58,58,58,.6); width: 40%; padding-right: 20px; }
@@ -1019,9 +1053,11 @@ a.pill-tag { text-decoration: none; transition: border-color .2s, color .2s; }
 @media (max-width: 720px) {
   .container { padding: 0 20px; }
   .section { padding: 72px 0; }
-  .hero { height: 100svh; min-height: 560px; max-height: 860px; }
+  /* -66px = высота закреплённой мобильной CTA-планки, чтобы низ hero не прятался под ней */
+  .hero { height: calc(100svh - 66px); min-height: 560px; max-height: 860px; }
   .hero-in { padding-bottom: 48px; }
   .hero-dots, .hero-scroll { display: none; }
+  .hero-badges { display: none; }
   .nav {
     position: fixed; top: 72px; left: 0; right: 0;
     background: var(--white); border-bottom: 1px solid var(--interlace);
