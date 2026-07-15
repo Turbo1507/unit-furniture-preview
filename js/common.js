@@ -210,14 +210,27 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 /* ---------- burger ---------- */
 const burger = document.getElementById('burger');
 const nav = document.getElementById('nav');
+const siteHeader = document.querySelector('.site-header');
+function closeNav() {
+  burger.classList.remove('open');
+  nav.classList.remove('open');
+  document.body.style.overflow = '';
+  if (window.__uf_syncHeaderTransparency) window.__uf_syncHeaderTransparency();
+}
 if (burger && nav) {
   burger.addEventListener('click', () => {
-    burger.classList.toggle('open');
-    nav.classList.toggle('open');
+    const opening = !nav.classList.contains('open');
+    burger.classList.toggle('open', opening);
+    nav.classList.toggle('open', opening);
+    if (opening) {
+      /* хедер всегда сплошной, пока меню открыто — прозрачность поверх hero тут неуместна */
+      if (siteHeader) siteHeader.classList.remove('is-transparent');
+      document.body.style.overflow = 'hidden';
+    } else {
+      closeNav();
+    }
   });
-  nav.addEventListener('click', e => {
-    if (e.target.tagName === 'A') { burger.classList.remove('open'); nav.classList.remove('open'); }
-  });
+  nav.addEventListener('click', e => { if (e.target.tagName === 'A') closeNav(); });
 }
 
 /* подсветка текущего раздела в меню */

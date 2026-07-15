@@ -6,14 +6,17 @@ const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 (function () {
   const hero = document.querySelector('.hero');
   const header = document.querySelector('.site-header');
+  const nav = document.getElementById('nav');
   if (!hero || !header) return;
   function sync() {
+    if (nav && nav.classList.contains('open')) return; /* меню открыто — хедер остаётся сплошным */
     const limit = hero.offsetHeight - header.offsetHeight - 32;
     header.classList.toggle('is-transparent', scrollY < limit);
   }
   sync();
   addEventListener('scroll', sync, { passive: true });
   addEventListener('resize', sync);
+  window.__uf_syncHeaderTransparency = sync;
 })();
 
 /* ---------- hero: word cascade + slideshow ---------- */

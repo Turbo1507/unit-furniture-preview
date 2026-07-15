@@ -73,6 +73,7 @@ h3 { font-size: 20px; font-weight: 600; }
   background: transparent; border-bottom-color: transparent;
 }
 .site-header.is-transparent .logo,
+.site-header.is-transparent .logo-u,
 .site-header.is-transparent .nav a,
 .site-header.is-transparent .cart-btn,
 .site-header.is-transparent .lang-mini button {
@@ -940,12 +941,12 @@ a.pill-tag { text-decoration: none; transition: border-color .2s, color .2s; }
   .sol-row { grid-template-columns: 1fr; gap: 28px; padding: 48px 0; }
   .sol-row.rev .sol-row-photo { order: 0; }
   .check-grid { grid-template-columns: 1fr 1fr; }
-  .roadmap-6 { grid-template-columns: repeat(2, 1fr); row-gap: 40px; }
+  /* вертикально сразу с планшета — 2 колонки со «сквозной» линией без коннектора читались плохо */
+  .roadmap-6 { grid-template-columns: 1fr; row-gap: 32px; }
 }
 @media (max-width: 720px) {
   .check-grid { grid-template-columns: 1fr; }
   .sol-includes { grid-template-columns: 1fr; }
-  .roadmap-6 { grid-template-columns: 1fr; row-gap: 32px; }
 }
 
 /* ---------- бенто-блок (реф. синий UNIT): смешанные по размеру карточки вместо плоского CTA ---------- */
@@ -1016,7 +1017,7 @@ a.pill-tag { text-decoration: none; transition: border-color .2s, color .2s; }
   .clim-grid { grid-template-columns: 1fr; gap: 40px; }
   .clim-photo { min-height: 380px; }
   .proj-masonry { columns: 2; }
-  .roadmap-5 { grid-template-columns: repeat(2, 1fr); row-gap: 40px; }
+  .roadmap-5 { grid-template-columns: 1fr; row-gap: 32px; }
   .final-panel { grid-template-columns: 1fr; }
   .final-side { min-height: 0; padding: 40px; }
   .pp-grid { grid-template-columns: 1fr; gap: 40px; }
@@ -1052,9 +1053,10 @@ a.pill-tag { text-decoration: none; transition: border-color .2s, color .2s; }
   .legal-wrap { padding: 56px 20px 80px; }
   .pp-thumbs button { width: 72px; height: 54px; }
   .pp-actions .btn { flex: 1; text-align: center; }
-  .filters { gap: 8px; }
-  .filters .csel { flex: 1; min-width: 140px; }
+  .filters { flex-direction: column; align-items: stretch; gap: 10px; }
+  .filters .csel { flex: none; width: 100%; min-width: 0; }
   .filters .csel-btn { width: 100%; justify-content: space-between; }
+  .filters-label { margin-bottom: 2px; }
 }
 
 /* ---------- старые мобильные правила ---------- */
@@ -1062,7 +1064,7 @@ a.pill-tag { text-decoration: none; transition: border-color .2s, color .2s; }
   .products { grid-template-columns: repeat(2, 1fr); }
   .req-grid { grid-template-columns: 1fr; gap: 48px; }
   .cd-hero { height: 520px; }
-  .roadmap { grid-template-columns: repeat(2, 1fr); row-gap: 40px; }
+  .roadmap { grid-template-columns: 1fr; row-gap: 32px; }
   .roadmap::before { display: none; }
 }
 @media (max-width: 720px) {
