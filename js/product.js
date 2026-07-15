@@ -33,7 +33,7 @@ function renderInfo() {
     `<a href="catalog.html">${t('nav.catalog')}</a><span>/</span>` +
     `<a href="catalog.html?cat=${product.cat}">${catLabel(product.cat)}</a><span>/</span>` +
     `<span>${escapeHtml(trName(product.name))}</span>`;
-  document.getElementById('ppCat').textContent = catLabel(product.cat).replace(/&nbsp;/g, ' ');
+  document.getElementById('ppCat').textContent = catLabel(product.cat);
   document.getElementById('ppName').textContent = trName(product.name);
   document.getElementById('ppDesc').innerHTML = t('d.' + product.cat);
   document.getElementById('ppPrice').innerHTML = t('pp.price');

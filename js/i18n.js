@@ -108,7 +108,7 @@ window.I18N = {
 
     /* --- финальный CTA --- */
     "fin.h2": "Давайте создадим мебель для вашего проекта",
-    "fin.lead": "Свяжитесь с нами удобным способом — подберём решение, рассчитаем стоимость и подготовим предложение.",
+    "fin.lead": "Свяжитесь с нами удобным способом — подберём решение, рассчитаем стоимость и подготовим предложение. Или заполните форму справа.",
     "fin.qr": "Наведите камеру, чтобы открыть чат WhatsApp",
     "fin.note": "Стоимость рассчитывается индивидуально. Можно отправить фото, план, референсы или выбранные модели.",
 
@@ -294,7 +294,7 @@ window.I18N = {
 
     "mq.1": "In-house production", "mq.2": "Customized for your property",
     "mq.3": "Indoor / Outdoor / Commercial", "mq.4": "Teak and materials for the Bali climate",
-    "mq.5": "10+ years in Bali", "mq.6": "Villa, hotel &amp; restaurant furnishing",
+    "mq.5": "10+ years in Bali", "mq.6": "Villa, hotel & restaurant furnishing",
 
     /* --- home: directions --- */
     "dir.h2": "From single pieces to fully furnished spaces",
@@ -307,9 +307,9 @@ window.I18N = {
     /* --- categories --- */
     "cats.h2": "Furniture catalog",
     "cats.lead": "Choose a category or send us a request — we'll help pick a solution for your property.",
-    "cat.beds": "Beds", "cat.sofas": "Sofas", "cat.chairs": "Chairs &amp; armchairs",
+    "cat.beds": "Beds", "cat.sofas": "Sofas", "cat.chairs": "Chairs & armchairs",
     "cat.outdoor": "Outdoor", "cat.sunbeds": "Sunbeds", "cat.poufs": "Poufs",
-    "cat.textile": "Pillows &amp; decor", "cat.commercial": "Commercial furniture", "cat.tables": "Tables",
+    "cat.textile": "Pillows & decor", "cat.commercial": "Commercial furniture", "cat.tables": "Tables",
     "cats.beds.n": "3 models", "cats.sofas.n": "6 models", "cats.chairs.n": "9 models",
     "cats.outdoor.n": "5 models", "cats.sunbeds.n": "2 models", "cats.poufs.n": "2 models",
     "cats.textile.n": "3 items", "cats.commercial.n": "2 models", "cats.tables.n": "made to order",
@@ -385,7 +385,7 @@ window.I18N = {
 
     /* --- final CTA --- */
     "fin.h2": "Let's create furniture for your project",
-    "fin.lead": "Contact us any convenient way — we'll pick a solution, quote it and prepare an offer.",
+    "fin.lead": "Contact us any convenient way — we'll pick a solution, quote it and prepare an offer. Or fill out the form on the right.",
     "fin.qr": "Point your camera to open a WhatsApp chat",
     "fin.note": "Pricing is calculated individually. You can send photos, a floor plan, references or selected models.",
 
