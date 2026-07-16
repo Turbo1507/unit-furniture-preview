@@ -17,7 +17,38 @@
   --r-pill: 999px;
   --shadow: 0 24px 60px -30px rgba(19,19,19,.28);
   --shadow-sm: 0 10px 30px -18px rgba(19,19,19,.25);
+
+  /* ---------- шкала отступов (дизайн-система) ----------
+     Компонентные детали (иконки, паддинги пилюль, бордеры) вправе
+     использовать значения ВНЕ шкалы — это тонкая настройка, не ритм.
+     Но макетные отношения (интро→грид, секция→секция, group→group)
+     обязаны брать значение ИЗ шкалы. Ключевые макетные роли:
+       --sp-2xs (8)   — между тесно связанными строками (тег+текст)
+       --sp-xs  (12)  — внутри маленьких групп (чипы, теги)
+       --sp-sm  (16)  — между полями формы, мелкими элементами
+       --sp-md  (24)  — между карточками в сетке (gap грида)
+       --sp-lg  (32)  — под CTA-кнопками после лид-параграфа (короткий разрыв)
+       --sp-xl  (40)  — после CTA-кнопок / фильтры / межбуквенные группы
+       --sp-2xl (56)  — интро секции (h2[+lead]) → контентный грид
+       --sp-3xl (64)  — между независимыми смысловыми блоками внутри секции
+       --sp-4xl (120) — вертикальный ритм между секциями (.section) */
+  --sp-2xs: 8px;
+  --sp-xs: 12px;
+  --sp-sm: 16px;
+  --sp-md: 24px;
+  --sp-lg: 32px;
+  --sp-xl: 40px;
+  --sp-2xl: 56px;
+  --sp-3xl: 64px;
+  --sp-4xl: 120px;
+  --sp-4xl-mobile: 72px; /* .section на ≤720px — полный 120 избыточен на маленьком экране */
+  --sp-lead: 20px; /* заголовок → лид-параграф (page-sub, section-lead) */
 }
+
+/* ---------- utility-классы отступов: вместо разрозненных inline style="margin-top:Npx" ---------- */
+.mt-md { margin-top: var(--sp-md) !important; }
+.mt-lg { margin-top: var(--sp-lg) !important; }
+.mt-xl { margin-top: var(--sp-xl) !important; }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -211,7 +242,7 @@ h3 { font-size: 20px; font-weight: 600; }
 }
 
 /* ---------- sections ---------- */
-.section { padding: 120px 0; }
+.section { padding: var(--sp-4xl) 0; }
 .section-gray { background: var(--stone); }
 
 /* ---------- categories: крупная фото-витрина по табам (светлый фон, как у бренда) ---------- */
@@ -377,7 +408,7 @@ h3 { font-size: 20px; font-weight: 600; }
 .band-feats span { font-size: 15px; font-weight: 300; color: rgba(255,255,255,.9); line-height: 1.5; }
 
 /* ---------- roadmap: коннектор заполняется цветом по мере скролла ---------- */
-.roadmap { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 56px; }
+.roadmap { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: var(--sp-2xl); }
 .roadmap::before { content: ""; position: absolute; top: 27px; left: 6%; right: 6%; height: 1px; background: var(--interlace); }
 .roadmap::after {
   content: ""; position: absolute; top: 27px; left: 6%; height: 1px; width: 0;
@@ -603,6 +634,10 @@ h3 { font-size: 20px; font-weight: 600; }
 .reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
 .reveal.in { opacity: 1; transform: none; }
 .qa .reveal, .qa .hero-title .w { opacity: 1 !important; transform: none !important; transition: none !important; }
+/* position:fixed/sticky «запекается» повторно на полностраничных скриншотах за пределами вьюпорта — на время QA-снимков убираем */
+.qa .mob-cta { display: none !important; }
+.qa .site-header { position: static !important; }
+.qa .hero { margin-top: 0 !important; }
 .qa .roadmap::after { transition: none !important; }
 .qa .marquee-track { animation: none; }
 @media (prefers-reduced-motion: reduce) {
@@ -628,12 +663,12 @@ h3 { font-size: 20px; font-weight: 600; }
 .page-hero { padding: 88px 0 0; }
 .page-hero .kicker { margin-bottom: 16px; }
 .page-hero h1 { font-size: clamp(34px, 4.4vw, 60px); max-width: 18ch; }
-.page-hero .page-sub { font-size: 18px; font-weight: 300; max-width: 56ch; margin-top: 20px; color: var(--graphite); }
+.page-hero .page-sub { font-size: 18px; font-weight: 300; max-width: 56ch; margin-top: var(--sp-lead); color: var(--graphite); }
 /* единый отступ первой секции после page-hero на всех внутренних страницах */
-.first-after-hero { padding-top: 56px; }
+.first-after-hero { padding-top: var(--sp-2xl); }
 
 /* ---------- блок 2: четыре направления ---------- */
-.dir-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 56px; }
+.dir-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: var(--sp-2xl); }
 .dir-card {
   position: relative; overflow: hidden; border-radius: var(--r-md);
   aspect-ratio: 3 / 4; display: flex; align-items: flex-end;
@@ -649,10 +684,10 @@ h3 { font-size: 20px; font-weight: 600; }
 .dir-in { position: relative; z-index: 2; padding: 24px; }
 .dir-in h3 { color: var(--white); font-size: 20px; font-weight: 600; }
 .dir-in p { font-size: 14px; font-weight: 300; color: rgba(255,255,255,.82); margin-top: 8px; line-height: 1.45; }
-.section-lead { font-size: 17px; font-weight: 300; max-width: 56ch; margin-top: 20px; }
+.section-lead { font-size: 17px; font-weight: 300; max-width: 56ch; margin-top: var(--sp-lead); }
 
 /* ---------- блок 3: сетка категорий ---------- */
-.catgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 56px; }
+.catgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: var(--sp-2xl); }
 .cg-card {
   position: relative; overflow: hidden; border-radius: var(--r-md);
   aspect-ratio: 4 / 3; display: block; text-decoration: none;
@@ -675,7 +710,7 @@ h3 { font-size: 20px; font-weight: 600; }
 }
 
 /* ---------- блок 4: готовые решения ---------- */
-.sol-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 56px; }
+.sol-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: var(--sp-2xl); }
 .sol-card {
   position: relative; overflow: hidden; border-radius: var(--r-md);
   min-height: 380px; display: flex; align-items: flex-end;
@@ -690,7 +725,8 @@ h3 { font-size: 20px; font-weight: 600; }
 .sol-in { position: relative; z-index: 2; padding: 28px; }
 .sol-in h3 { color: var(--white); font-size: 24px; font-weight: 600; }
 .sol-in p { font-size: 15px; font-weight: 300; color: rgba(255,255,255,.85); margin-top: 10px; max-width: 46ch; line-height: 1.5; }
-.sol-link { display: inline-block; margin-top: 18px; font-size: 14px; font-weight: 500; color: var(--white); border-bottom: 1px solid rgba(255,255,255,.5); padding-bottom: 3px; }
+.sol-link { display: inline-block; margin-top: 18px; font-size: 14px; font-weight: 500; color: var(--white); border-bottom: 1px solid transparent; padding-bottom: 3px; transition: border-color .2s; }
+@media (hover: hover) { .sol-card:hover .sol-link { border-color: rgba(255,255,255,.6); } }
 .sol-featured { outline: 2px solid var(--blue); outline-offset: -2px; }
 .sol-flag {
   position: absolute; z-index: 3; top: 20px; left: 20px;
@@ -733,7 +769,7 @@ h3 { font-size: 20px; font-weight: 600; }
 .ch-center-in p { font-size: 14px; font-weight: 300; color: rgba(255,255,255,.85); margin-top: 8px; line-height: 1.5; }
 
 /* ---------- блок 6: материалы ---------- */
-.mat-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 56px; }
+.mat-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: var(--sp-2xl); }
 .mat-item { text-decoration: none; color: inherit; }
 .mat-photo { overflow: hidden; border-radius: var(--r-md); aspect-ratio: 1 / 1; box-shadow: var(--shadow-sm); }
 .mat-photo img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s var(--ease); }
@@ -803,6 +839,9 @@ h3 { font-size: 20px; font-weight: 600; }
 }
 @media (hover: hover) { .final-contacts a:hover { color: var(--blue); border-color: var(--blue); } }
 .final-contacts svg { width: 20px; height: 20px; flex-shrink: 0; }
+/* модификатор для использования на светлом фоне (contacts.html) — .final-contacts по умолчанию рассчитан на тёмную фото-панель */
+.final-contacts.on-light a { color: var(--graphite); border-color: var(--interlace); }
+@media (hover: hover) { .final-contacts.on-light a:hover { color: var(--blue); border-color: var(--blue); } }
 .final-qr { display: flex; align-items: center; gap: 16px; margin-top: 28px; }
 .final-qr img { width: 84px; height: 84px; border-radius: var(--r-sm); padding: 6px; background: var(--white); }
 .final-qr p { font-size: 12px; font-weight: 300; max-width: 22ch; line-height: 1.5; color: rgba(255,255,255,.65); }
@@ -896,7 +935,7 @@ h3 { font-size: 20px; font-weight: 600; }
 .btn.added { background: var(--graphite); }
 
 /* ---------- контакты ---------- */
-.contact-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 80px; margin-top: 56px; }
+.contact-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 80px; margin-top: var(--sp-2xl); }
 .contact-list { display: flex; flex-direction: column; gap: 2px; }
 
 /* ---------- юр. страницы ---------- */
@@ -933,7 +972,7 @@ a.pill-tag { text-decoration: none; transition: border-color .2s, color .2s; }
 .sol-row .btn { margin-top: 28px; }
 
 /* ---------- чек-лист кастомизации ---------- */
-.check-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 40px; }
+.check-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-sm); margin-top: var(--sp-2xl); }
 .check-item {
   display: flex; gap: 12px; align-items: flex-start;
   border: 1px solid var(--interlace); border-radius: var(--r-sm);
@@ -1032,8 +1071,8 @@ a.pill-tag { text-decoration: none; transition: border-color .2s, color .2s; }
   .contact-grid { grid-template-columns: 1fr; gap: 48px; }
 }
 @media (max-width: 720px) {
-  .page-hero { padding-top: 56px; }
-  .first-after-hero { padding-top: 40px; }
+  .page-hero { padding-top: var(--sp-2xl); }
+  .first-after-hero { padding-top: var(--sp-xl); }
   .dir-grid { grid-template-columns: 1fr; gap: 16px; }
   .dir-card { aspect-ratio: 16 / 10; }
   .catgrid { grid-template-columns: 1fr; gap: 16px; }
@@ -1077,7 +1116,7 @@ a.pill-tag { text-decoration: none; transition: border-color .2s, color .2s; }
 }
 @media (max-width: 720px) {
   .container { padding: 0 20px; }
-  .section { padding: 72px 0; }
+  .section { padding: var(--sp-4xl-mobile) 0; }
   /* -66px = высота закреплённой мобильной CTA-планки, чтобы низ hero не прятался под ней */
   .hero { height: calc(100svh - 66px); min-height: 560px; max-height: 860px; }
   .hero-in { padding-bottom: 48px; }
