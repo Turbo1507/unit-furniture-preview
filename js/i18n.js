@@ -10,7 +10,7 @@ window.I18N = {
     "nav.materials": "Материалы", "nav.cta": "Получить консультацию",
 
     /* --- главная: hero --- */
-    "hero.title": "<span class='acc'>Авторская мебель</span> и интерьерные решения на Бали",
+    "hero.title": "Авторская мебель и интерьерные решения на Бали",
     "hero.sub": "Создаём мебель для вилл, домов, отелей, ресторанов и outdoor-пространств. От отдельной модели до полной комплектации объекта под ключ.",
     "hero.cta1": "Получить консультацию", "hero.cta2": "Смотреть каталог", "hero.scroll": "Листайте ↓",
     "hero.badge1": "Собственное производство", "hero.badge2": "Кастомизация", "hero.badge3": "Indoor · Outdoor · Commercial",
@@ -298,7 +298,7 @@ window.I18N = {
     "nav.materials": "Materials", "nav.cta": "Get a consultation",
 
     /* --- home: hero --- */
-    "hero.title": "<span class='acc'>Signature furniture</span> and interior solutions in Bali",
+    "hero.title": "Signature furniture and interior solutions in Bali",
     "hero.sub": "We create furniture for villas, homes, hotels, restaurants and outdoor spaces. From a single model to full turnkey furnishing of a property.",
     "hero.cta1": "Get a consultation", "hero.cta2": "View catalog", "hero.scroll": "Scroll ↓",
     "hero.badge1": "In-house production", "hero.badge2": "Customization", "hero.badge3": "Indoor · Outdoor · Commercial",
