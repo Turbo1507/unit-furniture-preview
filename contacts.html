@@ -154,7 +154,11 @@
       </div>
       <div class="field">
         <label for="fFile" data-i18n="f.file">Фото / план / референсы</label>
-        <input id="fFile" name="file" type="file" multiple accept="image/*,.pdf">
+        <div class="file-upload">
+          <label class="file-upload-btn" for="fFile" data-i18n="f.file_btn">Выбрать файлы</label>
+          <input class="file-upload-input" id="fFile" name="file" type="file" multiple accept="image/*,.pdf">
+          <span class="file-upload-name" id="fFileName">Файл не выбран</span>
+        </div>
       </div>
       <label class="agree">
         <input type="checkbox" id="fAgree" required>

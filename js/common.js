@@ -335,11 +335,23 @@ function syncLegalLinks() {
   });
 }
 
+/* ---------- кастомная кнопка загрузки файла: браузер не переводит "Выбрать файлы" по lang сайта ---------- */
+function refreshFileLabel() {
+  const input = document.getElementById('fFile');
+  const label = document.getElementById('fFileName');
+  if (!input || !label) return;
+  const n = input.files ? input.files.length : 0;
+  label.textContent = n === 0 ? t('f.file_none') : n === 1 ? t('f.file_one') : t('f.file_many').replace('{n}', n);
+}
+document.getElementById('fFile') && document.getElementById('fFile').addEventListener('change', refreshFileLabel);
+refreshFileLabel();
+
 /* ---------- language switch (шапка + футер) ---------- */
 window.__uf_onLangChange = function () {
   syncRequestUI();
   syncLegalLinks();
   refreshCustomSelectLabels();
+  refreshFileLabel();
   if (window.__uf_onLangChangePage) window.__uf_onLangChangePage();
 };
 document.querySelectorAll('.lang-switch').forEach(sw => {

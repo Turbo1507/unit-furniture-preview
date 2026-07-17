@@ -275,6 +275,7 @@ window.I18N = {
     "f.bulk_note": "При заказе от нескольких юнитов фиксируем единую цену пакета и закрепляем отдельного менеджера.",
     "f.msg": "Сообщение", "f.msg_ph": "Например: вилла 3 спальни, нужны кровати и аутдор к декабрю",
     "f.file": "Фото / план / референсы",
+    "f.file_btn": "Выбрать файлы", "f.file_none": "Файл не выбран", "f.file_one": "Выбран 1 файл", "f.file_many": "Выбрано файлов: {n}",
     "f.agree_link": "Согласен на <a href=\"consent.html\" target=\"_blank\" rel=\"noopener noreferrer\" style=\"color:inherit\">обработку персональных данных</a>",
     "f.submit": "Отправить запрос", "f.done": "Заявка отправлена. Ответим в ближайшее время.",
 
@@ -564,6 +565,7 @@ window.I18N = {
     "f.bulk_note": "For orders of several units we fix a single package price and assign a dedicated manager.",
     "f.msg": "Message", "f.msg_ph": "E.g. 3-bedroom villa, need beds and outdoor by December",
     "f.file": "Photos / plan / references",
+    "f.file_btn": "Choose files", "f.file_none": "No file chosen", "f.file_one": "1 file selected", "f.file_many": "{n} files selected",
     "f.agree_link": "I agree to <a href=\"consent.html\" target=\"_blank\" rel=\"noopener noreferrer\" style=\"color:inherit\">personal data processing</a>",
     "f.submit": "Send request", "f.done": "Request sent. We'll get back to you shortly.",
 
