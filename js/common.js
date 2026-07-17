@@ -300,7 +300,7 @@ function buildCustomSelect(select) {
   document.addEventListener('click', e => { if (!wrap.contains(e.target)) wrap.classList.remove('open'); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape') wrap.classList.remove('open'); });
 }
-function initCustomSelects() { document.querySelectorAll('.filters select').forEach(buildCustomSelect); }
+function initCustomSelects() { document.querySelectorAll('.filters select, .form select').forEach(buildCustomSelect); }
 function refreshCustomSelectLabels() { document.querySelectorAll('.csel').forEach(w => w._render && w._render()); }
 initCustomSelects();
 

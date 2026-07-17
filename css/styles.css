@@ -70,7 +70,7 @@ img { display: block; max-width: 100%; }
 
 h1, h2, h3 { font-weight: 700; line-height: 1.15; letter-spacing: -0.01em; }
 h1 { font-size: clamp(40px, 5.2vw, 72px); }
-h2 { font-size: clamp(30px, 3.6vw, 48px); }
+h2 { font-size: clamp(30px, 3.6vw, 48px); text-wrap: balance; }
 h3 { font-size: 20px; font-weight: 600; }
 
 .kicker {
@@ -104,7 +104,6 @@ h3 { font-size: 20px; font-weight: 600; }
   background: transparent; border-bottom-color: transparent;
 }
 .site-header.is-transparent .logo,
-.site-header.is-transparent .logo-u,
 .site-header.is-transparent .nav a,
 .site-header.is-transparent .cart-btn,
 .site-header.is-transparent .lang-mini button {
@@ -127,6 +126,7 @@ h3 { font-size: 20px; font-weight: 600; }
 }
 .logo span { font-weight: 300; }
 .logo-u { color: var(--blue); font-weight: 500; }
+.acc { color: var(--blue); }
 .nav { display: flex; gap: 28px; }
 .nav a {
   color: var(--graphite); text-decoration: none; font-size: 15px;
@@ -160,7 +160,7 @@ h3 { font-size: 20px; font-weight: 600; }
 .hero {
   position: relative;
   margin-top: -73px; /* хедер прозрачный поверх hero, фото уходит под шапку */
-  height: 100vh; min-height: 620px; max-height: 920px;
+  height: 100vh; min-height: 620px;
   overflow: hidden;
   display: flex; align-items: flex-end;
 }
@@ -177,6 +177,7 @@ h3 { font-size: 20px; font-weight: 600; }
   position: absolute; inset: 0; z-index: 2;
   background:
     radial-gradient(62% 65% at 22% 96%, rgba(8,8,9,.72) 0%, rgba(8,8,9,.32) 55%, transparent 78%),
+    linear-gradient(to right, rgba(8,8,9,.66) 0%, rgba(8,8,9,.4) 38%, rgba(8,8,9,.1) 62%, transparent 78%),
     linear-gradient(to bottom, rgba(20,20,22,.34) 0%, rgba(20,20,22,.06) 32%, rgba(20,20,22,.56) 100%);
 }
 .hero-in {
@@ -478,7 +479,7 @@ h3 { font-size: 20px; font-weight: 600; }
 .site-footer {
   background: var(--stone);
   border-radius: 24px 24px 0 0;
-  margin-top: 24px;
+  margin-top: var(--sp-3xl);
   padding: clamp(48px, 6vw, 80px) 0 36px;
 }
 .footer-inner {
@@ -662,7 +663,7 @@ h3 { font-size: 20px; font-weight: 600; }
 /* ---------- герой внутренних страниц ---------- */
 .page-hero { padding: 88px 0 0; }
 .page-hero .kicker { margin-bottom: 16px; }
-.page-hero h1 { font-size: clamp(34px, 4.4vw, 60px); max-width: 18ch; }
+.page-hero h1 { font-size: clamp(34px, 4.4vw, 60px); text-wrap: balance; }
 .page-hero .page-sub { font-size: 18px; font-weight: 300; max-width: 56ch; margin-top: var(--sp-lead); color: var(--graphite); }
 /* единый отступ первой секции после page-hero на всех внутренних страницах */
 .first-after-hero { padding-top: var(--sp-2xl); }
@@ -709,12 +710,27 @@ h3 { font-size: 20px; font-weight: 600; }
   padding: 6px 12px; backdrop-filter: blur(4px);
 }
 
-/* ---------- блок 4: готовые решения ---------- */
-.sol-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: var(--sp-2xl); }
+/* ---------- блок 4: готовые решения (бенто: один крупный + 3 поменьше) ---------- */
+.sol-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr 1fr;
+  grid-template-areas: "main tile1 tile2" "main tile3 tile3";
+  gap: 24px; margin-top: var(--sp-2xl);
+}
 .sol-card {
   position: relative; overflow: hidden; border-radius: var(--r-md);
   min-height: 380px; display: flex; align-items: flex-end;
   text-decoration: none; box-shadow: var(--shadow-sm);
+}
+.sol-tile1 { grid-area: tile1; }
+.sol-tile2 { grid-area: tile2; }
+.sol-tile3 { grid-area: tile3; min-height: 180px; }
+@media (max-width: 1024px) {
+  .sol-grid { grid-template-columns: 1fr 1fr; grid-template-areas: "main main" "tile1 tile2" "tile3 tile3"; }
+}
+@media (max-width: 720px) {
+  .sol-grid { grid-template-columns: 1fr; grid-template-areas: "main" "tile1" "tile2" "tile3"; gap: 16px; }
+  .sol-tile3 { min-height: 300px; }
 }
 .sol-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .6s var(--ease); }
 @media (hover: hover) { .sol-card:hover img { transform: scale(1.03); } }
@@ -727,7 +743,7 @@ h3 { font-size: 20px; font-weight: 600; }
 .sol-in p { font-size: 15px; font-weight: 300; color: rgba(255,255,255,.85); margin-top: 10px; max-width: 46ch; line-height: 1.5; }
 .sol-link { display: inline-block; margin-top: 18px; font-size: 14px; font-weight: 500; color: var(--white); border-bottom: 1px solid transparent; padding-bottom: 3px; transition: border-color .2s; }
 @media (hover: hover) { .sol-card:hover .sol-link { border-color: rgba(255,255,255,.6); } }
-.sol-featured { outline: 2px solid var(--blue); outline-offset: -2px; }
+.sol-featured { grid-area: main; outline: 2px solid var(--blue); outline-offset: -2px; }
 .sol-flag {
   position: absolute; z-index: 3; top: 20px; left: 20px;
   font-size: 12px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase;
@@ -1076,8 +1092,6 @@ a.pill-tag { text-decoration: none; transition: border-color .2s, color .2s; }
   .dir-grid { grid-template-columns: 1fr; gap: 16px; }
   .dir-card { aspect-ratio: 16 / 10; }
   .catgrid { grid-template-columns: 1fr; gap: 16px; }
-  .sol-grid { grid-template-columns: 1fr; gap: 16px; }
-  .sol-card { min-height: 300px; }
   .custom-hub { grid-template-columns: 1fr; grid-template-areas: "hub" "a" "b" "c" "d"; gap: 16px; }
   .mat-strip { grid-template-columns: 1fr 1fr; gap: 16px; }
   .mat-item h3 { font-size: 15px; margin-top: 12px; }
@@ -1118,7 +1132,7 @@ a.pill-tag { text-decoration: none; transition: border-color .2s, color .2s; }
   .container { padding: 0 20px; }
   .section { padding: var(--sp-4xl-mobile) 0; }
   /* -66px = высота закреплённой мобильной CTA-планки, чтобы низ hero не прятался под ней */
-  .hero { height: calc(100svh - 66px); min-height: 560px; max-height: 860px; }
+  .hero { height: calc(100svh - 66px); min-height: 560px; }
   .hero-in { padding-bottom: 48px; }
   .hero-dots, .hero-scroll { display: none; }
   .hero-badges { display: none; }

@@ -10,8 +10,7 @@ const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (!hero || !header) return;
   function sync() {
     if (nav && nav.classList.contains('open')) return; /* меню открыто — хедер остаётся сплошным */
-    const limit = hero.offsetHeight - header.offsetHeight - 32;
-    header.classList.toggle('is-transparent', scrollY < limit);
+    header.classList.toggle('is-transparent', scrollY < 8);
   }
   sync();
   addEventListener('scroll', sync, { passive: true });
