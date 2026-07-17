@@ -972,8 +972,11 @@ h3 { font-size: 20px; font-weight: 600; }
 .legal-top .logo { font-size: 20px; }
 
 /* ---------- страницы «Решения» и «Материалы»: чередующиеся ряды ---------- */
-.sol-row { display: grid; grid-template-columns: 1.05fr 1fr; gap: 64px; align-items: center; padding: 64px 0; border-top: 1px solid var(--stone); }
-.sol-row.first { border-top: 0; }
+.sol-row {
+  display: grid; grid-template-columns: 1.05fr 1fr; gap: 48px; align-items: center;
+  background: var(--stone); border-radius: var(--r-lg);
+  padding: 48px; margin-bottom: 24px;
+}
 .sol-row.rev .sol-row-photo { order: 2; }
 .sol-row-photo { position: relative; overflow: hidden; border-radius: var(--r-md); aspect-ratio: 4 / 3; box-shadow: var(--shadow-sm); }
 .sol-row-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
@@ -1001,7 +1004,7 @@ a.pill-tag { text-decoration: none; transition: border-color .2s, color .2s; }
 .roadmap-6 { grid-template-columns: repeat(6, 1fr); }
 
 @media (max-width: 1024px) {
-  .sol-row { grid-template-columns: 1fr; gap: 28px; padding: 48px 0; }
+  .sol-row { grid-template-columns: 1fr; gap: 28px; padding: 32px; }
   .sol-row.rev .sol-row-photo { order: 0; }
   .check-grid { grid-template-columns: 1fr 1fr; }
   /* вертикально сразу с планшета — 2 колонки со «сквозной» линией без коннектора читались плохо */
