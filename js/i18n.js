@@ -137,6 +137,7 @@ window.I18N = {
     "p.price": "Цена по запросу", "p.more": "Подробнее →", "p.dims_unknown": "Размеры по запросу",
     "p.request": "Запросить стоимость", "p.in_request": "В заявке ✓",
     "badge.teak": "Тик",
+    "ph.soon": "Фото готовится",
     "tag.indoor": "Indoor", "tag.outdoor": "Outdoor", "tag.custom": "Custom size", "tag.fabric": "Fabric options",
     "use.home": "Дом", "use.villa": "Вилла", "use.hotel": "Отель", "use.restaurant": "Ресторан",
 
@@ -425,6 +426,7 @@ window.I18N = {
     "p.price": "Price on request", "p.more": "Details →", "p.dims_unknown": "Size on request",
     "p.request": "Request price", "p.in_request": "In request ✓",
     "badge.teak": "Teak",
+    "ph.soon": "Photo coming soon",
     "tag.indoor": "Indoor", "tag.outdoor": "Outdoor", "tag.custom": "Custom size", "tag.fabric": "Fabric options",
     "use.home": "Home", "use.villa": "Villa", "use.hotel": "Hotel", "use.restaurant": "Restaurant",
 

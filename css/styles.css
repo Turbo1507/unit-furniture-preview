@@ -352,6 +352,23 @@ h3 { font-size: 20px; font-weight: 600; }
   transition: transform .5s var(--ease);
 }
 .product:hover .p-photo { transform: scale(1.02); }
+.p-placeholder {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+  color: rgba(58,58,58,.32);
+}
+.p-placeholder svg { width: 25%; max-width: 56px; height: auto; }
+.p-placeholder span {
+  font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: .06em;
+  color: rgba(58,58,58,.4);
+}
+.pp-main .p-placeholder svg { max-width: 84px; }
+.cart-item-ph {
+  width: 64px; height: 64px; flex-shrink: 0; border-radius: var(--r-sm);
+  background: var(--stone); color: rgba(58,58,58,.3);
+  display: flex; align-items: center; justify-content: center;
+}
+.cart-item-ph svg { width: 26px; height: 26px; }
 .p-badge {
   position: absolute; top: 12px; left: 12px; z-index: 2;
   font-size: 11px; font-weight: 500;
@@ -922,6 +939,7 @@ h3 { font-size: 20px; font-weight: 600; }
 .crumbs a:hover { color: var(--blue); }
 .pp-grid { display: grid; grid-template-columns: 1.15fr 1fr; gap: 64px; margin-top: 40px; }
 .pp-main {
+  position: relative;
   background: var(--stone); border-radius: var(--r-md);
   aspect-ratio: 4 / 3; overflow: hidden;
   display: flex; align-items: center; justify-content: center;

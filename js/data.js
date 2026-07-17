@@ -149,11 +149,11 @@ window.SOLUTIONS = [
 /* Реальные объекты (ТЗ, блок 8 и страница «Проекты»).
    type: indoor|outdoor · place: villas|commercial */
 window.PROJECTS = [
-  { id: 'pr1', img: 'assets/hero-loft.jpg',        type: 'indoor',  place: 'villas' },
-  { id: 'pr2', img: 'assets/life-bedroom.jpg',     type: 'indoor',  place: 'villas' },
-  { id: 'pr3', img: 'assets/life-outdoor.jpg',     type: 'outdoor', place: 'villas' },
-  { id: 'pr4', img: 'assets/life-lounger.jpg',     type: 'outdoor', place: 'villas' },
-  { id: 'pr5', img: 'assets/life-sofa.jpg',        type: 'indoor',  place: 'villas' },
+  { id: 'pr1', img: 'assets/proj-villa-living.jpg',  type: 'indoor',  place: 'villas' },
+  { id: 'pr2', img: 'assets/proj-villa-bedroom.jpg', type: 'indoor',  place: 'villas' },
+  { id: 'pr3', img: 'assets/proj-villa-terrace.jpg', type: 'outdoor', place: 'villas' },
+  { id: 'pr4', img: 'assets/proj-poolside.jpg',      type: 'outdoor', place: 'villas' },
+  { id: 'pr5', img: 'assets/proj-living-room.jpg',   type: 'indoor',  place: 'villas' },
   { id: 'pr6', img: 'assets/life-terrace.jpg',     type: 'outdoor', place: 'commercial' },
   { id: 'pr7', img: 'assets/life-lobby.jpg',       type: 'indoor',  place: 'commercial' },
   { id: 'pr8', img: 'assets/life-restaurant.jpg',  type: 'indoor',  place: 'commercial' },

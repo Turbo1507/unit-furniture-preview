@@ -7,24 +7,32 @@ const ppMain = document.getElementById('ppMain');
 const ppImg = document.getElementById('ppImg');
 const ppThumbs = document.getElementById('ppThumbs');
 
-/* галерея: студийное фото + интерьерное, если есть */
-const photos = [{ src: product.img, life: false }];
-if (product.life) photos.push({ src: product.life, life: true });
+/* галерея: только реальное интерьерное фото (студийные снимки моделей ещё не сделаны,
+   мелкие превью из PDF на весь экран выглядят битыми — вместо них заглушка) */
+const photos = product.life ? [{ src: product.life, life: true }] : [];
 
 function showPhoto(i) {
-  ppImg.src = photos[i].src;
+  const ph = photos[i];
+  ppImg.src = ph.src;
   ppImg.alt = trName(product.name);
-  ppMain.classList.toggle('is-life', photos[i].life);
+  ppImg.hidden = false;
+  ppMain.classList.toggle('is-life', ph.life);
   ppThumbs.querySelectorAll('button').forEach((b, bi) => b.classList.toggle('on', bi === i));
 }
-ppThumbs.innerHTML = photos.map((ph, i) =>
-  `<button type="button" data-i="${i}"${i === 0 ? ' class="on"' : ''}><img src="${ph.src}" alt=""></button>`).join('');
-ppThumbs.addEventListener('click', e => {
-  const b = e.target.closest('button');
-  if (b) showPhoto(+b.dataset.i);
-});
-if (photos.length < 2) ppThumbs.style.display = 'none';
-showPhoto(0);
+if (photos.length) {
+  ppThumbs.innerHTML = photos.map((ph, i) =>
+    `<button type="button" data-i="${i}"${i === 0 ? ' class="on"' : ''}><img src="${ph.src}" alt=""></button>`).join('');
+  ppThumbs.addEventListener('click', e => {
+    const b = e.target.closest('button');
+    if (b) showPhoto(+b.dataset.i);
+  });
+  if (photos.length < 2) ppThumbs.style.display = 'none';
+  showPhoto(0);
+} else {
+  ppImg.hidden = true;
+  ppThumbs.style.display = 'none';
+  ppMain.insertAdjacentHTML('beforeend', photoPlaceholder(product.cat));
+}
 
 function renderInfo() {
   document.title = trName(product.name) + ' — UNIT.FURNITURE';

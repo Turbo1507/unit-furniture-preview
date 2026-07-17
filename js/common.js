@@ -18,6 +18,22 @@ function t(key) {
   return dict[key] != null ? dict[key] : key;
 }
 function catLabel(cat) { return t(window.CAT_LABEL_KEY[cat] || cat); }
+
+/* иконки-заглушки для карточек без готового фото (студийные снимки ещё не сделаны) */
+const CAT_ICON_PATHS = {
+  beds:    '<path d="M3 18v-4a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v4"/><path d="M3 18v2M21 18v2"/><path d="M3 12v-1a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v1"/>',
+  sofas:   '<path d="M5 11V8a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v3"/><rect x="3" y="11" width="18" height="6" rx="1.5"/><path d="M4 17v1.5M20 17v1.5"/>',
+  chairs:  '<path d="M6 12V8a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v4"/><path d="M4 12h16v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z"/><path d="M6 18v1.5M18 18v1.5"/>',
+  outdoor: '<path d="M2 16h5l3-5h9a2 2 0 0 1 2 2v1"/><path d="M2 16v2M21 14v4"/><circle cx="6" cy="9" r="1.5"/>',
+  textile: '<rect x="5" y="5" width="14" height="14" rx="4"/><path d="M9 9l6 6M15 9l-6 6"/>'
+};
+function catIcon(cat) {
+  const path = CAT_ICON_PATHS[cat] || CAT_ICON_PATHS.sofas;
+  return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">${path}</svg>`;
+}
+function photoPlaceholder(cat) {
+  return `<div class="p-placeholder">${catIcon(cat)}<span>${t('ph.soon')}</span></div>`;
+}
 function trSpecKey(k) {
   if ((window.__uf_lang || 'ru') === 'ru') return k;
   return (window.SPEC_TR.keys[k]) || k;
@@ -100,8 +116,11 @@ function renderCart() {
   }
   cartList.innerHTML = [...reqIds].map(id => {
     const p = productById(id);
+    const thumb = p.life
+      ? `<img src="${p.life}" alt="${escapeHtml(trName(p.name))}">`
+      : `<div class="cart-item-ph">${catIcon(p.cat)}</div>`;
     return `<div class="cart-item">
-      <img src="${p.img}" alt="${escapeHtml(trName(p.name))}">
+      ${thumb}
       <div><div class="cart-item-name">${escapeHtml(trName(p.name))}</div><div class="cart-item-cat">${escapeHtml(catLabel(p.cat))}</div></div>
       <button type="button" class="cart-item-del" data-del="${p.id}" aria-label="✕">✕</button>
     </div>`;
@@ -148,7 +167,7 @@ if (cartEl) {
 
 /* ---------- рендер карточек товара (каталог, витрины, «похожие модели») ---------- */
 function productCard(p) {
-  const photo = p.life || p.img;
+  const photo = p.life;
   const teak = Object.values(p.specs).some(v => /тик/i.test(v));
   const tags = [
     `<span class="p-tag">${t(p.env === 'outdoor' ? 'tag.outdoor' : 'tag.indoor')}</span>`,
@@ -158,7 +177,9 @@ function productCard(p) {
   return `
   <article class="product" data-id="${p.id}">
     <a class="p-media" href="product.html?id=${p.id}" aria-label="${escapeHtml(trName(p.name))}">
-      <img class="p-photo" src="${photo}" alt="${escapeHtml(trName(p.name))}" loading="lazy">
+      ${photo
+        ? `<img class="p-photo" src="${photo}" alt="${escapeHtml(trName(p.name))}" loading="lazy">`
+        : photoPlaceholder(p.cat)}
       ${teak ? `<span class="p-badge">${escapeHtml(t('badge.teak'))}</span>` : ''}
       <button class="p-add" data-add="${p.id}" aria-label="+" type="button">+</button>
     </a>
