@@ -664,6 +664,9 @@ h3 { font-size: 20px; font-weight: 600; }
 .page-hero { padding: 88px 0 0; }
 .page-hero .kicker { margin-bottom: 16px; }
 .page-hero h1 { font-size: clamp(34px, 4.4vw, 60px); text-wrap: balance; }
+/* фирменное слово UNIT.FURNITURE в заголовке — вес логотипа (medium), не общий .acc-акцент */
+.page-hero h1.brand-h1 { font-weight: 400; }
+.page-hero h1.brand-h1 .acc { font-weight: 500; }
 .page-hero .page-sub { font-size: 18px; font-weight: 300; max-width: 56ch; margin-top: var(--sp-lead); color: var(--graphite); }
 /* единый отступ первой секции после page-hero на всех внутренних страницах */
 .first-after-hero { padding-top: var(--sp-2xl); }
