@@ -89,7 +89,7 @@ window.I18N = {
     "proj.pr8.t": "Restaurant", "proj.pr8.p": "Посадочная зона ресторана",
 
     /* --- дизайнерам (блок на главной) --- */
-    "des.h2": "Для <span class='acc'>дизайнеров</span> и архитекторов",
+    "des.h2": "Для дизайнеров и архитекторов",
     "des.p": "Мы можем стать производственным партнёром на Бали для интерьерных проектов, вилл, отелей и коммерческих пространств: адаптируем модели каталога или изготовим мебель по вашим чертежам, референсам и спецификациям.",
     "des.li1": "Работа по референсам, чертежам и спецификациям",
     "des.li2": "Адаптация размеров, тканей и материалов под проект",
@@ -107,7 +107,7 @@ window.I18N = {
     "steps.cta": "Получить расчёт",
 
     /* --- финальный CTA --- */
-    "fin.h2": "Давайте создадим мебель для <span class='acc'>вашего проекта</span>",
+    "fin.h2": "Давайте создадим мебель для вашего проекта",
     "fin.lead": "Свяжитесь с нами удобным способом — подберём решение, рассчитаем стоимость и подготовим предложение. Или заполните форму справа.",
     "fin.qr": "Наведите камеру, чтобы открыть чат WhatsApp",
     "fin.note": "Стоимость рассчитывается индивидуально. Можно отправить фото, план, референсы или выбранные модели.",
@@ -247,7 +247,7 @@ window.I18N = {
     "dz.t2": "Чертежи и спецификации по каждой модели — по запросу",
     "dz.t3": "Образцы тканей и дерева можно запросить перед заказом",
     "dz.t4": "Постоянным партнёрам — закреплённый менеджер и приоритет по срокам",
-    "dz.band.h2": "Ваш проект — <span class='acc'>наше производство</span>",
+    "dz.band.h2": "Ваш проект. Наше производство.",
     "dz.band.p": "Используйте модели UNIT.FURNITURE в своих проектах, адаптируйте их под интерьер или присылайте чертежи индивидуальных решений. Производство — Джепара и локальные фабрики Бали, приёмка — UNIT.",
     "dz.band.cta1": "Стать партнёром", "dz.band.cta2": "Каталог для дизайнеров (PDF)",
     "dz.how.h2": "Как проходит <span class='acc'>работа</span>",
@@ -377,7 +377,7 @@ window.I18N = {
     "proj.pr8.t": "Restaurant", "proj.pr8.p": "Restaurant seating area",
 
     /* --- designers (home block) --- */
-    "des.h2": "For <span class='acc'>designers</span> and architects",
+    "des.h2": "For designers and architects",
     "des.p": "We can be your production partner in Bali for interior projects, villas, hotels and commercial spaces: we adapt catalog models or produce furniture from your drawings, references and specifications.",
     "des.li1": "Work from references, drawings and specifications",
     "des.li2": "Adaptation of sizes, fabrics and materials to the project",
@@ -395,7 +395,7 @@ window.I18N = {
     "steps.cta": "Get a quote",
 
     /* --- final CTA --- */
-    "fin.h2": "Let's create furniture for <span class='acc'>your project</span>",
+    "fin.h2": "Let's create furniture for your project",
     "fin.lead": "Contact us any convenient way — we'll pick a solution, quote it and prepare an offer. Or fill out the form on the right.",
     "fin.qr": "Point your camera to open a WhatsApp chat",
     "fin.note": "Pricing is calculated individually. You can send photos, a floor plan, references or selected models.",
@@ -535,7 +535,7 @@ window.I18N = {
     "dz.t2": "Drawings and specifications for each model — on request",
     "dz.t3": "Fabric and wood samples can be requested before ordering",
     "dz.t4": "Regular partners get a dedicated manager and priority turnaround",
-    "dz.band.h2": "Your project — <span class='acc'>our production</span>",
+    "dz.band.h2": "Your project. Our production.",
     "dz.band.p": "Use UNIT.FURNITURE models in your projects, adapt them to the interior or send drawings of individual pieces. Production — Jepara and local Bali workshops, acceptance — UNIT.",
     "dz.band.cta1": "Become a partner", "dz.band.cta2": "Catalog for designers (PDF)",
     "dz.how.h2": "How we <span class='acc'>work</span>",
