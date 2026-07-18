@@ -300,7 +300,7 @@ window.I18N = {
     "nav.materials": "Materials", "nav.cta": "Get a consultation",
 
     /* --- home: hero --- */
-    "hero.title": "Signature furniture and interior solutions in Bali",
+    "hero.title": "hi-tech furniture production and interiors in Bali",
     "hero.sub": "We create furniture for villas, homes, hotels, restaurants and outdoor spaces. From a single model to full turnkey furnishing of a property.",
     "hero.cta1": "Get a consultation", "hero.cta2": "View catalog", "hero.scroll": "Scroll ↓",
     "hero.badge1": "In-house production", "hero.badge2": "Customization", "hero.badge3": "Indoor · Outdoor · Commercial",
