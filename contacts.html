@@ -3,12 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Контакты — UNIT.FURNITURE</title>
+<title>Контакты — UNIT.FURNITURE</title>
 <meta name="description" content="Контакты UNIT.FURNITURE: WhatsApp, email, Instagram, форма заявки. Bali, Indonesia.">
 <link rel="stylesheet" href="css/styles.css">
 </head>
 <body data-request-url="#form">
-
 
 <div class="scroll-progress" aria-hidden="true"><span id="scrollBar"></span></div>
 
@@ -44,8 +43,8 @@
 <section class="page-hero">
   <div class="container">
     <p class="kicker" data-i18n="nav.contacts">Контакты</p>
-    <h1 data-i18n="ct.h1">Свяжитесь с нами</h1>
-    <p class="page-sub" data-i18n="ct.sub">Подберём решение, рассчитаем стоимость и&nbsp;подготовим предложение. Можно отправить фото, план, референсы или выбранные модели.</p>
+    <h1 data-i18n="ct.h1">Свяжитесь с нами</h1>
+    <p class="page-sub" data-i18n="ct.sub">Подберём решение, рассчитаем стоимость и подготовим предложение. Можно отправить фото, план, референсы или выбранные модели.</p>
   </div>
 </section>
 
@@ -87,7 +86,7 @@
     <form class="form reveal" id="leadForm" novalidate style="scroll-margin-top:96px">
       <span id="form"></span>
       <div class="req-cart-preview" id="reqCartPreview" hidden style="margin:0 0 24px">
-        <p class="req-c-label" data-i18n="req.cart_label">В заявке:</p>
+        <p class="req-c-label" data-i18n="req.cart_label">В заявке:</p>
         <div id="reqChips" class="req-chips"></div>
       </div>
       <div class="field">
@@ -108,7 +107,7 @@
         <div class="field">
           <label for="fObject" data-i18n="f.object">Тип объекта</label>
           <select id="fObject" name="object">
-            <option data-i18n="f.o.any" selected>Не важно / уточню в сообщении</option>
+            <option data-i18n="f.o.any" selected>Не важно / уточню в сообщении</option>
             <option data-i18n="f.o.villa">Вилла</option>
             <option data-i18n="f.o.house">Дом</option>
             <option data-i18n="f.o.apt">Апартаменты</option>
@@ -125,9 +124,9 @@
             <option data-i18n="opt.all">Комплектация объекта целиком</option>
             <option data-i18n="cat.beds">Кровати</option>
             <option data-i18n="cat.sofas">Диваны</option>
-            <option data-i18n="cat.chairs">Кресла и стулья</option>
+            <option data-i18n="cat.chairs">Кресла и стулья</option>
             <option data-i18n="cat.outdoor">Аутдор</option>
-            <option data-i18n="cat.textile">Подушки и декор</option>
+            <option data-i18n="cat.textile">Подушки и декор</option>
             <option data-i18n="opt.other">Другое</option>
           </select>
         </div>
@@ -137,17 +136,17 @@
           <label for="fScope" data-i18n="f.scope">Объём заказа</label>
           <select id="fScope" name="scope">
             <option data-i18n="f.sc.item">Одна позиция</option>
-            <option data-i18n="f.sc.zone">Комплект на зону / комнату</option>
+            <option data-i18n="f.sc.zone">Комплект на зону / комнату</option>
             <option data-i18n="f.sc.full">Весь объект целиком</option>
             <option data-i18n="f.sc.bulk">Несколько юнитов / опт</option>
           </select>
         </div>
         <div class="field">
-          <label for="fDeadline" data-i18n="f.deadline">Нужна к дате (если есть)</label>
+          <label for="fDeadline" data-i18n="f.deadline">Нужна к дате (если есть)</label>
           <input id="fDeadline" name="deadline" type="date">
         </div>
       </div>
-      <p class="field-note" id="bulkNote" hidden data-i18n="f.bulk_note">При заказе от нескольких юнитов фиксируем единую цену пакета и закрепляем отдельного менеджера.</p>
+      <p class="field-note" id="bulkNote" hidden data-i18n="f.bulk_note">При заказе от нескольких юнитов фиксируем единую цену пакета и закрепляем отдельного менеджера.</p>
       <div class="field">
         <label for="fMsg" data-i18n="f.msg">Сообщение</label>
         <textarea id="fMsg" name="message" rows="3" data-i18n-ph="f.msg_ph" placeholder="Например: вилла 3 спальни, нужны кровати и аутдор к декабрю"></textarea>
@@ -157,15 +156,15 @@
         <div class="file-upload">
           <label class="file-upload-btn" for="fFile" data-i18n="f.file_btn">Выбрать файлы</label>
           <input class="file-upload-input" id="fFile" name="file" type="file" multiple accept="image/*,.pdf">
-          <span class="file-upload-name" id="fFileName">Файл не выбран</span>
+          <span class="file-upload-name" id="fFileName">Файл не выбран</span>
         </div>
       </div>
       <label class="agree">
         <input type="checkbox" id="fAgree" required>
-        <span data-i18n="f.agree_link">Согласен на <a href="consent.html" target="_blank" rel="noopener noreferrer" style="color:inherit">обработку персональных данных</a></span>
+        <span data-i18n="f.agree_link">Согласен на <a href="consent.html" target="_blank" rel="noopener noreferrer" style="color:inherit">обработку персональных данных</a></span>
       </label>
       <button class="btn btn-blue btn-submit" type="submit" data-i18n="f.submit">Отправить запрос</button>
-      <p class="form-done" id="formDone" hidden data-i18n="f.done">Заявка отправлена. Ответим в&nbsp;ближайшее время.</p>
+      <p class="form-done" id="formDone" hidden data-i18n="f.done">Заявка отправлена. Ответим в ближайшее время.</p>
     </form>
   </div>
 </section>
@@ -175,8 +174,8 @@
   <div class="container footer-inner">
     <div class="footer-brand">
       <a class="logo" href="index.html"><span class="logo-u">UNIT</span>.<span>FURNITURE</span></a>
-      <p class="footer-slogan">Designed for living. Built to last.</p>
-      <p class="footer-desc" data-i18n="ft.desc">Авторская мебель и&nbsp;интерьерные решения под&nbsp;ключ на&nbsp;Бали.</p>
+      <p class="footer-slogan">Designed for living. Built to last.</p>
+      <p class="footer-desc" data-i18n="ft.desc">Авторская мебель и интерьерные решения под ключ на Бали.</p>
       <address>Jalan Pantai Nyanyi, Beraban,<br>Kediri, Tabanan, Bali 80351,<br>Indonesia</address>
     </div>
     <nav class="footer-col">
@@ -192,8 +191,8 @@
     <div class="footer-col">
       <h4 data-i18n="ft.links">Важные ссылки</h4>
       <a href="assets/UNIT-FURNITURE-catalog.pdf" download data-i18n="ft.catalog">Скачать каталог (PDF)</a>
-      <a href="consent.html" target="_blank" rel="noopener noreferrer" data-i18n="ft.pd">Согласие на обработку ПД</a>
-      <a href="legal.html" target="_blank" rel="noopener noreferrer" data-i18n="ft.legal">Юр. информация о компании</a>
+      <a href="consent.html" target="_blank" rel="noopener noreferrer" data-i18n="ft.pd">Согласие на обработку ПД</a>
+      <a href="legal.html" target="_blank" rel="noopener noreferrer" data-i18n="ft.legal">Юр. информация о компании</a>
       <a href="https://unitdeveloper.com" target="_blank" rel="noopener noreferrer">unitdeveloper.com</a>
       <h4 class="lang-h" data-i18n="ft.lang">Язык страницы</h4>
       <div class="lang-switch" id="langSwitch">
@@ -208,8 +207,8 @@
     </div>
   </div>
   <div class="container footer-bottom">
-    <span class="footer-made" data-i18n="ft.line">UNIT.FURNITURE&nbsp;— авторская мебель и&nbsp;интерьерные решения на&nbsp;Бали</span>
-    <div class="footer-legal"><span>© 2026 PT.&nbsp;UNIT NUANU PROPERTY</span><a href="consent.html" target="_blank" rel="noopener noreferrer" data-i18n="ft.privacy">Privacy Policy</a></div>
+    <span class="footer-made" data-i18n="ft.line">UNIT.FURNITURE — авторская мебель и интерьерные решения на Бали</span>
+    <div class="footer-legal"><span>© 2026 PT. UNIT NUANU PROPERTY</span><a href="consent.html" target="_blank" rel="noopener noreferrer" data-i18n="ft.privacy">Privacy Policy</a></div>
   </div>
 </footer>
 
@@ -231,8 +230,8 @@
   </div>
   <div class="cart-list" id="cartList"></div>
   <div class="cart-foot">
-    <p data-i18n="cart.note">Цен на&nbsp;сайте нет&nbsp;— посчитаем стоимость комплекта под&nbsp;ваш проект после заявки.</p>
-    <button class="btn btn-blue" id="cartCheckout" data-i18n="cart.checkout">Перейти к заявке</button>
+    <p data-i18n="cart.note">Цен на сайте нет — посчитаем стоимость комплекта под ваш проект после заявки.</p>
+    <button class="btn btn-blue" id="cartCheckout" data-i18n="cart.checkout">Перейти к заявке</button>
   </div>
 </aside>
 
