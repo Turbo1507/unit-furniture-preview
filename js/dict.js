@@ -8,7 +8,7 @@ window.DICT = {
     'skip': 'К содержанию',
     'nav.collections': 'Коллекции', 'nav.catalog': 'Каталог', 'nav.production': 'Производство',
     'nav.custom': 'Под ваш объект', 'nav.how': 'Как заказать', 'nav.faq': 'Вопросы',
-    'hdr.cta': 'Оставить заявку', 'hdr.menu': 'Меню', 'hdr.close': 'Закрыть меню', 'hdr.cart': 'Заявка',
+    'hdr.cta': 'Получить расчёт', 'cta.quote': 'Получить расчёт', 'cart.back': 'К моделям', 'cart.closeBtn': 'Закрыть', 'cart.sum': 'Моделей: {n}, штук: {q}', 'cart.sum0': 'Модели не выбраны, опишите задачу в комментарии.', 'col.remove': 'Убрать линейку', 'hdr.menu': 'Меню', 'hdr.close': 'Закрыть меню', 'hdr.cart': 'Заявка',
 
     'hero.chip': 'Собственное производство на Бали',
     'hero.h1': 'Авторская мебель и интерьеры на Бали',
@@ -17,7 +17,7 @@ window.DICT = {
     'hero.cap': 'Sofa Outdoor Type 4, коллекция 2026',
     'path.h2': 'Мебель для дома и для объекта',
     'path.home': 'Для дома', 'path.home.t': 'Вилла, дом или апартаменты. Выберите модели в каталоге, укажите количество, и мы пришлём расчёт.', 'path.home.go': 'Выбрать модели',
-    'path.pro': 'Для объекта', 'path.pro.t': 'Дизайнерам, архитекторам, застройщикам, отелям и ресторанам. Адаптируем модели и комплектуем объект целиком.', 'path.pro.go': 'Обсудить объект',
+    'path.pro': 'Для объекта', 'path.pro.t': 'Дизайнерам, архитекторам, застройщикам, отелям и ресторанам. Адаптируем модели и комплектуем объект целиком.', 'path.pro.go': 'Адаптировать под объект',
 
     'col.h2': 'Три линейки одной коллекции',
     'col.lead': 'Awan, Axis и Reason собраны в общем стиле: модели одной линейки легко комплектовать в один интерьер',
@@ -110,7 +110,7 @@ window.DICT = {
     'cart.h': 'Заявка', 'cart.empty': 'В заявке пока пусто. Добавьте модели из каталога, количество можно изменить здесь.',
     'cart.go': 'Перейти к отправке', 'cart.browse': 'Открыть каталог',
     'cart.note': 'Цен на сайте нет. Пришлём расчёт под модели и количество.',
-    'cart.remove': 'Убрать', 'cart.total': 'Позиций: {n}, штук: {q}',
+    'cart.remove': 'Убрать', 'cart.total': 'Моделей: {n}, штук: {q}',
     'qty.minus': 'Меньше', 'qty.plus': 'Больше', 'qty': 'Количество',
     'add': 'В заявку', 'add.more': 'Добавить в заявку', 'added': 'В заявке',
     'toast.added': '{name} в заявке', 'toast.open': 'Открыть заявку',
@@ -152,7 +152,7 @@ window.DICT = {
     'skip': 'Skip to content',
     'nav.collections': 'Collections', 'nav.catalog': 'Catalog', 'nav.production': 'Production',
     'nav.custom': 'Your property', 'nav.how': 'How to order', 'nav.faq': 'FAQ',
-    'hdr.cta': 'Send a request', 'hdr.menu': 'Menu', 'hdr.close': 'Close menu', 'hdr.cart': 'Request',
+    'hdr.cta': 'Get a quote', 'cta.quote': 'Get a quote', 'cart.back': 'Back to models', 'cart.closeBtn': 'Close', 'cart.sum': 'Models: {n}, pieces: {q}', 'cart.sum0': 'No models chosen, describe the task in the comment.', 'col.remove': 'Remove the line', 'hdr.menu': 'Menu', 'hdr.close': 'Close menu', 'hdr.cart': 'Request',
 
     'hero.chip': 'Made in our own workshop in Bali',
     'hero.h1': 'Designer furniture and interiors in Bali',
@@ -161,7 +161,7 @@ window.DICT = {
     'hero.cap': 'Sofa Outdoor Type 4, 2026 collection',
     'path.h2': 'Furniture for a home and for a property',
     'path.home': 'For a home', 'path.home.t': 'A villa, house or apartment. Choose models in the catalog, set quantities and we will send a quote.', 'path.home.go': 'Choose models',
-    'path.pro': 'For a property', 'path.pro.t': 'For designers, architects, developers, hotels and restaurants. We adapt models and furnish the whole property.', 'path.pro.go': 'Discuss your property',
+    'path.pro': 'For a property', 'path.pro.t': 'For designers, architects, developers, hotels and restaurants. We adapt models and furnish the whole property.', 'path.pro.go': 'Adapt to your property',
 
     'col.h2': 'Three lines, one collection',
     'col.lead': 'Awan, Axis and Reason share one style, so models from a line furnish a single interior with ease',
@@ -254,9 +254,9 @@ window.DICT = {
     'cart.h': 'Request', 'cart.empty': 'Your request is empty. Add models from the catalog, you can change quantities here.',
     'cart.go': 'Go to sending', 'cart.browse': 'Open the catalog',
     'cart.note': 'There are no prices on the site. We will send a quote for the models and quantities.',
-    'cart.remove': 'Remove', 'cart.total': 'Items: {n}, pieces: {q}',
+    'cart.remove': 'Remove', 'cart.total': 'Models: {n}, pieces: {q}',
     'qty.minus': 'Fewer', 'qty.plus': 'More', 'qty': 'Quantity',
-    'add': 'Add', 'add.more': 'Add to request', 'added': 'In request',
+    'add': 'Add to request', 'add.more': 'Add to request', 'added': 'In request',
     'toast.added': '{name} is in the request', 'toast.open': 'Open request',
 
     'cat.h1': 'Catalog',

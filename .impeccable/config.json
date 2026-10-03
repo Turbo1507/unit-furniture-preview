@@ -1,0 +1,44 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "index.html"
+        ],
+        "createdAt": "2026-10-03T20:56:10.819Z",
+        "reason": "Агент B критики 04.10: отступ даёт внутренний .container/padding через var(), браузерный детектор по реальной вёрстке не нашёл"
+      },
+      {
+        "rule": "clipped-overflow-container",
+        "value": "*",
+        "files": [
+          "index.html"
+        ],
+        "createdAt": "2026-10-03T20:56:11.039Z",
+        "reason": "Агент B 04.10: body overflow-x:clip против гориз. скролла, дети position:fixed не обрезаются"
+      },
+      {
+        "rule": "clipped-overflow-container",
+        "value": "*",
+        "files": [
+          "catalog.html"
+        ],
+        "createdAt": "2026-10-03T20:56:11.248Z",
+        "reason": "Агент B 04.10: body overflow-x:clip против гориз. скролла, дети position:fixed не обрезаются"
+      },
+      {
+        "rule": "clipped-overflow-container",
+        "value": "*",
+        "files": [
+          "product.html"
+        ],
+        "createdAt": "2026-10-03T20:56:11.452Z",
+        "reason": "Агент B 04.10: body overflow-x:clip против гориз. скролла, дети position:fixed не обрезаются"
+      }
+    ]
+  }
+}

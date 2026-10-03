@@ -101,7 +101,7 @@ window.PRODUCTS = [
 
   // Уличные диваны
   { id: 'outdoor-5', cat: 'outdoor', env: 'outdoor', use: ['home', 'villa', 'hotel'], fabric: true,
-    name: 'Sofa Outdoor Type 5 · угловой', img: 'assets/c26/p-outdoor-5.jpg', life: 'assets/c26/life-outdoor-corner.jpg',
+    name: 'Sofa Outdoor Type 5 Corner', img: 'assets/c26/p-outdoor-5.jpg', life: 'assets/c26/life-outdoor-corner.jpg',
     dims: '720 × 2850 × 1900 мм',
     specs: { 'Каркас': 'Тиковое дерево', 'Ножки': 'Металл (Китай)', 'Цвет': 'Серый' } },
   { id: 'outdoor-4', cat: 'outdoor', env: 'outdoor', use: ['home', 'villa', 'hotel'], fabric: true,
@@ -115,11 +115,11 @@ window.PRODUCTS = [
 
   // Шезлонги
   { id: 'outdoor-2', cat: 'sunbeds', env: 'outdoor', use: ['villa', 'hotel'], tags: ['outdoor'],
-    name: 'Sofa Outdoor Type 2 · шезлонг', img: 'assets/c26/p-outdoor-2.jpg', life: 'assets/c26/life-lounger.jpg',
+    name: 'Sofa Outdoor Type 2 Lounger', img: 'assets/c26/p-outdoor-2.jpg', life: 'assets/c26/life-lounger.jpg',
     dims: '—',
     specs: { 'Каркас': 'Тиковое дерево', 'Ножки': 'Металл (Китай)', 'Цвет': 'Серый' } },
   { id: 'outdoor-1', cat: 'sunbeds', env: 'outdoor', use: ['villa', 'hotel'], tags: ['outdoor'],
-    name: 'Sofa Outdoor Type 1 · дейбед', img: 'assets/c26/p-outdoor-1.jpg', life: 'assets/c26/life-loungers.jpg',
+    name: 'Sofa Outdoor Type 1 Daybed', img: 'assets/c26/p-outdoor-1.jpg', life: 'assets/c26/life-loungers.jpg',
     dims: '—',
     specs: { 'Каркас': 'Тиковое дерево', 'Ножки': 'Металл (Китай)', 'Цвет': 'Серый' } },
 

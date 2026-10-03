@@ -42,10 +42,7 @@
     else e = n === 1 ? '' : 's';
     return t('n.models', { n: n, e: e });
   }
-  function pname(p) {
-    if (lang === 'ru') return p.name;
-    return p.name.replace('угловой', 'corner').replace('шезлонг', 'lounger').replace('дейбед', 'daybed');
-  }
+  function pname(p) { return p.name; }
   function dims(p) {
     if (!p.dims || p.dims === '—') return t('cat.noDims');
     return lang === 'ru' ? p.dims : p.dims.replace('мм', 'mm');
@@ -100,6 +97,7 @@
   function openLayer(el, focusEl) {
     if (layer && layer !== el) closeLayer(false);
     layer = el; el.inert = false; el.removeAttribute('aria-hidden'); el.classList.add('open');
+    $('#toast') && $('#toast').classList.remove('show');
     outside().forEach(function (o) { o.inert = true; });
     document.body.classList.add('no-scroll');
     if (el.id === 'drawer') $('.scrim').classList.add('open');
@@ -149,12 +147,12 @@
     }
     return '<div class="qty" role="group" aria-label="' + esc(t('qty') + ': ' + pname(p)) + '">' +
       '<button type="button" data-dec="' + id + '" aria-label="' + esc(t('qty.minus')) + '">−</button>' +
-      '<output aria-live="polite">' + q + '</output>' +
+      '<input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="3" value="' + q + '" data-qty="' + id + '" aria-label="' + esc(t('qty') + ': ' + pname(p)) + '">' +
       '<button type="button" data-inc="' + id + '" aria-label="' + esc(t('qty.plus')) + '">+</button></div>';
   }
   function refreshCtl() {
     var a = document.activeElement, host = a && a.closest ? a.closest('[data-ctl]') : null, sel = null;
-    if (host) ['data-dec', 'data-inc', 'data-add'].forEach(function (k) { if (a.hasAttribute(k)) sel = '[' + k + ']'; });
+    if (host) ['data-dec', 'data-inc', 'data-add', 'data-qty'].forEach(function (k) { if (a.hasAttribute(k)) sel = '[' + k + ']'; });
     $$('[data-ctl]').forEach(function (el) { el.innerHTML = ctl(el.dataset.ctl, el.dataset.v); });
     if (host && document.contains(host)) { var f = (sel && host.querySelector(sel)) || host.querySelector('button'); f && f.focus(); }
     else if (host && layer) { var c = layer.querySelector('.drawer-close, .mmenu-close'); c && c.focus(); }
@@ -163,7 +161,7 @@
   var drawerKey = null;
   function renderCart() {
     var tt = totals();
-    $$('.cart-count').forEach(function (b) { b.textContent = tt.q; b.hidden = tt.q === 0; });
+    $$('.cart-count').forEach(function (b) { b.textContent = tt.n; b.hidden = tt.n === 0; });
     $$('[data-cart-open]').forEach(function (b) { b.setAttribute('aria-label', plain(t('hdr.cart')) + (tt.q ? ': ' + plain(t('cart.total', tt)) : '')); });
     var body = $('#drawer-body');
     if (body) {
@@ -179,9 +177,9 @@
         }).join('') : '<p class="empty">' + T('cart.empty') + '</p>';
       }
       $('#drawer-tot').textContent = tt.n ? plain(t('cart.total', tt)) : '';
-      var go = $('#drawer-go'), br = $('#drawer-browse');
-      if (go) go.hidden = !tt.n;
+      var br = $('#drawer-browse');
       if (br) br.hidden = !!tt.n;
+      if ($('#d-sum')) $('#d-sum').textContent = plain(tt.n ? t('cart.sum', tt) : t('cart.sum0'));
     }
     refreshCtl();
     renderReqList();
@@ -195,12 +193,48 @@
     el.classList.add('show');
     clearTimeout(toastTimer); toastTimer = setTimeout(function () { el.classList.remove('show'); }, 4500);
   }
-  function openCart(from) { returnFocus = from || document.activeElement; openLayer($('#drawer'), $('.drawer-close')); }
+  /* шаги корзины: list (модели) → form (отправка) → ok */
+  var drawer = $('#drawer');
+  function drawerStep(s) {
+    if (!drawer) return;
+    drawer.dataset.step = s;
+    $('#drawer-body').hidden = $('#drawer-foot').hidden = s !== 'list';
+    $('#d-form').hidden = s !== 'form';
+    $('#d-ok').hidden = s !== 'ok';
+    $('.d-back').hidden = s !== 'form';
+    if (!layer) return;
+    if (s === 'form') $('#d-name').focus();
+    else if (s === 'ok') $('h3', $('#d-ok')).focus();
+    else $('.drawer-close').focus();
+  }
+  function openCart(from, step) {
+    returnFocus = from || document.activeElement;
+    if (drawer && drawer.dataset.step === 'ok') resetForm($('#d-form'));
+    drawerStep(step || 'list');
+    openLayer(drawer, step === 'form' ? $('#d-name') : $('.drawer-close'));
+  }
+  function rmLine(l) {
+    cart = cart.filter(function (i) { return byId[i.id].collection !== l; });
+    LS.set('uf_cart', cart); renderCart();
+  }
+
+  document.addEventListener('change', function (e) {
+    var el = e.target.closest && e.target.closest('[data-qty]'); if (!el) return;
+    var v = parseInt(el.value.replace(/\D/g, ''), 10);
+    setQty(el.dataset.qty, isNaN(v) ? qtyOf(el.dataset.qty) : v);
+  });
+  document.addEventListener('focusin', function (e) { if (e.target.matches && e.target.matches('[data-qty]')) e.target.select(); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' && e.target.matches && e.target.matches('[data-qty]')) { e.preventDefault(); e.target.blur(); }
+  });
 
   document.addEventListener('click', function (e) {
-    var b = e.target.closest('[data-add],[data-inc],[data-dec],[data-rm],[data-cart-open],[data-cart-close],[data-addline],#toast button');
+    var b = e.target.closest('[data-add],[data-inc],[data-dec],[data-rm],[data-cart-open],[data-cart-close],[data-addline],[data-rmline],[data-quote],[data-step-to],#toast button');
     if (!b) return;
-    if (b.hasAttribute('data-add')) { setQty(b.dataset.add, 1); toast(pname(byId[b.dataset.add])); }
+    if (b.hasAttribute('data-quote')) { e.preventDefault(); if (layer && layer !== drawer) closeLayer(false); openCart(b, 'form'); }
+    else if (b.hasAttribute('data-step-to')) drawerStep(b.dataset.stepTo);
+    else if (b.hasAttribute('data-rmline')) { rmLine(b.dataset.rmline); var nb = $('[data-lineadd-btn="' + b.dataset.rmline + '"]'); nb && nb.focus(); }
+    else if (b.hasAttribute('data-add')) { setQty(b.dataset.add, 1); toast(pname(byId[b.dataset.add])); }
     else if (b.hasAttribute('data-inc')) setQty(b.dataset.inc, qtyOf(b.dataset.inc) + 1);
     else if (b.hasAttribute('data-dec')) setQty(b.dataset.dec, qtyOf(b.dataset.dec) - 1);
     else if (b.hasAttribute('data-rm')) setQty(b.dataset.rm, 0);
@@ -213,7 +247,6 @@
     }
     else { $('#toast').classList.remove('show'); openCart(b); }
   });
-  $('#drawer-go') && $('#drawer-go').addEventListener('click', function () { closeLayer(false); });
 
   /* ---------- главная: линейки ---------- */
   var LINES = { Awan: 'assets/c26/life-awan-sofa.jpg', Axis: 'assets/c26/life-axis-bed.jpg', Reason: 'assets/c26/life-beds.jpg' };
@@ -248,13 +281,15 @@
     $$('[data-lineadd]').forEach(function (el) {
       var l = el.dataset.lineadd, all = lineItems(l).every(function (p) { return qtyOf(p.id) > 0; });
       el.outerHTML = all
-        ? '<button type="button" class="btn btn-outline" data-cart-open data-lineadd-done="' + l + '">' + T('col.added') + '</button>'
+        ? '<button type="button" class="btn btn-outline" data-cart-open data-lineadd-done="' + l + '">' + T('col.added') + '</button>' +
+          '<button type="button" class="btn btn-ghost" data-rmline="' + l + '" data-lineadd-rm="' + l + '">' + T('col.remove') + '</button>'
         : '<button type="button" class="btn btn-primary" data-addline="' + l + '" data-lineadd-btn="' + l + '">' + T('col.addall') + '</button>';
     });
     $$('[data-lineadd-done],[data-lineadd-btn]').forEach(function (b) {
       var l = b.dataset.lineaddDone || b.dataset.lineaddBtn, all = lineItems(l).every(function (p) { return qtyOf(p.id) > 0; });
       if (all === b.hasAttribute('data-lineadd-done')) return;
       var span = document.createElement('span'); span.dataset.lineadd = l;
+      var rm = b.parentNode.querySelector('[data-lineadd-rm="' + l + '"]'); rm && rm.remove();
       var had = document.activeElement === b; b.replaceWith(span); renderLineAdd();
       if (had) { var nb = $('[data-lineadd-done="' + l + '"],[data-lineadd-btn="' + l + '"]'); nb && nb.focus(); }
     });
@@ -308,62 +343,68 @@
     }).join('') + '<button type="button" class="link t-small" data-cart-open style="border:0;background:none;padding:12px 0;justify-self:start">' + T('f.models.edit') + '</button>'
       : '<p class="empty">' + T('f.models.empty') + '</p>';
   }
-  var form = $('#lead-form');
-  if (form) {
-    var tried = false;
-    var rules = {
-      name: function (v) { return v.trim().length >= 2; },
-      contact: function (v) { v = v.trim(); return /\S+@\S+\.\S+/.test(v) || v.replace(/\D/g, '').length >= 6; },
-      agree: function (v, el) { return el.checked; }
-    };
+  /* одна логика на две формы: внизу главной (#lead-form) и в корзине (#d-form) */
+  var RULES = {
+    name: function (v) { return v.trim().length >= 2; },
+    contact: function (v) { v = v.trim(); return /\S+@\S+\.\S+/.test(v) || v.replace(/\D/g, '').length >= 6; },
+    agree: function (v, el) { return el.checked; }
+  };
+  function resetForm(form) {
+    if (!form) return;
+    form.reset(); form._tried = false;
+    $$('.field', form).forEach(function (f) { f.classList.remove('has-err'); });
+    $$('[aria-invalid]', form).forEach(function (el) { el.removeAttribute('aria-invalid'); });
+    form._summary();
+  }
+  function initForm(form, ok, onDone) {
+    if (!form) return;
     var check = function (name) {
-      var el = form.elements[name], ok = rules[name](el.value, el), f = el.closest('.field');
-      f.classList.toggle('has-err', !ok);
-      el.setAttribute('aria-invalid', !ok);
-      return ok;
+      var el = form.elements[name], good = RULES[name](el.value, el), f = el.closest('.field');
+      f.classList.toggle('has-err', !good);
+      el.setAttribute('aria-invalid', !good);
+      return good;
     };
-    Object.keys(rules).forEach(function (n) {
-      var el = form.elements[n];
-      el.addEventListener(el.type === 'checkbox' ? 'change' : 'input', function () { if (tried) { check(n); summary(); } });
-    });
-    var summary = function () {
-      var bad = Object.keys(rules).filter(function (n) { return form.elements[n].closest('.field').classList.contains('has-err'); });
-      var box = $('#form-err');
+    var summary = form._summary = function () {
+      var bad = Object.keys(RULES).filter(function (n) { return form.elements[n].closest('.field').classList.contains('has-err'); });
+      var box = $('.form-err', form);
       box.classList.toggle('show', bad.length > 0);
       box.innerHTML = bad.length ? '<b>' + T('f.err.title') + '</b><ul>' + bad.map(function (n) {
-        return '<li><a href="#f-' + n + '">' + T('f.err.' + n) + '</a></li>';
+        return '<li><a href="#' + form.elements[n].id + '">' + T('f.err.' + n) + '</a></li>';
       }).join('') + '</ul>' : '';
       return bad;
     };
+    Object.keys(RULES).forEach(function (n) {
+      var el = form.elements[n];
+      el.addEventListener(el.type === 'checkbox' ? 'change' : 'input', function () { if (form._tried) { check(n); summary(); } });
+    });
     form.addEventListener('submit', function (e) {
-      e.preventDefault(); tried = true;
-      Object.keys(rules).forEach(check);
+      e.preventDefault(); form._tried = true;
+      Object.keys(RULES).forEach(check);
       var bad = summary();
       if (bad.length) { form.elements[bad[0]].focus(); return; }
       var data = {
         name: form.elements.name.value.trim(), contact: form.elements.contact.value.trim(),
-        type: form.elements.type.value, msg: form.elements.msg.value.trim(),
+        type: form.elements.type ? form.elements.type.value : '', msg: form.elements.msg.value.trim(),
         items: cart.map(function (i) { return { id: i.id, name: byId[i.id].name, q: i.q }; }), lang: lang, at: new Date().toISOString()
       };
       /* TODO (Босс 03.10: бот позже): отправка в Telegram через REST unitdeveloper, как у Спейса.
          До подключения заявка сохраняется только в браузере посетителя. */
       LS.set('uf_last_request', data);
-      var ok = $('#form-ok');
       $('[data-ok-p]', ok).innerHTML = typo(esc(t('ok.p', { c: '\u0001' }))).replace('\u0001', '<b>' + esc(data.contact) + '</b>');
       $('[data-ok-list]', ok).innerHTML = data.items.length
         ? '<p class="t-small">' + T('ok.list') + '</p><ul>' + data.items.map(function (i) { return '<li>' + esc(pname(byId[i.id])) + ' × ' + i.q + '</li>'; }).join('') + '</ul>'
         : '<p class="t-small muted">' + T('ok.none') + '</p>';
-      form.hidden = true; ok.hidden = false; $('h3', ok).focus();
+      onDone();
       cart = []; LS.set('uf_cart', cart); renderCart();
     });
-    $('[data-ok-new]') && $('[data-ok-new]').addEventListener('click', function () {
-      form.reset(); tried = false;
-      $$('.field', form).forEach(function (f) { f.classList.remove('has-err'); });
-      $$('[aria-invalid]', form).forEach(function (el) { el.removeAttribute('aria-invalid'); });
-      summary(); $('#form-ok').hidden = true; form.hidden = false; form.elements.name.focus();
-    });
-    renderers.push(function () { if (tried) summary(); });
+    renderers.push(function () { if (form._tried) summary(); });
   }
+  var form = $('#lead-form');
+  initForm(form, $('#form-ok'), function () { form.hidden = true; $('#form-ok').hidden = false; $('h3', $('#form-ok')).focus(); });
+  $('[data-ok-new]') && $('[data-ok-new]').addEventListener('click', function () {
+    resetForm(form); $('#form-ok').hidden = true; form.hidden = false; form.elements.name.focus();
+  });
+  initForm($('#d-form'), $('#d-ok'), function () { drawerStep('ok'); resetForm($('#d-form')); });
 
   /* ---------- каталог ---------- */
   var CATS = ['beds', 'sofas', 'chairs', 'armchairs', 'nightstands', 'outdoor', 'sunbeds', 'textile'];
@@ -381,11 +422,14 @@
     var st = { cat: CATS.indexOf(qs.get('cat')) >= 0 ? qs.get('cat') : '', line: LNS.indexOf(qs.get('line')) >= 0 ? qs.get('line') : '' };
     var renderCatalog = function () {
       var inCat = function (c) { return P.filter(function (p) { return (!c || p.cat === c) && (!st.line || p.collection === st.line); }).length; };
+      var inLine = function (l) { return P.filter(function (p) { return (!st.cat || p.cat === st.cat) && (!l || p.collection === l); }).length; };
+      var off = function (n, on) { return !n && !on ? ' aria-disabled="true"' : ''; };
       $('#chips-cat').innerHTML = [''].concat(CATS).map(function (c) {
-        return '<button type="button" data-fcat="' + c + '" aria-pressed="' + (st.cat === c) + '">' + (c ? esc(catName(c)) : T('cat.all')) + '<small>' + inCat(c) + '</small></button>';
+        var n = inCat(c);
+        return '<button type="button" data-fcat="' + c + '" aria-pressed="' + (st.cat === c) + '"' + off(n, st.cat === c) + '>' + (c ? esc(catName(c)) : T('cat.all')) + '<small>' + n + '</small></button>';
       }).join('');
       $('#chips-line').innerHTML = [''].concat(LNS).map(function (l) {
-        return '<button type="button" data-fline="' + l + '" aria-pressed="' + (st.line === l) + '">' + (l || T('cat.lineAll')) + '</button>';
+        return '<button type="button" data-fline="' + l + '" aria-pressed="' + (st.line === l) + '"' + off(inLine(l), st.line === l) + '>' + (l || T('cat.lineAll')) + '</button>';
       }).join('');
       var list = P.filter(function (p) { return (!st.cat || p.cat === st.cat) && (!st.line || p.collection === st.line); });
       grid.innerHTML = list.map(card).join('');
@@ -398,7 +442,7 @@
       history.replaceState(null, '', location.pathname + (q.toString() ? '?' + q : ''));
     };
     document.addEventListener('click', function (e) {
-      var b = e.target.closest('[data-fcat],[data-fline],[data-freset]'); if (!b) return;
+      var b = e.target.closest('[data-fcat],[data-fline],[data-freset]'); if (!b || b.getAttribute('aria-disabled') === 'true') return;
       if (b.hasAttribute('data-fcat')) st.cat = b.dataset.fcat;
       else if (b.hasAttribute('data-fline')) st.line = b.dataset.fline;
       else st = { cat: '', line: '' };

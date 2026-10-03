@@ -36,7 +36,7 @@ const NAV = [['collections', '#collections'], ['catalog', 'catalog.html'], ['pro
 function top(home) {
   const h = (x) => (x.startsWith('#') && !home ? 'index.html' + x : x);
   const links = NAV.map(([k, x]) => `<a href="${h(x)}" data-i18n="nav.${k}"></a>`).join('');
-  const cta = home ? '#lead' : 'index.html#lead';
+  const cta = (home ? '#lead' : 'index.html#lead') + '" data-quote="';
   return `
 <a class="skip" href="#main" data-i18n="skip"></a>
 <header class="site-header" id="hdr">
@@ -46,7 +46,7 @@ function top(home) {
     <div class="hdr-right">
       <div class="lang" role="group" aria-label="Language"><button type="button" data-lang="ru" lang="ru">RU</button><button type="button" data-lang="en" lang="en">EN</button></div>
       <button type="button" class="cart-btn" data-cart-open data-i18n-attr="aria-label:hdr.cart">${IC.bag}<span class="cart-count" hidden>0</span></button>
-      <a class="btn btn-primary btn-sm" href="${cta}" data-i18n="hdr.cta"></a>
+      <a class="btn btn-primary btn-sm" href="${cta}" data-i18n="cta.quote"></a>
       <button type="button" class="burger" aria-expanded="false" aria-controls="mmenu" data-i18n-attr="aria-label:hdr.menu"><span></span></button>
     </div>
   </div>
@@ -56,7 +56,7 @@ function top(home) {
   <nav aria-label="Mobile">${links}</nav>
   <div class="mmenu-foot">
     <div class="lang" role="group" aria-label="Language"><button type="button" data-lang="ru" lang="ru">RU</button><button type="button" data-lang="en" lang="en">EN</button></div>
-    <a class="btn btn-primary btn-block" href="${cta}" data-i18n="hdr.cta"></a>
+    <a class="btn btn-primary btn-block" href="${cta}" data-i18n="cta.quote"></a>
   </div>
 </div>
 `;
@@ -83,14 +83,50 @@ function bottom(home) {
   </div>
 </footer>
 <div class="scrim" data-cart-close></div>
-<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-h" aria-hidden="true" inert>
-  <div class="drawer-head"><h2 id="drawer-h" data-i18n="cart.h"></h2><button type="button" class="drawer-close" data-cart-close data-i18n-attr="aria-label:proj.close">${IC.x}</button></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-h" aria-hidden="true" inert data-step="list">
+  <div class="drawer-head">
+    <button type="button" class="d-back" data-step-to="list" hidden>${IC.left}<span data-i18n="cart.back"></span></button>
+    <h2 id="drawer-h" data-i18n="cart.h"></h2>
+    <button type="button" class="drawer-close" data-cart-close data-i18n-attr="aria-label:proj.close">${IC.x}</button>
+  </div>
   <div class="drawer-body" id="drawer-body"></div>
-  <div class="drawer-foot">
+  <div class="drawer-foot" id="drawer-foot">
     <p class="tot tnum" id="drawer-tot"></p>
-    <a class="btn btn-primary btn-block" id="drawer-go" href="${home ? '#lead' : 'index.html#lead'}" data-i18n="cart.go"></a>
+    <button type="button" class="btn btn-primary btn-block" id="drawer-go" data-step-to="form" data-i18n="cta.quote"></button>
     <a class="btn btn-outline btn-block" id="drawer-browse" href="catalog.html" data-i18n="cart.browse"></a>
     <p class="form-note" data-i18n="cart.note"></p>
+  </div>
+  <form class="form d-form" id="d-form" novalidate hidden>
+    <p class="tot tnum" id="d-sum"></p>
+    <div class="form-err" role="alert" tabindex="-1"></div>
+    <div class="field">
+      <label for="d-name" data-i18n="f.name"></label>
+      <input class="inp" id="d-name" name="name" autocomplete="name" aria-describedby="de-name" required>
+      <p class="err" id="de-name" data-i18n="f.err.name"></p>
+    </div>
+    <div class="field">
+      <label for="d-contact" data-i18n="f.contact"></label>
+      <input class="inp" id="d-contact" name="contact" autocomplete="tel" inputmode="email" aria-describedby="dh-contact de-contact" required>
+      <p class="hint" id="dh-contact" data-i18n="f.contact.hint"></p>
+      <p class="err" id="de-contact" data-i18n="f.err.contact"></p>
+    </div>
+    <div class="field">
+      <label for="d-msg"><span data-i18n="f.msg"></span> <span class="opt">(<span data-i18n="f.opt"></span>)</span></label>
+      <textarea class="inp" id="d-msg" name="msg" rows="3" data-i18n-attr="placeholder:f.msg.ph"></textarea>
+    </div>
+    <div class="field">
+      <label class="chk" for="d-agree"><input type="checkbox" id="d-agree" name="agree" aria-describedby="de-agree" required><span data-i18n="f.agree"></span></label>
+      <p class="err" id="de-agree" data-i18n="f.err.agree"></p>
+    </div>
+    <button type="submit" class="btn btn-primary btn-block" data-i18n="f.submit"></button>
+    <p class="form-note" data-i18n="f.note"></p>
+  </form>
+  <div class="form-ok d-ok" id="d-ok" hidden>
+    <div class="ok-mark" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></div>
+    <h3 class="t-h3" tabindex="-1" data-i18n="ok.h"></h3>
+    <p data-ok-p></p>
+    <div data-ok-list></div>
+    <div class="cta-row"><a class="btn btn-outline" href="catalog.html" data-i18n="ok.more"></a><button type="button" class="btn btn-outline" data-cart-close data-i18n="cart.closeBtn"></button></div>
   </div>
 </aside>
 <div class="toast" id="toast" role="status" aria-live="polite"><span></span><button type="button" data-i18n="toast.open"></button></div>

@@ -385,7 +385,6 @@ select.inp{appearance:none;background:#fff url("data:image/svg+xml,%3Csvg xmlns=
 .chips button[aria-pressed="true"]{background:var(--blue);border-color:var(--blue);color:#fff}
 .chips button small{font-weight:400;opacity:.7;margin-left:4px}
 .chips--line button{background:transparent;border-color:var(--line-2)}
-.chips--line button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
 .cat-meta{display:flex;justify-content:space-between;align-items:center;gap:var(--s2);font-size:var(--fs-cap);color:var(--ink-2);padding-block:var(--s3) var(--s2)}
 
 .p-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--s2)}
@@ -458,3 +457,26 @@ select.inp{appearance:none;background:#fff url("data:image/svg+xml,%3Csvg xmlns=
 .path div{padding:var(--s3);display:grid;gap:var(--s2);align-content:start;justify-items:start}
 .path p{color:var(--ink-2);max-width:48ch}
 @media (max-width:760px){ .paths{grid-template-columns:1fr} }
+.cat-count{font-size:var(--fs-cap);font-weight:400;color:var(--ink-2)}
+
+/* 04.10: правки по critique */
+.btn-ghost{background:transparent;color:var(--ink-2);padding-inline:var(--s2)}
+.btn-ghost:hover{color:var(--blue)}
+.chips button[aria-disabled="true"]{opacity:.4;cursor:default}
+.chips button[aria-disabled="true"]:hover{border-color:transparent}
+.chips--line button[aria-disabled="true"]:hover{border-color:var(--line-2)}
+.toast span{flex:1;min-width:0}
+@media (max-width:560px){
+  .toast{left:var(--s2);right:var(--s2);max-width:none;transform:translateY(calc(100% + 40px));bottom:var(--s2)}
+  .toast.show{transform:none}
+}
+.drawer-head{gap:var(--s1)}
+.drawer-head h2{flex:1}
+.drawer[data-step="form"] .drawer-head h2,.drawer[data-step="ok"] .drawer-head h2{display:none}
+.d-back{display:inline-flex;align-items:center;gap:4px;min-height:44px;margin-left:calc(var(--s1) * -1);padding:0 var(--s1);border:0;background:none;font-weight:500;border-radius:var(--r-s);flex:1;justify-content:flex-start}
+.d-back:hover{color:var(--blue)}
+.d-back svg{width:20px;height:20px}
+.d-form,.d-ok{flex:1;overflow-y:auto;border-radius:0;padding:var(--s3);gap:var(--s2);align-content:start}
+.d-form .tot{font-size:var(--fs-cap);color:var(--ink-2)}
+.d-form .form-note{font-size:var(--fs-micro)}
+.d-form[hidden],.d-ok[hidden]{display:none}
