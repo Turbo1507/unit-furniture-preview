@@ -7,9 +7,13 @@ const ppMain = document.getElementById('ppMain');
 const ppImg = document.getElementById('ppImg');
 const ppThumbs = document.getElementById('ppThumbs');
 
-/* галерея: только реальное интерьерное фото (студийные снимки моделей ещё не сделаны,
-   мелкие превью из PDF на весь экран выглядят битыми — вместо них заглушка) */
-const photos = product.life ? [{ src: product.life, life: true }] : [];
+/* галерея: интерьерный кадр, затем студийное фото на белом и варианты (каталог 2026, 4x) */
+const photos = [
+  ...(product.life ? [{ src: product.life, life: true }] : []),
+  ...[product.img, ...Object.values(product.variants || {})]
+    .filter((src, i, a) => src && a.indexOf(src) === i)
+    .map(src => ({ src, life: false })),
+];
 
 function showPhoto(i) {
   const ph = photos[i];
@@ -21,7 +25,7 @@ function showPhoto(i) {
 }
 if (photos.length) {
   ppThumbs.innerHTML = photos.map((ph, i) =>
-    `<button type="button" data-i="${i}"${i === 0 ? ' class="on"' : ''}><img src="${ph.src}" alt=""></button>`).join('');
+    `<button type="button" data-i="${i}"${i === 0 ? ' class="on"' : ''}><img src="${ph.src}" alt=""${ph.life ? '' : ' class="is-studio"'}></button>`).join('');
   ppThumbs.addEventListener('click', e => {
     const b = e.target.closest('button');
     if (b) showPhoto(+b.dataset.i);

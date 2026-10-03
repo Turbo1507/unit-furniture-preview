@@ -116,8 +116,8 @@ function renderCart() {
   }
   cartList.innerHTML = [...reqIds].map(id => {
     const p = productById(id);
-    const thumb = p.life
-      ? `<img src="${p.life}" alt="${escapeHtml(trName(p.name))}">`
+    const thumb = (p.life || p.img)
+      ? `<img src="${p.life || p.img}" alt="${escapeHtml(trName(p.name))}">`
       : `<div class="cart-item-ph">${catIcon(p.cat)}</div>`;
     return `<div class="cart-item">
       ${thumb}
@@ -167,7 +167,7 @@ if (cartEl) {
 
 /* ---------- рендер карточек товара (каталог, витрины, «похожие модели») ---------- */
 function productCard(p) {
-  const photo = p.life;
+  const photo = p.life || p.img;
   const teak = Object.values(p.specs).some(v => /тик/i.test(v));
   const tags = [
     `<span class="p-tag">${t(p.env === 'outdoor' ? 'tag.outdoor' : 'tag.indoor')}</span>`,
@@ -178,7 +178,7 @@ function productCard(p) {
   <article class="product" data-id="${p.id}">
     <a class="p-media" href="product.html?id=${p.id}" aria-label="${escapeHtml(trName(p.name))}">
       ${photo
-        ? `<img class="p-photo" src="${photo}" alt="${escapeHtml(trName(p.name))}" loading="lazy">`
+        ? `<img class="p-photo${p.life ? '' : ' is-studio'}" src="${photo}" alt="${escapeHtml(trName(p.name))}" loading="lazy">`
         : photoPlaceholder(p.cat)}
       ${teak ? `<span class="p-badge">${escapeHtml(t('badge.teak'))}</span>` : ''}
       <button class="p-add" data-add="${p.id}" aria-label="+" type="button">+</button>

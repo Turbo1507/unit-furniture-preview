@@ -30,10 +30,10 @@ window.I18N = {
     /* --- категории --- */
     "cats.h2": "<span class='acc'>Каталог</span> мебели",
     "cats.lead": "Выберите категорию или отправьте нам запрос — поможем подобрать решение под ваш объект.",
-    "cat.beds": "Кровати", "cat.sofas": "Диваны", "cat.chairs": "Кресла и стулья",
+    "cat.beds": "Кровати", "cat.sofas": "Диваны", "cat.chairs": "Стулья", "cat.armchairs": "Кресла и пуфы", "cat.nightstands": "Тумбы",
     "cat.outdoor": "Аутдор", "cat.sunbeds": "Шезлонги", "cat.poufs": "Пуфы",
     "cat.textile": "Подушки и декор", "cat.commercial": "Коммерческая мебель", "cat.tables": "Столы",
-    "cats.beds.n": "3 модели", "cats.sofas.n": "6 моделей", "cats.chairs.n": "9 моделей",
+    "cats.beds.n": "3 модели", "cats.sofas.n": "6 моделей", "cats.chairs.n": "5 моделей",
     "cats.outdoor.n": "5 моделей", "cats.sunbeds.n": "2 модели", "cats.poufs.n": "2 модели",
     "cats.textile.n": "3 позиции", "cats.commercial.n": "2 модели", "cats.tables.n": "под заказ",
 
@@ -320,10 +320,10 @@ window.I18N = {
     /* --- categories --- */
     "cats.h2": "<span class='acc'>Furniture</span> catalog",
     "cats.lead": "Choose a category or send us a request — we’ll help pick a solution for your property.",
-    "cat.beds": "Beds", "cat.sofas": "Sofas", "cat.chairs": "Chairs & armchairs",
+    "cat.beds": "Beds", "cat.sofas": "Sofas", "cat.chairs": "Chairs", "cat.armchairs": "Armchairs & poufs", "cat.nightstands": "Nightstands",
     "cat.outdoor": "Outdoor", "cat.sunbeds": "Sunbeds", "cat.poufs": "Poufs",
     "cat.textile": "Pillows & decor", "cat.commercial": "Commercial furniture", "cat.tables": "Tables",
-    "cats.beds.n": "3 models", "cats.sofas.n": "6 models", "cats.chairs.n": "9 models",
+    "cats.beds.n": "3 models", "cats.sofas.n": "6 models", "cats.chairs.n": "5 models",
     "cats.outdoor.n": "5 models", "cats.sunbeds.n": "2 models", "cats.poufs.n": "2 models",
     "cats.textile.n": "3 items", "cats.commercial.n": "2 models", "cats.tables.n": "made to order",
 
@@ -598,11 +598,12 @@ window.SPEC_TR = {
     'Тиковое дерево': 'Teak wood', 'Джепара': 'Jepara', 'Синий': 'Blue', 'Тёмно-серый': 'Dark grey',
     'A — оранжевый, B — тёмный': 'A — orange, B — dark',
     'A — серый меланж, B — графит': 'A — grey melange, B — graphite',
-    'A — синий, B — серый': 'A — blue, B — grey'
+    'A — синий, B — серый': 'A — blue, B — grey',
+    'Металл (Китай)': 'Metal (China)', 'Чёрно-белый': 'Black and white', 'Зеркальный': 'Mirrored'
   }
 };
 window.CAT_LABEL_KEY = {
-  beds: 'cat.beds', sofas: 'cat.sofas', chairs: 'cat.chairs', outdoor: 'cat.outdoor',
+  beds: 'cat.beds', sofas: 'cat.sofas', chairs: 'cat.chairs', armchairs: 'cat.armchairs', nightstands: 'cat.nightstands', outdoor: 'cat.outdoor',
   textile: 'cat.textile', sunbeds: 'cat.sunbeds', poufs: 'cat.poufs',
   commercial: 'cat.commercial', tables: 'cat.tables'
 };
