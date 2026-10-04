@@ -74,6 +74,7 @@ function bottom(home) {
       <div class="ft-col"><h2 class="ft-h" data-i18n="ft.contacts"></h2><ul>
         <li><a href="mailto:hello@unit.furniture">hello@unit.furniture</a></li>
         <li><a href="https://www.instagram.com/unit.furniture/" target="_blank" rel="noopener">Instagram @unit.furniture</a></li>
+        <li><a href="assets/UNIT-FURNITURE-catalog-2026-RU.pdf" download data-i18n-attr="href:pdf.href" data-i18n="pdf.ft"></a></li>
       </ul></div>
     </div>
     <div class="ft-bottom">

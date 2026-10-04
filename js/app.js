@@ -317,14 +317,126 @@
   });
 
   /* ---------- проекты: лайтбокс ---------- */
+  /* ---------- проекты: бенто-коллаж как у Спейса. Блоки 4 колонки × 2 ряда из модулей T (1×2), SS, B (2×2), WW, WSS, SSW;
+     фото раскладываются по плиткам сортированным сопоставлением пропорций (data-ar), чтобы кадр не резался до непонятного.
+     Первый блок — видимые 6 фото, «Показать все фото» докладывает остальные тем же ритмом. На ≤800 — лента. ---------- */
+  var UNITS = {                                  // [сдвиг колонки, ширина, ряд, высота, тип]
+    T: { w: 1, s: [[0, 1, 0, 2, 'T']] },
+    SS: { w: 1, s: [[0, 1, 0, 1, 'S'], [0, 1, 1, 1, 'S']] },
+    B: { w: 2, s: [[0, 2, 0, 2, 'B']] },
+    WW: { w: 2, s: [[0, 2, 0, 1, 'W'], [0, 2, 1, 1, 'W']] },
+    WSS: { w: 2, s: [[0, 2, 0, 1, 'W'], [0, 1, 1, 1, 'S'], [1, 1, 1, 1, 'S']] },
+    SSW: { w: 2, s: [[0, 1, 0, 1, 'S'], [1, 1, 0, 1, 'S'], [0, 2, 1, 1, 'W']] }
+  };
+  var COMBOS = (function () {
+    var out = [];
+    (function rec(seq, cols) {
+      if (cols === 4) { out.push(seq); return; }
+      Object.keys(UNITS).forEach(function (u) { if (cols + UNITS[u].w <= 4) rec(seq.concat(u), cols + UNITS[u].w); });
+    })([], 0);
+    return out.map(function (seq) {
+      var slots = [], col = 1;
+      seq.forEach(function (u) { UNITS[u].s.forEach(function (s) { slots.push([col + s[0], s[1], s[2], s[3], s[4]]); }); col += UNITS[u].w; });
+      return { key: seq.join('+'), slots: slots, kinds: slots.reduce(function (a, s) { if (a.indexOf(s[4]) < 0) a.push(s[4]); return a; }, []).length };
+    });
+  })();
+  function fitBlock(combo, ars, AR) {
+    var sl = combo.slots.map(function (s, i) { return { i: i, a: AR[s[4]] }; }).sort(function (x, y) { return x.a - y.a; });
+    var ph = ars.map(function (a, i) { return { i: i, a: a }; }).sort(function (x, y) { return x.a - y.a; });
+    var map = [], vis = [];
+    sl.forEach(function (s, k) { map[s.i] = ph[k].i; vis.push(Math.min(s.a, ph[k].a) / Math.max(s.a, ph[k].a)); });
+    var min = Math.min.apply(null, vis), mean = vis.reduce(function (a, v) { return a + v; }, 0) / vis.length;
+    return { map: map, score: min * 0.6 + mean * 0.4 };
+  }
+  function layoutCollage(g) {
+    var figs = $$('button', g);
+    if (window.innerWidth <= 800) { figs.forEach(function (f) { f.style.gridColumn = f.style.gridRow = ''; }); g.style.gridAutoRows = ''; return; }
+    var gap = parseFloat(getComputedStyle(g).columnGap) || 0, c = (g.clientWidth - 3 * gap) / 4, r = Math.round(c);
+    g.style.gridAutoRows = r + 'px';            // высота ряда = ширина колонки: форма плиток не зависит от ширины экрана
+    var AR = { T: c / (2 * r + gap), S: c / r, W: (2 * c + gap) / r, B: (2 * c + gap) / (2 * r + gap) };
+    var first = figs.filter(function (f) { return !f.classList.contains('tile-more'); }).length, i = 0, row = 1, prev = '';
+    function bestFor(part) {
+      var ars = part.map(function (f) { return parseFloat(f.getAttribute('data-ar')) || 1.5; }), best = null;
+      COMBOS.forEach(function (cb) {
+        if (cb.slots.length !== part.length || cb.kinds < (part.length > 4 ? 3 : 2)) return;
+        var fit = fitBlock(cb, ars, AR), sc = fit.score - (cb.key === prev ? 0.05 : 0);
+        if (!best || sc > best.sc) best = { c: cb, fit: fit, sc: sc };
+      });
+      return best;
+    }
+    while (i < figs.length) {
+      var left = figs.length - i, pick = null;
+      (i === 0 ? [first] : [6, 5, 4, 3]).forEach(function (k) {
+        if (k > left || (i > 0 && left - k > 0 && left - k < 3)) return;
+        var b = bestFor(figs.slice(i, i + k));
+        if (b && (!pick || b.sc + 0.015 * k > pick.b.sc + 0.015 * pick.k)) pick = { k: k, b: b };
+      });
+      if (!pick && left <= 2) pick = { k: left, b: bestFor(figs.slice(i)) };
+      if (!pick || !pick.b) break;
+      var part = figs.slice(i, i + pick.k), mirror = (row - 1) / 2 % 2 === 1; // блоки через один зеркально
+      pick.b.c.slots.forEach(function (s, si) {
+        var f = part[pick.b.fit.map[si]];
+        f.style.gridColumn = (mirror ? 6 - s[0] - s[1] : s[0]) + ' / span ' + s[1];
+        f.style.gridRow = (row + s[2]) + ' / span ' + s[3];
+      });
+      prev = pick.b.c.key; i += pick.k; row += 2;
+    }
+  }
+  var collage = $('#proj-grid');
+  if (collage) {
+    layoutCollage(collage);
+    var colT;
+    window.addEventListener('resize', function () { clearTimeout(colT); colT = setTimeout(function () { layoutCollage(collage); }, 150); });
+    var more = $('#proj-more');
+    if (more) more.addEventListener('click', function () {
+      var open = collage.classList.toggle('is-expanded'), k = open ? 'proj.less' : 'proj.more';
+      more.setAttribute('data-i18n', k); more.textContent = plain(T(k));
+      more.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if (!open) { var top = collage.getBoundingClientRect().top, off = $('#hdr').offsetHeight + 16; if (top < off) window.scrollBy(0, top - off); }
+    });
+  }
+
   var lb = $('#lb');
   if (lb) {
     var shots = $$('[data-shot]'), li = 0;
+    /* «В этом кадре»: модели с фото → ссылки на карточки и кнопка «в заявку» */
+    var SI = window.SHOT_ITEMS || {}, bar = $('.lb-bar', lb);
+    var shotIds = function () {
+      var m = /proj-([\w]+)\.jpg/.exec(shots[li].dataset.shot);
+      return ((m && SI[m[1]]) || []).filter(function (id) { return byId[id]; });
+    };
+    var renderAct = function () {
+      var ids = shotIds(), host = $('.lb-act', lb); if (!host || !ids.length) return;
+      var had = host.contains(document.activeElement);
+      host.innerHTML = ids.every(function (id) { return qtyOf(id) > 0; })
+        ? '<button type="button" class="btn btn-light btn-sm" data-lb-cart>' + T('proj.inreq') + '</button>'
+        : '<button type="button" class="btn btn-primary btn-sm" data-lb-add>' + T(ids.length > 1 ? 'proj.addshot2' : 'proj.addshot') + '</button>';
+      if (had) $('button', host).focus();
+    };
+    var renderBar = function () {
+      var ids = shotIds();
+      bar.hidden = !ids.length; if (!ids.length) return;
+      $('.lb-items', lb).innerHTML = ids.map(function (id) {
+        var p = byId[id];
+        return '<a class="lb-it" href="' + url(id) + '"><img src="' + p.img + '" alt="" width="56" height="56"><span>' + typo(esc(pname(p))) + '</span></a>';
+      }).join('');
+      renderAct();
+    };
     var show = function (i) {
       li = (i + shots.length) % shots.length;
       $('img', lb).src = shots[li].dataset.shot;
       $('.lb-count', lb).textContent = plain(t('pp.photo', { n: li + 1, m: shots.length }));
+      if (bar) renderBar();
     };
+    if (bar) {
+      lb.addEventListener('click', function (e) {
+        if (e.target.closest('[data-lb-add]')) {
+          shotIds().forEach(function (id) { if (!qtyOf(id)) cart.push({ id: id, q: 1 }); });
+          LS.set('uf_cart', cart); renderCart(); renderAct();
+        } else if (e.target.closest('[data-lb-cart]')) { lb.close(); openCart(shots[li]); }
+      });
+      onRender(function () { if (lb.open) renderBar(); });
+    }
     shots.forEach(function (s, i) { s.addEventListener('click', function () { show(i); lb.showModal(); }); });
     $('.lb-prev', lb).addEventListener('click', function () { show(li - 1); });
     $('.lb-next', lb).addEventListener('click', function () { show(li + 1); });
@@ -463,6 +575,9 @@
       if (p.life) a.push({ src: p.life, life: true });
       if (p.variants) Object.keys(p.variants).forEach(function (k) { a.push({ src: p.variants[k], v: k }); });
       else a.push({ src: p.img });
+      /* кадры проектов, где стоит модель (SHOT_ITEMS) */
+      var SI = window.SHOT_ITEMS || {};
+      Object.keys(SI).forEach(function (k) { if (SI[k].indexOf(p.id) >= 0) a.push({ src: 'assets/c26/proj-' + k + '.jpg', life: true }); });
       return a;
     };
     var renderPP = function () {
@@ -487,6 +602,12 @@
       if (!more.length) { more = P.filter(function (x) { return x.id !== p.id && x.cat === p.cat; }); hd = t('pp.similar'); }
       if (more.length < 4) more = more.concat(P.filter(function (x) { return x.id !== p.id && x.cat === p.cat && more.indexOf(x) < 0; }));
       $('#pp-more-h').innerHTML = typo(esc(hd));
+      var all = $('#pp-more-all'), nLine = p.collection ? lineItems(p.collection).length : 0;
+      if (all) {
+        all.hidden = !p.collection;
+        all.href = 'catalog.html?line=' + encodeURIComponent(p.collection || '');
+        all.innerHTML = p.collection ? T('pp.lineall', { c: p.collection, n: nModels(nLine) }) : '';
+      }
       $('#pp-more').innerHTML = more.slice(0, 4).map(card).join('');
       refreshCtl(); setTitle();
     };

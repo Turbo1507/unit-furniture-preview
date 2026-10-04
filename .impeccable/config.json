@@ -38,6 +38,15 @@
         ],
         "createdAt": "2026-10-03T20:56:11.452Z",
         "reason": "Агент B 04.10: body overflow-x:clip против гориз. скролла, дети position:fixed не обрезаются"
+      },
+      {
+        "rule": "tight-leading",
+        "value": "*",
+        "files": [
+          "index.html"
+        ],
+        "createdAt": "2026-10-04T12:43:39.099Z",
+        "reason": "Босс 04.10: текст карточек «двух дорог» 16/20 (lh 1.25), БОСС-ТРЕБОВАНИЯ"
       }
     ]
   }

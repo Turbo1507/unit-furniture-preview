@@ -63,7 +63,9 @@ window.DICT = {
     'sol.go': 'Смотреть модели', 'sol.go.turnkey': 'Обсудить комплектацию',
 
     'proj.h2': 'Мебель в проектах <i class="u5">UNIT.</i>',
-    'proj.lead': 'Кадры интерьеров с мебелью коллекции. Нажмите на фото, чтобы открыть крупно',
+    'proj.lead': 'Наша мебель стоит в UNIT Space City и Black Sands Oasis. Откройте фото, чтобы увидеть модели в кадре',
+    'proj.more': 'Показать все фото', 'proj.less': 'Свернуть фото',
+    'proj.inshot': 'В этом кадре', 'proj.addshot': 'Добавить в заявку', 'proj.addshot2': 'Добавить модели в заявку', 'proj.inreq': 'Модели в заявке, открыть',
     'proj.open': 'Открыть фото', 'proj.close': 'Закрыть', 'proj.prev': 'Предыдущее фото', 'proj.next': 'Следующее фото',
 
     'how.h2': 'Как заказать мебель',
@@ -127,7 +129,7 @@ window.DICT = {
     'pp.crumb': 'Каталог', 'pp.line': 'Линейка', 'pp.cat': 'Категория', 'pp.dims': 'Размеры, В × Ш × Г',
     'pp.price': 'Стоимость по запросу: считаем под количество, ткань и размер.',
     'pp.custom': 'Изменить размер или ткань', 'pp.more': 'Ещё из линейки {c}', 'pp.similar': 'Похожие модели',
-    'pp.photo': 'Фото {n} из {m}',
+    'pp.photo': 'Фото {n} из {m}', 'pp.lineall': 'Вся линейка {c} в каталоге: {n}',
     'pp.custom.h': 'Что можно изменить',
 
     'cat.beds': 'Кровати', 'cat.sofas': 'Диваны', 'cat.chairs': 'Стулья', 'cat.armchairs': 'Кресла и пуфы',
@@ -145,7 +147,8 @@ window.DICT = {
     'ft.about': 'Авторская мебель собственного производства на Бали для частных и коммерческих объектов.',
     'ft.nav': 'Разделы', 'ft.contacts': 'Контакты', 'ft.legal': 'Правовая информация', 'ft.consent': 'Согласие на обработку данных',
     'ft.part': 'Часть группы <a href="https://unitdeveloper.com/" target="_blank" rel="noopener"><i class="u5">UNIT.</i>DEVELOPER</a>',
-    'ft.top': 'Наверх'
+    'ft.top': 'Наверх',
+    'pdf.dl': 'Скачать каталог PDF', 'pdf.ft': 'Каталог 2026 (PDF)', 'pdf.href': 'assets/UNIT-FURNITURE-catalog-2026-RU.pdf'
   },
   en: {
     'meta.title': 'UNIT.FURNITURE: designer furniture made in our own workshop in Bali',
@@ -207,7 +210,9 @@ window.DICT = {
     'sol.go': 'View models', 'sol.go.turnkey': 'Discuss furnishing',
 
     'proj.h2': 'Furniture in <i class="u5">UNIT.</i> projects',
-    'proj.lead': 'Interiors with furniture from the collection. Tap a photo to open it large',
+    'proj.lead': 'Our furniture is in UNIT Space City and Black Sands Oasis. Open a photo to see the models in the shot',
+    'proj.more': 'Show all photos', 'proj.less': 'Hide photos',
+    'proj.inshot': 'In this shot', 'proj.addshot': 'Add to the request', 'proj.addshot2': 'Add these to the request', 'proj.inreq': 'In the request, open it',
     'proj.open': 'Open photo', 'proj.close': 'Close', 'proj.prev': 'Previous photo', 'proj.next': 'Next photo',
 
     'how.h2': 'How to order furniture',
@@ -271,7 +276,7 @@ window.DICT = {
     'pp.crumb': 'Catalog', 'pp.line': 'Line', 'pp.cat': 'Category', 'pp.dims': 'Dimensions, H × W × D',
     'pp.price': 'Price on request: we quote by quantity, fabric and size.',
     'pp.custom': 'Change size or fabric', 'pp.more': 'More from the {c} line', 'pp.similar': 'Similar models',
-    'pp.photo': 'Photo {n} of {m}',
+    'pp.photo': 'Photo {n} of {m}', 'pp.lineall': 'The whole {c} line in the catalog: {n}',
     'pp.custom.h': 'What can be changed',
 
     'cat.beds': 'Beds', 'cat.sofas': 'Sofas', 'cat.chairs': 'Chairs', 'cat.armchairs': 'Armchairs and poufs',
@@ -289,7 +294,8 @@ window.DICT = {
     'ft.about': 'Designer furniture made in our own workshop in Bali for private and commercial properties.',
     'ft.nav': 'Sections', 'ft.contacts': 'Contacts', 'ft.legal': 'Legal information', 'ft.consent': 'Consent to data processing',
     'ft.part': 'Part of the <a href="https://unitdeveloper.com/" target="_blank" rel="noopener"><i class="u5">UNIT.</i>DEVELOPER</a> group',
-    'ft.top': 'Back to top'
+    'ft.top': 'Back to top',
+    'pdf.dl': 'Download the PDF catalog', 'pdf.ft': 'Catalog 2026 (PDF)', 'pdf.href': 'assets/UNIT-FURNITURE-catalog-2026-EN.pdf'
   }
 };
 
