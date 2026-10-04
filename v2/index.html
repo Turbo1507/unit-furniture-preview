@@ -24,7 +24,7 @@
     <nav class="site-nav" aria-label="Main"><a href="#collections" data-i18n="nav.collections">Коллекции</a><a href="catalog.html" data-i18n="nav.catalog">Каталог</a><a href="#production" data-i18n="nav.production">Производство</a><a href="#custom" data-i18n="nav.custom">Под ваш объект</a><a href="#how" data-i18n="nav.how">Как заказать</a><a href="#faq" data-i18n="nav.faq">Вопросы</a></nav>
     <div class="hdr-right">
       <div class="lang" role="group" aria-label="Language"><button type="button" data-lang="ru" lang="ru">RU</button><button type="button" data-lang="en" lang="en">EN</button></div>
-      <button type="button" class="cart-btn" data-cart-open data-i18n-attr="aria-label:hdr.cart" aria-label="Заявка"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span class="cart-count" hidden>0</span></button>
+      <button type="button" class="cart-btn" data-cart-open data-i18n-attr="aria-label:hdr.cart" aria-label="Корзина"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span class="cart-count" hidden>0</span></button>
       <a class="btn btn-primary btn-sm" href="#lead" data-quote="" data-i18n="cta.quote">Получить расчёт</a>
       <button type="button" class="burger" aria-expanded="false" aria-controls="mmenu" data-i18n-attr="aria-label:hdr.menu" aria-label="Меню"><span></span></button>
     </div>
@@ -265,7 +265,7 @@
         <p class="t-lead" data-i18n="faq.lead">Коротко о том, что спрашивают перед заказом</p>
       </div>
       <div class="faq">
-        <details><summary><span data-i18n="faq.q1">Почему на сайте нет цен?</span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary><p data-i18n="faq.a1">Стоимость зависит от модели, размеров, ткани и количества. Добавьте модели в заявку с количеством, и мы пришлём расчёт под ваш объект.</p></details>
+        <details><summary><span data-i18n="faq.q1">Почему на сайте нет цен?</span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary><p data-i18n="faq.a1">Стоимость зависит от модели, размеров, ткани и количества. Добавьте модели в корзину с количеством, и мы пришлём расчёт под ваш объект.</p></details>
         <details><summary><span data-i18n="faq.q2">Какие сроки изготовления?</span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary><p data-i18n="faq.a2">Срок называем вместе с расчётом: он зависит от моделей, количества и доработок. Если у объекта есть дата открытия или заселения, укажите её в заявке.</p></details>
         <details><summary><span data-i18n="faq.q3">Можно изменить размер, цвет или ткань?</span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary><p data-i18n="faq.a3">Да. Адаптируем размеры и эргономику, подбираем оттенки дерева, тканей и отделки для помещений и улицы.</p></details>
         <details><summary><span data-i18n="faq.q4">Выдержит ли мебель климат Бали и улицу?</span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary><p data-i18n="faq.a4">Мебель разрабатываем под тропический климат: материалы и конструкции рассчитаны на высокую влажность и перепады температуры, для улицы берём материалы, устойчивые к солнцу.</p></details>
@@ -281,7 +281,7 @@
     <div class="container lead-grid">
       <div class="lead-side rv">
         <h2 class="t-h2" id="lead-h" data-i18n="lead.h2">Подберём мебель для вашего объекта</h2>
-        <p class="t-lead" data-i18n="lead.lead">Отправьте модели из заявки или опишите задачу. Ответим и пришлём расчёт</p>
+        <p class="t-lead" data-i18n="lead.lead">Отправьте модели из корзины или опишите задачу. Ответим и пришлём расчёт</p>
         <div class="contacts">
           <div><span data-i18n="lead.email">Почта</span><a href="mailto:hello@unit.furniture">hello@unit.furniture</a></div>
           <div><span data-i18n="lead.ig">Instagram</span><a href="https://www.instagram.com/unit.furniture/" target="_blank" rel="noopener">@unit.furniture</a></div>
@@ -315,7 +315,7 @@
             </select>
           </div>
           <div class="field">
-            <p class="lbl" data-i18n="f.models">Модели в заявке</p>
+            <p class="lbl" data-i18n="f.models">Модели из корзины</p>
             <div class="req-list" id="req-list" aria-live="polite"></div>
           </div>
           <div class="field">
@@ -363,7 +363,7 @@
 <aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-h" aria-hidden="true" inert data-step="list">
   <div class="drawer-head">
     <button type="button" class="d-back" data-step-to="list" hidden><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg><span data-i18n="cart.back">К моделям</span></button>
-    <h2 id="drawer-h" data-i18n="cart.h">Заявка</h2>
+    <h2 id="drawer-h" data-i18n="cart.h">Корзина</h2>
     <button type="button" class="drawer-close" data-cart-close data-i18n-attr="aria-label:proj.close" aria-label="Закрыть"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
   </div>
   <div class="drawer-body" id="drawer-body"></div>
@@ -406,7 +406,7 @@
     <div class="cta-row"><a class="btn btn-outline" href="catalog.html" data-i18n="ok.more">Смотреть каталог</a><button type="button" class="btn btn-outline" data-cart-close data-i18n="cart.closeBtn">Закрыть</button></div>
   </div>
 </aside>
-<div class="toast" id="toast" role="status" aria-live="polite"><span></span><button type="button" data-i18n="toast.open">Открыть заявку</button></div>
+<div class="toast" id="toast" role="status" aria-live="polite"><span></span><button type="button" data-i18n="toast.open">Открыть корзину</button></div>
 <!--@/bottom-->
 <script src="js/dict.js"></script>
 <script src="js/data.js"></script>
