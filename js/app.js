@@ -639,4 +639,13 @@
 
   renderers.push(renderCart);
   setLang(lang);
+  /* каталог PDF: пока файла нет (собирается из Figma) — кнопки скрыты */
+  var pdfs = $$('a[data-i18n-attr="href:pdf.href"]');
+  if (pdfs.length && window.fetch) {
+    var pdfCheck = function () {
+      fetch(pdfs[0].getAttribute('href'), { method: 'HEAD' }).then(function (r) { return r.ok; }, function () { return false; })
+        .then(function (ok) { pdfs.forEach(function (a) { (a.closest('li') || a).hidden = !ok; }); });
+    };
+    onRender(pdfCheck);
+  }
 })();
