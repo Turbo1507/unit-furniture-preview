@@ -2,3 +2,6 @@ _build/
 _shots/
 .impeccable/review/
 .impeccable/live/
+**/.impeccable/review/
+**/.impeccable/live/
+**/.impeccable/hook.cache.json
