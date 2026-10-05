@@ -614,3 +614,11 @@ fieldset.field legend{padding:0;margin-bottom:var(--s1);font-size:var(--fs-cap);
 @media (min-width:901px){ .lead-grid{grid-template-columns:repeat(2,minmax(0,1fr))} }
 @media (min-width:901px) and (max-width:1100px){ .split{grid-template-columns:repeat(2,minmax(0,1fr))} }
 @media (min-width:901px) and (max-width:1000px){ .lead-grid,.dz,.split{grid-template-columns:1fr} .split-photo img{aspect-ratio:4/3} .dz-media{aspect-ratio:auto;grid-template-rows:200px 200px 160px} }
+.rows,.dz-list{border-top:0}
+.row:last-child,.dz-list li:last-child,.steps li:last-child{border-bottom:0}
+@media (min-width:561px){ .dz-list li:nth-last-child(2):nth-child(odd){border-bottom:0} }
+.sub-head.sect-head{margin-bottom:clamp(32px,3.4vw,48px)}
+.clim-photo{position:relative}
+.tags--clim{position:absolute;left:var(--s4);bottom:var(--s4);right:var(--s4);margin:0}
+@media (max-width:560px){ .tags--clim{left:var(--s2);bottom:var(--s2);right:var(--s2)} }
+@media (max-width:560px){ .clim-photo img{aspect-ratio:4/3} }
