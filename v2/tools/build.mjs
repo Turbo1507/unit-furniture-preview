@@ -33,9 +33,9 @@ const IC = {
 };
 const WM = '<i class="u5">UNIT.</i>FURNITURE';
 // шапка компактная, как в ТЗ; в футере все разделы
-const NAV = [['catalog', 'catalog.html'], ['solutions', '#solutions'], ['custom', '#custom'], ['projects', '#projects'], ['contacts', '#lead']];
+const NAV = [['catalog', 'catalog.html'], ['solutions', '#solutions'], ['custom', '#custom'], ['projects', '#projects'], ['designers', 'designers.html'], ['contacts', '#lead']];
 const FOOT = [['catalog', 'catalog.html'], ['collections', '#collections'], ['solutions', '#solutions'], ['custom', '#custom'], ['production', '#production'],
-  ['materials', '#materials'], ['projects', '#projects'], ['how', '#how'], ['faq', '#faq'], ['contacts', '#lead']];
+  ['materials', '#materials'], ['projects', '#projects'], ['designers', 'designers.html'], ['how', '#how'], ['faq', '#faq'], ['contacts', '#lead']];
 // поле «прикрепить файл»: одно на обе формы, p — префикс id
 const files = (p) => `
     <div class="field field-files">
@@ -166,7 +166,7 @@ function fill(html) {
   return html;
 }
 
-const pages = process.argv.slice(2).length ? process.argv.slice(2) : ['index.html', 'catalog.html', 'product.html', 'legal.html', 'consent.html'];
+const pages = process.argv.slice(2).length ? process.argv.slice(2) : ['index.html', 'catalog.html', 'product.html', 'designers.html', 'legal.html', 'consent.html'];
 for (const f of pages) {
   const p = path.join(ROOT, f);
   if (!fs.existsSync(p)) { console.log('нет', f); continue; }

@@ -550,3 +550,32 @@ fieldset.field legend{padding:0;margin-bottom:var(--s1);font-size:var(--fs-cap);
   .p-card .tags li + li{display:none}
 }
 @media (min-width:901px){ .ft-grid > .ft-col:nth-child(2) ul{columns:2;column-gap:var(--s4)} .ft-grid > .ft-col:nth-child(2) li{break-inside:avoid} }
+
+/* для дизайнеров: строгий графитовый блок */
+.sect--ink{background:var(--ink);color:#fff}
+.sect--ink .t-lead{color:#fff}
+.btn-white{background:#fff;color:var(--ink)}
+.btn-white:hover{background:var(--paper)}
+.dz{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,6fr);gap:clamp(32px,5vw,80px);align-items:start}
+.dz-text{display:grid;gap:var(--s3)}
+.dz-text .sect-head{margin-bottom:0}
+.dz-p{color:rgba(255,255,255,.86);max-width:60ch}
+.dz-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 var(--s4);border-top:1px solid rgba(255,255,255,.22)}
+.dz-list li{padding-block:12px;border-bottom:1px solid rgba(255,255,255,.22);font-weight:500}
+.dz-text .cta-row{margin-top:calc(var(--cta) - var(--s3))}
+.dz-media{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(3,minmax(0,1fr));gap:var(--s2);aspect-ratio:1/1.05}
+.dz-media img{width:100%;height:100%;object-fit:cover;border-radius:var(--r);min-height:0}
+.dz-media .big{grid-row:1 / span 3}
+.dz-media .studio{background:#fff;object-fit:contain;padding:var(--s2)}
+@media (max-width:900px){ .dz{grid-template-columns:1fr} .dz-media{aspect-ratio:auto;grid-template-rows:200px 200px 160px} }
+@media (max-width:560px){ .dz-list{grid-template-columns:1fr} .dz-media{grid-template-rows:160px 160px 120px} }
+.dzp-top{align-items:center}
+@media (min-width:901px){ .dzp-top{grid-template-columns:minmax(0,7fr) minmax(0,5fr)} }
+.dzp-intro{display:grid;gap:var(--s2)}
+.dzp-intro .cta-row{margin-top:calc(var(--cta) - var(--s2))}
+.dzp-top .split-photo img{aspect-ratio:4/3}
+.sect--ink .sect-head .cta-row{margin-top:calc(var(--cta) - var(--s2))}
+.sect--ink .contacts span{color:rgba(255,255,255,.72)}
+.sect--ink .contacts a:hover{color:#B9BBFF}
+.dzp-mgr{font-weight:500}
+@media (max-width:560px){ .sect--ink .cta-row .btn,.dzp-intro .cta-row .btn{flex:1 1 100%} }

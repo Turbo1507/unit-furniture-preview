@@ -231,7 +231,7 @@
   document.addEventListener('click', function (e) {
     var b = e.target.closest('[data-add],[data-inc],[data-dec],[data-rm],[data-cart-open],[data-cart-close],[data-addline],[data-rmline],[data-quote],[data-step-to],#toast button');
     if (!b) return;
-    if (b.hasAttribute('data-quote')) { e.preventDefault(); if (layer && layer !== drawer) closeLayer(false); openCart(b, 'form'); }
+    if (b.hasAttribute('data-quote')) { e.preventDefault(); if (drawer) drawer.dataset.src = b.dataset.src || ''; if (layer && layer !== drawer) closeLayer(false); openCart(b, 'form'); }
     else if (b.hasAttribute('data-step-to')) drawerStep(b.dataset.stepTo);
     else if (b.hasAttribute('data-rmline')) { rmLine(b.dataset.rmline); var nb = $('[data-lineadd-btn="' + b.dataset.rmline + '"]'); nb && nb.focus(); }
     else if (b.hasAttribute('data-add')) { setQty(b.dataset.add, 1); toast(pname(byId[b.dataset.add])); }
@@ -499,6 +499,7 @@
         type: form.elements.type ? form.elements.type.value : '', msg: form.elements.msg.value.trim(),
         need: $$('[name="need"]:checked', form).map(function (c) { return c.value; }),
         files: (form._files || []).map(function (x) { return x.name; }),
+        src: (form.id === 'd-form' && drawer && drawer.dataset.src) || '', page: page,
         items: cart.map(function (i) { return { id: i.id, name: byId[i.id].name, q: i.q }; }), lang: lang, at: new Date().toISOString()
       };
       /* TODO: отправка в Telegram через REST unitdeveloper, как у Спейса.
@@ -675,6 +676,8 @@
   }
 
   /* ---------- активный пункт меню и reveal ---------- */
+  var here = location.pathname.split('/').pop() || 'index.html';
+  $$('.site-nav a, .mmenu nav a').forEach(function (l) { if (l.getAttribute('href') === here) { l.classList.add('is-active'); l.setAttribute('aria-current', 'page'); } });
   if ('IntersectionObserver' in window) {
     var links = $$('.site-nav a[href^="#"], .mmenu nav a[href^="#"]');
     if (links.length) {
