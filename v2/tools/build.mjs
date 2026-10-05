@@ -34,7 +34,7 @@ const IC = {
 const WM = '<i class="u5">UNIT.</i>FURNITURE';
 // шапка компактная, как в ТЗ; в футере все разделы
 const NAV = [['catalog', 'catalog.html'], ['solutions', '#solutions'], ['custom', '#custom'], ['projects', '#projects'], ['designers', 'designers.html'], ['contacts', '#lead']];
-const FOOT = [['catalog', 'catalog.html'], ['collections', '#collections'], ['solutions', '#solutions'], ['custom', '#custom'], ['production', '#production'],
+const FOOT = [['catalog', 'catalog.html'], ['solutions', '#solutions'], ['custom', '#custom'], ['production', '#production'],
   ['materials', '#materials'], ['projects', '#projects'], ['designers', 'designers.html'], ['how', '#how'], ['faq', '#faq'], ['contacts', '#lead']];
 // поле «прикрепить файл»: одно на обе формы, p — префикс id
 const files = (p) => `

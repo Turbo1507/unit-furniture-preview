@@ -609,3 +609,4 @@ fieldset.field legend{padding:0;margin-bottom:var(--s1);font-size:var(--fs-cap);
 .pp-info .tags li{background:var(--white)}
 .pp-solw .sol-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
 @media (max-width:560px){ .pp-solw .sol-grid{grid-template-columns:1fr} }
+.sect--alt .path{background:var(--paper)}
