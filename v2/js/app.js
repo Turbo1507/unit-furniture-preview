@@ -463,7 +463,7 @@
   };
   function resetForm(form) {
     if (!form) return;
-    form.reset(); form._tried = false;
+    form.reset(); form._tried = false; form._files = []; form._renderFiles && form._renderFiles();
     $$('.field', form).forEach(function (f) { f.classList.remove('has-err'); });
     $$('[aria-invalid]', form).forEach(function (el) { el.removeAttribute('aria-invalid'); });
     form._summary();
@@ -497,19 +497,55 @@
       var data = {
         name: form.elements.name.value.trim(), contact: form.elements.contact.value.trim(),
         type: form.elements.type ? form.elements.type.value : '', msg: form.elements.msg.value.trim(),
+        need: $$('[name="need"]:checked', form).map(function (c) { return c.value; }),
+        files: (form._files || []).map(function (x) { return x.name; }),
         items: cart.map(function (i) { return { id: i.id, name: byId[i.id].name, q: i.q }; }), lang: lang, at: new Date().toISOString()
       };
-      /* TODO (Босс 03.10: бот позже): отправка в Telegram через REST unitdeveloper, как у Спейса.
-         До подключения заявка сохраняется только в браузере посетителя. */
+      /* TODO: отправка в Telegram через REST unitdeveloper, как у Спейса.
+         Пока бота нет, заявка остаётся только в браузере посетителя. */
       LS.set('uf_last_request', data);
       $('[data-ok-p]', ok).innerHTML = typo(esc(t('ok.p', { c: '\u0001' }))).replace('\u0001', '<b>' + esc(data.contact) + '</b>');
       $('[data-ok-list]', ok).innerHTML = data.items.length
         ? '<p class="t-small">' + T('ok.list') + '</p><ul>' + data.items.map(function (i) { return '<li>' + esc(pname(byId[i.id])) + ' × ' + i.q + '</li>'; }).join('') + '</ul>'
         : '<p class="t-small muted">' + T('ok.none') + '</p>';
+      if (data.files.length) $('[data-ok-list]', ok).innerHTML += '<p class="t-small muted">' + T('ok.files', { n: data.files.length }) + '</p>';
       onDone();
       cart = []; LS.set('uf_cart', cart); renderCart();
     });
     renderers.push(function () { if (form._tried) summary(); });
+    initFiles(form);
+  }
+
+  /* файлы к заявке: до 10 штук по 20 МБ, список с кнопкой «убрать» */
+  var MAX_FILES = 10, MAX_MB = 20;
+  function initFiles(form) {
+    var inp = $('.file-in', form); if (!inp) return;
+    var list = $('.file-list', inp.parentNode), err = $('.err', inp.parentNode), fld = inp.closest('.field'), bad = [];
+    form._files = [];
+    var mb = function (b) { return (b / 1048576).toFixed(b < 1048576 ? 2 : 1).replace('.', lang === 'ru' ? ',' : '.') + (lang === 'ru' ? ' МБ' : ' MB'); };
+    var render = form._renderFiles = function () {
+      list.innerHTML = form._files.map(function (x, i) {
+        return '<li><span class="fn">' + esc(x.name) + '</span><span class="fs tnum">' + mb(x.size) + '</span>' +
+          '<button type="button" data-frm="' + i + '" aria-label="' + esc(plain(t('f.files.rm', { name: x.name }))) + '"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></li>';
+      }).join('');
+      fld.classList.toggle('has-err', bad.length > 0);
+      err.textContent = bad.length ? plain(t('f.err.files', { list: bad.join(', ') })) : '';
+    };
+    inp.addEventListener('change', function () {
+      bad = [];
+      Array.prototype.forEach.call(inp.files, function (x) {
+        if (x.size > MAX_MB * 1048576 || form._files.length >= MAX_FILES) bad.push(x.name);
+        else form._files.push(x);
+      });
+      inp.value = '';
+      render();
+    });
+    list.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-frm]'); if (!b) return;
+      form._files.splice(+b.dataset.frm, 1); bad = []; render();
+      var nb = $('[data-frm]', list); (nb || inp).focus();
+    });
+    renderers.push(render);
   }
   var form = $('#lead-form');
   initForm(form, $('#form-ok'), function () { form.hidden = true; $('#form-ok').hidden = false; $('h3', $('#form-ok')).focus(); });
@@ -526,15 +562,30 @@
       '<div class="tx"><h3><a href="' + url(p.id) + '">' + typo(esc(pname(p))) + '</a></h3>' +
       '<p class="sub">' + esc(catName(p.cat)) + (p.collection ? ', ' + p.collection : '') + '</p>' +
       '<p class="dims tnum">' + typo(esc(dims(p))) + '</p>' +
+      '<ul class="tags">' + tags(p).map(function (k) { return '<li>' + T(k) + '</li>'; }).join('') + '</ul>' +
+      '<p class="price">' + T('card.price') + '</p>' +
       '<div class="act" data-ctl="' + p.id + '" data-v="card"></div></div></article>';
   }
+  function tags(p) {
+    var a = [p.env === 'outdoor' ? 'env.outdoor' : 'env.indoor'];
+    if (p.fabric) a.push('tag.fabric');
+    if (p.cat !== 'textile') a.push('tag.size');
+    return a;
+  }
+  var ENVS = ['indoor', 'outdoor'];
   var grid = $('#p-grid');
   if (grid && page === 'catalog') {
     var qs = new URLSearchParams(location.search);
-    var st = { cat: CATS.indexOf(qs.get('cat')) >= 0 ? qs.get('cat') : '', line: LNS.indexOf(qs.get('line')) >= 0 ? qs.get('line') : '' };
+    var st = { cat: CATS.indexOf(qs.get('cat')) >= 0 ? qs.get('cat') : '', line: LNS.indexOf(qs.get('line')) >= 0 ? qs.get('line') : '',
+      env: ENVS.indexOf(qs.get('env')) >= 0 ? qs.get('env') : '' };
+    var match = function (p, o) {
+      o = Object.assign({}, st, o);
+      return (!o.cat || p.cat === o.cat) && (!o.line || p.collection === o.line) && (!o.env || p.env === o.env);
+    };
     var renderCatalog = function () {
-      var inCat = function (c) { return P.filter(function (p) { return (!c || p.cat === c) && (!st.line || p.collection === st.line); }).length; };
-      var inLine = function (l) { return P.filter(function (p) { return (!st.cat || p.cat === st.cat) && (!l || p.collection === l); }).length; };
+      var inCat = function (c) { return P.filter(function (p) { return match(p, { cat: c }); }).length; };
+      var inLine = function (l) { return P.filter(function (p) { return match(p, { line: l }); }).length; };
+      var inEnv = function (v) { return P.filter(function (p) { return match(p, { env: v }); }).length; };
       var off = function (n, on) { return !n && !on ? ' aria-disabled="true"' : ''; };
       $('#chips-cat').innerHTML = [''].concat(CATS).map(function (c) {
         var n = inCat(c);
@@ -543,22 +594,26 @@
       $('#chips-line').innerHTML = [''].concat(LNS).map(function (l) {
         return '<button type="button" data-fline="' + l + '" aria-pressed="' + (st.line === l) + '"' + off(inLine(l), st.line === l) + '>' + (l || T('cat.lineAll')) + '</button>';
       }).join('');
-      var list = P.filter(function (p) { return (!st.cat || p.cat === st.cat) && (!st.line || p.collection === st.line); });
+      $('#chips-env').innerHTML = ENVS.map(function (v) {
+        return '<button type="button" data-fenv="' + v + '" aria-pressed="' + (st.env === v) + '"' + off(inEnv(v), st.env === v) + '>' + T('env.' + v) + '</button>';
+      }).join('');
+      var list = P.filter(function (p) { return match(p); });
       grid.innerHTML = list.map(card).join('');
       $('#cat-count').textContent = plain(t('cat.shown', { n: list.length }));
       $('#cat-empty').hidden = list.length > 0;
       refreshCtl();
     };
     var sync = function () {
-      var q = new URLSearchParams(); if (st.cat) q.set('cat', st.cat); if (st.line) q.set('line', st.line);
+      var q = new URLSearchParams(); if (st.cat) q.set('cat', st.cat); if (st.line) q.set('line', st.line); if (st.env) q.set('env', st.env);
       history.replaceState(null, '', location.pathname + (q.toString() ? '?' + q : ''));
     };
     document.addEventListener('click', function (e) {
-      var b = e.target.closest('[data-fcat],[data-fline],[data-freset]'); if (!b || b.getAttribute('aria-disabled') === 'true') return;
+      var b = e.target.closest('[data-fcat],[data-fline],[data-fenv],[data-freset]'); if (!b || b.getAttribute('aria-disabled') === 'true') return;
       if (b.hasAttribute('data-fcat')) st.cat = b.dataset.fcat;
       else if (b.hasAttribute('data-fline')) st.line = b.dataset.fline;
-      else st = { cat: '', line: '' };
-      var attr = b.hasAttribute('data-fcat') ? 'data-fcat' : b.hasAttribute('data-fline') ? 'data-fline' : null, val = attr && b.getAttribute(attr);
+      else if (b.hasAttribute('data-fenv')) st.env = st.env === b.dataset.fenv ? '' : b.dataset.fenv;
+      else st = { cat: '', line: '', env: '' };
+      var attr = ['data-fcat', 'data-fline', 'data-fenv'].filter(function (a) { return b.hasAttribute(a); })[0] || null, val = attr && b.getAttribute(attr);
       sync(); renderCatalog();
       if (attr) { var nb = $('[' + attr + '="' + val + '"]'); nb && nb.focus(); }
     });
@@ -636,6 +691,29 @@
     }, { rootMargin: '0px 0px -8% 0px' });
     $$('.rv').forEach(function (el) { ro.observe(el); });
   } else $$('.rv').forEach(function (el) { el.classList.add('in'); });
+
+  var mbar = $('#mbar');
+  if (mbar) {
+    var mq = window.matchMedia('(max-width:720px)'), near = {};
+    var mbarSync = function () {
+      var start = hero ? hero.offsetHeight * 0.6 : 240;
+      var on = mq.matches && !layer && window.scrollY > start && !near.lead && !near.foot;
+      if (mbar.classList.contains('show') === on) return;
+      mbar.classList.toggle('show', on); mbar.inert = !on; mbar.setAttribute('aria-hidden', on ? 'false' : 'true');
+      document.body.classList.toggle('has-mbar', on);
+    };
+    if ('IntersectionObserver' in window) {
+      var mio = new IntersectionObserver(function (es) {
+        es.forEach(function (en) { near[en.target.id === 'lead' ? 'lead' : 'foot'] = en.isIntersecting; });
+        mbarSync();
+      });
+      [$('#lead'), $('.site-footer')].filter(Boolean).forEach(function (el) { mio.observe(el); });
+    }
+    window.addEventListener('scroll', mbarSync, { passive: true });
+    mq.addEventListener ? mq.addEventListener('change', mbarSync) : mq.addListener(mbarSync);
+    new MutationObserver(mbarSync).observe(document.body, { attributes: true, attributeFilter: ['class'] });
+    mbarSync();
+  }
 
   renderers.push(renderCart);
   setLang(lang);

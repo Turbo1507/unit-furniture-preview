@@ -28,10 +28,24 @@ const IC = {
   bag: '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>',
   x: '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>',
   left: '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg>',
+  clip: '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="m20 11-8.5 8.5a5 5 0 0 1-7-7L13 4a3.3 3.3 0 0 1 4.7 4.7l-8.6 8.6a1.7 1.7 0 0 1-2.4-2.4L14.5 7"/></svg>',
   right: '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>',
 };
 const WM = '<i class="u5">UNIT.</i>FURNITURE';
-const NAV = [['collections', '#collections'], ['catalog', 'catalog.html'], ['production', '#production'], ['custom', '#custom'], ['how', '#how'], ['faq', '#faq']];
+// шапка компактная, как в ТЗ; в футере все разделы
+const NAV = [['catalog', 'catalog.html'], ['solutions', '#solutions'], ['custom', '#custom'], ['projects', '#projects'], ['contacts', '#lead']];
+const FOOT = [['catalog', 'catalog.html'], ['collections', '#collections'], ['solutions', '#solutions'], ['custom', '#custom'], ['production', '#production'],
+  ['materials', '#materials'], ['projects', '#projects'], ['how', '#how'], ['faq', '#faq'], ['contacts', '#lead']];
+// поле «прикрепить файл»: одно на обе формы, p — префикс id
+const files = (p) => `
+    <div class="field field-files">
+      <p class="lbl"><span data-i18n="f.files"></span> <span class="opt">(<span data-i18n="f.opt"></span>)</span></p>
+      <input type="file" class="file-in sr-only" id="${p}-files" name="files" multiple accept="image/*,.pdf,.dwg,.dxf,.skp" aria-describedby="${p}-files-h ${p}-files-e">
+      <label class="btn btn-outline btn-sm file-btn" for="${p}-files">${IC.clip}<span data-i18n="f.files.btn"></span></label>
+      <p class="hint" id="${p}-files-h" data-i18n="f.files.hint"></p>
+      <ul class="file-list"></ul>
+      <p class="err" id="${p}-files-e" role="status"></p>
+    </div>`;
 
 function top(home) {
   const h = (x) => (x.startsWith('#') && !home ? 'index.html' + x : x);
@@ -64,12 +78,12 @@ function top(home) {
 
 function bottom(home) {
   const h = (x) => (x.startsWith('#') && !home ? 'index.html' + x : x);
-  const links = NAV.map(([k, x]) => `<li><a href="${h(x)}" data-i18n="nav.${k}"></a></li>`).join('');
+  const links = FOOT.map(([k, x]) => `<li><a href="${h(x)}" data-i18n="nav.${k}"></a></li>`).join('');
   return `
 <footer class="site-footer">
   <div class="container">
     <div class="ft-grid">
-      <div class="ft-brand"><a class="wordmark" href="index.html">${WM}</a><p class="ft-about" data-i18n="ft.about"></p></div>
+      <div class="ft-brand"><a class="wordmark" href="index.html">${WM}</a><p class="ft-slogan" lang="en">Designed for living. Built to last.</p><p class="ft-about" data-i18n="ft.about"></p></div>
       <div class="ft-col"><h2 class="ft-h" data-i18n="ft.nav"></h2><ul>${links}</ul></div>
       <div class="ft-col"><h2 class="ft-h" data-i18n="ft.contacts"></h2><ul>
         <li><a href="mailto:hello@unit.furniture">hello@unit.furniture</a></li>
@@ -114,7 +128,7 @@ function bottom(home) {
     <div class="field">
       <label for="d-msg"><span data-i18n="f.msg"></span> <span class="opt">(<span data-i18n="f.opt"></span>)</span></label>
       <textarea class="inp" id="d-msg" name="msg" rows="3" data-i18n-attr="placeholder:f.msg.ph"></textarea>
-    </div>
+    </div>${files('d')}
     <div class="field">
       <label class="chk" for="d-agree"><input type="checkbox" id="d-agree" name="agree" aria-describedby="de-agree" required><span data-i18n="f.agree"></span></label>
       <p class="err" id="de-agree" data-i18n="f.err.agree"></p>
@@ -130,6 +144,7 @@ function bottom(home) {
     <div class="cta-row"><a class="btn btn-outline" href="catalog.html" data-i18n="ok.more"></a><button type="button" class="btn btn-outline" data-cart-close data-i18n="cart.closeBtn"></button></div>
   </div>
 </aside>
+<div class="mbar" id="mbar" aria-hidden="true" inert><a class="btn btn-primary btn-block" href="${home ? '#lead' : 'index.html#lead'}" data-quote data-i18n="cta.quote"></a></div>
 <div class="toast" id="toast" role="status" aria-live="polite"><span></span><button type="button" data-i18n="toast.open"></button></div>
 `;
 }
@@ -159,6 +174,7 @@ for (const f of pages) {
   const home = /data-page="home"/.test(s);
   s = s.replace(/<!--@top-->[\s\S]*?<!--@\/top-->/, `<!--@top-->${top(home)}<!--@/top-->`)
        .replace(/<!--@bottom-->[\s\S]*?<!--@\/bottom-->/, `<!--@bottom-->${bottom(home)}<!--@/bottom-->`);
+  s = s.replace(/<!--@files:(\w+)-->[\s\S]*?<!--@\/files-->/g, (m, p) => `<!--@files:${p}-->${files(p)}<!--@/files-->`);
   s = fill(s);
   // юр. страницы: статический текст через типограф, связка UNIT. с весом 500
   s = s.replace(/(<div class="legal"[\s\S]*?)(<\/div><\/div><\/main>)/, (m, body, end) =>

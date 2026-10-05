@@ -21,7 +21,7 @@
 <header class="site-header" id="hdr">
   <div class="container">
     <a class="wordmark" href="index.html"><i class="u5">UNIT.</i>FURNITURE</a>
-    <nav class="site-nav" aria-label="Main"><a href="#collections" data-i18n="nav.collections">Коллекции</a><a href="catalog.html" data-i18n="nav.catalog">Каталог</a><a href="#production" data-i18n="nav.production">Производство</a><a href="#custom" data-i18n="nav.custom">Под ваш объект</a><a href="#how" data-i18n="nav.how">Как заказать</a><a href="#faq" data-i18n="nav.faq">Вопросы</a></nav>
+    <nav class="site-nav" aria-label="Main"><a href="catalog.html" data-i18n="nav.catalog">Каталог</a><a href="#solutions" data-i18n="nav.solutions">Решения</a><a href="#custom" data-i18n="nav.custom">Кастомизация</a><a href="#projects" data-i18n="nav.projects">Проекты</a><a href="#lead" data-i18n="nav.contacts">Контакты</a></nav>
     <div class="hdr-right">
       <div class="lang" role="group" aria-label="Language"><button type="button" data-lang="ru" lang="ru">RU</button><button type="button" data-lang="en" lang="en">EN</button></div>
       <button type="button" class="cart-btn" data-cart-open data-i18n-attr="aria-label:hdr.cart" aria-label="Корзина"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span class="cart-count" hidden>0</span></button>
@@ -32,7 +32,7 @@
 </header>
 <div class="mmenu" id="mmenu" role="dialog" aria-modal="true" data-i18n-attr="aria-label:hdr.menu" aria-hidden="true" inert aria-label="Меню">
   <div class="mmenu-top"><a class="wordmark" href="index.html"><i class="u5">UNIT.</i>FURNITURE</a><button type="button" class="mmenu-close" data-i18n-attr="aria-label:hdr.close" aria-label="Закрыть меню"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
-  <nav aria-label="Mobile"><a href="#collections" data-i18n="nav.collections">Коллекции</a><a href="catalog.html" data-i18n="nav.catalog">Каталог</a><a href="#production" data-i18n="nav.production">Производство</a><a href="#custom" data-i18n="nav.custom">Под ваш объект</a><a href="#how" data-i18n="nav.how">Как заказать</a><a href="#faq" data-i18n="nav.faq">Вопросы</a></nav>
+  <nav aria-label="Mobile"><a href="catalog.html" data-i18n="nav.catalog">Каталог</a><a href="#solutions" data-i18n="nav.solutions">Решения</a><a href="#custom" data-i18n="nav.custom">Кастомизация</a><a href="#projects" data-i18n="nav.projects">Проекты</a><a href="#lead" data-i18n="nav.contacts">Контакты</a></nav>
   <div class="mmenu-foot">
     <div class="lang" role="group" aria-label="Language"><button type="button" data-lang="ru" lang="ru">RU</button><button type="button" data-lang="en" lang="en">EN</button></div>
     <a class="btn btn-primary btn-block" href="#lead" data-quote="" data-i18n="cta.quote">Получить расчёт</a>
@@ -47,7 +47,7 @@
     <img src="assets/c26/life-outdoor-sofa.jpg" alt="" width="2000" height="1230" fetchpriority="high">
     <div class="container">
       <div class="hero-in">
-        <span class="chip" data-i18n="hero.chip">Собственное производство на Бали</span>
+        <ul class="hero-tags"><li class="chip" data-i18n="hero.chip">Собственное производство</li><li class="chip" data-i18n="hero.tag2">Кастомизация</li><li class="chip" data-i18n="hero.tag3">Для дома, улицы и бизнеса</li></ul>
         <h1 class="t-h1" id="hero-h" data-i18n="hero.h1">Авторская мебель и интерьеры на Бали</h1>
         <p class="t-lead" data-i18n="hero.lead">Коллекция 2026 и мебель под размеры вашего объекта. Стоимость по запросу</p>
         <div class="cta-row">
@@ -169,6 +169,7 @@
           <li class="rv"><b data-i18n="clim.3">Каждый день</b><p data-i18n="clim.3.t">Мебель сохраняет внешний вид и комфорт даже при интенсивном использовании.</p></li>
         </ul>
       </div>
+      <ul class="tags tags--clim rv"><li data-i18n="clim.tag1">Для дома</li><li data-i18n="clim.tag2">Для улицы и бассейна</li><li data-i18n="clim.tag3">Для отелей и ресторанов</li></ul>
     </div>
   </section>
 
@@ -191,12 +192,18 @@
         </div>
         <figure class="split-photo rv"><img src="assets/c26/design-1.jpg" alt="" width="1404" height="1560" loading="lazy"></figure>
       </div>
-      <h3 class="t-h3 sub-head rv" data-i18n="sol.h3">Готовые решения для дизайнеров, архитекторов и застройщиков</h3>
+    </div>
+  </section>
+
+  <!-- 8.1 Готовые решения -->
+  <section class="sect sect--cont" id="solutions" aria-labelledby="sol-h">
+    <div class="container">
+      <h2 class="t-h3 sub-head rv" id="sol-h" data-i18n="sol.h3">Готовые решения для дизайнеров, архитекторов и застройщиков</h2>
       <div class="sol-grid">
         <article class="sol rv"><img src="assets/c26/sol-bedroom.jpg" alt="" width="684" height="492" loading="lazy"><div><b data-i18n="sol.bedroom">Спальня</b><p data-i18n="sol.bedroom.t">Кровати, тумбы, кресла, пуфы, подушки</p><a class="link" href="catalog.html?cat=beds" data-i18n="sol.go">Смотреть модели</a></div></article>
         <article class="sol rv"><img src="assets/c26/sol-living.jpg" alt="" width="684" height="492" loading="lazy"><div><b data-i18n="sol.living">Гостиная</b><p data-i18n="sol.living.t">Диваны, кресла, пуфы и подушки</p><a class="link" href="catalog.html?cat=sofas" data-i18n="sol.go">Смотреть модели</a></div></article>
         <article class="sol rv"><img src="assets/c26/sol-outdoor.jpg" alt="" width="684" height="492" loading="lazy"><div><b data-i18n="sol.outdoor">Терраса и бассейн</b><p data-i18n="sol.outdoor.t">Уличные диваны, шезлонги и подушки</p><a class="link" href="catalog.html?cat=outdoor" data-i18n="sol.go">Смотреть модели</a></div></article>
-        <article class="sol rv"><img src="assets/c26/sol-turnkey.jpg" alt="" width="684" height="492" loading="lazy"><div><b data-i18n="sol.turnkey">Объект под ключ</b><p data-i18n="sol.turnkey.t">Вилла, дом, отель или ресторан в едином стиле</p><a class="link" href="#lead" data-i18n="sol.go.turnkey">Обсудить комплектацию</a></div></article>
+        <article class="sol sol--key rv"><img src="assets/c26/sol-turnkey.jpg" alt="" width="684" height="492" loading="lazy"><div><b data-i18n="sol.turnkey">Объект под ключ</b><p data-i18n="sol.turnkey.t">Вилла, дом, отель или ресторан в едином стиле</p><a class="link" href="#lead" data-i18n="sol.go.turnkey">Обсудить комплектацию</a></div></article>
       </div>
     </div>
   </section>
@@ -311,9 +318,22 @@
               <option value="apartment" data-i18n="f.type.apart">Апартаменты</option>
               <option value="hotel" data-i18n="f.type.hotel">Отель</option>
               <option value="restaurant" data-i18n="f.type.rest">Ресторан или кафе</option>
+              <option value="garden" data-i18n="f.type.garden">Терраса или сад</option>
+              <option value="design" data-i18n="f.type.design">Дизайнерский проект</option>
               <option value="other" data-i18n="f.type.other">Другое</option>
             </select>
           </div>
+          <fieldset class="field">
+            <legend class="lbl"><span data-i18n="f.need">Что подобрать</span> <span class="opt">(<span data-i18n="f.opt">необязательно</span>)</span></legend>
+            <div class="pick">
+              <label><input type="checkbox" name="need" value="bedroom"><span data-i18n="sol.bedroom">Спальня</span></label>
+              <label><input type="checkbox" name="need" value="living"><span data-i18n="sol.living">Гостиная</span></label>
+              <label><input type="checkbox" name="need" value="outdoor"><span data-i18n="sol.outdoor">Терраса и бассейн</span></label>
+              <label><input type="checkbox" name="need" value="lobby"><span data-i18n="f.need.lobby">Ресепшн и лобби</span></label>
+              <label><input type="checkbox" name="need" value="restaurant"><span data-i18n="f.need.rest">Ресторан или бар</span></label>
+              <label><input type="checkbox" name="need" value="turnkey"><span data-i18n="sol.turnkey">Объект под ключ</span></label>
+            </div>
+          </fieldset>
           <div class="field">
             <p class="lbl" data-i18n="f.models">Модели из корзины</p>
             <div class="req-list" id="req-list" aria-live="polite"></div>
@@ -322,6 +342,15 @@
             <label for="f-msg"><span data-i18n="f.msg">Комментарий</span> <span class="opt">(<span data-i18n="f.opt">необязательно</span>)</span></label>
             <textarea class="inp" id="f-msg" name="msg" rows="4" data-i18n-attr="placeholder:f.msg.ph" placeholder="Что нужно, сколько, к какой дате"></textarea>
           </div>
+          <!--@files:f-->
+    <div class="field field-files">
+      <p class="lbl"><span data-i18n="f.files">Фото, план или референсы</span> <span class="opt">(<span data-i18n="f.opt">необязательно</span>)</span></p>
+      <input type="file" class="file-in sr-only" id="f-files" name="files" multiple accept="image/*,.pdf,.dwg,.dxf,.skp" aria-describedby="f-files-h f-files-e">
+      <label class="btn btn-outline btn-sm file-btn" for="f-files"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="m20 11-8.5 8.5a5 5 0 0 1-7-7L13 4a3.3 3.3 0 0 1 4.7 4.7l-8.6 8.6a1.7 1.7 0 0 1-2.4-2.4L14.5 7"/></svg><span data-i18n="f.files.btn">Прикрепить файлы</span></label>
+      <p class="hint" id="f-files-h" data-i18n="f.files.hint">JPG, PNG, PDF или DWG, до 10 файлов по 20 МБ</p>
+      <ul class="file-list"></ul>
+      <p class="err" id="f-files-e" role="status"></p>
+    </div><!--@/files-->
           <div class="field">
             <label class="chk" for="f-agree"><input type="checkbox" id="f-agree" name="agree" aria-describedby="e-agree" required><span data-i18n="f.agree">Согласен на <a href="consent.html">обработку персональных данных</a></span></label>
             <p class="err" id="e-agree" data-i18n="f.err.agree">Отметьте согласие на обработку данных, без него мы не можем ответить.</p>
@@ -345,8 +374,8 @@
 <footer class="site-footer">
   <div class="container">
     <div class="ft-grid">
-      <div class="ft-brand"><a class="wordmark" href="index.html"><i class="u5">UNIT.</i>FURNITURE</a><p class="ft-about" data-i18n="ft.about">Авторская мебель собственного производства на Бали для частных и коммерческих объектов.</p></div>
-      <div class="ft-col"><h2 class="ft-h" data-i18n="ft.nav">Разделы</h2><ul><li><a href="#collections" data-i18n="nav.collections">Коллекции</a></li><li><a href="catalog.html" data-i18n="nav.catalog">Каталог</a></li><li><a href="#production" data-i18n="nav.production">Производство</a></li><li><a href="#custom" data-i18n="nav.custom">Под ваш объект</a></li><li><a href="#how" data-i18n="nav.how">Как заказать</a></li><li><a href="#faq" data-i18n="nav.faq">Вопросы</a></li></ul></div>
+      <div class="ft-brand"><a class="wordmark" href="index.html"><i class="u5">UNIT.</i>FURNITURE</a><p class="ft-slogan" lang="en">Designed for living. Built to last.</p><p class="ft-about" data-i18n="ft.about">Авторская мебель собственного производства на Бали для частных и коммерческих объектов.</p></div>
+      <div class="ft-col"><h2 class="ft-h" data-i18n="ft.nav">Разделы</h2><ul><li><a href="catalog.html" data-i18n="nav.catalog">Каталог</a></li><li><a href="#collections" data-i18n="nav.collections">Коллекции</a></li><li><a href="#solutions" data-i18n="nav.solutions">Решения</a></li><li><a href="#custom" data-i18n="nav.custom">Кастомизация</a></li><li><a href="#production" data-i18n="nav.production">Производство</a></li><li><a href="#materials" data-i18n="nav.materials">Материалы</a></li><li><a href="#projects" data-i18n="nav.projects">Проекты</a></li><li><a href="#how" data-i18n="nav.how">Как заказать</a></li><li><a href="#faq" data-i18n="nav.faq">Вопросы</a></li><li><a href="#lead" data-i18n="nav.contacts">Контакты</a></li></ul></div>
       <div class="ft-col"><h2 class="ft-h" data-i18n="ft.contacts">Контакты</h2><ul>
         <li><a href="mailto:hello@unit.furniture">hello@unit.furniture</a></li>
         <li><a href="https://www.instagram.com/unit.furniture/" target="_blank" rel="noopener">Instagram @unit.furniture</a></li>
@@ -391,6 +420,14 @@
       <label for="d-msg"><span data-i18n="f.msg">Комментарий</span> <span class="opt">(<span data-i18n="f.opt">необязательно</span>)</span></label>
       <textarea class="inp" id="d-msg" name="msg" rows="3" data-i18n-attr="placeholder:f.msg.ph" placeholder="Что нужно, сколько, к какой дате"></textarea>
     </div>
+    <div class="field field-files">
+      <p class="lbl"><span data-i18n="f.files">Фото, план или референсы</span> <span class="opt">(<span data-i18n="f.opt">необязательно</span>)</span></p>
+      <input type="file" class="file-in sr-only" id="d-files" name="files" multiple accept="image/*,.pdf,.dwg,.dxf,.skp" aria-describedby="d-files-h d-files-e">
+      <label class="btn btn-outline btn-sm file-btn" for="d-files"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="m20 11-8.5 8.5a5 5 0 0 1-7-7L13 4a3.3 3.3 0 0 1 4.7 4.7l-8.6 8.6a1.7 1.7 0 0 1-2.4-2.4L14.5 7"/></svg><span data-i18n="f.files.btn">Прикрепить файлы</span></label>
+      <p class="hint" id="d-files-h" data-i18n="f.files.hint">JPG, PNG, PDF или DWG, до 10 файлов по 20 МБ</p>
+      <ul class="file-list"></ul>
+      <p class="err" id="d-files-e" role="status"></p>
+    </div>
     <div class="field">
       <label class="chk" for="d-agree"><input type="checkbox" id="d-agree" name="agree" aria-describedby="de-agree" required><span data-i18n="f.agree">Согласен на <a href="consent.html">обработку персональных данных</a></span></label>
       <p class="err" id="de-agree" data-i18n="f.err.agree">Отметьте согласие на обработку данных, без него мы не можем ответить.</p>
@@ -406,6 +443,7 @@
     <div class="cta-row"><a class="btn btn-outline" href="catalog.html" data-i18n="ok.more">Смотреть каталог</a><button type="button" class="btn btn-outline" data-cart-close data-i18n="cart.closeBtn">Закрыть</button></div>
   </div>
 </aside>
+<div class="mbar" id="mbar" aria-hidden="true" inert><a class="btn btn-primary btn-block" href="#lead" data-quote data-i18n="cta.quote">Получить расчёт</a></div>
 <div class="toast" id="toast" role="status" aria-live="polite"><span></span><button type="button" data-i18n="toast.open">Открыть корзину</button></div>
 <!--@/bottom-->
 <script src="js/dict.js"></script>
