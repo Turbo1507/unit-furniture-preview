@@ -138,7 +138,7 @@ input,textarea,select{caret-color:var(--blue)}
 .hero-in .chip{margin-bottom:var(--s1)}
 .hero-in .cta-row{margin-top:calc(var(--cta) - var(--s2))}
 .chip{display:inline-flex;align-items:center;justify-self:start;min-height:32px;padding:4px 12px;border-radius:var(--r-s);background:#fff;color:var(--ink);font-size:var(--fs-cap);font-weight:500}
-.hero .t-h1{max-width:20ch;text-wrap:balance}
+.hero .t-h1{max-width:26ch;text-wrap:balance}
 .hero .t-lead{color:#fff;max-width:68ch}
 .hero-cap{position:absolute;right:calc((100% - min(100%, var(--col))) / 2 + var(--gut));bottom:clamp(40px,7svh,80px);z-index:1;font-size:var(--fs-cap);color:rgba(255,255,255,.86);max-width:24ch;text-align:right}
 @media (max-width:900px){ .hero-cap{display:none} }
