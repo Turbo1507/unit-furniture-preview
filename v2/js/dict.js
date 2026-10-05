@@ -314,7 +314,7 @@ window.DICT = {
     'hdr.cta': 'Get a quote', 'cta.quote': 'Get a quote', 'cart.back': 'Back to models', 'cart.closeBtn': 'Close', 'cart.sum': 'Models: {n}, pieces: {q}', 'cart.sum0': 'No models chosen, describe the task in the comment.', 'col.remove': 'Remove the line', 'hdr.menu': 'Menu', 'hdr.close': 'Close menu', 'hdr.cart': 'Cart',
 
     'hero.chip': 'Our own workshop', 'hero.tag2': 'Customisation', 'hero.tag3': 'Indoor, outdoor, commercial',
-    'hero.h1': 'Designer furniture and interior solutions in Bali',
+    'hero.h1': 'Hi-tech furniture production and interiors in Bali',
     'hero.lead': 'Furniture for villas, homes, hotels, restaurants and terraces. From a single model to a turnkey property',
     'hero.cta1': 'Browse the catalog', 'hero.cta2': 'Furnish a property',
     'hero.cap': 'Sofa Outdoor Type 4, 2026 collection',
