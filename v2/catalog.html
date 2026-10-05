@@ -41,7 +41,7 @@
   <div class="page-head">
     <div class="container">
       <h1 class="t-h1" data-i18n="cat.h1">Каталог</h1>
-      <p class="t-lead" data-i18n="cat.lead">28 моделей коллекции 2026. Добавьте нужные в корзину и укажите количество</p>
+      <p class="t-lead" data-i18n="cat.lead">Выберите модель или отправьте нам запрос: поможем подобрать мебель под ваш объект</p>
     </div>
   </div>
 
@@ -53,7 +53,13 @@
   </div>
 
   <div class="container" style="padding-bottom:var(--sy)">
-    <div class="cat-meta"><h2 id="cat-count" class="cat-count tnum" aria-live="polite"></h2></div>
+    <div class="cat-meta"><h2 id="cat-count" class="cat-count tnum" aria-live="polite"></h2>
+      <div class="sels">
+        <label class="sel"><span class="sr-only" data-i18n="cat.mat">Материал</span><select id="f-mat"></select></label>
+        <label class="sel"><span class="sr-only" data-i18n="cat.use">Объект</span><select id="f-use"></select></label>
+        <label class="sel"><span class="sel-k" data-i18n="cat.sort">Сортировка</span><select id="f-sort"></select></label>
+      </div>
+    </div>
     <div class="p-grid" id="p-grid"></div>
     <div class="empty-state" id="cat-empty" hidden>
       <h2 class="t-h3" data-i18n="cat.empty.h">Под эти фильтры готовых моделей нет</h2>

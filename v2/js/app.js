@@ -574,14 +574,22 @@
     return a;
   }
   var ENVS = ['indoor', 'outdoor'];
+  var FMS = { teak: 'Тиковое дерево', ply: 'Фанера 18 мм', metal: 'Металл' }, USES = ['home', 'villa', 'hotel', 'restaurant'];
+  function fm(p) { var f = p.specs && p.specs['Каркас']; return Object.keys(FMS).filter(function (k) { return FMS[k] === f; })[0] || ''; }
+  function opts(sel, list, cur) {
+    sel.innerHTML = list.map(function (o) { return '<option value="' + o[0] + '"' + (o[0] === cur ? ' selected' : '') + (o[2] ? ' disabled' : '') + '>' + esc(o[1]) + '</option>'; }).join('');
+  }
   var grid = $('#p-grid');
   if (grid && page === 'catalog') {
     var qs = new URLSearchParams(location.search);
     var st = { cat: CATS.indexOf(qs.get('cat')) >= 0 ? qs.get('cat') : '', line: LNS.indexOf(qs.get('line')) >= 0 ? qs.get('line') : '',
-      env: ENVS.indexOf(qs.get('env')) >= 0 ? qs.get('env') : '' };
+      env: ENVS.indexOf(qs.get('env')) >= 0 ? qs.get('env') : '',
+      mat: FMS[qs.get('mat')] ? qs.get('mat') : '', use: USES.indexOf(qs.get('use')) >= 0 ? qs.get('use') : '',
+      sort: ['name', 'line'].indexOf(qs.get('sort')) >= 0 ? qs.get('sort') : '' };
     var match = function (p, o) {
       o = Object.assign({}, st, o);
-      return (!o.cat || p.cat === o.cat) && (!o.line || p.collection === o.line) && (!o.env || p.env === o.env);
+      return (!o.cat || p.cat === o.cat) && (!o.line || p.collection === o.line) && (!o.env || p.env === o.env) &&
+        (!o.mat || fm(p) === o.mat) && (!o.use || (p.use || []).indexOf(o.use) >= 0);
     };
     var renderCatalog = function () {
       var inCat = function (c) { return P.filter(function (p) { return match(p, { cat: c }); }).length; };
@@ -598,14 +606,19 @@
       $('#chips-env').innerHTML = ENVS.map(function (v) {
         return '<button type="button" data-fenv="' + v + '" aria-pressed="' + (st.env === v) + '"' + off(inEnv(v), st.env === v) + '>' + T('env.' + v) + '</button>';
       }).join('');
+      opts($('#f-mat'), [['', T('cat.matAll')]].concat(Object.keys(FMS).map(function (k) { var n = P.filter(function (p) { return match(p, { mat: k }); }).length; return [k, T('fm.' + k) + ' (' + n + ')', !n && st.mat !== k]; })), st.mat);
+      opts($('#f-use'), [['', T('cat.useAll')]].concat(USES.map(function (k) { var n = P.filter(function (p) { return match(p, { use: k }); }).length; return [k, T('use.' + k) + ' (' + n + ')', !n && st.use !== k]; })), st.use);
+      opts($('#f-sort'), [['', T('sort.def')], ['name', T('sort.name')], ['line', T('sort.line')]], st.sort);
       var list = P.filter(function (p) { return match(p); });
+      if (st.sort === 'name') list.sort(function (x, y) { return pname(x).localeCompare(pname(y)); });
+      if (st.sort === 'line') list.sort(function (x, y) { return LNS.indexOf(x.collection) - LNS.indexOf(y.collection) || P.indexOf(x) - P.indexOf(y); });
       grid.innerHTML = list.map(card).join('');
       $('#cat-count').textContent = plain(t('cat.shown', { n: list.length }));
       $('#cat-empty').hidden = list.length > 0;
       refreshCtl();
     };
     var sync = function () {
-      var q = new URLSearchParams(); if (st.cat) q.set('cat', st.cat); if (st.line) q.set('line', st.line); if (st.env) q.set('env', st.env);
+      var q = new URLSearchParams(); if (st.cat) q.set('cat', st.cat); if (st.line) q.set('line', st.line); if (st.env) q.set('env', st.env); if (st.mat) q.set('mat', st.mat); if (st.use) q.set('use', st.use); if (st.sort) q.set('sort', st.sort);
       history.replaceState(null, '', location.pathname + (q.toString() ? '?' + q : ''));
     };
     document.addEventListener('click', function (e) {
@@ -613,15 +626,23 @@
       if (b.hasAttribute('data-fcat')) st.cat = b.dataset.fcat;
       else if (b.hasAttribute('data-fline')) st.line = b.dataset.fline;
       else if (b.hasAttribute('data-fenv')) st.env = st.env === b.dataset.fenv ? '' : b.dataset.fenv;
-      else st = { cat: '', line: '', env: '' };
+      else st = { cat: '', line: '', env: '', mat: '', use: '', sort: st.sort };
       var attr = ['data-fcat', 'data-fline', 'data-fenv'].filter(function (a) { return b.hasAttribute(a); })[0] || null, val = attr && b.getAttribute(attr);
       sync(); renderCatalog();
       if (attr) { var nb = $('[' + attr + '="' + val + '"]'); nb && nb.focus(); }
+    });
+    document.addEventListener('change', function (e) {
+      var k = { 'f-mat': 'mat', 'f-use': 'use', 'f-sort': 'sort' }[e.target.id]; if (!k) return;
+      st[k] = e.target.value; sync(); renderCatalog(); $('#' + e.target.id).focus();
     });
     onRender(renderCatalog);
   }
 
   /* ---------- товар ---------- */
+  var ROOMS = { beds: ['bedroom'], nightstands: ['bedroom'], sofas: ['living'], armchairs: ['living', 'bedroom'], chairs: ['dining'], outdoor: ['terrace'], sunbeds: ['terrace'], textile: ['living', 'bedroom'] };
+  var SOLS = { bedroom: 'bedroom', living: 'living', terrace: 'outdoor' }, SOLCAT = { bedroom: 'beds', living: 'sofas', outdoor: 'outdoor' };
+  function roomsOf(p) { return p.env === 'outdoor' ? ['terrace'] : (ROOMS[p.cat] || []); }
+  function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
   var cur = null;
   if (page === 'product') {
     cur = byId[new URLSearchParams(location.search).get('id')] || P[0];
@@ -646,6 +667,16 @@
       $('#pp-desc').innerHTML = T('d.' + p.cat);
       var rows = kv(t('pp.dims'), dims(p));
       Object.keys(p.specs || {}).forEach(function (k) { rows += kv(specKey(k), specVal(p.specs[k])); });
+      var rooms = roomsOf(p);
+      rows += kv(T('pp.use'), cap(rooms.map(function (r) { return T('room.' + r); }).concat((p.use || []).map(function (u) { return T('usex.' + u); })).join(', ')));
+      rows += kv(T('pp.priceK'), T('pp.priceV'));
+      $('#pp-tags').innerHTML = tags(p).map(function (k) { return '<li>' + T(k) + '</li>'; }).join('');
+      var sols = rooms.map(function (r) { return SOLS[r]; }).filter(function (x, i, arr) { return x && arr.indexOf(x) === i; }).concat(['turnkey']);
+      $('#pp-sol').innerHTML = sols.map(function (s) {
+        var key = s === 'turnkey';
+        return '<article class="sol' + (key ? ' sol--key' : '') + '"><img src="assets/c26/sol-' + s + '.jpg" alt="" width="684" height="492" loading="lazy"><div><b>' + T('sol.' + s) + '</b><p>' + T('sol.' + s + '.t') + '</p>' +
+          (key ? '<a class="link" href="index.html#lead" data-quote data-src="product-turnkey">' + T('sol.go.turnkey') + '</a>' : '<a class="link" href="catalog.html?cat=' + SOLCAT[s] + '">' + T('sol.go') + '</a>') + '</div></article>';
+      }).join('');
       $('#pp-specs').innerHTML = rows;
       var main = $('#pp-main');
       main.classList.toggle('is-life', !!sh[gi].life);

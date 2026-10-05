@@ -579,3 +579,33 @@ fieldset.field legend{padding:0;margin-bottom:var(--s1);font-size:var(--fs-cap);
 .sect--ink .contacts a:hover{color:#B9BBFF}
 .dzp-mgr{font-weight:500}
 @media (max-width:560px){ .sect--ink .cta-row .btn,.dzp-intro .cta-row .btn{flex:1 1 100%} }
+
+/* что мы делаем: 4 направления */
+.paths--4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.paths--4 .path img{aspect-ratio:4/3}
+.paths--4 .path div{grid-template-rows:auto 1fr auto;gap:var(--s1);padding:var(--s2) var(--s3) var(--s3)}
+.paths--4 .t-h3{font-size:20px}
+.paths--4 .path p{font-size:var(--fs-cap)}
+.paths--4 a.link{font-size:var(--fs-cap);font-weight:500;padding-block:13px;margin-bottom:-13px}
+@media (max-width:1024px){ .paths--4{grid-template-columns:repeat(2,minmax(0,1fr))} }
+@media (max-width:560px){ .paths--4{grid-template-columns:1fr} }
+.sect--alt .sol{background:var(--paper)}
+.sub-head.sect-head{margin-bottom:var(--s3)}
+.lead-notes{display:grid;gap:4px;margin-top:var(--s2);font-size:var(--fs-cap);color:var(--ink-2)}
+/* каталог: материал, объект, сортировка */
+.cat-meta{display:flex;align-items:center;justify-content:space-between;gap:var(--s2);flex-wrap:wrap}
+.sels{display:flex;gap:var(--s1);flex-wrap:wrap}
+.sel{position:relative;display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 36px 0 14px;border:1.5px solid var(--line-2);border-radius:var(--r);background:var(--white);font-size:var(--fs-cap);font-weight:500}
+.sel:hover{border-color:var(--ink-2)}
+.sel:focus-within{border-color:var(--blue)}
+.sel select{appearance:none;-webkit-appearance:none;border:0;background:transparent;font:inherit;color:inherit;min-height:42px;cursor:pointer;outline:none}
+.sel::after{content:"";position:absolute;right:14px;top:50%;width:7px;height:7px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:translateY(-70%) rotate(45deg);pointer-events:none}
+.sel-k{color:var(--ink-2);font-weight:400}
+@media (max-width:560px){ .sels{width:100%} .sel{flex:1 1 calc(50% - 4px)} .sel:last-child{flex-basis:100%} .sel select{width:100%} }
+/* товар */
+.pp-info .tags{margin-top:var(--s2)}
+.sol div{grid-template-rows:auto 1fr auto}
+#paths-h{max-width:32ch}
+.pp-info .tags li{background:var(--white)}
+.pp-solw .sol-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (max-width:560px){ .pp-solw .sol-grid{grid-template-columns:1fr} }
