@@ -134,6 +134,8 @@ function openCart() {
     cartOverlay.classList.add('show');
     cartEl.classList.add('open');
     cartEl.setAttribute('aria-hidden', 'false');
+    const x = document.getElementById('cartClose');
+    if (x) x.focus();
   });
   document.body.style.overflow = 'hidden';
 }
@@ -141,8 +143,10 @@ function closeCart() {
   if (!cartEl) return;
   cartOverlay.classList.remove('show');
   cartEl.classList.remove('open');
+  const back = cartEl.contains(document.activeElement);
   cartEl.setAttribute('aria-hidden', 'true');
   document.body.style.overflow = '';
+  if (back) { const b = document.getElementById('cartBtn'); if (b) b.focus(); }
   setTimeout(() => { cartOverlay.hidden = true; }, 320);
 }
 if (cartEl) {
@@ -166,8 +170,9 @@ if (cartEl) {
 }
 
 /* ---------- рендер карточек товара (каталог, витрины, «похожие модели») ---------- */
-function productCard(p) {
-  const photo = p.life;
+function productCard(p, opt = {}) {
+  const studio = opt.studio || !p.life;
+  const photo = studio ? p.img : p.life;
   const teak = Object.values(p.specs).some(v => /тик/i.test(v));
   const tags = [
     `<span class="p-tag">${t(p.env === 'outdoor' ? 'tag.outdoor' : 'tag.indoor')}</span>`,
@@ -178,7 +183,7 @@ function productCard(p) {
   <article class="product" data-id="${p.id}">
     <a class="p-media" href="product.html?id=${p.id}" aria-label="${escapeHtml(trName(p.name))}">
       ${photo
-        ? `<img class="p-photo" src="${photo}" alt="${escapeHtml(trName(p.name))}" loading="lazy">`
+        ? `<img class="p-photo${studio ? ' is-studio' : ''}" src="${photo}" alt="${escapeHtml(trName(p.name))}" loading="lazy">`
         : photoPlaceholder(p.cat)}
       ${teak ? `<span class="p-badge">${escapeHtml(t('badge.teak'))}</span>` : ''}
       <button class="p-add" data-add="${p.id}" aria-label="+" type="button">+</button>
@@ -195,8 +200,8 @@ function productCard(p) {
     </div>
   </article>`;
 }
-function renderProductsInto(el, list) {
-  el.innerHTML = list.map(productCard).join('');
+function renderProductsInto(el, list, opt) {
+  el.innerHTML = list.map(p => productCard(p, opt)).join('');
   syncAddButtons();
 }
 document.addEventListener('click', e => {
@@ -234,6 +239,7 @@ const nav = document.getElementById('nav');
 const siteHeader = document.querySelector('.site-header');
 function closeNav() {
   burger.classList.remove('open');
+  burger.setAttribute('aria-expanded', 'false');
   nav.classList.remove('open');
   document.body.style.overflow = '';
   if (window.__uf_syncHeaderTransparency) window.__uf_syncHeaderTransparency();
@@ -242,6 +248,7 @@ if (burger && nav) {
   burger.addEventListener('click', () => {
     const opening = !nav.classList.contains('open');
     burger.classList.toggle('open', opening);
+    burger.setAttribute('aria-expanded', String(opening));
     nav.classList.toggle('open', opening);
     if (opening) {
       /* хедер всегда сплошной, пока меню открыто — прозрачность поверх hero тут неуместна */
@@ -389,18 +396,26 @@ if (form) {
     scopeSel.addEventListener('change', syncBulkNote);
     syncBulkNote();
   }
+  const setErr = (f, bad) => {
+    f.classList.toggle('err', bad);
+    f.setAttribute('aria-invalid', bad ? 'true' : 'false');
+    const msg = document.getElementById(f.id + 'Err');
+    if (msg) msg.hidden = !bad;
+  };
+  /* ошибка гаснет, как только поле поправили */
+  form.addEventListener('input', e => { if (e.target.classList.contains('err') && (e.target.type === 'checkbox' ? e.target.checked : e.target.value.trim())) setErr(e.target, false); });
+  form.addEventListener('change', e => { if (e.target.type === 'checkbox' && e.target.checked) setErr(e.target, false); });
   form.addEventListener('submit', e => {
     e.preventDefault();
     const name = document.getElementById('fName');
     const phone = document.getElementById('fPhone');
+    const email = document.getElementById('fEmail');
     const agree = document.getElementById('fAgree');
-    let ok = true;
-    [name, phone].forEach(f => {
-      f.classList.toggle('err', !f.value.trim());
-      if (!f.value.trim()) ok = false;
-    });
-    if (!agree.checked) { ok = false; agree.focus(); }
-    if (!ok) return;
+    const bad = [];
+    [name, phone].forEach(f => { const b = !f.value.trim(); setErr(f, b); if (b) bad.push(f); });
+    if (email) { const b = !!email.value.trim() && !email.checkValidity(); setErr(email, b); if (b) bad.push(email); }
+    setErr(agree, !agree.checked); if (!agree.checked) bad.push(agree);
+    if (bad.length) { bad[0].focus(); return; }
     /* TODO: сюда AJAX → Telegram Bot API, как в unit-bali functions.php */
     form.querySelector('.btn-submit').disabled = true;
     document.getElementById('formDone').hidden = false;

@@ -18,25 +18,21 @@ const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
   window.__uf_syncHeaderTransparency = sync;
 })();
 
-/* ---------- hero: word cascade + slideshow ---------- */
-const heroTitle = document.getElementById('heroTitle');
-function cascadeTitle() {
-  if (!heroTitle) return;
-  heroTitle.innerHTML = heroTitle.innerHTML.split(' ').map((w, i) =>
-    `<span class="w" style="transition-delay:${60 + i * 70}ms">${w}</span>`).join(' ');
-  heroTitle.classList.remove('in');
-  requestAnimationFrame(() => requestAnimationFrame(() => heroTitle.classList.add('in')));
-}
+/* ---------- hero: слайдшоу ---------- */
 
 const heroSlides = document.querySelectorAll('.hero-slide');
 const heroDots = document.getElementById('heroDots');
 if (heroSlides.length > 1 && heroDots) {
-  heroDots.innerHTML = [...heroSlides].map((_, i) => `<button type="button" data-i="${i}"${i === 0 ? ' class="on"' : ''}></button>`).join('');
+  heroDots.innerHTML = [...heroSlides].map((_, i) => `<button type="button" data-i="${i}" aria-label="${i + 1} / ${heroSlides.length}"${i === 0 ? ' class="on"' : ''}></button>`).join('');
+  const heroCap = document.querySelector('.hero-cap');
   let heroIdx = 0;
   function showHeroSlide(i) {
     heroIdx = i;
     heroSlides.forEach((s, si) => s.classList.toggle('on', si === i));
     heroDots.querySelectorAll('button').forEach((b, bi) => b.classList.toggle('on', bi === i));
+    const key = heroSlides[i].dataset.cap;
+    const dict = window.I18N && window.I18N[window.__uf_lang || 'ru'];
+    if (heroCap && key && dict && dict[key]) { heroCap.setAttribute('data-i18n', key); heroCap.innerHTML = dict[key]; }
   }
   heroDots.addEventListener('click', e => {
     const b = e.target.closest('button');
@@ -51,9 +47,21 @@ if (heroSlides.length > 1 && heroDots) {
   restartHeroTimer();
 }
 
-/* ---------- marquee duplicate ---------- */
-const mt = document.getElementById('marqueeTrack');
-if (mt) mt.innerHTML += mt.innerHTML;
+/* ---------- каталог по комнатам: ряд = заголовок + 4 модели на предметном фото ---------- */
+const featRows = document.getElementById('featRows');
+function renderFeatured() {
+  if (!featRows) return;
+  featRows.innerHTML = (window.FEATURED || []).map(r => `
+    <div class="feat-row">
+      <div class="feat-head">
+        <h3>${t('feat.' + r.room)}</h3>
+        <a class="feat-more" href="catalog.html?cat=${r.cat}">${t('feat.more')}</a>
+      </div>
+      <div class="products feat-grid">${r.ids.map(productById).filter(Boolean).map(p => productCard(p, { studio: true })).join('')}</div>
+    </div>`).join('');
+  syncAddButtons();
+}
+renderFeatured();
 
 /* ---------- проекты: masonry + фильтр (первые 6 на главной) ---------- */
 const projGrid = document.getElementById('projGrid');
@@ -81,6 +89,17 @@ renderProjects();
 
 /* ---------- перерисовка при смене языка ---------- */
 window.__uf_onLangChangePage = function () {
-  cascadeTitle();
+  renderFeatured();
   renderProjects();
 };
+
+/* мобильная планка с кнопкой не нужна, пока видно хиро, форму или футер */
+const mobCta = document.querySelector('.mob-cta');
+if (mobCta && 'IntersectionObserver' in window) {
+  const seen = new Set();
+  const mo = new IntersectionObserver(es => {
+    es.forEach(e => (e.isIntersecting ? seen.add(e.target) : seen.delete(e.target)));
+    document.body.classList.toggle('mobcta-off', seen.size > 0);
+  });
+  [document.getElementById('top-hero'), document.getElementById('final'), document.querySelector('.site-footer')].forEach(el => el && mo.observe(el));
+}
