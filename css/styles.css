@@ -1535,3 +1535,37 @@ h3 { font-weight: 500; letter-spacing: -.015em; }
 
 /* шапка на узком телефоне: логотип, язык, корзина и бургер помещаются в 360 */
 @media (max-width: 380px) { .header-in { gap: 12px; } .header-cta { gap: 4px; } }
+
+/* миниатюры под фото товара: предметный снимок целиком */
+.pp-thumbs { overflow-x: auto; scrollbar-width: none; }
+.pp-thumbs button { flex: none; }
+.pp-thumbs img.studio { object-fit: contain; padding: 4px; background: var(--white); }
+
+/* песочница mix.html: направление + ряд каталога */
+.mixa-head { align-items: flex-end; }
+.mixa-head > div { flex: 1; min-width: 0; }
+.mixa-head p { margin-top: 8px; font-size: 17px; line-height: 1.45; color: rgba(58,58,58,.8); max-width: 60ch; }
+.mixb-rows { display: grid; gap: 24px; }
+.mixb-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 3fr); gap: 24px; align-items: stretch; }
+.mixb-row .mixb-photo { aspect-ratio: auto; width: auto; height: 100%; min-height: 360px; box-shadow: none; }
+.mixb-photo .dir-in h3 { font-size: clamp(22px, 1.8vw, 28px); font-weight: 700; letter-spacing: -.02em; }
+.mixb-photo .dir-in p { font-size: 15px; }
+.mixb-rail { position: relative; min-width: 0; }
+.products.mixb-track { display: grid; grid-auto-flow: column; grid-template-columns: none; grid-auto-columns: calc((100% - 48px) / 3); gap: 24px; margin: 0; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+.mixb-track::-webkit-scrollbar { display: none; }
+.mixb-track .product { scroll-snap-align: start; }
+.mixb-arr { position: absolute; top: calc(50% - 24px); width: 48px; height: 48px; display: grid; place-items: center; border: 1px solid var(--interlace); border-radius: var(--r-sm); background: var(--white); color: var(--graphite); cursor: pointer; z-index: 3; transition: opacity .2s; }
+.mixb-arr svg { width: 20px; height: 20px; }
+.mixb-arr.is-prev { left: -24px; }
+.mixb-arr.is-next { right: -24px; }
+.mixb-arr:disabled { opacity: 0; pointer-events: none; }
+@media (hover: hover) { .mixb-arr:hover { color: var(--blue); } }
+@media (max-width: 1280px) { .mixb-row { grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); } .products.mixb-track { grid-auto-columns: calc((100% - 24px) / 2); } }
+@media (max-width: 720px) {
+  .mixa-head p { font-size: 15px; }
+  .mixb-rows { gap: 40px; }
+  .mixb-row { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .mixb-row .mixb-photo { aspect-ratio: 16 / 10; height: auto; min-height: 0; }
+  .products.mixb-track { grid-auto-columns: 46%; gap: 12px; margin: 0 -20px; padding: 0 20px; scroll-padding: 0 20px; }
+  .mixb-arr { display: none; }
+}

@@ -21,7 +21,7 @@ function applyFilters() {
     (env === 'all' || p.env === env) &&
     (use === 'all' || (p.use || []).includes(use))
   );
-  renderProductsInto(productsEl, list);
+  renderProductsInto(productsEl, list, { studio: true });
   emptyEl.hidden = list.length > 0;
 }
 function activateTab(cat) {

@@ -166,3 +166,24 @@ window.PROJECTS = [
   { id: 'pr7', img: 'assets/life-lobby.jpg',       type: 'indoor',  place: 'commercial' },
   { id: 'pr8', img: 'assets/life-restaurant.jpg',  type: 'indoor',  place: 'commercial' },
 ];
+
+/* кадры проектов и модели на них (ключ = файл v2/assets/c26/proj-<ключ>.jpg, модели по имени файла p-<модель>.jpg) */
+window.SHOT_ITEMS = {
+  '51_276_318': ['reason-bar'],
+  '51_490_318': ['bed-nakas-r'],
+  '51_63_318':  ['axis-bed', 'bed-nakas-l'],
+  '51_703_112': ['axis-sofa', 'axis-chair'],
+  '51_703_318': ['outdoor-5', 'pillows-outdoor'],
+  '52_326_111': ['sofa-a'],
+  '52_402_374': ['awan-scandi'],
+  '52_634_374': ['bed-nakas-l'],
+  '52_63_111':  ['reason-bed'],
+  '52_63_374':  ['axis-chair'],
+  '52_800_111': ['awan-pouf'],
+  '53_292_374': ['sofa-reception'],
+  '53_402_112': ['awan-core'],
+  '53_634_112': ['outdoor-2'],
+  '53_63_112':  ['awan-bed'],
+  '53_63_374':  ['bed-nakas-l'],
+  '53_800_374': ['awan-scandi'],
+};
