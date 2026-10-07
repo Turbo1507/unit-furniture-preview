@@ -114,7 +114,7 @@ window.I18N = {
     "fin.note": "Стоимость рассчитывается индивидуально. Можно отправить фото, план, референсы или выбранные модели.",
 
     /* --- страница каталога --- */
-    "clg.kicker": "Каталог", "clg.h1": "Каталог <span class='acc'><i class='u5'>UNIT.</i>FURNITURE</span>",
+    "clg.kicker": "Каталог", "clg.cat.all": "Все категории", "clg.h1": "Каталог <span class='acc'><i class='u5'>UNIT.</i>FURNITURE</span>",
     "clg.sub": "Выберите модель или отправьте запрос, и мы подберём мебель под ваш объект. Цен на сайте нет: каждый комплект считаем под объём и проект.",
     "tab.all": "Все", "clg.filters": "Фильтры",
     "clg.env.all": "Indoor и Outdoor",
@@ -406,7 +406,7 @@ window.I18N = {
     "fin.note": "Pricing is calculated individually. You can send photos, a floor plan, references or selected models.",
 
     /* --- catalog page --- */
-    "clg.kicker": "Catalog", "clg.h1": "<span class='acc'><i class='u5'>UNIT.</i>FURNITURE</span> catalog",
+    "clg.kicker": "Catalog", "clg.cat.all": "All categories", "clg.h1": "<span class='acc'><i class='u5'>UNIT.</i>FURNITURE</span> catalog",
     "clg.sub": "Choose a model or send a request and we’ll pick furniture for your property. No prices on the site: every set is priced by volume and project.",
     "tab.all": "All", "clg.filters": "Filters",
     "clg.env.all": "Indoor & Outdoor",

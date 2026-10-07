@@ -1,9 +1,9 @@
-/* UNIT.FURNITURE — каталог: категории + фильтры indoor/outdoor и назначение.
+/* UNIT.FURNITURE — каталог: фильтры категория, indoor/outdoor и назначение.
    Понимает ?cat= и ?env= из ссылок с главной. */
 
 const productsEl = document.getElementById('products');
 const emptyEl = document.getElementById('catalogEmpty');
-const tabs = document.querySelectorAll('#tabs .tab');
+const fltCat = document.getElementById('fltCat');
 const fltEnv = document.getElementById('fltEnv');
 const fltUse = document.getElementById('fltUse');
 
@@ -26,10 +26,11 @@ function applyFilters() {
 }
 function activateTab(cat) {
   currentCat = cat;
-  tabs.forEach(tb => tb.classList.toggle('active', tb.dataset.cat === cat));
+  fltCat.value = cat;
+  refreshCustomSelectLabels();
   applyFilters();
 }
-tabs.forEach(tb => tb.addEventListener('click', () => activateTab(tb.dataset.cat)));
+fltCat.addEventListener('change', () => activateTab(fltCat.value));
 fltEnv.addEventListener('change', applyFilters);
 fltUse.addEventListener('change', applyFilters);
 
@@ -48,7 +49,8 @@ if (resetBtn) resetBtn.addEventListener('click', () => {
   const cat = q.get('cat');
   const env = q.get('env');
   if (env === 'indoor' || env === 'outdoor') fltEnv.value = env;
-  if (cat && [...tabs].some(tb => tb.dataset.cat === cat)) currentCat = cat;
+  if (cat && [...fltCat.options].some(o => o.value === cat)) currentCat = cat;
+  fltCat.value = currentCat;
   refreshCustomSelectLabels();
   activateTab(currentCat);
 })();

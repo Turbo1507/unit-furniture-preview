@@ -38,7 +38,7 @@
 </header>
 
 <!-- ===== герой страницы ===== -->
-<section class="page-hero">
+<section class="page-hero section-gray">
   <div class="container">
     <nav class="crumbs" aria-label="Хлебные крошки"><a href="index.html" data-i18n="crumb.home">Главная</a><span aria-hidden="true">/</span><span data-i18n="clg.kicker">Каталог</span></nav>
     <h1 class="brand-h1" data-i18n="clg.h1">Каталог <span class="acc"><i class="u5">UNIT.</i>FURNITURE</span></h1>
@@ -49,19 +49,18 @@
 <!-- ===== каталог ===== -->
 <section class="section section-gray first-after-hero" id="catalog">
   <div class="container">
-    <div class="tabs" id="tabs" role="tablist">
-      <button class="tab active" data-cat="all" data-i18n="tab.all">Все</button>
-      <button class="tab" data-cat="beds" data-i18n="cat.beds">Кровати</button>
-      <button class="tab" data-cat="sofas" data-i18n="cat.sofas">Диваны</button>
-      <button class="tab" data-cat="chairs" data-i18n="cat.chairs">Кресла и стулья</button>
-      <button class="tab" data-cat="outdoor" data-i18n="cat.outdoor">Аутдор</button>
-      <button class="tab" data-cat="sunbeds" data-i18n="cat.sunbeds">Шезлонги</button>
-      <button class="tab" data-cat="poufs" data-i18n="cat.poufs">Пуфы</button>
-      <button class="tab" data-cat="textile" data-i18n="cat.textile">Подушки и декор</button>
-      <button class="tab" data-cat="commercial" data-i18n="cat.commercial">Коммерческая мебель</button>
-    </div>
     <div class="filters">
-      <span class="filters-label" data-i18n="clg.filters">Фильтры</span>
+      <select id="fltCat" aria-label="Категория">
+        <option value="all" data-i18n="clg.cat.all">Все категории</option>
+        <option value="beds" data-i18n="cat.beds">Кровати</option>
+        <option value="sofas" data-i18n="cat.sofas">Диваны</option>
+        <option value="chairs" data-i18n="cat.chairs">Кресла и стулья</option>
+        <option value="outdoor" data-i18n="cat.outdoor">Аутдор</option>
+        <option value="sunbeds" data-i18n="cat.sunbeds">Шезлонги</option>
+        <option value="poufs" data-i18n="cat.poufs">Пуфы</option>
+        <option value="textile" data-i18n="cat.textile">Подушки и декор</option>
+        <option value="commercial" data-i18n="cat.commercial">Коммерческая мебель</option>
+      </select>
       <select id="fltEnv" aria-label="Indoor / Outdoor">
         <option value="all" data-i18n="clg.env.all">Indoor и Outdoor</option>
         <option value="indoor">Indoor</option>
@@ -87,7 +86,7 @@
 </section>
 
 <!-- ===== CTA: бенто вместо плоского серого блока ===== -->
-<section class="section section-gray cta-end">
+<section class="section cta-end">
   <div class="container">
     <h2 data-i18n="clg.cta.h2">Не нашли <span class="acc">нужную модель?</span></h2>
     <p class="section-lead" data-i18n="clg.cta.p">Изготовим мебель по вашим размерам, референсам или чертежам: от одного предмета до комплекта на весь объект.</p>
