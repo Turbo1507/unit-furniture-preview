@@ -62,6 +62,7 @@ function renderFeatured() {
   syncAddButtons();
 }
 renderFeatured();
+renderMixB(); syncAddButtons();
 
 /* ---------- проекты: masonry + фильтр (первые 6 на главной) ---------- */
 const projGrid = document.getElementById('projGrid');
@@ -90,6 +91,7 @@ renderProjects();
 /* ---------- перерисовка при смене языка ---------- */
 window.__uf_onLangChangePage = function () {
   renderFeatured();
+  renderMixB(); syncAddButtons();
   renderProjects();
 };
 
