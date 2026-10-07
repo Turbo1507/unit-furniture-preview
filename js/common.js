@@ -183,7 +183,7 @@ function productCard(p, opt = {}) {
   <article class="product" data-id="${p.id}">
     <a class="p-media" href="product.html?id=${p.id}" aria-label="${escapeHtml(trName(p.name))}">
       ${photo
-        ? `<img class="p-photo${studio ? ' is-studio' : ''}" src="${photo}" alt="${escapeHtml(trName(p.name))}" loading="lazy">`
+        ? `<img class="p-photo${studio ? ' is-studio' : ''}${p.cat === 'textile' ? ' is-small' : ''}" src="${photo}" alt="${escapeHtml(trName(p.name))}" loading="lazy">`
         : photoPlaceholder(p.cat)}
       ${teak ? `<span class="p-badge">${escapeHtml(t('badge.teak'))}</span>` : ''}
       <button class="p-add" data-add="${p.id}" aria-label="+" type="button">+</button>

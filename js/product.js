@@ -35,7 +35,7 @@ if (photos.length) {
 }
 
 function renderInfo() {
-  document.title = trName(product.name) + ' — UNIT.FURNITURE';
+  document.title = trName(product.name) + ', UNIT.FURNITURE';
   document.getElementById('crumbs').innerHTML =
     `<a href="index.html">${t('crumb.home')}</a><span>/</span>` +
     `<a href="catalog.html">${t('nav.catalog')}</a><span>/</span>` +
@@ -43,7 +43,7 @@ function renderInfo() {
     `<span>${escapeHtml(trName(product.name))}</span>`;
   document.getElementById('ppCat').textContent = catLabel(product.cat);
   document.getElementById('ppName').textContent = trName(product.name);
-  document.getElementById('ppDesc').innerHTML = t('d.' + product.cat);
+  document.getElementById('ppDesc').innerHTML = glueShort(t('d.' + product.cat));
   document.getElementById('ppPrice').innerHTML = t('pp.price');
 
   const tags = [
@@ -74,7 +74,7 @@ document.getElementById('ppRequest').addEventListener('click', () => {
 const similar = window.PRODUCTS
   .filter(p => p.id !== product.id)
   .sort((a, b) => (b.cat === product.cat) - (a.cat === product.cat) || (b.env === product.env) - (a.env === product.env))
-  .slice(0, 3);
+  .slice(0, 4);
 renderProductsInto(document.getElementById('similarGrid'), similar);
 
 renderInfo();

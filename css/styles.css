@@ -1116,7 +1116,7 @@ a.pill-tag { text-decoration: none; transition: border-color .2s, color .2s; }
   .clim-photo { min-height: 380px; }
   .proj-masonry { columns: 2; }
   .roadmap-5 { grid-template-columns: 1fr; row-gap: 32px; }
-  .final-panel { grid-template-columns: 1fr; }
+  .final-panel { grid-template-columns: minmax(0, 1fr); }
   .final-side { min-height: 0; padding: 40px; }
   .pp-grid { grid-template-columns: 1fr; gap: 40px; }
   .contact-grid { grid-template-columns: 1fr; gap: 48px; }
@@ -1195,7 +1195,8 @@ a.pill-tag { text-decoration: none; transition: border-color .2s, color .2s; }
   .footer-legal { gap: 16px; }
   .products { grid-template-columns: 1fr; gap: 20px; }
   .hero-actions { width: 100%; }
-  .hero-actions .btn { flex: 1; text-align: center; }
+  .hero-actions .btn { flex: 1 0 auto; max-width: 100%; text-align: center; }
+  .hero .hero-actions .btn { flex: 1; }
   .field-row { grid-template-columns: 1fr; }
 }
 
@@ -1356,23 +1357,23 @@ h1 .u5, h2 .u5, b .u5, strong .u5 { font-weight: inherit; }
 .steps p { font-size: 17px; line-height: 1.45; color: rgba(58,58,58,.8); }
 
 /* форма: все поля одной высоты и на всю ширину колонки */
-.home .final-form { padding: 48px; }
-.home .final-form .field { margin-bottom: 24px; }
-.home .final-form .field-row { gap: 16px; }
-.home .final-form label { font-size: 14px; font-weight: 500; margin-bottom: 8px; }
-.home .final-form input[type="text"], .home .final-form input[type="tel"], .home .final-form input[type="email"],
-.home .final-form input[type="date"], .home .final-form textarea, .home .final-form .csel-btn {
+.final-form { padding: 48px; }
+.final-form .field { margin-bottom: 24px; }
+.final-form .field-row { gap: 16px; }
+.final-form label { font-size: 14px; font-weight: 500; margin-bottom: 8px; }
+.final-form input[type="text"], .final-form input[type="tel"], .final-form input[type="email"],
+.final-form input[type="date"], .final-form textarea, .final-form .csel-btn {
   width: 100%; min-height: 52px; padding: 12px 16px; font-size: 16px; line-height: 1.4;
   border: 1px solid var(--interlace); border-radius: var(--r-sm); background: var(--white);
 }
-.home .final-form .csel { width: 100%; }
-.home .final-form .csel-btn { min-width: 0; text-align: left; }
-.home .final-form .csel-label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.home .final-form textarea { min-height: 120px; }
-.home .final-form .agree { margin: 0 0 24px; font-size: 14px; align-items: center; min-height: 44px; }
-.home .final-form .agree input[type="checkbox"] { width: 20px; height: 20px; margin: 0; }
-.home .final-form .agree input[type="checkbox"]:checked::after { left: 6px; top: 2px; }
-.home .final-form .btn-submit { min-height: 56px; }
+.final-form .csel { width: 100%; }
+.final-form .csel-btn { min-width: 0; text-align: left; }
+.final-form .csel-label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.final-form textarea { min-height: 120px; }
+.final-form .agree { margin: 0 0 24px; font-size: 14px; align-items: center; min-height: 44px; }
+.final-form .agree input[type="checkbox"] { width: 20px; height: 20px; margin: 0; }
+.final-form .agree input[type="checkbox"]:checked::after { left: 6px; top: 2px; }
+.final-form .btn-submit { min-height: 56px; }
 
 @media (max-width: 1024px) {
   .cust-split, .how { grid-template-columns: 1fr; }
@@ -1388,18 +1389,18 @@ h1 .u5, h2 .u5, b .u5, strong .u5 { font-weight: inherit; }
   .row p, .steps p { font-size: 16px; }
   .steps li { grid-template-columns: 48px 1fr; padding: 16px 0; }
   .steps .n { font-size: 24px; }
-  .home .final-form { padding: 32px 20px; }
-  .home .final-form .field-row { grid-template-columns: 1fr; gap: 0; }
+  .final-form { padding: 32px 20px; }
+  .final-form .field-row { grid-template-columns: 1fr; gap: 0; }
 }
 .home .final-side-in h2 { font-size: clamp(28px, 2.6vw, 40px); max-width: none; }
-.home .final-form .agree { align-items: flex-start; }
-.home .final-form .agree input[type="checkbox"] { margin-top: 0; }
+.final-form .agree { align-items: flex-start; }
+.final-form .agree input[type="checkbox"] { margin-top: 0; }
 
 /* ---------- правки 3: форма с ошибками, климат в материалах, тапы, моб. планка ---------- */
-.home .final-form input.err, .home .final-form textarea.err { border-color: #C4320A; }
-.home .final-form .agree input.err { border-color: #C4320A; }
+.final-form input.err, .final-form textarea.err { border-color: #C4320A; }
+.final-form .agree input.err { border-color: #C4320A; }
 .f-err { margin-top: 8px; font-size: 14px; line-height: 1.4; color: #C4320A; }
-.home .final-form .agree + .f-err { margin: -16px 0 24px; }
+.final-form .agree + .f-err { margin: -16px 0 24px; }
 
 .home .clim-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px 40px; margin-top: 48px; padding-top: 48px; border-top: 1px solid var(--interlace); }
 .home .clim-row .clim-arg { grid-template-columns: 48px 1fr; gap: 16px; }
@@ -1440,3 +1441,97 @@ h1 .u5, h2 .u5, b .u5, strong .u5 { font-weight: inherit; }
   .home .mat-item h3 { font-size: 16px; margin-top: 12px; }
   .home .mat-item p { font-size: 14px; }
 }
+
+/* ============================================================
+   Внутренние страницы: та же шкала и типографика, что на главной
+   ============================================================ */
+.section { padding: 96px 0; }
+h2 { font-size: clamp(28px, 3.4vw, 44px); font-weight: 700; line-height: 1.08; letter-spacing: -.025em; }
+h3 { font-weight: 500; letter-spacing: -.015em; }
+.section-lead { font-size: clamp(17px, .45vw + 13.5px, 20px); line-height: 1.35; font-weight: 400; max-width: 80ch; margin-top: 16px; }
+.section-lead + *, .section h2 + :is(.catgrid, .list3, .products, .check-grid) { margin-top: 48px; }
+.sect-cta { margin-top: 48px; }
+
+/* шапка страницы: крошки, h1, подзаголовок */
+.page-hero { padding: 48px 0 0; }
+.page-hero .crumbs { margin-bottom: 24px; }
+.page-hero h1, .page-hero h1.brand-h1 { font-size: clamp(36px, 4.6vw, 64px); font-weight: 700; line-height: 1.04; letter-spacing: -.03em; max-width: none; }
+.page-hero .page-sub { font-size: clamp(17px, .45vw + 13.5px, 20px); line-height: 1.35; max-width: 80ch; margin-top: 16px; }
+.page-hero + .section, #product.section { padding-top: 48px; }
+.crumbs span[aria-hidden] { color: var(--interlace); }
+
+/* полоса на фото */
+.band { min-height: 0; }
+.band-in { padding: 96px 40px; }
+.band-in h2 { font-size: clamp(28px, 3.4vw, 44px); margin-bottom: 16px; }
+.band-in > p { font-size: clamp(17px, .45vw + 13.5px, 20px); line-height: 1.35; max-width: 48ch; }
+.band-feats { margin: 48px 0; }
+
+/* короткие пункты списком: линии только между рядами */
+.list3 { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 40px; }
+.list3 li { padding: 20px 0; border-top: 1px solid var(--interlace); font-size: 17px; line-height: 1.45; }
+.list3 li:nth-child(-n+3) { border-top: 0; padding-top: 0; }
+.list3.c2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.list3.c2 li:nth-child(3) { border-top: 1px solid var(--interlace); padding-top: 20px; }
+
+/* каталог: 4 в ряд на широком, на телефоне 2 в ряд как на главной */
+@media (min-width: 1281px) { .products { grid-template-columns: repeat(4, 1fr); gap: 24px; } }
+.p-photo.is-small { object-fit: scale-down; }
+
+/* ряды «Материалы» и «Решения»: без серых плашек, разделены линией */
+.sol-row { background: none; border-radius: 0; padding: 56px 0; margin: 0; gap: clamp(32px, 5vw, 80px); grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); border-top: 1px solid var(--interlace); }
+.sol-row:first-child { border-top: 0; padding-top: 0; }
+.sol-row:last-child { padding-bottom: 0; }
+.sol-row h2 { font-size: clamp(24px, 2.2vw, 32px); }
+.sol-row .section-lead { font-size: 17px; line-height: 1.45; color: rgba(58,58,58,.8); max-width: 56ch; margin-top: 16px; }
+.sol-row .section-lead + * { margin-top: 24px; }
+.sol-row .req-c-label { margin-top: 24px; font-size: 14px; color: rgba(58,58,58,.8); }
+.sol-includes { margin-top: 12px; gap: 8px 24px; }
+.sol-includes svg { display: none; }
+.sol-includes li { font-size: 17px; }
+.sol-row .btn { margin-top: 32px; }
+
+/* товар */
+.pp-info h1 { font-weight: 700; letter-spacing: -.025em; line-height: 1.08; }
+.pp-custom { padding: 24px; border-radius: var(--r-sm); }
+
+/* контакты */
+.contact-addr { font-style: normal; margin-top: 24px; line-height: 1.6; color: rgba(58,58,58,.8); }
+.contact-grid { gap: clamp(40px, 5vw, 80px); margin-top: 0; align-items: start; }
+.contact-grid > * { min-width: 0; }
+.contact-grid .final-form { border: 1px solid var(--interlace); border-radius: var(--r-md); }
+
+@media (max-width: 1024px) {
+  .list3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .list3 li:nth-child(3) { border-top: 1px solid var(--interlace); padding-top: 20px; }
+  .sol-row { grid-template-columns: 1fr; gap: 24px; padding: 40px 0; }
+  .contact-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 720px) {
+  .section { padding: 56px 0; }
+  .page-hero { padding-top: 24px; }
+  .page-hero .crumbs { margin-bottom: 16px; }
+  .page-hero + .section, #product.section { padding-top: 32px; }
+  .section-lead + *, .section h2 + :is(.catgrid, .list3, .products, .check-grid) { margin-top: 32px; }
+  .sect-cta { margin-top: 32px; }
+  .band-in { padding: 56px 20px; }
+  .band-feats { margin: 32px 0; }
+  .list3, .list3.c2 { grid-template-columns: 1fr; }
+  .list3 li, .list3.c2 li { padding: 16px 0; font-size: 16px; border-top: 1px solid var(--interlace); }
+  .list3 li:first-child { border-top: 0; padding-top: 0; }
+  .sol-row { padding: 32px 0; }
+  .sol-row .section-lead { font-size: 16px; }
+  .sol-includes li { font-size: 16px; }
+  .products { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .products .p-meta { padding: 12px; }
+  .products .p-photo.is-studio { padding: 12px; }
+  .products .p-name { font-size: 15px; }
+  .products .p-dims { font-size: 13px; }
+  .products .p-tags, .products .p-foot { display: none; }
+  .products .p-add { width: 36px; height: 36px; top: 8px; right: 8px; }
+  .products .p-add::after { content: "" ; position: absolute; inset: -4px; }
+  .contact-grid .final-form { padding: 32px 20px; }
+}
+
+/* шапка на узком телефоне: логотип, язык, корзина и бургер помещаются в 360 */
+@media (max-width: 380px) { .header-in { gap: 12px; } .header-cta { gap: 4px; } }
