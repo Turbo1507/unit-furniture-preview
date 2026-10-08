@@ -109,9 +109,9 @@ window.I18N = {
 
     /* --- финальный CTA --- */
     "fin.h2": "Давайте создадим мебель для вашего проекта",
-    "fin.lead": "Подберём решение, рассчитаем стоимость и подготовим предложение.",
+    "fin.lead": "Подберём решение, рассчитаем стоимость и подготовим предложение",
     "fin.qr": "Наведите камеру, чтобы открыть чат WhatsApp",
-    "fin.note": "Стоимость рассчитывается индивидуально. Можно отправить фото, план, референсы или выбранные модели.",
+    "fin.note": "Стоимость рассчитывается индивидуально. Можно отправить фото, план, референсы или выбранные модели",
 
     /* --- страница каталога --- */
     "clg.kicker": "Каталог", "clg.cat.all": "Все категории", "clg.h1": "Каталог <span class='acc'><i class='u5'>UNIT.</i>FURNITURE</span>",
@@ -401,9 +401,9 @@ window.I18N = {
 
     /* --- final CTA --- */
     "fin.h2": "Let’s create furniture for your project",
-    "fin.lead": "We will pick a solution, quote it and prepare an offer.",
+    "fin.lead": "We will pick a solution, quote it and prepare an offer",
     "fin.qr": "Point your camera to open a WhatsApp chat",
-    "fin.note": "Pricing is calculated individually. You can send photos, a floor plan, references or selected models.",
+    "fin.note": "Pricing is calculated individually. You can send photos, a floor plan, references or selected models",
 
     /* --- catalog page --- */
     "clg.kicker": "Catalog", "clg.cat.all": "All categories", "clg.h1": "<span class='acc'><i class='u5'>UNIT.</i>FURNITURE</span> catalog",

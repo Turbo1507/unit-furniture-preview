@@ -425,7 +425,7 @@ if (form) {
 /* ---------- направления + ряды моделей (главная, mix.html) ---------- */
 const MIX_ROWS = [
   { dir: 1, img: 'assets/n/dir-home.jpg', href: 'catalog.html', ids: ['sofaAna', 'bed3', 'sofaObs', 'ch7', 'bed1', 'ch8', 'sofaA', 'ch4'] },
-  { dir: 2, img: 'assets/n/dir-outdoor.jpg', href: 'catalog.html?env=outdoor', ids: ['out4', 'out5', 'out3', 'out1', 'out2', 'pilOut'] },
+  { dir: 2, rev: true, img: 'assets/n/dir-outdoor.jpg', href: 'catalog.html?env=outdoor', ids: ['out4', 'out5', 'out3', 'out1', 'out2', 'pilOut'] },
   { dir: 3, img: 'assets/n/dir-commercial.jpg', href: 'catalog.html?cat=commercial', ids: ['sofaRec', 'ch6', 'ch1', 'ch2', 'ch3', 'ch9', 'ch5'] },
 ];
 const mixCards = (ids, n) => ids.map(productById).filter(Boolean).slice(0, n).map(p => productCard(p, { studio: true })).join('');
@@ -448,11 +448,17 @@ function renderMixA() {
 }
 
 /* Б: фото направления + ряд моделей той же высоты, стрелки листают на одну карточку */
+const MIXB_WIDE = matchMedia('(min-width: 721px)');
 function renderMixB() {
   const el = document.getElementById('mixRowsB');
   if (!el) return;
-  el.innerHTML = MIX_ROWS.map(r => `
-    <div class="mixb-row">
+  if (!el.dataset.mq) { el.dataset.mq = 1; MIXB_WIDE.addEventListener('change', () => { renderMixB(); syncAddButtons(); }); }
+  el.innerHTML = MIX_ROWS.map(r => {
+    // в зеркальном ряду лента справа налево: первые карточки у фото, остальные уходят влево
+    const rev = r.rev && MIXB_WIDE.matches;
+    const ids = rev ? r.ids.slice(0, 3).reverse().concat(r.ids.slice(3)) : r.ids;
+    return `
+    <div class="mixb-row${rev ? ' is-rev' : ''}">
       <a class="dir-card mixb-photo" href="${r.href}">
         <img src="${r.img}" alt="" loading="lazy">
         <div class="dir-in">
@@ -461,18 +467,20 @@ function renderMixB() {
         </div>
       </a>
       <div class="mixb-rail">
-        <div class="products mixb-track">${mixCards(r.ids, 8)}</div>
+        <div class="products mixb-track">${mixCards(ids, 8)}</div>
         <button class="mixb-arr is-prev" type="button" aria-label="←" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M15 5l-7 7 7 7"/></svg></button>
         <button class="mixb-arr is-next" type="button" aria-label="→"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 5l7 7-7 7"/></svg></button>
       </div>
-    </div>`).join('');
+    </div>`; }).join('');
   el.querySelectorAll('.mixb-rail').forEach(rail => {
     const track = rail.querySelector('.mixb-track');
     const prev = rail.querySelector('.is-prev'), next = rail.querySelector('.is-next');
+    const dir = rail.closest('.is-rev') ? -1 : 1;
     const step = () => { const c = track.querySelector('.product'); return c ? c.getBoundingClientRect().width + parseFloat(getComputedStyle(track).columnGap || 0) : track.clientWidth; };
     const sync = () => {
-      prev.disabled = track.scrollLeft < 4;
-      next.disabled = track.scrollLeft + track.clientWidth > track.scrollWidth - 4;
+      const x = Math.abs(track.scrollLeft);
+      (dir > 0 ? prev : next).disabled = x < 4;
+      (dir > 0 ? next : prev).disabled = x + track.clientWidth > track.scrollWidth - 4;
     };
     prev.addEventListener('click', () => track.scrollBy({ left: -step(), behavior: 'smooth' }));
     next.addEventListener('click', () => track.scrollBy({ left: step(), behavior: 'smooth' }));

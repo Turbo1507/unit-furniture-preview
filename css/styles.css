@@ -1586,3 +1586,49 @@ h3 { font-weight: 500; letter-spacing: -.015em; }
 
 /* после белой секции её нижнего поля хватает, иначе перед подвалом 160 пустоты */
 .section:not(.section-gray) + .site-footer { margin-top: 0; }
+
+/* зеркальный ряд блока моделей: фото справа, лента справа налево */
+.mixb-row.is-rev { grid-template-columns: minmax(0, 3fr) minmax(0, 1fr); }
+.mixb-row.is-rev .mixb-photo { order: 2; }
+.mixb-row.is-rev .mixb-track { direction: rtl; }
+.mixb-row.is-rev .mixb-track > * { direction: ltr; }
+@media (max-width: 1280px) { .mixb-row.is-rev { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); } }
+
+/* климат: три карточки под материалами */
+.home .clim-row { padding-top: 0; border-top: 0; gap: 24px; }
+.home .clim-row .clim-arg { background: var(--stone); border-radius: var(--r-md); padding: 32px; }
+
+/* короткие тексты в карточках без одинокого хвоста */
+.mat-item p, .band-feats span, .clim-arg p { text-wrap: balance; }
+
+@media (max-width: 1024px) {
+  /* кнопка «Получить расчёт» под шагами */
+  .how { row-gap: 0; }
+  .how-head { display: contents; }
+  .how .steps { margin-top: 32px; }
+  .how .sect-cta { order: 1; margin-top: 32px; }
+}
+
+@media (max-width: 720px) {
+  :root { --r-md: 10px; --r-lg: 10px; }
+  .home .clim-row { gap: 12px; }
+  .home .clim-row .clim-arg { padding: 24px 20px; }
+  /* материалы лентой */
+  .home .mat-strip { display: grid; grid-auto-flow: column; grid-template-columns: none; grid-auto-columns: 72%; gap: 12px; margin-left: -20px; margin-right: -20px; padding: 0 20px; scroll-padding: 0 20px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+  .home .mat-strip::-webkit-scrollbar { display: none; }
+  .home .mat-item { scroll-snap-align: start; }
+  .home .mat-photo { aspect-ratio: 4 / 3; }
+  /* подвал: лого, слоган, соцсети; меню и ссылки; описание и адрес внизу */
+  .footer-inner { row-gap: 0; }
+  .footer-brand { display: contents; }
+  .footer-brand > .logo, .footer-slogan { grid-column: 1 / -1; }
+  .footer-social { order: 1; margin-top: 24px; }
+  .footer-col { order: 2; margin-top: 40px; }
+  .footer-desc, .footer-brand address { order: 3; grid-column: 1 / -1; max-width: none; }
+  .footer-desc { margin-top: 40px; }
+  .footer-brand address { margin-top: 16px; }
+}
+
+/* согласие: чекбокс слева, текст колонкой рядом (общее .form label делало его блоком) */
+.form label.agree { display: flex; gap: 12px; margin-bottom: 24px; }
+.form label.agree > span { flex: 1; min-width: 0; }
