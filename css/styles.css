@@ -1731,6 +1731,7 @@ h3 { font-weight: 500; letter-spacing: -.015em; }
 
 /* песочница, вариант В: карточка категории в ленте моделей */
 .mixc-rows { display: grid; gap: 48px; }
+.mixc-row { min-width: 0; }
 .mixc-row + .mixc-row { padding-top: 48px; border-top: 1px solid var(--interlace); }
 .mixc-sep { margin-bottom: 24px; font-size: 28px; font-weight: 700; line-height: 1.2; }
 .products.mixc-track { margin: 0; display: grid; grid-auto-flow: column; grid-template-columns: none; grid-auto-columns: calc((100% - 72px) / 4); gap: 24px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
@@ -1746,7 +1747,9 @@ h3 { font-weight: 500; letter-spacing: -.015em; }
   .mixc-rows { gap: 32px; }
   .mixc-row + .mixc-row { padding-top: 32px; }
   .mixc-sep { margin-bottom: 16px; font-size: 22px; }
-  .products.mixc-track { grid-auto-columns: 46%; gap: 12px; margin: 0 -20px; padding: 0 20px; scroll-padding: 0 20px; }
+  .products.mixc-track { display: flex; gap: 12px; margin: 0 -20px; padding: 0 20px; scroll-padding: 0 20px; }
+  .mixc-track > * { flex: 0 0 46%; }
+  .mixc-track > .mixc-cat { flex-basis: 69%; height: auto; }
   .mixc-cat .dir-in { padding: 16px; }
   .mixc-cat .dir-in p { font-size: 13px; }
   .mixc-go { top: 8px; right: 8px; width: 36px; height: 36px; }
