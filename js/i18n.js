@@ -95,7 +95,7 @@ window.I18N = {
     "des.li1": "Работа по референсам, чертежам и спецификациям",
     "des.li2": "Адаптация размеров, тканей и материалов под проект",
     "des.li3": "Комплектация объекта и индивидуальный расчёт",
-    "des.cta1": "Стать партнёром", "des.cta2": "Получить расчёт",
+    "des.cta1": "Стать партнёром", "des.cta2": "Смотреть условия для дизайнеров",
 
     /* --- как заказать --- */
     "steps.h2": "Как <span class='acc'>заказать</span>",
@@ -387,7 +387,7 @@ window.I18N = {
     "des.li1": "Work from references, drawings and specifications",
     "des.li2": "Adaptation of sizes, fabrics and materials to the project",
     "des.li3": "Property furnishing and individual quotes",
-    "des.cta1": "Become a partner", "des.cta2": "Get a quote",
+    "des.cta1": "Become a partner", "des.cta2": "See terms for designers",
 
     /* --- how to order --- */
     "steps.h2": "How to <span class='acc'>order</span>",

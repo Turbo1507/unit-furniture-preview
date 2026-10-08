@@ -449,6 +449,13 @@ if (form) {
   });
 }
 
+// ссылка вида contacts.html?object=villa сразу выбирает тип объекта в форме
+(() => {
+  const sel = document.getElementById('fObject'), v = new URLSearchParams(location.search).get('object');
+  const o = sel && v && sel.querySelector('option[data-i18n="f.o.' + v + '"]');
+  if (o) o.selected = true;
+})();
+
 /* ---------- направления + ряды моделей (главная, mix.html) ---------- */
 const MIX_ROWS = [
   { dir: 1, img: 'assets/n/dir-home.jpg', href: 'catalog.html', ids: ['sofaAna', 'bed3', 'sofaObs', 'ch7', 'bed1', 'ch8', 'sofaA', 'ch4'] },
