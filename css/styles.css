@@ -521,7 +521,7 @@ h3 { font-size: 20px; font-weight: 600; }
   padding: clamp(48px, 6vw, 80px) 0 36px;
 }
 .footer-inner {
-  display: grid; grid-template-columns: 1.4fr 1fr 1.2fr auto;
+  display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, 1.2fr) auto;
   gap: 40px;
 }
 .footer-brand .logo { font-size: 28px; }
@@ -1684,17 +1684,29 @@ h3 { font-weight: 500; letter-spacing: -.015em; }
 .cta-card h2 { color: var(--graphite); }
 .cta-card .section-lead + .sect-cta { margin-top: 32px; }
 .cta-side-t { font-size: 16px; font-weight: 500; line-height: 1.5; }
-.cta-side dl { margin: 24px 0 0; display: grid; gap: 24px; }
-.cta-side dt { font-size: 14px; line-height: 1.5; color: rgba(58,58,58,.8); }
-.cta-side dd { margin: 8px 0 0; font-size: 20px; font-weight: 500; line-height: 1.4; }
-.cta-side dd a { color: inherit; text-decoration: none; }
-@media (hover: hover) { .cta-side dd a:hover { color: var(--blue); } }
+.cta-links { margin-top: 24px; display: grid; gap: 16px; }
+.cta-link { display: flex; align-items: center; gap: 24px; padding: 24px; background: var(--stone); border-radius: var(--r-md); color: var(--graphite); text-decoration: none; transition: background-color .2s, color .2s; }
+.cta-link .clim-ico { flex: none; width: 56px; height: 56px; }
+.cta-link .clim-ico svg { width: 28px; height: 28px; }
+.cta-link-t { display: grid; gap: 4px; min-width: 0; font-size: 20px; font-weight: 500; line-height: 1.3; overflow-wrap: anywhere; }
+.cta-link-t small { font-size: 14px; font-weight: 400; line-height: 1.4; color: rgba(58,58,58,.8); transition: color .2s; }
+.cta-link-go { flex: none; margin-left: auto; width: 44px; height: 44px; display: grid; place-items: center; border-radius: var(--r-sm); background: var(--blue); color: var(--white); }
+.cta-link-go svg { width: 20px; height: 20px; }
+@media (hover: hover) {
+  .cta-link:hover { background: var(--graphite); color: var(--white); }
+  .cta-link:hover .cta-link-t small { color: rgba(255,255,255,.8); }
+}
 @media (max-width: 1024px) { .cta-card { grid-template-columns: minmax(0, 1fr); gap: 40px; } }
 @media (max-width: 720px) {
   .cta-card { padding: 32px 20px; gap: 32px; }
   .cta-card .section-lead + .sect-cta { margin-top: 32px; }
-  .cta-side dl { margin-top: 16px; gap: 16px; }
-  .cta-side dd { font-size: 18px; margin-top: 4px; }
+  .cta-links { margin-top: 16px; gap: 12px; }
+  .cta-link { gap: 16px; padding: 16px; }
+  .cta-link .clim-ico { width: 44px; height: 44px; }
+  .cta-link .clim-ico svg { width: 22px; height: 22px; }
+  .cta-link-t { font-size: 16px; }
+  .cta-link-t small { font-size: 13px; }
+  .cta-link-go { display: none; }
 }
 
 /* товар: ссылка на страницу кастомизации */
@@ -1718,6 +1730,12 @@ h3 { font-weight: 500; letter-spacing: -.015em; }
 .cz-tile { display: flex; flex-direction: column; justify-content: space-between; gap: 32px; padding: 32px; background: var(--stone); border-radius: var(--r-md); }
 .cz-tile.is-wide { grid-column: span 2; }
 .cz-tile > span:last-child { font-size: 20px; font-weight: 500; line-height: 1.3; max-width: 22ch; text-wrap: balance; }
+.cz-tile .clim-ico { width: 80px; height: 80px; }
+.cz-tile .clim-ico svg { width: 44px; height: 44px; }
+@media (max-width: 1440px) {
+  .cz-tile .clim-ico { width: 64px; height: 64px; }
+  .cz-tile .clim-ico svg { width: 36px; height: 36px; }
+}
 @media (max-width: 1024px) {
   .cz-bento { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: minmax(176px, auto); grid-auto-flow: dense; }
 }
@@ -1740,9 +1758,9 @@ h3 { font-weight: 500; letter-spacing: -.015em; }
 .mixc-track > .mixc-cat { flex-basis: calc(var(--c) * 1.5); }
 .mixc-track .mixc-cat { aspect-ratio: auto; height: auto; min-height: 0; box-shadow: none; }
 .mixc-cat .dir-in p { margin: 0; font-size: 16px; line-height: 1.35; color: var(--white); }
-.mixc-go { position: absolute; top: 12px; right: 12px; z-index: 2; width: 44px; height: 44px; display: grid; place-items: center; border-radius: var(--r-sm); background: var(--white); color: var(--graphite); transition: color .2s, background-color .2s; }
+.mixc-go { position: absolute; top: 12px; right: 12px; z-index: 2; width: 44px; height: 44px; display: grid; place-items: center; border-radius: var(--r-sm); background: var(--blue); color: var(--white); transition: color .2s, background-color .2s; }
 .mixc-go svg { width: 20px; height: 20px; }
-@media (hover: hover) { .mixc-cat:hover .mixc-go { background: var(--blue); color: var(--white); } }
+@media (hover: hover) { .mixc-cat:hover .mixc-go { background: var(--white); color: var(--blue); } }
 @media (max-width: 1024px) { .products.mixc-track { --c: calc((100% - 48px) / 3.5); } }
 @media (max-width: 720px) {
   .mixc-rows { gap: 32px; }
