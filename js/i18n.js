@@ -7,7 +7,7 @@ window.I18N = {
     /* --- навигация и шапка --- */
     "nav.catalog": "Каталог", "nav.solutions": "Решения", "nav.custom": "Кастомизация",
     "nav.projects": "Проекты", "nav.designers": "Для дизайнеров", "nav.contacts": "Контакты",
-    "nav.materials": "Материалы", "nav.cta": "Получить расчёт", "ft.slogan": "Сделано для жизни. Сделано надолго.", "cart.added": "Добавлено в корзину", "cart.removed": "Убрано из корзины", "cart.open": "Открыть корзину", "p.add.aria": "Добавить в корзину", "p.del.aria": "Убрать из корзины", "clg.grid.h": "Модели каталога", "f.err.phone2": "Проверьте номер: нужно не меньше 7 цифр или ник от 4 символов",
+    "nav.materials": "Материалы", "nav.cta": "Получить расчёт", "sl.custom": "под заказ", "sl.drawing": "по вашим чертежам", "cta.direct": "Связаться с менеджером напрямую", "cta.mail": "Почта", "pp.custom.cta": "Смотреть варианты кастомизации", "ft.slogan": "Сделано для жизни. Сделано надолго.", "cart.added": "Добавлено в корзину", "cart.removed": "Убрано из корзины", "cart.open": "Открыть корзину", "p.add.aria": "Добавить в корзину", "p.del.aria": "Убрать из корзины", "clg.grid.h": "Модели каталога", "f.err.phone2": "Проверьте номер: нужно не меньше 7 цифр или ник от 4 символов",
 
     /* --- главная: hero --- */
     "hero.title": "Хай-тек мебель собственного производства и интерьеры на Бали",
@@ -299,7 +299,7 @@ window.I18N = {
     /* --- navigation & header --- */
     "nav.catalog": "Catalog", "nav.solutions": "Solutions", "nav.custom": "Customization",
     "nav.projects": "Projects", "nav.designers": "For designers", "nav.contacts": "Contacts",
-    "nav.materials": "Materials", "nav.cta": "Get a quote", "ft.slogan": "Designed for living. Built to last.", "cart.added": "Added to cart", "cart.removed": "Removed from cart", "cart.open": "Open cart", "p.add.aria": "Add to cart", "p.del.aria": "Remove from cart", "clg.grid.h": "Catalog models", "f.err.phone2": "Check the number: at least 7 digits, or a handle of 4+ characters",
+    "nav.materials": "Materials", "nav.cta": "Get a quote", "sl.custom": "made to order", "sl.drawing": "to your drawings", "cta.direct": "Contact a manager directly", "cta.mail": "Email", "pp.custom.cta": "See customization options", "ft.slogan": "Designed for living. Built to last.", "cart.added": "Added to cart", "cart.removed": "Removed from cart", "cart.open": "Open cart", "p.add.aria": "Add to cart", "p.del.aria": "Remove from cart", "clg.grid.h": "Catalog models", "f.err.phone2": "Check the number: at least 7 digits, or a handle of 4+ characters",
 
     /* --- home: hero --- */
     "hero.title": "Hi-tech furniture production and interiors in Bali",

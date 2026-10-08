@@ -145,12 +145,12 @@ window.FEATURED = [
 
 /* Готовые решения (ТЗ, блок 4 и страница «Решения») */
 window.SOLUTIONS = [
-  { id: 'bedroom',    img: 'assets/n/sol-bedroom.jpg',    products: ['bed1', 'ch7', 'ch8', 'pilObs'] },
-  { id: 'living',     img: 'assets/n/sol-living.jpg',     products: ['sofaB', 'ch7', 'ch8', 'pilAna'] },
-  { id: 'terrace',    img: 'assets/n/sol-outdoor.jpg',    products: ['out3', 'out4', 'pilOut'] },
-  { id: 'lounge',     img: 'assets/life-terrace.jpg',    products: ['out1', 'out2', 'pilOut'] },
-  { id: 'reception',  img: 'assets/life-lobby.jpg',      products: ['sofaRec', 'ch1', 'ch5'] },
-  { id: 'restaurant', img: 'assets/life-restaurant.jpg', products: ['ch6', 'ch2', 'sofaRec'] },
+  { id: 'bedroom',    img: 'assets/n/sol-bedroom.jpg',    products: ['bed1', 'ch7', 'ch8', 'pilObs'], items: [['bed1'], [], ['ch7'], ['ch8'], [], ['pilObs']] },
+  { id: 'living',     img: 'assets/n/sol-living.jpg',     products: ['sofaB', 'ch7', 'ch8', 'pilAna'], items: [['sofaB'], ['ch7'], [], ['ch8'], ['pilAna']] },
+  { id: 'terrace',    img: 'assets/n/sol-outdoor.jpg',    products: ['out3', 'out4', 'pilOut'], items: [['out3', 'out4'], [], ['pilOut'], []] },
+  { id: 'lounge',     img: 'assets/life-terrace.jpg',    products: ['out1', 'out2', 'pilOut'], items: [['out2'], ['out1'], [], ['pilOut']] },
+  { id: 'reception',  img: 'assets/life-lobby.jpg',      products: ['sofaRec', 'ch1', 'ch5'], items: [['sofaRec'], ['ch1', 'ch5'], [], []] },
+  { id: 'restaurant', img: 'assets/life-restaurant.jpg', products: ['ch6', 'ch2', 'sofaRec'], items: [['ch2'], ['ch6'], ['sofaRec'], 'drawing'] },
   { id: 'turnkey',    img: 'assets/n/sol-turnkey.jpg',       products: [], featured: true },
 ];
 
