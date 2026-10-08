@@ -1667,3 +1667,13 @@ h3 { font-weight: 500; letter-spacing: -.015em; }
 @media (max-width: 720px) { .cart-toast { left: 16px; right: 16px; bottom: 16px; transform: translateY(16px); justify-content: space-between; max-width: none; }
   .cart-toast.show { transform: none; } }
 @media (max-width: 720px) { .cart-toast { bottom: 88px; } }
+
+/* климат: иконка на белой подложке вместо номера */
+.home .clim-row .clim-arg { grid-template-columns: 48px minmax(0, 1fr); gap: 20px; align-items: start; }
+.clim-ico { width: 48px; height: 48px; border-radius: var(--r-sm); background: var(--white); color: var(--blue); display: grid; place-items: center; }
+.clim-ico svg { width: 24px; height: 24px; }
+@media (max-width: 720px) {
+  .home .clim-row .clim-arg { grid-template-columns: 40px minmax(0, 1fr); gap: 16px; }
+  .clim-ico { width: 40px; height: 40px; }
+  .clim-ico svg { width: 22px; height: 22px; }
+}
