@@ -1730,23 +1730,25 @@ h3 { font-weight: 500; letter-spacing: -.015em; }
 }
 
 /* песочница, вариант В: карточка категории в ленте моделей */
-.mixc-rows { display: grid; gap: 24px; }
+.mixc-rows { display: grid; gap: 48px; }
+.mixc-row + .mixc-row { padding-top: 48px; border-top: 1px solid var(--interlace); }
+.mixc-sep { margin-bottom: 24px; font-size: 28px; font-weight: 700; line-height: 1.2; }
 .products.mixc-track { margin: 0; display: grid; grid-auto-flow: column; grid-template-columns: none; grid-auto-columns: calc((100% - 72px) / 4); gap: 24px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
 .mixc-track::-webkit-scrollbar { display: none; }
 .mixc-track > * { scroll-snap-align: start; }
 .mixc-track .mixc-cat { aspect-ratio: auto; height: 100%; min-height: 0; box-shadow: none; }
-.mixc-cat .dir-in h3 { font-size: 22px; font-weight: 700; }
-.mixc-cat .dir-in p { font-size: 15px; }
+.mixc-cat .dir-in p { margin: 0; font-size: 16px; line-height: 1.35; color: var(--white); }
 .mixc-go { position: absolute; top: 12px; right: 12px; z-index: 2; width: 44px; height: 44px; display: grid; place-items: center; border-radius: var(--r-sm); background: var(--white); color: var(--graphite); transition: color .2s, background-color .2s; }
 .mixc-go svg { width: 20px; height: 20px; }
 @media (hover: hover) { .mixc-cat:hover .mixc-go { background: var(--blue); color: var(--white); } }
 @media (max-width: 1024px) { .products.mixc-track { grid-auto-columns: calc((100% - 48px) / 3); } }
 @media (max-width: 720px) {
-  .mixc-rows { gap: 40px; }
+  .mixc-rows { gap: 32px; }
+  .mixc-row + .mixc-row { padding-top: 32px; }
+  .mixc-sep { margin-bottom: 16px; font-size: 22px; }
   .products.mixc-track { grid-auto-columns: 46%; gap: 12px; margin: 0 -20px; padding: 0 20px; scroll-padding: 0 20px; }
   .mixc-cat .dir-in { padding: 16px; }
-  .mixc-cat .dir-in h3 { font-size: 17px; }
-  .mixc-cat .dir-in p { display: none; }
+  .mixc-cat .dir-in p { font-size: 13px; }
   .mixc-go { top: 8px; right: 8px; width: 36px; height: 36px; }
   .mixc-go svg { width: 18px; height: 18px; }
 }

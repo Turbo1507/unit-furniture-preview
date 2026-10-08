@@ -11,19 +11,21 @@ function renderMixC() {
   el.innerHTML = MIX_ROWS.map((r, k) => {
     const cards = r.ids.map(productById).filter(Boolean).slice(0, 8).map(p => productCard(p, { studio: true }));
     cards.splice(MIXC_POS[k] || 0, 0, `
-        <a class="dir-card mixc-cat" href="${MIXC_HREF[r.dir] || r.href}">
+        <a class="dir-card mixc-cat" href="${MIXC_HREF[r.dir] || r.href}" aria-label="${t('dir.' + r.dir + '.t')}">
           <img src="${r.img}" alt="">
           <span class="mixc-go" aria-hidden="true">${MIXC_GO}</span>
           <div class="dir-in">
-            <h3>${t('dir.' + r.dir + '.t')}</h3>
             <p>${glueShort(t('dir.' + r.dir + '.p'))}</p>
           </div>
         </a>`);
     return `
-    <div class="mixb-rail mixc-rail">
-      <div class="products mixc-track">${cards.join('')}</div>
-      ${MIXC_ARR('is-prev', 'M15 5l-7 7 7 7', '←')}
-      ${MIXC_ARR('is-next', 'M9 5l7 7-7 7', '→')}
+    <div class="mixc-row">
+      <h3 class="mixc-sep">${t('dir.' + r.dir + '.t')}</h3>
+      <div class="mixb-rail mixc-rail">
+        <div class="products mixc-track">${cards.join('')}</div>
+        ${MIXC_ARR('is-prev', 'M15 5l-7 7 7 7', '←')}
+        ${MIXC_ARR('is-next', 'M9 5l7 7-7 7', '→')}
+      </div>
     </div>`;
   }).join('');
   el.querySelectorAll('.mixc-rail').forEach(rail => {
