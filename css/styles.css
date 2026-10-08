@@ -1845,3 +1845,51 @@ h3 { font-weight: 500; letter-spacing: -.015em; }
   .prod-list p { font-size: 16px; }
   .prod-text .sect-cta .btn { width: 100%; }
 }
+
+/* о компании: компании группы и основатели */
+.co-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.co-card { display: flex; flex-direction: column; overflow: hidden; border-radius: var(--r-md); background: var(--stone); }
+.co-photo { position: relative; aspect-ratio: 16 / 9; }
+.co-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.co-in { display: flex; flex-direction: column; gap: 8px; padding: 24px; }
+.co-in h3 { font-size: 20px; line-height: 1.25; }
+.co-sub, .team-role { font-size: 14px; line-height: 1.4; color: rgba(58,58,58,.64); }
+.co-in p, .team-in p { margin-top: 8px; font-size: 17px; line-height: 1.4; color: rgba(58,58,58,.8); }
+.co-team-h { margin: 56px 0 24px; font-size: clamp(20px, 2vw, 24px); line-height: 1.25; }
+.team-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+html[lang="en"] .team-card.ru-only { display: none; }
+.team-card { display: grid; grid-template-columns: 160px minmax(0, 1fr); gap: 24px; align-items: start; padding: 24px; border-radius: var(--r-md); background: var(--stone); }
+.team-photo { position: relative; aspect-ratio: 4 / 5; overflow: hidden; border-radius: var(--r-sm); }
+.team-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: grayscale(1); }
+.team-in { display: flex; flex-direction: column; gap: 8px; }
+.team-name { font-size: 20px; font-weight: 500; line-height: 1.25; }
+@media (max-width: 1024px) {
+  .co-grid, .team-grid { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .co-card { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); }
+  .co-photo { aspect-ratio: auto; min-height: 200px; }
+}
+@media (max-width: 720px) {
+  .co-grid { grid-auto-flow: column; grid-template-columns: none; grid-auto-columns: 80%; gap: 12px; margin: 0 -20px; padding: 0 20px; scroll-padding: 0 20px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+  .co-grid::-webkit-scrollbar { display: none; }
+  .co-card { display: flex; scroll-snap-align: start; }
+  .co-photo { aspect-ratio: 16 / 9; min-height: 0; }
+  .co-in, .team-card { padding: 16px; }
+  .co-in h3, .team-name { font-size: 18px; }
+  .co-in p, .team-in p { font-size: 16px; }
+  .co-team-h { margin: 40px 0 16px; }
+  .team-card { grid-template-columns: 112px minmax(0, 1fr); gap: 16px; }
+}
+
+/* сверка единообразия */
+.ct-links { margin-top: 0; }
+.cta-link-go.is-nav { background: var(--white); color: var(--graphite); }
+.pill-tag { background: var(--stone); border-color: var(--stone); }
+.pp-custom-icon { flex: 0 0 44px; width: 44px; height: 44px; margin-top: 0; display: grid; place-items: center; border-radius: var(--r-sm); background: var(--white); }
+.pp-custom-icon svg { width: 24px; height: 24px; }
+.prod-list p, .co-in p, .team-in p { line-height: 1.45; }
+/* подвал после серой секции: без белых уголков */
+:is(.section-gray, .cta-end) + .site-footer { margin-top: 0; box-shadow: 0 -24px 0 var(--stone); }
+@media (max-width: 720px) {
+  .hero .hero-actions { flex-direction: column; }
+  .hero .hero-actions .btn, .sol-row .btn, .pp-custom .pp-custom-link { width: 100%; }
+}
