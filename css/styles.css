@@ -1893,3 +1893,27 @@ html[lang="en"] .team-card.ru-only { display: none; }
   .hero .hero-actions { flex-direction: column; }
   .hero .hero-actions .btn, .sol-row .btn, .pp-custom .pp-custom-link { width: 100%; }
 }
+
+/* компании группы на серой подложке, как на Спейсе; мы выделены синим */
+.co-group { display: grid; gap: 32px; padding: 40px; border-radius: var(--r-md); background: var(--stone); }
+.co-group-head { display: flex; flex-direction: column; gap: 8px; max-width: 760px; }
+.co-group-head h3 { font-size: clamp(24px, 2vw, 32px); line-height: 1.15; }
+.co-group-head p { margin-top: 8px; font-size: 17px; line-height: 1.45; color: rgba(58,58,58,.8); }
+.co-group .co-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.co-group .co-card { background: var(--white); }
+.co-group .co-in { flex: 1; }
+.co-group .co-photo { aspect-ratio: 4 / 3; margin: 0 24px 24px; overflow: hidden; border-radius: var(--r-sm); }
+.co-card.is-us { box-shadow: inset 0 0 0 2px var(--blue); }
+.co-card.is-us h3, .co-card.is-us h3 i { color: var(--blue); }
+@media (max-width: 1280px) { .co-group .co-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .co-group .co-photo { aspect-ratio: 16 / 10; } }
+@media (max-width: 1024px) {
+  .co-group .co-card { display: flex; }
+  .co-group .co-photo { min-height: 0; }
+}
+@media (max-width: 720px) {
+  .co-group { padding: 16px; gap: 24px; }
+  .co-group .co-grid { grid-template-columns: none; margin: 0 -16px; padding: 0 16px; scroll-padding: 0 16px; }
+  .co-group .co-photo { margin: 0 16px 16px; }
+}
+.prod-text .section-lead { max-width: 600px; }
+.final-contacts a:last-child { border-bottom: 0; }
