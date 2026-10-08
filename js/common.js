@@ -501,6 +501,7 @@ function renderMixB() {
     </div>`; }).join('');
   el.querySelectorAll('.mixb-rail').forEach(rail => {
     const track = rail.querySelector('.mixb-track');
+    track.querySelectorAll('img[loading]').forEach(i => i.removeAttribute('loading'));
     const prev = rail.querySelector('.is-prev'), next = rail.querySelector('.is-next');
     const dir = rail.closest('.is-rev') ? -1 : 1;
     const step = () => { const c = track.querySelector('.product'); return c ? c.getBoundingClientRect().width + parseFloat(getComputedStyle(track).columnGap || 0) : track.clientWidth; };
