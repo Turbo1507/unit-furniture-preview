@@ -44,7 +44,7 @@ function trSpecVal(v) {
 }
 function trDims(d) {
   if (d === '—') return t('p.dims_unknown');
-  return (window.__uf_lang || 'ru') === 'en' ? d.replace(' мм', ' mm') : d;
+  return (window.__uf_lang || 'ru') === 'en' ? d.replace(' мм', '\u00a0mm') : d.replace(' мм', '\u00a0мм');
 }
 function trName(name) {
   if ((window.__uf_lang || 'ru') !== 'en') return name;
@@ -77,6 +77,9 @@ function syncAddButtons() {
     const on = reqIds.has(b.dataset.add);
     b.classList.toggle('added', on);
     b.textContent = on ? '✓' : '+';
+    const pr = productById(b.dataset.add);
+    b.setAttribute('aria-label', t(on ? 'p.del.aria' : 'p.add.aria') + (pr ? ': ' + trName(pr.name) : ''));
+    b.setAttribute('aria-pressed', on ? 'true' : 'false');
   });
   document.querySelectorAll('[data-req]').forEach(b => {
     const on = reqIds.has(b.dataset.req);
@@ -122,7 +125,7 @@ function renderCart() {
     return `<div class="cart-item">
       ${thumb}
       <div><div class="cart-item-name">${escapeHtml(trName(p.name))}</div><div class="cart-item-cat">${escapeHtml(catLabel(p.cat))}</div></div>
-      <button type="button" class="cart-item-del" data-del="${p.id}" aria-label="✕">✕</button>
+      <button type="button" class="cart-item-del" data-del="${p.id}" aria-label="${escapeHtml(t('p.del.aria') + ': ' + trName(p.name))}">✕</button>
     </div>`;
   }).join('');
 }
@@ -186,7 +189,7 @@ function productCard(p, opt = {}) {
         ? `<img class="p-photo${studio ? ' is-studio' : ''}${p.cat === 'textile' ? ' is-small' : ''}" src="${photo}" alt="${escapeHtml(trName(p.name))}" loading="lazy">`
         : photoPlaceholder(p.cat)}
       ${teak ? `<span class="p-badge">${escapeHtml(t('badge.teak'))}</span>` : ''}
-      <button class="p-add" data-add="${p.id}" aria-label="+" type="button">+</button>
+      <button class="p-add" data-add="${p.id}" type="button">+</button>
     </a>
     <div class="p-meta">
       <div class="p-cat-row"><span class="p-cat">${escapeHtml(catLabel(p.cat))}</span></div>
@@ -204,9 +207,23 @@ function renderProductsInto(el, list, opt) {
   el.innerHTML = list.map(p => productCard(p, opt)).join('');
   syncAddButtons();
 }
+let toastT;
+function cartToast(on) {
+  let el = document.getElementById('cartToast');
+  if (!el) {
+    el = document.createElement('div');
+    el.id = 'cartToast'; el.className = 'cart-toast'; el.setAttribute('role', 'status');
+    document.body.appendChild(el);
+    el.addEventListener('click', e => { if (e.target.closest('button')) { el.classList.remove('show'); openCart(); } });
+  }
+  el.innerHTML = `<span>${t(on ? 'cart.added' : 'cart.removed')}: ${reqIds.size}</span><button type="button">${t('cart.open')}</button>`;
+  el.classList.add('show');
+  clearTimeout(toastT);
+  toastT = setTimeout(() => el.classList.remove('show'), 4000);
+}
 document.addEventListener('click', e => {
   const add = e.target.closest('.p-add');
-  if (add) { e.preventDefault(); e.stopPropagation(); toggleRequest(add.dataset.add); }
+  if (add) { e.preventDefault(); e.stopPropagation(); toggleRequest(add.dataset.add); cartToast(reqIds.has(add.dataset.add)); }
 });
 
 /* ---------- scroll progress ---------- */
@@ -378,7 +395,7 @@ syncRequestUI();
 /* ---------- форма заявки (index + contacts) ---------- */
 const form = document.getElementById('leadForm');
 if (form) {
-  /* подстановка «Что нужно подобрать» из последнего «Запросить стоимость» на странице товара */
+  /* подстановка «Что нужно подобрать» из последней модели, положенной в корзину на странице товара */
   const fTopic = document.getElementById('fTopic');
   if (fTopic) {
     let lastCat = null;
@@ -396,6 +413,8 @@ if (form) {
     scopeSel.addEventListener('change', syncBulkNote);
     syncBulkNote();
   }
+  const dl = document.getElementById('fDeadline');
+  if (dl) { const d = new Date(); d.setMinutes(d.getMinutes() - d.getTimezoneOffset()); dl.min = d.toISOString().slice(0, 10); }
   const setErr = (f, bad) => {
     f.classList.toggle('err', bad);
     f.setAttribute('aria-invalid', bad ? 'true' : 'false');
@@ -412,8 +431,16 @@ if (form) {
     const email = document.getElementById('fEmail');
     const agree = document.getElementById('fAgree');
     const bad = [];
-    [name, phone].forEach(f => { const b = !f.value.trim(); setErr(f, b); if (b) bad.push(f); });
+    { const b = !name.value.trim(); setErr(name, b); if (b) bad.push(name); }
+    {
+      const v = phone.value.trim();
+      const ok = (v.replace(/\D/g, '').length >= 7) || /^@?[A-Za-z][\w.]{3,}$/.test(v);
+      const msg = document.getElementById('fPhoneErr');
+      if (msg) msg.textContent = t(v ? 'f.err.phone2' : 'f.err.phone');
+      setErr(phone, !ok); if (!ok) bad.push(phone);
+    }
     if (email) { const b = !!email.value.trim() && !email.checkValidity(); setErr(email, b); if (b) bad.push(email); }
+    if (dl && dl.value && dl.value < dl.min) { dl.value = dl.min; }
     setErr(agree, !agree.checked); if (!agree.checked) bad.push(agree);
     if (bad.length) { bad[0].focus(); return; }
     /* TODO: сюда AJAX → Telegram Bot API, как в unit-bali functions.php */

@@ -7,13 +7,13 @@ window.I18N = {
     /* --- навигация и шапка --- */
     "nav.catalog": "Каталог", "nav.solutions": "Решения", "nav.custom": "Кастомизация",
     "nav.projects": "Проекты", "nav.designers": "Для дизайнеров", "nav.contacts": "Контакты",
-    "nav.materials": "Материалы", "nav.cta": "Получить расчёт",
+    "nav.materials": "Материалы", "nav.cta": "Получить расчёт", "ft.slogan": "Сделано для жизни. Сделано надолго.", "cart.added": "Добавлено в корзину", "cart.removed": "Убрано из корзины", "cart.open": "Открыть корзину", "p.add.aria": "Добавить в корзину", "p.del.aria": "Убрать из корзины", "clg.grid.h": "Модели каталога", "f.err.phone2": "Проверьте номер: нужно не меньше 7 цифр или ник от 4 символов",
 
     /* --- главная: hero --- */
     "hero.title": "Хай-тек мебель собственного производства и интерьеры на Бали",
     "hero.sub": "Создаём мебель для вилл, домов, отелей, ресторанов и outdoor-пространств. От отдельной модели до полной комплектации объекта под ключ.",
     "hero.cta1": "Получить расчёт", "hero.cta2": "Смотреть каталог", "hero.scroll": "Листайте ↓", "hero.cap": "Sofa Outdoor Type 4, коллекция 2026", "hero.cap1": "Sofa A, коллекция 2026", "hero.cap2": "Bed Type 3, коллекция 2026", "hero.cap3": "Sofa Outdoor Type 4, коллекция 2026", "hero.cap4": "Sofa Outdoor Type 5, коллекция 2026", "doc.title": "UNIT.FURNITURE: авторская мебель и интерьерные решения на Бали",
-    "hero.badge1": "Собственное производство", "hero.badge2": "Кастомизация", "hero.badge3": "Indoor · Outdoor · Commercial",
+    "hero.badge1": "Собственное производство", "hero.badge2": "Кастомизация", "hero.badge3": "Indoor, Outdoor, Commercial",
 
     "mq.1": "Собственное производство", "mq.2": "Кастомизация под объект",
     "mq.3": "Indoor / Outdoor / Commercial", "mq.4": "Тик и материалы для климата Бали",
@@ -31,7 +31,7 @@ window.I18N = {
     "cats.h2": "<span class='acc'>Каталог</span> мебели",
     "cats.lead": "Выберите категорию или отправьте запрос, и мы подберём решение под ваш объект.",
     "cat.beds": "Кровати", "cat.sofas": "Диваны", "cat.chairs": "Кресла и стулья",
-    "cat.outdoor": "Аутдор", "cat.sunbeds": "Шезлонги", "cat.poufs": "Пуфы",
+    "cat.outdoor": "Outdoor", "cat.sunbeds": "Шезлонги", "cat.poufs": "Пуфы",
     "cat.textile": "Подушки и декор", "cat.commercial": "Коммерческая мебель", "cat.tables": "Столы",
     "cats.beds.n": "3 модели", "cats.sofas.n": "6 моделей", "cats.chairs.n": "9 моделей",
     "cats.outdoor.n": "5 моделей", "cats.sunbeds.n": "2 модели", "cats.poufs.n": "2 модели",
@@ -77,7 +77,7 @@ window.I18N = {
     /* --- проекты --- */
     "proj.h2": "Мебель в <span class='acc'>реальных</span> проектах",
     "proj.lead": "Наша мебель стоит в жилых и коммерческих пространствах <i class='u5'>UNIT.</i> Мы видим её в реальной эксплуатации, а не только на визуализациях.",
-    "proj.f.all": "Все", "proj.f.indoor": "Интерьер", "proj.f.outdoor": "Улица",
+    "proj.f.all": "Все", "proj.f.indoor": "Интерьер", "proj.f.outdoor": "Outdoor",
     "proj.f.villas": "Виллы", "proj.f.commercial": "Коммерческие",
     "proj.cta": "Все проекты",
     "proj.pr1.t": "Интерьер виллы", "proj.pr1.p": "Гостиная: диван, кресла, декор",
@@ -95,7 +95,7 @@ window.I18N = {
     "des.li1": "Работа по референсам, чертежам и спецификациям",
     "des.li2": "Адаптация размеров, тканей и материалов под проект",
     "des.li3": "Комплектация объекта и индивидуальный расчёт",
-    "des.cta1": "Стать партнёром", "des.cta2": "Обсудить проект",
+    "des.cta1": "Стать партнёром", "des.cta2": "Получить расчёт",
 
     /* --- как заказать --- */
     "steps.h2": "Как <span class='acc'>заказать</span>",
@@ -124,7 +124,7 @@ window.I18N = {
     "clg.empty.cta1": "Написать что нужно", "clg.empty.cta2": "Сбросить фильтры",
     "clg.cta.h2": "Не нашли <span class='acc'>нужную модель?</span>",
     "clg.cta.p": "Изготовим мебель по вашим размерам, референсам или чертежам: от одного предмета до комплекта на весь объект.",
-    "clg.cta.b1": "Запросить стоимость", "clg.cta.b2": "Про кастомизацию",
+    "clg.cta.b1": "Получить расчёт", "clg.cta.b2": "Про кастомизацию",
     "bento.custom.t": "Кастомизация", "bento.custom.p": "Размер, ткань и цвет под ваш объект", "bento.custom.link": "Подробнее →",
     "bento.stat.t": "лет на Бали", "bento.stat.p": "Собственное производство",
     "bento.pdf.t": "PDF-каталог", "bento.pdf.p": "Полный список моделей и характеристик", "bento.pdf.link": "Скачать →",
@@ -136,7 +136,7 @@ window.I18N = {
 
     /* --- карточки товара --- */
     "p.price": "Цена по запросу", "p.more": "Подробнее →", "p.dims_unknown": "Размеры по запросу",
-    "p.request": "Запросить стоимость", "p.in_request": "В заявке ✓",
+    "p.request": "В корзину", "p.in_request": "В корзине ✓",
     "badge.teak": "Тик",
     "ph.soon": "Фото готовится",
     "tag.indoor": "Для интерьера", "tag.outdoor": "Для улицы", "tag.custom": "Свой размер", "tag.fabric": "Выбор ткани",
@@ -206,7 +206,7 @@ window.I18N = {
     "cz.s4.t": "Адаптация", "cz.s4.p": "Адаптируем модель под размеры и задачу",
     "cz.s5.t": "Расчёт", "cz.s5.p": "Готовим индивидуальный расчёт",
     "cz.s6.t": "Производство", "cz.s6.p": "Запускаем изделия в производство на Бали",
-    "cz.cta": "Обсудить кастомную мебель", "cz.cta2": "Смотреть каталог",
+    "cz.cta": "Получить расчёт", "cz.cta2": "Смотреть каталог",
 
     /* --- страница материалов --- */
     "mt.h1": "Материалы и <span class='acc'>производство на Бали</span>",
@@ -260,7 +260,7 @@ window.I18N = {
     "dz.s4.t": "Расчёт", "dz.s4.p": "Индивидуальный расчёт по позициям",
     "dz.s5.t": "Производство", "dz.s5.p": "Изготовление и контроль качества",
     "dz.s6.t": "Доставка", "dz.s6.p": "Поставка и расстановка на объекте",
-    "dz.cta1": "Обсудить проект", "dz.cta2": "Связаться в WhatsApp",
+    "dz.cta1": "Получить расчёт", "dz.cta2": "Связаться в WhatsApp",
 
     /* --- страница контактов и форма --- */
     "ct.h1": "<span class='acc'>Свяжитесь</span> с нами",
@@ -279,7 +279,7 @@ window.I18N = {
     "f.file": "Фото / план / референсы",
     "f.file_btn": "Выбрать файлы", "f.file_none": "Файл не выбран", "f.file_one": "Выбран 1 файл", "f.file_many": "Выбрано файлов: {n}",
     "f.agree_link": "Согласен на <a href=\"consent.html\" target=\"_blank\" rel=\"noopener noreferrer\" style=\"color:inherit\">обработку персональных данных</a>",
-    "f.submit": "Отправить запрос", "f.err.name": "Напишите, как к вам обращаться", "f.err.phone": "Оставьте номер или ник, чтобы мы могли ответить", "f.err.email": "Проверьте адрес почты", "f.err.agree": "Отметьте согласие, без него мы не можем принять заявку", "alt.cust": "Кресло UNIT.FURNITURE в интерьере", "alt.band": "Гостиная с мебелью UNIT.FURNITURE", "alt.qr": "QR-код WhatsApp UNIT.FURNITURE", "f.done": "Заявка отправлена. Ответим в ближайшее время.",
+    "f.submit": "Отправить заявку", "f.err.name": "Напишите, как к вам обращаться", "f.err.phone": "Оставьте номер или ник, чтобы мы могли ответить", "f.err.email": "Проверьте адрес почты", "f.err.agree": "Отметьте согласие, без него мы не можем принять заявку", "alt.cust": "Кресло UNIT.FURNITURE в интерьере", "alt.band": "Гостиная с мебелью UNIT.FURNITURE", "alt.qr": "QR-код WhatsApp UNIT.FURNITURE", "f.done": "Заявка отправлена. Ответим в ближайшее время.",
 
     /* --- корзина --- */
     "cart.title": "Корзина заявки",
@@ -299,13 +299,13 @@ window.I18N = {
     /* --- navigation & header --- */
     "nav.catalog": "Catalog", "nav.solutions": "Solutions", "nav.custom": "Customization",
     "nav.projects": "Projects", "nav.designers": "For designers", "nav.contacts": "Contacts",
-    "nav.materials": "Materials", "nav.cta": "Get a quote",
+    "nav.materials": "Materials", "nav.cta": "Get a quote", "ft.slogan": "Designed for living. Built to last.", "cart.added": "Added to cart", "cart.removed": "Removed from cart", "cart.open": "Open cart", "p.add.aria": "Add to cart", "p.del.aria": "Remove from cart", "clg.grid.h": "Catalog models", "f.err.phone2": "Check the number: at least 7 digits, or a handle of 4+ characters",
 
     /* --- home: hero --- */
     "hero.title": "Hi-tech furniture production and interiors in Bali",
     "hero.sub": "We create furniture for villas, homes, hotels, restaurants and outdoor spaces. From a single model to full turnkey furnishing of a property.",
     "hero.cta1": "Get a quote", "hero.cta2": "View catalog", "hero.scroll": "Scroll ↓", "hero.cap": "Sofa Outdoor Type 4, collection 2026", "hero.cap1": "Sofa A, collection 2026", "hero.cap2": "Bed Type 3, collection 2026", "hero.cap3": "Sofa Outdoor Type 4, collection 2026", "hero.cap4": "Sofa Outdoor Type 5, collection 2026", "doc.title": "UNIT.FURNITURE: designer furniture and interior solutions in Bali",
-    "hero.badge1": "In-house production", "hero.badge2": "Customization", "hero.badge3": "Indoor · Outdoor · Commercial",
+    "hero.badge1": "In-house production", "hero.badge2": "Customization", "hero.badge3": "Indoor, Outdoor, Commercial",
 
     "mq.1": "In-house production", "mq.2": "Customized for your property",
     "mq.3": "Indoor / Outdoor / Commercial", "mq.4": "Teak and materials for the Bali climate",
@@ -387,7 +387,7 @@ window.I18N = {
     "des.li1": "Work from references, drawings and specifications",
     "des.li2": "Adaptation of sizes, fabrics and materials to the project",
     "des.li3": "Property furnishing and individual quotes",
-    "des.cta1": "Become a partner", "des.cta2": "Discuss a project",
+    "des.cta1": "Become a partner", "des.cta2": "Get a quote",
 
     /* --- how to order --- */
     "steps.h2": "How to <span class='acc'>order</span>",
@@ -416,7 +416,7 @@ window.I18N = {
     "clg.empty.cta1": "Tell us what you need", "clg.empty.cta2": "Reset filters",
     "clg.cta.h2": "Didn’t find <span class='acc'>the right model?</span>",
     "clg.cta.p": "We’ll make furniture to your sizes, references or drawings: from a single piece to a full property set.",
-    "clg.cta.b1": "Request pricing", "clg.cta.b2": "About customization",
+    "clg.cta.b1": "Get a quote", "clg.cta.b2": "About customization",
     "bento.custom.t": "Customization", "bento.custom.p": "Size, fabric and color for your property", "bento.custom.link": "Learn more →",
     "bento.stat.t": "years in Bali", "bento.stat.p": "In-house production",
     "bento.pdf.t": "PDF catalog", "bento.pdf.p": "Full list of models and specifications", "bento.pdf.link": "Download →",
@@ -428,7 +428,7 @@ window.I18N = {
 
     /* --- product cards --- */
     "p.price": "Price on request", "p.more": "Details →", "p.dims_unknown": "Size on request",
-    "p.request": "Request price", "p.in_request": "In request ✓",
+    "p.request": "Add to cart", "p.in_request": "In cart ✓",
     "badge.teak": "Teak",
     "ph.soon": "Photo coming soon",
     "tag.indoor": "Indoor", "tag.outdoor": "Outdoor", "tag.custom": "Custom size", "tag.fabric": "Fabric options",
@@ -498,7 +498,7 @@ window.I18N = {
     "cz.s4.t": "Adaptation", "cz.s4.p": "We adapt the model to sizes and the task",
     "cz.s5.t": "Quote", "cz.s5.p": "We prepare an individual quote",
     "cz.s6.t": "Production", "cz.s6.p": "We start production in Bali",
-    "cz.cta": "Discuss custom furniture", "cz.cta2": "View catalog",
+    "cz.cta": "Get a quote", "cz.cta2": "View catalog",
 
     /* --- materials page --- */
     "mt.h1": "Materials and <span class='acc'>production in Bali</span>",
@@ -552,7 +552,7 @@ window.I18N = {
     "dz.s4.t": "Quote", "dz.s4.p": "Individual quote per item",
     "dz.s5.t": "Production", "dz.s5.p": "Manufacturing and quality control",
     "dz.s6.t": "Delivery", "dz.s6.p": "Shipping and installation on site",
-    "dz.cta1": "Discuss a project", "dz.cta2": "Message us on WhatsApp",
+    "dz.cta1": "Get a quote", "dz.cta2": "Message us on WhatsApp",
 
     /* --- contacts page & form --- */
     "ct.h1": "<span class='acc'>Contact</span> us",

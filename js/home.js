@@ -64,28 +64,18 @@ function renderFeatured() {
 renderFeatured();
 renderMixB(); syncAddButtons();
 
-/* ---------- проекты: masonry + фильтр (первые 6 на главной) ---------- */
+/* ---------- проекты: masonry, первые 6 ---------- */
 const projGrid = document.getElementById('projGrid');
-let projFilterVal = 'all';
 function renderProjects() {
   if (!projGrid) return;
   const list = (window.PROJECTS || []).slice(0, 6);
   projGrid.innerHTML = list.map(pr => {
-    const hidden = projFilterVal !== 'all' && pr.type !== projFilterVal && pr.place !== projFilterVal;
-    return `<a class="proj-card${hidden ? ' hide' : ''}" href="projects.html">
+    return `<a class="proj-card" href="projects.html">
       <img src="${pr.img}" alt="${escapeHtml(t('proj.' + pr.id + '.t'))}" loading="lazy">
       <div class="proj-in"><h3>${t('proj.' + pr.id + '.t')}</h3><p>${t('proj.' + pr.id + '.p')}</p></div>
     </a>`;
   }).join('');
 }
-const projFilter = document.getElementById('projFilter');
-if (projFilter) projFilter.addEventListener('click', e => {
-  const b = e.target.closest('[data-pf]');
-  if (!b) return;
-  projFilterVal = b.dataset.pf;
-  projFilter.querySelectorAll('.tab').forEach(tb => tb.classList.toggle('active', tb === b));
-  renderProjects();
-});
 renderProjects();
 
 /* ---------- перерисовка при смене языка ---------- */

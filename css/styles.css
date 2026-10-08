@@ -1632,3 +1632,38 @@ h3 { font-weight: 500; letter-spacing: -.015em; }
 /* согласие: чекбокс слева, текст колонкой рядом (общее .form label делало его блоком) */
 .form label.agree { display: flex; gap: 12px; margin-bottom: 24px; }
 .form label.agree > span { flex: 1; min-width: 0; }
+
+/* фото материалов из каталога: кадр целиком, без обрезки в квадрат */
+.home .mat-photo, .sol-row-photo.is-mat { aspect-ratio: 648 / 396; }
+
+/* скрытый заголовок для порядка h1 → h2 → h3 */
+.vh { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.pp-custom h2 { font-size: 15px; font-weight: 600; line-height: 1.3; margin: 0; }
+
+/* + в карточке: поле нажатия не меньше 44 */
+.p-add::after { content: ''; position: absolute; inset: -4px; }
+.hero-dots button::after { inset: -4px -19px; }
+
+/* фокус с клавиатуры виден везде */
+:where(a, button, select, input, textarea, summary, [tabindex]):focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+.cg-card:focus-visible, .proj-card:focus-visible, .p-media:focus-visible { outline-offset: 4px; }
+
+/* подпись проекта читается на любом кадре */
+.proj-card::after { background: linear-gradient(to top, rgba(20,20,22,.78) 0%, rgba(20,20,22,.42) 30%, transparent 60%); }
+.proj-in p { color: rgba(255,255,255,.9); }
+
+/* столы под заказ: последняя плитка на всю ширину, когда колонок две */
+@media (max-width: 1024px) {
+  .catgrid > .cg-card.cg-custom:last-child:nth-child(odd) { grid-column: 1 / -1; aspect-ratio: 2 / 1; }
+}
+
+/* тост корзины */
+.cart-toast { position: fixed; z-index: 90; left: 50%; bottom: 24px; transform: translate(-50%, 16px); opacity: 0; pointer-events: none;
+  display: flex; align-items: center; gap: 16px; padding: 8px 8px 8px 20px; background: var(--graphite); color: var(--white);
+  border-radius: var(--r-md); font-size: 15px; transition: opacity .2s, transform .2s; max-width: calc(100% - 32px); }
+.cart-toast.show { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; }
+.cart-toast button { min-height: 44px; padding: 0 16px; border: 0; border-radius: var(--r-sm); background: var(--white); color: var(--graphite); font: inherit; font-weight: 500; cursor: pointer; white-space: nowrap; }
+@media (hover: hover) { .cart-toast button:hover { color: var(--blue); } }
+@media (max-width: 720px) { .cart-toast { left: 16px; right: 16px; bottom: 16px; transform: translateY(16px); justify-content: space-between; max-width: none; }
+  .cart-toast.show { transform: none; } }
+@media (max-width: 720px) { .cart-toast { bottom: 88px; } }
