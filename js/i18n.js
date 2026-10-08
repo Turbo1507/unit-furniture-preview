@@ -7,7 +7,7 @@ window.I18N = {
     /* --- навигация и шапка --- */
     "nav.catalog": "Каталог", "nav.solutions": "Решения", "nav.custom": "Кастомизация",
     "nav.projects": "Проекты", "nav.designers": "Для дизайнеров", "nav.contacts": "Контакты",
-    "nav.materials": "Материалы", "nav.cta": "Получить расчёт", "sl.custom": "под заказ", "sl.drawing": "по вашим чертежам", "cta.direct": "Связаться с менеджером напрямую", "cta.mail": "Почта", "pp.custom.cta": "Смотреть варианты кастомизации", "ft.slogan": "Сделано для жизни. Сделано надолго.", "cart.added": "Добавлено в корзину", "cart.removed": "Убрано из корзины", "cart.open": "Открыть корзину", "p.add.aria": "Добавить в корзину", "p.del.aria": "Убрать из корзины", "clg.grid.h": "Модели каталога", "f.err.phone2": "Проверьте номер: нужно не меньше 7 цифр или ник от 4 символов",
+    "nav.materials": "Материалы", "nav.cta": "Получить расчёт", "sl.custom": "под заказ", "sl.drawing": "по вашим чертежам", "cta.direct": "Связаться с менеджером напрямую", "cta.mail": "Почта", "alt.mat.fabric": "Образцы тканей обивки", "pp.custom.cta": "Смотреть варианты кастомизации", "ft.slogan": "Сделано для жизни. Сделано надолго.", "cart.added": "Добавлено в корзину", "cart.removed": "Убрано из корзины", "cart.open": "Открыть корзину", "p.add.aria": "Добавить в корзину", "p.del.aria": "Убрать из корзины", "clg.grid.h": "Модели каталога", "f.err.phone2": "Проверьте номер: нужно не меньше 7 цифр или ник от 4 символов",
 
     /* --- главная: hero --- */
     "hero.title": "Хай-тек мебель собственного производства и интерьеры на Бали",
@@ -29,7 +29,7 @@ window.I18N = {
 
     /* --- категории --- */
     "cats.h2": "<span class='acc'>Каталог</span> мебели",
-    "cats.lead": "Выберите категорию или отправьте запрос, и мы подберём решение под ваш объект.",
+    "cats.lead": "Выберите категорию или отправьте запрос, и мы подберём решение под ваш объект",
     "cat.beds": "Кровати", "cat.sofas": "Диваны", "cat.chairs": "Кресла и стулья",
     "cat.outdoor": "Outdoor", "cat.sunbeds": "Шезлонги", "cat.poufs": "Пуфы",
     "cat.textile": "Подушки и декор", "cat.commercial": "Коммерческая мебель", "cat.tables": "Столы",
@@ -50,7 +50,7 @@ window.I18N = {
 
     /* --- главная: кастомизация --- */
     "cust.h2": "<span class='acc'>Кастомизация</span> под ваш объект",
-    "cust.lead": "Размеры, ткани, цвета и комплектация адаптируются под задачу пространства.",
+    "cust.lead": "Размеры, ткани, цвета и комплектация адаптируются под задачу пространства",
     "cust.hub.t": "Ваш объект", "cust.hub.p": "Индивидуальное решение для виллы, дома, отеля или ресторана.",
     "cust.size.t": "Размеры", "cust.size.p": "Адаптируем длину, ширину, высоту, посадку и конфигурацию.",
     "cust.fabric.t": "Ткани", "cust.fabric.p": "Подбираем фактуры для indoor и outdoor-пространств.",
@@ -60,7 +60,7 @@ window.I18N = {
 
     /* --- главная: материалы --- */
     "mat.h2": "Материалы, рассчитанные <span class='acc'>на жизнь на Бали</span>",
-    "mat.lead": "Мебель <i class='u5'>UNIT.</i>FURNITURE создаётся с учётом влажности, солнца, активного использования и особенностей тропического климата.",
+    "mat.lead": "Мебель <i class='u5'>UNIT.</i>FURNITURE создаётся с учётом влажности, солнца, активного использования и особенностей тропического климата",
     "mat.wood.t": "Дерево", "mat.wood.p": "Подбираем материалы с учётом назначения изделия и условий эксплуатации",
     "mat.fabric.t": "Ткани", "mat.fabric.p": "Выбираем фактуры для спален, гостиных, террас, отелей и ресторанов",
     "mat.fill.t": "Наполнители", "mat.fill.p": "Мягкие элементы проектируются так, чтобы сохранять комфорт и форму",
@@ -99,7 +99,7 @@ window.I18N = {
 
     /* --- как заказать --- */
     "steps.h2": "Как <span class='acc'>заказать</span>",
-    "steps.lead": "От первого запроса до готовой мебели на объекте.",
+    "steps.lead": "От первого запроса до готовой мебели на объекте",
     "steps.1.t": "Консультация", "steps.1.p": "Получаем ваш запрос, фото, план помещения или выбранные модели",
     "steps.2.t": "Подбор", "steps.2.p": "Помогаем выбрать мебель, материалы и решение под объект",
     "steps.3.t": "Расчёт", "steps.3.p": "Готовим индивидуальный расчёт по моделям, материалам и объёму",
@@ -123,7 +123,7 @@ window.I18N = {
     "clg.empty": "Под эти фильтры готовых моделей нет, но мы изготовим под заказ. Напишите, что ищете.",
     "clg.empty.cta1": "Написать что нужно", "clg.empty.cta2": "Сбросить фильтры",
     "clg.cta.h2": "Не нашли <span class='acc'>нужную модель?</span>",
-    "clg.cta.p": "Изготовим мебель по вашим размерам, референсам или чертежам: от одного предмета до комплекта на весь объект.",
+    "clg.cta.p": "Изготовим мебель по вашим размерам, референсам или чертежам: от одного предмета до комплекта на весь объект",
     "clg.cta.b1": "Получить расчёт", "clg.cta.b2": "Про кастомизацию",
     "bento.custom.t": "Кастомизация", "bento.custom.p": "Размер, ткань и цвет под ваш объект", "bento.custom.link": "Подробнее →",
     "bento.stat.t": "лет на Бали", "bento.stat.p": "Собственное производство",
@@ -144,7 +144,7 @@ window.I18N = {
 
     /* --- страница товара --- */
     "crumb.home": "Главная",
-    "cz.how.lead": "От первого запроса до запуска в производство.", "dz.how.lead": "От брифа до расстановки мебели на объекте.", "dz.band.li1": "Адаптируем модели <i class='u5'>UNIT.</i>FURNITURE под интерьер", "dz.band.li2": "Изготавливаем индивидуальные решения по чертежам", "dz.band.li3": "Производство в Джепаре и на Бали, приёмка <i class='u5'>UNIT.</i>",
+    "cz.how.lead": "От первого запроса до запуска в производство", "dz.how.lead": "От брифа до расстановки мебели на объекте", "dz.band.li1": "Адаптируем модели <i class='u5'>UNIT.</i>FURNITURE под интерьер", "dz.band.li2": "Изготавливаем индивидуальные решения по чертежам", "dz.band.li3": "Производство в Джепаре и на Бали, приёмка <i class='u5'>UNIT.</i>",
     "qv.dims": "Размеры (В×Ш×Г)",
     "pp.price": "Стоимость рассчитывается индивидуально по запросу.",
     "pp.consult": "Получить консультацию",
@@ -162,24 +162,24 @@ window.I18N = {
     "sl.h1": "<span class='acc'>Готовые</span> интерьерные решения",
     "sl.sub": "Собираем мебель под пространство: от спальни до полной комплектации виллы, отеля или ресторана. Размеры, ткани и состав адаптируем.",
     "sl.includes": "Может включать:",
-    "sl.bedroom.t": "Спальня", "sl.bedroom.p": "Готовое решение для виллы, дома, апартаментов или отельного номера.",
+    "sl.bedroom.t": "Спальня", "sl.bedroom.p": "Готовое решение для виллы, дома, апартаментов или отельного номера",
     "sl.bedroom.i1": "Кровать", "sl.bedroom.i2": "Тумбы", "sl.bedroom.i3": "Кресло",
     "sl.bedroom.i4": "Пуф", "sl.bedroom.i5": "Текстиль", "sl.bedroom.i6": "Декоративные подушки",
     "sl.bedroom.cta": "Подобрать спальню",
-    "sl.living.t": "Гостиная", "sl.living.p": "Мягкая зона для жизни и приёма гостей в одном стиле с остальным домом.",
+    "sl.living.t": "Гостиная", "sl.living.p": "Мягкая зона для жизни и приёма гостей в одном стиле с остальным домом",
     "sl.living.i1": "Диван", "sl.living.i2": "Кресла", "sl.living.i3": "Журнальный стол",
     "sl.living.i4": "Мягкие элементы", "sl.living.i5": "Декоративные подушки",
     "sl.living.cta": "Подобрать гостиную",
     "sl.terrace.t": "Терраса", "sl.terrace.p": "Outdoor-мебель для террасы и зоны у бассейна. Выдерживает солнце, влажность и ежедневное использование.",
     "sl.terrace.i1": "Outdoor-диваны", "sl.terrace.i2": "Столики", "sl.terrace.i3": "Подушки для улицы", "sl.terrace.i4": "Кресла",
     "sl.terrace.cta": "Подобрать террасу",
-    "sl.lounge.t": "Outdoor lounge", "sl.lounge.p": "Зона отдыха у бассейна или в саду: шезлонги, дейбеды и низкая мебель для расслабленного сценария.",
+    "sl.lounge.t": "Outdoor lounge", "sl.lounge.p": "Зона отдыха у бассейна или в саду: шезлонги, дейбеды и низкая мебель для расслабленного сценария",
     "sl.lounge.i1": "Шезлонги", "sl.lounge.i2": "Дейбеды", "sl.lounge.i3": "Столики", "sl.lounge.i4": "Outdoor-текстиль",
     "sl.lounge.cta": "Подобрать lounge-зону",
-    "sl.reception.t": "Reception / Lobby", "sl.reception.p": "Первое впечатление гостя: мебель для ресепшн, ожидания и lounge-зон отелей и комплексов.",
+    "sl.reception.t": "Reception / Lobby", "sl.reception.p": "Первое впечатление гостя: мебель для ресепшн, ожидания и lounge-зон отелей и комплексов",
     "sl.reception.i1": "Диваны для ожидания", "sl.reception.i2": "Кресла", "sl.reception.i3": "Столики", "sl.reception.i4": "Декор и текстиль",
     "sl.reception.cta": "Подобрать решение",
-    "sl.restaurant.t": "Ресторанная зона", "sl.restaurant.p": "Посадочные места, барные стулья и мягкие зоны, которые выдерживают ежедневный поток гостей.",
+    "sl.restaurant.t": "Ресторанная зона", "sl.restaurant.p": "Посадочные места, барные стулья и мягкие зоны, которые выдерживают ежедневный поток гостей",
     "sl.restaurant.i1": "Стулья", "sl.restaurant.i2": "Барные стулья", "sl.restaurant.i3": "Диваны", "sl.restaurant.i4": "Столы под заказ",
     "sl.restaurant.cta": "Подобрать решение",
     "sl.turnkey.t": "Полная комплектация объекта",
@@ -210,7 +210,7 @@ window.I18N = {
 
     /* --- страница материалов --- */
     "mt.h1": "Материалы и <span class='acc'>производство на Бали</span>",
-    "mt.sub": "Создаём мебель с учётом дизайна, климата, ежедневного использования и долговечности.",
+    "mt.sub": "Создаём мебель с учётом дизайна, климата, ежедневного использования и долговечности",
     "mt.wood.t": "Дерево",
     "mt.wood.p": "В основе большинства моделей тик: плотная порода, которая живёт на улице и переносит влажность Бали. Каркасы делаем из фанеры 18 мм и HMR-панелей, без тонких конструкций.",
     "mt.wood.t1": "Тик", "mt.wood.t2": "Фанера 18 мм", "mt.wood.t3": "HMR-панели",
@@ -218,21 +218,21 @@ window.I18N = {
     "mt.fabric.p": "Подбираем фактуры под сценарий. Мягкие для спален и гостиных, износостойкие для отелей и ресторанов, влагостойкие для террас и бассейнов.",
     "mt.fabric.t1": "Indoor", "mt.fabric.t2": "Outdoor", "mt.fabric.t3": "Контрактные ткани",
     "mt.fill.t": "Наполнители",
-    "mt.fill.p": "Мягкие элементы держат комфорт, форму и внешний вид даже при ежедневной аренде и активной эксплуатации.",
+    "mt.fill.p": "Мягкие элементы держат комфорт, форму и внешний вид даже при ежедневной аренде и активной эксплуатации",
     "mt.hw.t": "Фурнитура",
-    "mt.hw.p": "Используем надёжные конструктивные решения и проверенную фурнитуру, чтобы мебель служила долго и оставалась удобной.",
+    "mt.hw.p": "Используем надёжные конструктивные решения и проверенную фурнитуру, чтобы мебель служила долго и оставалась удобной",
     "mt.clim.t": "Влажность и outdoor",
     "mt.clim.p": "Материалы подбираются под условия эксплуатации: влажный климат, солнце, открытые террасы. Для outdoor-линейки берём тик и влагостойкий текстиль.",
     "mt.qc.t": "Контроль качества",
     "mt.qc.p": "Производим в Джепаре и на локальных фабриках Бали. Каждое изделие проходит приёмку <i class='u5'>UNIT.</i> перед отправкой на объект: геометрия, отделка, швы, устойчивость.",
     "mt.cta.h2": "Расскажите про <span class='acc'>ваш объект</span>",
-    "mt.cta.p": "Подберём материалы и решения под климат, сценарий использования и бюджет.",
+    "mt.cta.p": "Подберём материалы и решения под климат, сценарий использования и бюджет",
 
     /* --- страница проектов --- */
     "pj.h1": "Мебель в <span class='acc'>реальных</span> объектах",
     "pj.sub": "<i class='u5'>UNIT.</i>FURNITURE стоит в жилых и коммерческих пространствах <i class='u5'>UNIT.</i> и частных проектах. Мы видим, как мебель живёт в реальной эксплуатации.",
     "pj.cta.h2": "<span class='acc'>Похожий</span> объект?",
-    "pj.cta.p": "Подберём мебель для пространства такого же типа: от отдельных моделей до комплектации под ключ.",
+    "pj.cta.p": "Подберём мебель для пространства такого же типа: от отдельных моделей до комплектации под ключ",
     "pj.cta.b": "Подобрать мебель для похожего объекта",
 
     /* --- страница для дизайнеров --- */
@@ -299,7 +299,7 @@ window.I18N = {
     /* --- navigation & header --- */
     "nav.catalog": "Catalog", "nav.solutions": "Solutions", "nav.custom": "Customization",
     "nav.projects": "Projects", "nav.designers": "For designers", "nav.contacts": "Contacts",
-    "nav.materials": "Materials", "nav.cta": "Get a quote", "sl.custom": "made to order", "sl.drawing": "to your drawings", "cta.direct": "Contact a manager directly", "cta.mail": "Email", "pp.custom.cta": "See customization options", "ft.slogan": "Designed for living. Built to last.", "cart.added": "Added to cart", "cart.removed": "Removed from cart", "cart.open": "Open cart", "p.add.aria": "Add to cart", "p.del.aria": "Remove from cart", "clg.grid.h": "Catalog models", "f.err.phone2": "Check the number: at least 7 digits, or a handle of 4+ characters",
+    "nav.materials": "Materials", "nav.cta": "Get a quote", "sl.custom": "made to order", "sl.drawing": "to your drawings", "cta.direct": "Contact a manager directly", "cta.mail": "Email", "alt.mat.fabric": "Upholstery fabric samples", "pp.custom.cta": "See customization options", "ft.slogan": "Designed for living. Built to last.", "cart.added": "Added to cart", "cart.removed": "Removed from cart", "cart.open": "Open cart", "p.add.aria": "Add to cart", "p.del.aria": "Remove from cart", "clg.grid.h": "Catalog models", "f.err.phone2": "Check the number: at least 7 digits, or a handle of 4+ characters",
 
     /* --- home: hero --- */
     "hero.title": "Hi-tech furniture production and interiors in Bali",
@@ -321,7 +321,7 @@ window.I18N = {
 
     /* --- categories --- */
     "cats.h2": "<span class='acc'>Furniture</span> catalog",
-    "cats.lead": "Choose a category or send a request, and we will pick a solution for your property.",
+    "cats.lead": "Choose a category or send a request, and we will pick a solution for your property",
     "cat.beds": "Beds", "cat.sofas": "Sofas", "cat.chairs": "Chairs & armchairs",
     "cat.outdoor": "Outdoor", "cat.sunbeds": "Sunbeds", "cat.poufs": "Poufs",
     "cat.textile": "Pillows & decor", "cat.commercial": "Commercial furniture", "cat.tables": "Tables",
@@ -342,7 +342,7 @@ window.I18N = {
 
     /* --- home: customization --- */
     "cust.h2": "<span class='acc'>Customized</span> for your property",
-    "cust.lead": "Sizes, fabrics, colors and set composition adapt to the task of the space.",
+    "cust.lead": "Sizes, fabrics, colors and set composition adapt to the task of the space",
     "cust.hub.t": "Your property", "cust.hub.p": "An individual solution for a villa, home, hotel or restaurant.",
     "cust.size.t": "Sizes", "cust.size.p": "We adapt length, width, height, seat and configuration.",
     "cust.fabric.t": "Fabrics", "cust.fabric.p": "We select textures for indoor and outdoor spaces.",
@@ -352,7 +352,7 @@ window.I18N = {
 
     /* --- home: materials --- */
     "mat.h2": "Materials made <span class='acc'>for life in Bali</span>",
-    "mat.lead": "<i class='u5'>UNIT.</i>FURNITURE is designed for humidity, sun, active use and the specifics of a tropical climate.",
+    "mat.lead": "<i class='u5'>UNIT.</i>FURNITURE is designed for humidity, sun, active use and the specifics of a tropical climate",
     "mat.wood.t": "Wood", "mat.wood.p": "We select materials for the purpose of the piece and its operating conditions",
     "mat.fabric.t": "Fabrics", "mat.fabric.p": "Textures for bedrooms, living rooms, terraces, hotels and restaurants",
     "mat.fill.t": "Fillings", "mat.fill.p": "Soft elements are engineered to keep comfort and shape",
@@ -391,7 +391,7 @@ window.I18N = {
 
     /* --- how to order --- */
     "steps.h2": "How to <span class='acc'>order</span>",
-    "steps.lead": "From the first request to furniture installed on site.",
+    "steps.lead": "From the first request to furniture installed on site",
     "steps.1.t": "Consultation", "steps.1.p": "We receive your request, photos, floor plan or selected models",
     "steps.2.t": "Selection", "steps.2.p": "We help choose furniture, materials and a solution for the property",
     "steps.3.t": "Quote", "steps.3.p": "We prepare an individual quote by models, materials and volume",
@@ -415,7 +415,7 @@ window.I18N = {
     "clg.empty": "No ready models match these filters, but we can make them to order. Tell us what you’re looking for.",
     "clg.empty.cta1": "Tell us what you need", "clg.empty.cta2": "Reset filters",
     "clg.cta.h2": "Didn’t find <span class='acc'>the right model?</span>",
-    "clg.cta.p": "We’ll make furniture to your sizes, references or drawings: from a single piece to a full property set.",
+    "clg.cta.p": "We’ll make furniture to your sizes, references or drawings: from a single piece to a full property set",
     "clg.cta.b1": "Get a quote", "clg.cta.b2": "About customization",
     "bento.custom.t": "Customization", "bento.custom.p": "Size, fabric and color for your property", "bento.custom.link": "Learn more →",
     "bento.stat.t": "years in Bali", "bento.stat.p": "In-house production",
@@ -436,7 +436,7 @@ window.I18N = {
 
     /* --- product page --- */
     "crumb.home": "Home",
-    "cz.how.lead": "From the first request to production launch.", "dz.how.lead": "From the brief to installing furniture on site.", "dz.band.li1": "We adapt <i class='u5'>UNIT.</i>FURNITURE models to the interior", "dz.band.li2": "We make custom pieces from drawings", "dz.band.li3": "Made in Jepara and Bali, accepted by <i class='u5'>UNIT.</i>",
+    "cz.how.lead": "From the first request to production launch", "dz.how.lead": "From the brief to installing furniture on site", "dz.band.li1": "We adapt <i class='u5'>UNIT.</i>FURNITURE models to the interior", "dz.band.li2": "We make custom pieces from drawings", "dz.band.li3": "Made in Jepara and Bali, accepted by <i class='u5'>UNIT.</i>",
     "qv.dims": "Dimensions (H×W×D)",
     "pp.price": "Pricing is calculated individually on request.",
     "pp.consult": "Get a consultation",
@@ -454,24 +454,24 @@ window.I18N = {
     "sl.h1": "<span class='acc'>Ready</span> interior solutions",
     "sl.sub": "We furnish a specific space: from a bedroom to a whole villa, hotel or restaurant. Sizes, fabrics and composition adapt to it.",
     "sl.includes": "May include:",
-    "sl.bedroom.t": "Bedroom", "sl.bedroom.p": "A ready solution for a villa, home, apartment or hotel room.",
+    "sl.bedroom.t": "Bedroom", "sl.bedroom.p": "A ready solution for a villa, home, apartment or hotel room",
     "sl.bedroom.i1": "Bed", "sl.bedroom.i2": "Nightstands", "sl.bedroom.i3": "Armchair",
     "sl.bedroom.i4": "Pouf", "sl.bedroom.i5": "Textiles", "sl.bedroom.i6": "Decorative pillows",
     "sl.bedroom.cta": "Get a bedroom set",
-    "sl.living.t": "Living room", "sl.living.p": "A soft zone for living and hosting, in one style with the rest of the home.",
+    "sl.living.t": "Living room", "sl.living.p": "A soft zone for living and hosting, in one style with the rest of the home",
     "sl.living.i1": "Sofa", "sl.living.i2": "Armchairs", "sl.living.i3": "Coffee table",
     "sl.living.i4": "Soft elements", "sl.living.i5": "Decorative pillows",
     "sl.living.cta": "Get a living room set",
     "sl.terrace.t": "Terrace", "sl.terrace.p": "Outdoor furniture for the terrace and pool area. Made for sun, humidity and daily use.",
     "sl.terrace.i1": "Outdoor sofas", "sl.terrace.i2": "Side tables", "sl.terrace.i3": "Outdoor cushions", "sl.terrace.i4": "Armchairs",
     "sl.terrace.cta": "Get a terrace set",
-    "sl.lounge.t": "Outdoor lounge", "sl.lounge.p": "A rest area by the pool or in the garden: loungers, daybeds and low furniture for a relaxed scenario.",
+    "sl.lounge.t": "Outdoor lounge", "sl.lounge.p": "A rest area by the pool or in the garden: loungers, daybeds and low furniture for a relaxed scenario",
     "sl.lounge.i1": "Loungers", "sl.lounge.i2": "Daybeds", "sl.lounge.i3": "Side tables", "sl.lounge.i4": "Outdoor textiles",
     "sl.lounge.cta": "Get a lounge set",
-    "sl.reception.t": "Reception / Lobby", "sl.reception.p": "The guest’s first impression: furniture for reception, waiting and lounge areas of hotels and complexes.",
+    "sl.reception.t": "Reception / Lobby", "sl.reception.p": "The guest’s first impression: furniture for reception, waiting and lounge areas of hotels and complexes",
     "sl.reception.i1": "Waiting sofas", "sl.reception.i2": "Armchairs", "sl.reception.i3": "Side tables", "sl.reception.i4": "Decor and textiles",
     "sl.reception.cta": "Get a solution",
-    "sl.restaurant.t": "Restaurant area", "sl.restaurant.p": "Seating, bar stools and soft zones that withstand a daily flow of guests.",
+    "sl.restaurant.t": "Restaurant area", "sl.restaurant.p": "Seating, bar stools and soft zones that withstand a daily flow of guests",
     "sl.restaurant.i1": "Chairs", "sl.restaurant.i2": "Bar stools", "sl.restaurant.i3": "Sofas", "sl.restaurant.i4": "Tables to order",
     "sl.restaurant.cta": "Get a solution",
     "sl.turnkey.t": "Full property furnishing",
@@ -502,7 +502,7 @@ window.I18N = {
 
     /* --- materials page --- */
     "mt.h1": "Materials and <span class='acc'>production in Bali</span>",
-    "mt.sub": "We create furniture with design, climate, daily use and durability in mind.",
+    "mt.sub": "We create furniture with design, climate, daily use and durability in mind",
     "mt.wood.t": "Wood",
     "mt.wood.p": "Most models are built on teak: a dense species that lives outdoors and withstands Bali humidity. Frames use 18 mm plywood and HMR panels, no thin structures.",
     "mt.wood.t1": "Teak", "mt.wood.t2": "18 mm plywood", "mt.wood.t3": "HMR panels",
@@ -510,21 +510,21 @@ window.I18N = {
     "mt.fabric.p": "Textures are chosen per scenario. Soft for bedrooms and living rooms, heavy-duty for hotels and restaurants, water-resistant for terraces and pools.",
     "mt.fabric.t1": "Indoor", "mt.fabric.t2": "Outdoor", "mt.fabric.t3": "Contract fabrics",
     "mt.fill.t": "Fillings",
-    "mt.fill.p": "Soft elements keep their comfort, shape and look even with daily rental turnover and active use.",
+    "mt.fill.p": "Soft elements keep their comfort, shape and look even with daily rental turnover and active use",
     "mt.hw.t": "Hardware",
-    "mt.hw.p": "Reliable structural solutions and proven hardware, so the furniture lasts and stays comfortable.",
+    "mt.hw.p": "Reliable structural solutions and proven hardware, so the furniture lasts and stays comfortable",
     "mt.clim.t": "Humidity and outdoor",
     "mt.clim.p": "Materials are chosen for the operating conditions: humid climate, sun, open terraces. The outdoor line uses teak and water-resistant textile.",
     "mt.qc.t": "Quality control",
     "mt.qc.p": "Made in Jepara and at local Bali workshops. Every piece passes <i class='u5'>UNIT.</i> acceptance before shipping: geometry, finish, seams, stability.",
     "mt.cta.h2": "Tell us about <span class='acc'>your property</span>",
-    "mt.cta.p": "We’ll select materials and solutions for the climate, usage scenario and budget.",
+    "mt.cta.p": "We’ll select materials and solutions for the climate, usage scenario and budget",
 
     /* --- projects page --- */
     "pj.h1": "Furniture in <span class='acc'>real</span> properties",
     "pj.sub": "<i class='u5'>UNIT.</i>FURNITURE lives in <i class='u5'>UNIT.</i> residential and commercial spaces and private projects. We see how it behaves in real use.",
     "pj.cta.h2": "A <span class='acc'>similar</span> property?",
-    "pj.cta.p": "We’ll pick furniture for the same type of space: from single models to turnkey furnishing.",
+    "pj.cta.p": "We’ll pick furniture for the same type of space: from single models to turnkey furnishing",
     "pj.cta.b": "Pick furniture for a similar property",
 
     /* --- designers page --- */

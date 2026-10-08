@@ -377,6 +377,7 @@ window.__uf_onLangChange = function () {
   refreshCustomSelectLabels();
   refreshFileLabel();
   if (window.__uf_onLangChangePage) window.__uf_onLangChangePage();
+  fitBento();
 };
 document.querySelectorAll('.lang-switch').forEach(sw => {
   sw.addEventListener('click', e => {
@@ -455,6 +456,32 @@ if (form) {
   const o = sel && v && sel.querySelector('option[data-i18n="f.o.' + v + '"]');
   if (o) o.selected = true;
 })();
+
+// бенто на телефоне: рядом только плитки с одинаковым числом строк, остальные во всю ширину
+function fitBento() {
+  document.querySelectorAll('.cz-bento').forEach(ul => {
+    const tiles = [...ul.querySelectorAll('.cz-tile')];
+    tiles.forEach(t => { t.classList.remove('m-full'); t.style.order = ''; });
+    ul.querySelectorAll('.cz-photo').forEach(p => { p.style.order = ''; });
+    if (!matchMedia('(max-width: 720px)').matches) return;
+    const lines = tiles.map(t => { const s = t.lastElementChild; return Math.round(s.getBoundingClientRect().height / parseFloat(getComputedStyle(s).lineHeight)); });
+    // пару берём ближайшую дальше по списку, порядок меняем через order; фото коллажа остаются первым и последним
+    const used = new Set();
+    let n = 0;
+    tiles.forEach((t, i) => {
+      if (used.has(i)) return;
+      used.add(i); t.style.order = ++n;
+      const j = tiles.findIndex((u, k) => k > i && !used.has(k) && lines[k] === lines[i]);
+      if (j < 0) { t.classList.add('m-full'); return; }
+      used.add(j); tiles[j].style.order = ++n;
+    });
+    const ph = ul.querySelectorAll('.cz-photo');
+    if (ph.length) { ph[0].style.order = 0; ph[ph.length - 1].style.order = n + 1; }
+  });
+}
+addEventListener('resize', fitBento);
+document.fonts && document.fonts.ready.then(fitBento);
+fitBento();
 
 /* ---------- направления + ряды моделей (главная, mix.html) ---------- */
 const MIX_ROWS = [
@@ -547,7 +574,7 @@ function renderMixB() {
     const ids = rev ? r.ids.slice(0, 3).reverse().concat(r.ids.slice(3)) : r.ids;
     return `
     <div class="mixb-row${rev ? ' is-rev' : ''}">
-      <a class="dir-card mixb-photo" href="${r.href}">
+      <a class="dir-card mixb-photo" href="${r.href}"><span class="tile-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg></span>
         <img src="${r.img}" alt="" loading="lazy">
         <div class="dir-in">
           <h3>${t('dir.' + r.dir + '.t')}</h3>
