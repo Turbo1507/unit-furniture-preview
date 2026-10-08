@@ -32,7 +32,7 @@ function renderMixC() {
     const track = rail.querySelector('.mixc-track');
     track.querySelectorAll('img[loading]').forEach(i => i.removeAttribute('loading'));
     const prev = rail.querySelector('.is-prev'), next = rail.querySelector('.is-next');
-    const step = () => { const c = track.firstElementChild; return c ? c.getBoundingClientRect().width + parseFloat(getComputedStyle(track).columnGap || 0) : track.clientWidth; };
+    const step = () => { const c = track.querySelector(".product"); return c ? c.getBoundingClientRect().width + parseFloat(getComputedStyle(track).columnGap || 0) : track.clientWidth; };
     const sync = () => {
       prev.disabled = track.scrollLeft < 4;
       next.disabled = track.scrollLeft + track.clientWidth > track.scrollWidth - 4;
