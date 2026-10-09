@@ -504,6 +504,7 @@ window.__uf_onLangChange = function () {
   refreshFileLabel();
   if (window.__uf_onLangChangePage) window.__uf_onLangChangePage();
   fitBento();
+  requestAnimationFrame(fitLeaders);
   initDots();
   rebuildDots();
 };
@@ -635,6 +636,28 @@ function addLeaders() {
   });
 }
 addLeaders();
+/* точки тянутся до текста: перенесённое значение ужимаем до самой длинной строки */
+function fitLeaders() {
+  document.querySelectorAll('.leaders > li > b, .mt-spec dd').forEach(b => {
+    b.style.width = '';
+    const r = document.createRange(); r.selectNodeContents(b);
+    let l = Infinity, rt = -Infinity; const tops = new Set();
+    for (const x of r.getClientRects()) if (x.width) { l = Math.min(l, x.left); rt = Math.max(rt, x.right); tops.add(Math.round(x.top)); }
+    if (tops.size > 1) b.style.width = Math.ceil(rt - l + 1) + 'px';
+    // значение прижато вправо, первая строка бывает короче: точки тянем до её начала
+    const d = b.parentElement.querySelector(':scope > .ldr');
+    if (!d) return;
+    d.style.marginRight = '';
+    if (tops.size < 2) return;
+    const rs = [...r.getClientRects()].filter(x => x.width), top = Math.min(...rs.map(x => x.top));
+    const first = Math.min(...rs.filter(x => x.top - top < 2).map(x => x.left));
+    const shift = Math.floor(first - b.getBoundingClientRect().left);
+    if (shift > 1) d.style.marginRight = -shift + 'px';
+  });
+}
+let fitT;
+addEventListener('resize', () => { cancelAnimationFrame(fitT); fitT = requestAnimationFrame(fitLeaders); });
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitLeaders);
 
 function fitBento() {
   document.querySelectorAll('.cz-bento').forEach(ul => {

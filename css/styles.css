@@ -2055,3 +2055,12 @@ html[lang="en"] .team-card.ru-only { display: none; }
 .home .hero-dots { z-index: 4; }
 /* список открывается сразу видимым, чтобы поиск получил фокус */
 .csel.open .csel-list { transition: opacity .18s var(--ease), transform .18s var(--ease), visibility 0s; }
+
+/* блок 3 главной: на телефоне заголовок есть, подзаголовка нет */
+@media (max-width: 720px) {
+  #featured .feat-h2 { position: static; width: auto; height: auto; margin: 0 0 32px; overflow: visible; clip: auto; white-space: normal; }
+}
+/* путь изделия на телефоне: второе фото той же высоты, что первое */
+@media (max-width: 1024px) {
+  .mt-pr-photos .prod-photo + .prod-photo { aspect-ratio: auto; height: 100%; }
+}

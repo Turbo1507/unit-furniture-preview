@@ -20,18 +20,5 @@ function renderSolutionModels() {
   requestAnimationFrame(fitLeaders);
 }
 
-/* точки тянутся до текста: перенесённое значение ужимаем до самой длинной строки */
-function fitLeaders() {
-  document.querySelectorAll('.leaders > li > b').forEach(b => {
-    b.style.width = '';
-    const r = document.createRange(); r.selectNodeContents(b);
-    let l = Infinity, rt = -Infinity; const tops = new Set();
-    for (const x of r.getClientRects()) if (x.width) { l = Math.min(l, x.left); rt = Math.max(rt, x.right); tops.add(Math.round(x.top)); }
-    if (tops.size > 1) b.style.width = Math.ceil(rt - l + 1) + 'px';
-  });
-}
-let fitT;
-addEventListener('resize', () => { cancelAnimationFrame(fitT); fitT = requestAnimationFrame(fitLeaders); });
-if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitLeaders);
 renderSolutionModels();
 window.__uf_onLangChangePage = renderSolutionModels;
