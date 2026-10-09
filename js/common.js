@@ -230,7 +230,7 @@ function productCard(p, opt = {}) {
   ].join('');
   return `
   <article class="product" data-id="${p.id}">
-    <a class="p-media" href="product.html?id=${p.id}" aria-label="${escapeHtml(trName(p.name))}">
+    <a class="p-media${photo && studio ? ' is-studio-bg' : ''}" href="product.html?id=${p.id}" aria-label="${escapeHtml(trName(p.name))}">
       ${photo
         ? `<img class="p-photo${studio ? ' is-studio' : ''}${p.cat === 'textile' ? ' is-small' : ''}" src="${photo}" alt="${escapeHtml(trName(p.name))}" loading="lazy">`
         : photoPlaceholder(p.cat)}
@@ -424,6 +424,8 @@ window.__uf_onLangChange = function () {
   refreshFileLabel();
   if (window.__uf_onLangChangePage) window.__uf_onLangChangePage();
   fitBento();
+  initDots();
+  rebuildDots();
 };
 document.querySelectorAll('.lang-switch').forEach(sw => {
   sw.addEventListener('click', e => {
@@ -667,3 +669,101 @@ function renderMixB() {
   });
 }
 
+
+/* ---------- точки под лентами и фото-слайдерами ---------- */
+function addDots(track, mobOnly) {
+  if (!track || track.__dots) return;
+  const box = document.createElement('div');
+  box.className = 'dots' + (mobOnly ? ' dots-mob' : '');
+  track.after(box);
+  track.__dots = box;
+  let stops = [];
+  const measure = () => {
+    const tr = track.getBoundingClientRect(), pad = parseFloat(getComputedStyle(track).scrollPaddingLeft) || 0;
+    const max = track.scrollWidth - track.clientWidth, out = [];
+    if (max < 2) return [0];
+    [...track.children].forEach(c => {
+      if (!c.getClientRects().length) return;
+      const x = Math.max(0, Math.min(max, c.getBoundingClientRect().left - tr.left + track.scrollLeft - pad));
+      if (!out.length || x - out[out.length - 1] > 8) out.push(x);
+    });
+    return out;
+  };
+  const sync = () => {
+    const x = track.scrollLeft;
+    let k = 0;
+    stops.forEach((s, i) => { if (Math.abs(s - x) < Math.abs(stops[k] - x)) k = i; });
+    box.querySelectorAll('button').forEach((b, i) => b.setAttribute('aria-current', i === k ? 'true' : 'false'));
+    if (track.__onSlide) track.__onSlide(k);
+  };
+  track.__rebuild = () => {
+    stops = measure();
+    box.hidden = stops.length < 2;
+    box.innerHTML = stops.length < 2 ? '' : stops.map((_, i) => `<button type="button" aria-label="${i + 1} / ${stops.length}"><i></i></button>`).join('');
+    sync();
+  };
+  track.__goTo = i => track.scrollTo({ left: stops[i] || 0, behavior: 'smooth' });
+  box.addEventListener('click', e => {
+    const b = e.target.closest('button');
+    if (b) track.__goTo([...box.children].indexOf(b));
+  });
+  let raf = 0;
+  track.addEventListener('scroll', () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(sync); }, { passive: true });
+  track.__rebuild();
+}
+// var, а не const: initDots зовётся из setLang раньше, чем сюда дойдёт файл
+var DOT_TRACKS = [['.sl-track', 0], ['.home .mat-strip', 1], ['.co-grid', 1], ['.home #projGrid', 1], ['.mixb-track', 1], ['.mixc-track', 1]];
+function initDots() {
+  if (!DOT_TRACKS) return;
+  DOT_TRACKS.forEach(([sel, mob]) => document.querySelectorAll(sel).forEach(tr => addDots(tr, mob)));
+}
+function rebuildDots() {
+  if (!DOT_TRACKS) return;
+  DOT_TRACKS.forEach(([sel]) => document.querySelectorAll(sel).forEach(tr => tr.__rebuild && tr.__rebuild()));
+}
+
+/* фото-слайдер из рамки с data-slides="a.jpg|b.jpg": первый кадр уже в разметке, остальные грузим, когда рамка близко */
+function initPhotoSliders() {
+  document.querySelectorAll('[data-slides]').forEach(box => {
+    if (box.querySelector('.sl-track')) return;
+    const first = box.querySelector('img');
+    if (!first) return;
+    const track = document.createElement('div');
+    track.className = 'sl-track';
+    const slide = img => { const s = document.createElement('div'); s.className = 'sl-slide'; s.appendChild(img); track.appendChild(s); };
+    slide(first);
+    box.dataset.slides.split('|').filter(Boolean).forEach(src => {
+      const im = document.createElement('img');
+      im.dataset.src = src; im.alt = first.alt; im.decoding = 'async';
+      slide(im);
+    });
+    box.appendChild(track);
+    const load = () => track.querySelectorAll('img[data-src]').forEach(im => { im.src = im.dataset.src; im.removeAttribute('data-src'); });
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { load(); io.disconnect(); } }, { rootMargin: '400px' });
+      io.observe(box);
+    } else load();
+  });
+}
+initPhotoSliders();
+window.addEventListener('DOMContentLoaded', initDots);
+window.addEventListener('load', rebuildDots);
+let dotsTimer = 0;
+window.addEventListener('resize', () => { clearTimeout(dotsTimer); dotsTimer = setTimeout(rebuildDots, 150); });
+
+/* ссылка с #якорем: после догрузки фото и шрифтов страница могла уехать, ставим блок на место ещё раз */
+if (location.hash.length > 1) {
+  let touched = false;
+  ['wheel', 'touchstart', 'keydown', 'mousedown'].forEach(ev => window.addEventListener(ev, () => { touched = true; }, { once: true, passive: true }));
+  const reAnchor = () => {
+    if (touched) return;
+    let el = null;
+    try { el = document.getElementById(decodeURIComponent(location.hash.slice(1))); } catch (e) {}
+    if (!el) return;
+    const html = document.documentElement, sb = html.style.scrollBehavior;
+    html.style.scrollBehavior = 'auto';
+    el.scrollIntoView({ block: 'start' });
+    html.style.scrollBehavior = sb;
+  };
+  window.addEventListener('load', () => { reAnchor(); setTimeout(reAnchor, 500); });
+}

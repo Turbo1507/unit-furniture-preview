@@ -56,7 +56,8 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+a, button, label, summary { -webkit-tap-highlight-color: transparent; }
 
 body {
   font-family: "UF Helvetica Neue", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -163,7 +164,7 @@ h3 { font-size: 20px; font-weight: 600; }
 .hero {
   position: relative;
   margin-top: -73px; /* хедер прозрачный поверх hero, фото уходит под шапку */
-  height: 100vh; min-height: 620px;
+  height: 100vh; height: 100svh; min-height: 620px;
   overflow: hidden;
   display: flex; align-items: flex-end;
 }
@@ -749,7 +750,7 @@ h3 { font-size: 20px; font-weight: 600; }
   flex-shrink: 0; font-size: 13px; font-weight: 500;
   color: var(--white); background: rgba(255,255,255,.16);
   border: 1px solid rgba(255,255,255,.35); border-radius: var(--r-pill);
-  padding: 6px 12px; backdrop-filter: blur(4px);
+  padding: 6px 12px; -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
 }
 
 /* ---------- блок 4: готовые решения (бенто: один крупный + 3 поменьше) ---------- */
@@ -1105,7 +1106,7 @@ a.pill-tag { text-decoration: none; transition: border-color .2s, color .2s; }
 .mob-cta {
   position: fixed; left: 0; right: 0; bottom: 0; z-index: 90;
   display: none; gap: 10px; padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
-  background: rgba(255,255,255,.92); backdrop-filter: blur(10px);
+  background: rgba(255,255,255,.92); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
   border-top: 1px solid var(--interlace);
 }
 .mob-cta .btn { flex: 1; text-align: center; padding: 13px 10px; font-size: 14px; }
@@ -1262,7 +1263,7 @@ a.pill-tag { text-decoration: none; transition: border-color .2s, color .2s; }
 /* категории: подпись и число моделей обычным текстом */
 .cg-in { padding: 24px; }
 .cg-in h3 { font-size: clamp(20px, 2vw, 24px); font-weight: 500; }
-.cg-n { background: none; border: 0; padding: 0; backdrop-filter: none; font-size: 14px; font-weight: 400; color: rgba(255,255,255,.86); }
+.cg-n { background: none; border: 0; padding: 0; -webkit-backdrop-filter: none; backdrop-filter: none; font-size: 14px; font-weight: 400; color: rgba(255,255,255,.86); }
 .cg-card::after { background: linear-gradient(to top, rgba(20,20,22,.62) 0%, rgba(20,20,22,.12) 42%, transparent 64%); }
 
 /* каталог по комнатам */
@@ -1274,7 +1275,7 @@ a.pill-tag { text-decoration: none; transition: border-color .2s, color .2s; }
 .products.feat-grid { grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 0; }
 .product { border-radius: var(--r-sm); }
 @media (hover: hover) { .product:hover { border-color: var(--interlace); } }
-.p-media:has(.is-studio) { background: var(--white); }
+.p-media.is-studio-bg { background: var(--white); }
 .p-photo.is-studio { object-fit: contain; padding: 24px; }
 .p-cat { font-size: 14px; font-weight: 400; color: rgba(58,58,58,.7); }
 .p-name { font-weight: 500; margin-top: 4px; }
@@ -1379,7 +1380,7 @@ h1 .u5, h2 .u5, b .u5, strong .u5 { font-weight: inherit; }
 }
 .final-form .csel { width: 100%; }
 .final-form .csel-btn { min-width: 0; text-align: left; }
-.final-form .csel-label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.final-form .csel-label { white-space: normal; line-height: 1.3; }
 .final-form textarea { min-height: 120px; }
 .final-form .agree { margin: 0 0 24px; font-size: 14px; align-items: center; min-height: 44px; }
 .final-form .agree input[type="checkbox"] { width: 20px; height: 20px; margin: 0; }
@@ -1958,4 +1959,36 @@ html[lang="en"] .team-card.ru-only { display: none; }
 /* на телефоне кнопка кастомизации во всю ширину блока, от края под иконкой */
 @media (max-width: 720px) {
   .pp-custom .pp-custom-link { width: calc(100% + 60px); margin-left: -60px; }
+}
+
+/* якорь не прячется под шапкой */
+[id]:not(section) { scroll-margin-top: 88px; }
+
+/* фото-слайдер: лента кадров внутри рамки фото, точки поверх снизу */
+.sl-track { position: absolute; inset: 0; display: flex; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; -webkit-overflow-scrolling: touch; }
+.sl-track::-webkit-scrollbar { display: none; }
+.sl-slide { position: relative; flex: 0 0 100%; scroll-snap-align: start; scroll-snap-stop: always; }
+.sl-slide img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.pp-track .sl-slide.is-life img { max-width: none; max-height: none; }
+.pp-track .sl-slide.is-studio { display: flex; align-items: center; justify-content: center; }
+.pp-track .sl-slide.is-studio img { position: static; width: auto; height: auto; max-width: 92%; max-height: 92%; object-fit: contain; }
+
+/* точки: под лентой карточек, а у фото-слайдера поверх кадра */
+.dots { display: flex; justify-content: center; margin-top: 16px; }
+.dots[hidden] { display: none; }
+.dots button { width: 24px; height: 24px; padding: 0; border: 0; background: none; display: grid; place-items: center; cursor: pointer; }
+.dots i { display: block; width: 8px; height: 8px; border-radius: 50%; background: var(--interlace); transition: background .2s; }
+.dots button[aria-current="true"] i { background: var(--graphite); }
+.sl-track + .dots { position: absolute; z-index: 2; left: 50%; bottom: 16px; transform: translateX(-50%); margin: 0; padding: 0 4px; border-radius: var(--r-sm); background: rgba(58,58,58,.32); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+.sl-track + .dots i { background: rgba(255,255,255,.5); }
+.sl-track + .dots button[aria-current="true"] i { background: var(--white); }
+@media (min-width: 721px) { .dots.dots-mob, .pp-track + .dots { display: none; } }
+@media (max-width: 720px) {
+  .pp-thumbs { display: none !important; }
+  .mixb-rail .dots, .mixc-rail .dots { margin-top: 12px; }
+  /* проекты на главной: на телефоне лента, а не длинная стопка */
+  .home .proj-masonry { columns: auto; display: grid; grid-auto-flow: column; grid-auto-columns: 82%; gap: 12px; margin: 32px -20px 0; padding: 0 20px; scroll-padding: 0 20px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+  .home .proj-masonry::-webkit-scrollbar { display: none; }
+  .home .proj-masonry .proj-card { margin: 0; scroll-snap-align: start; }
+  .home .proj-masonry .proj-card img { aspect-ratio: 4 / 5; height: 100%; object-fit: cover; }
 }

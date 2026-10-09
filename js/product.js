@@ -18,31 +18,61 @@ const photos = (() => {
   return a;
 })();
 
-function showPhoto(i) {
-  const ph = photos[i];
-  ppImg.src = ph.src;
-  ppImg.alt = trName(product.name);
-  ppImg.hidden = false;
-  ppMain.classList.toggle('is-life', ph.life);
+const ppTrack = document.createElement('div');
+ppTrack.className = 'sl-track pp-track';
+function markThumb(i) {
   ppThumbs.querySelectorAll('button').forEach((b, bi) => b.classList.toggle('on', bi === i));
 }
 if (photos.length) {
+  ppMain.innerHTML = '';
+  ppTrack.innerHTML = photos.map(ph => `<div class="sl-slide ${ph.life ? 'is-life' : 'is-studio'}"><img src="${ph.src}" alt=""></div>`).join('');
+  ppMain.appendChild(ppTrack);
+  ppTrack.__onSlide = markThumb;
   ppThumbs.innerHTML = photos.map((ph, i) =>
     `<button type="button" data-i="${i}"${i === 0 ? ' class="on"' : ''} aria-label="${i + 1} / ${photos.length}"><img src="${ph.src}" alt=""${ph.life ? '' : ' class="studio"'}></button>`).join('');
   ppThumbs.addEventListener('click', e => {
     const b = e.target.closest('button');
-    if (b) showPhoto(+b.dataset.i);
+    if (!b) return;
+    markThumb(+b.dataset.i);
+    if (ppTrack.__goTo) ppTrack.__goTo(+b.dataset.i);
+    else ppTrack.scrollTo({ left: +b.dataset.i * ppTrack.clientWidth, behavior: 'smooth' });
   });
   if (photos.length < 2) ppThumbs.style.display = 'none';
-  showPhoto(0);
 } else {
   ppImg.hidden = true;
   ppThumbs.style.display = 'none';
   ppMain.insertAdjacentHTML('beforeend', photoPlaceholder(product.cat));
 }
 
+/* для поисковиков и превью ссылки: адрес, описание и разметка этой модели */
+function seoProduct() {
+  const can = document.querySelector('link[rel="canonical"]');
+  if (!can) return;
+  const base = can.href.replace(/[^/]*$/, ''), url = base + 'product.html?id=' + product.id;
+  const abs = src => base + src.replace(/^v2\//, '');
+  const name = trName(product.name);
+  const desc = (catLabel(product.cat) + '. ' + t('d.' + product.cat)).replace(/<[^>]+>/g, '').replace(/\s+/g, ' ');
+  const set = (sel, v) => { const m = document.querySelector(sel); if (m) m.setAttribute(sel.startsWith('link') ? 'href' : 'content', v); };
+  can.href = url;
+  set('link[hreflang="ru"]', url); set('link[hreflang="x-default"]', url); set('link[hreflang="en"]', url + '&lang=en');
+  set('meta[name="description"]', desc);
+  set('meta[property="og:url"]', url); set('meta[property="og:title"]', name); set('meta[property="og:description"]', desc);
+  if (photos.length) set('meta[property="og:image"]', abs(photos[0].src));
+  let ld = document.getElementById('ldProduct');
+  if (!ld) { ld = document.createElement('script'); ld.type = 'application/ld+json'; ld.id = 'ldProduct'; document.head.appendChild(ld); }
+  ld.textContent = JSON.stringify({ '@context': 'https://schema.org', '@graph': [
+    { '@type': 'Product', name, description: desc, url, category: catLabel(product.cat), image: photos.map(p => abs(p.src)),
+      brand: { '@type': 'Brand', name: 'UNIT.FURNITURE' }, manufacturer: { '@id': base + '#org' } },
+    { '@type': 'BreadcrumbList', itemListElement: [
+      { '@type': 'ListItem', position: 1, name: t('crumb.home'), item: base },
+      { '@type': 'ListItem', position: 2, name: t('nav.catalog'), item: base + 'catalog.html' },
+      { '@type': 'ListItem', position: 3, name: catLabel(product.cat), item: base + 'catalog.html?cat=' + product.cat },
+      { '@type': 'ListItem', position: 4, name, item: url }] }] });
+}
+
 function renderInfo() {
-  document.title = trName(product.name) + ', UNIT.FURNITURE';
+  document.title = trName(product.name) + ' | UNIT.FURNITURE';
+  ppTrack.querySelectorAll('img').forEach(im => { im.alt = trName(product.name); });
   document.getElementById('crumbs').innerHTML =
     `<a href="index.html">${t('crumb.home')}</a><span>/</span>` +
     `<a href="catalog.html">${t('nav.catalog')}</a><span>/</span>` +
@@ -69,6 +99,7 @@ function renderInfo() {
   const reqBtn = document.getElementById('ppRequest');
   reqBtn.dataset.req = product.id;
   syncAddButtons();
+  seoProduct();
 }
 
 document.getElementById('ppRequest').addEventListener('click', () => {
