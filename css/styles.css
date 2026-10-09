@@ -1992,3 +1992,11 @@ html[lang="en"] .team-card.ru-only { display: none; }
   .home .proj-masonry .proj-card { margin: 0; scroll-snap-align: start; }
   .home .proj-masonry .proj-card img { aspect-ratio: 4 / 5; height: 100%; object-fit: cover; }
 }
+
+/* точки хиро в ряд, как у остальных слайдеров: по центру, на одной линии с подписью */
+.home .hero-dots { flex-direction: row; gap: 0; left: 50%; right: auto; transform: translateX(-50%); bottom: calc(clamp(40px, 7svh, 80px) - 1px); padding: 0 4px; border-radius: var(--r-sm); background: rgba(58,58,58,.32); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+.home .hero-dots button { width: 24px; height: 24px; display: grid; place-items: center; background: none; border-radius: 0; transform: none; }
+.home .hero-dots button::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,.5); transition: background .2s; }
+.home .hero-dots button.on { background: none; transform: none; }
+.home .hero-dots button.on::before { background: var(--white); }
+.home .hero-dots button::after { inset: -10px 0; }
