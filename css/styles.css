@@ -58,6 +58,8 @@
 
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 a, button, label, summary { -webkit-tap-highlight-color: transparent; }
+/* кнопки и поля не наследуют шрифт сами, браузер ставит Arial */
+button, input, select, textarea { font-family: inherit; }
 
 body {
   font-family: "UF Helvetica Neue", "Helvetica Neue", Helvetica, Arial, sans-serif;
