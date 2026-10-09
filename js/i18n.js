@@ -225,7 +225,7 @@ window.I18N = {
     "d.nightstands": "Прикроватная тумба <i class='u5'>UNIT.</i>: куб 400 мм в чёрно-белой или зеркальной отделке. Отделку подберём под спальню виллы, дома или отельного номера.",
     "d.beds": "Кровать <i class='u5'>UNIT.</i>: каркас из фанеры 18 мм, изголовья HMR и тик. Размер и обивку адаптируем под спальню виллы, дома или отельного номера.",
     "d.sofas": "Диван <i class='u5'>UNIT.</i> для гостиных, ресепшн и lounge-зон. Ткань, размер и посадку подбираем под пространство и сценарий использования.",
-    "d.chairs": "Кресла, стулья и пуфы из тика и металла: обеденные, барные и лаунж. Производство в Джепаре.",
+    "d.chairs": "Кресла, стулья и пуфы из тика и металла: обеденные, барные и лаунж. Производство на Бали.",
     "d.outdoor": "Outdoor-модель из тика с влагостойким текстилем: рассчитана на солнце, дожди и ежедневное использование у бассейна.",
     "d.textile": "Декоративные подушки и текстиль под модели <i class='u5'>UNIT.</i> для завершённого интерьера.",
 
@@ -588,7 +588,7 @@ window.I18N = {
     "d.nightstands": "A <i class='u5'>UNIT.</i> nightstand: a 400 mm cube in a black-and-white or mirrored finish. We match the finish to a villa, home or hotel bedroom.",
     "d.beds": "A <i class='u5'>UNIT.</i> bed: 18 mm plywood frame, HMR and teak headboards. Size and upholstery adapt to a villa, home or hotel room.",
     "d.sofas": "A <i class='u5'>UNIT.</i> sofa for living rooms, receptions and lounge areas. Fabric, size and seat are selected for the space and usage scenario.",
-    "d.chairs": "Armchairs, chairs and poufs in teak and metal: dining, bar and lounge. Made in Jepara.",
+    "d.chairs": "Armchairs, chairs and poufs in teak and metal: dining, bar and lounge. Made in Bali.",
     "d.outdoor": "An outdoor model in teak with water-resistant textile: made for sun, rain and daily poolside use.",
     "d.textile": "Decorative pillows and textiles matching <i class='u5'>UNIT.</i> models for a finished interior.",
 
@@ -741,7 +741,7 @@ window.SPEC_TR = {
     'Серый': 'Grey', 'IDEFAB, Бали': 'IDEFAB, Bali', 'Китай': 'China', 'Металл': 'Metal',
     'Светлый': 'Light', 'Графитовый': 'Graphite', 'Коричневый': 'Brown', 'Чёрно-белый': 'Black and white', 'Зеркальный': 'Mirrored', 'Угловой': 'Corner',
     'Ресепшн, ресторан': 'Reception, restaurant', 'Угловой, модульный': 'Corner, modular',
-    'Тиковое дерево': 'Teak wood', 'Джепара': 'Jepara', 'Синий': 'Blue', 'Тёмно-серый': 'Dark grey',
+    'Тиковое дерево': 'Teak wood', 'Синий': 'Blue', 'Тёмно-серый': 'Dark grey',
     'A — оранжевый, B — тёмный': 'A — orange, B — dark',
     'A — серый меланж, B — графит': 'A — grey melange, B — graphite',
     'A — синий, B — серый': 'A — blue, B — grey'

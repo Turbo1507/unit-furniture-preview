@@ -15,6 +15,7 @@ function renderSolutionModels() {
       b.classList.toggle('is-multi', links.length > 1);
     });
   });
+  if (window.addLeaders) addLeaders();
   // после смены языка словарь ещё клеит короткие слова, поэтому меряем на следующем кадре
   requestAnimationFrame(fitLeaders);
 }

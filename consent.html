@@ -128,6 +128,49 @@
 </div>
 </main>
 
+<!-- ===== FOOTER ===== -->
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <a class="logo" href="index.html"><span class="logo-u">UNIT.</span><span>FURNITURE</span></a>
+      <p class="footer-slogan" data-i18n="ft.slogan">Сделано для жизни. Сделано надолго.</p>
+      <p class="footer-desc" data-i18n="ft.desc">Авторская мебель и интерьерные решения под ключ на Бали.</p>
+      <address>Jalan Pantai Nyanyi, Beraban,<br>Kediri, Tabanan, Bali 80351,<br>Indonesia</address>
+    </div>
+    <nav class="footer-col">
+      <h3 data-i18n="ft.menu">Меню</h3>
+      <a href="catalog.html" data-i18n="nav.catalog">Каталог</a>
+      <a href="solutions.html" data-i18n="nav.solutions">Решения</a>
+      <a href="customization.html" data-i18n="nav.custom">Кастомизация</a>
+      <a href="materials.html" data-i18n="nav.materials">Материалы</a>
+      <a href="projects.html" data-i18n="nav.projects">Проекты</a>
+      <a href="designers.html" data-i18n="nav.designers">Для дизайнеров</a>
+      <a href="contacts.html" data-i18n="nav.contacts">Контакты</a>
+    </nav>
+    <div class="footer-col">
+      <h3 data-i18n="ft.links">Важные ссылки</h3>
+      <a href="assets/UNIT-FURNITURE-catalog.pdf" download data-i18n="ft.catalog">Скачать каталог (PDF)</a>
+      <a href="consent.html" target="_blank" rel="noopener noreferrer" data-i18n="ft.pd">Согласие на обработку ПД</a>
+      <a href="legal.html" target="_blank" rel="noopener noreferrer" data-i18n="ft.legal">Юр. информация о компании</a>
+      <a href="https://unitdeveloper.com" target="_blank" rel="noopener noreferrer">unitdeveloper.com</a>
+      <h3 class="lang-h" data-i18n="ft.lang">Язык страницы</h3>
+      <div class="lang-switch" id="langSwitch">
+        <button type="button" data-lang="ru" class="is-active">RU</button>
+        <button type="button" data-lang="en">EN</button>
+      </div>
+    </div>
+    <div class="footer-social">
+      <a href="https://www.instagram.com/unit.developer" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
+      <a href="https://wa.me/6281139600008" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.7-1.2A9 9 0 1 0 12 3z"/><path d="M8.5 9.5c.5 2.5 3.5 5.5 6 6l1.5-1.5-2-1.5-1 .7c-1-.5-2.2-1.7-2.7-2.7l.7-1-1.5-2z"/></svg></a>
+      <a href="mailto:info@unitdeveloper.com" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></a>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <span class="footer-made" data-i18n="ft.line"><i class="u5">UNIT.</i>FURNITURE: авторская мебель и интерьерные решения на Бали</span>
+    <div class="footer-legal"><span>© 2026 PT. UNIT NUANU PROPERTY</span><a href="consent.html" target="_blank" rel="noopener noreferrer" data-i18n="ft.privacy">Политика конфиденциальности</a></div>
+  </div>
+</footer>
+
 <script>
 (function () {
   var params = new URLSearchParams(location.search);
@@ -143,6 +186,15 @@
     ? 'Consent to Personal Data Processing — UNIT.FURNITURE'
     : 'Согласие на обработку персональных данных — UNIT.FURNITURE';
 })();
+</script>
+<script src="js/i18n.js"></script>
+<script src="js/data.js"></script>
+<script src="js/common.js"></script>
+<script>
+window.__uf_onLangChangePage = function () {
+  var lang = document.documentElement.lang === 'en' ? 'en' : 'ru';
+  document.querySelectorAll('[data-lang-block]').forEach(function (el) { el.hidden = el.dataset.langBlock !== lang; });
+};
 </script>
 </body>
 </html>

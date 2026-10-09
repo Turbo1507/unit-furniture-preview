@@ -458,6 +458,15 @@ if (form) {
 })();
 
 // бенто на телефоне: рядом только плитки с одинаковым числом строк, остальные во всю ширину
+/* точки между пунктом и значением: отдельный элемент, а не ::after */
+function addLeaders() {
+  document.querySelectorAll('.leaders > li, .mt-spec > div').forEach(r => {
+    if (r.querySelector(':scope > .ldr')) return;
+    const i = document.createElement('i'); i.className = 'ldr'; i.setAttribute('aria-hidden', 'true'); r.appendChild(i);
+  });
+}
+addLeaders();
+
 function fitBento() {
   document.querySelectorAll('.cz-bento').forEach(ul => {
     const tiles = [...ul.querySelectorAll('.cz-tile')];

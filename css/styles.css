@@ -1688,7 +1688,7 @@ h3 { font-weight: 500; letter-spacing: -.015em; }
 .cta-link { display: flex; align-items: center; gap: 24px; padding: 24px; background: var(--stone); border-radius: var(--r-md); color: var(--graphite); text-decoration: none; transition: background-color .2s, color .2s; }
 .cta-link-t { display: grid; gap: 4px; min-width: 0; font-size: 20px; font-weight: 500; line-height: 1.3; overflow-wrap: anywhere; }
 .cta-link-t small { font-size: 14px; font-weight: 400; line-height: 1.4; color: rgba(58,58,58,.8); transition: color .2s; }
-.cta-link-go { flex: none; margin-left: auto; width: 44px; height: 44px; display: grid; place-items: center; border-radius: var(--r-sm); background: var(--blue); color: var(--white); }
+.cta-link-go { flex: none; margin-left: auto; width: 44px; height: 44px; display: grid; place-items: center; border-radius: var(--r-sm); background: var(--white); color: var(--graphite); }
 .cta-link-go svg { width: 20px; height: 20px; }
 @media (hover: hover) {
   .cta-link:hover { background: var(--graphite); color: var(--white); }
@@ -1712,7 +1712,7 @@ h3 { font-weight: 500; letter-spacing: -.015em; }
 /* решения: строки «пункт … модель» с точками-лидерами */
 .sol-includes.leaders { grid-template-columns: minmax(0, 1fr); gap: 12px; max-width: 640px; }
 .leaders > li { display: flex; align-items: baseline; gap: 8px; }
-.leaders > li::after { content: ''; flex: 1; order: 2; min-width: 24px; margin-bottom: .35em; border-bottom: 2px dotted currentColor; opacity: .25; }
+.ldr { flex: 1 1 24px; order: 2; min-width: 24px; margin-bottom: .35em; border-bottom: 2px dotted rgba(58,58,58,.28); }
 .leaders > li > span { order: 1; }
 .leaders > li > b { order: 3; max-width: 60%; font-weight: 500; text-align: right; }
 .leaders > li > b.is-muted { font-weight: 400; color: rgba(58,58,58,.8); }
@@ -1756,12 +1756,11 @@ h3 { font-weight: 500; letter-spacing: -.015em; }
 .cz-bento + .sect-cta { margin-top: 48px; }
 @media (max-width: 720px) { .cz-bento + .sect-cta { margin-top: 32px; } }
 
-/* кликабельная плитка: стрелка справа сверху, белая для перехода, синяя для формы */
+/* кликабельная плитка: стрелка справа сверху, всегда белая */
 .mat-photo { position: relative; }
 .tile-go { position: absolute; top: 16px; right: 16px; z-index: 3; width: 44px; height: 44px; display: grid; place-items: center; border-radius: var(--r-sm); background: var(--white); color: var(--graphite); transition: color .2s, background-color .2s; }
 .tile-go svg { width: 20px; height: 20px; }
-.tile-go.is-req { background: var(--blue); color: var(--white); }
-@media (hover: hover) { a:hover > .tile-go:not(.is-req), a:hover > div > .tile-go:not(.is-req) { background: var(--graphite); color: var(--white); } }
+@media (hover: hover) { a:hover > .tile-go, a:hover > div > .tile-go { background: var(--graphite); color: var(--white); } }
 @media (max-width: 720px) { .tile-go { top: 12px; right: 12px; width: 36px; height: 36px; } .tile-go svg { width: 18px; height: 18px; } }
 
 /* песочница, вариант В: карточка категории в ленте моделей */
@@ -1922,9 +1921,8 @@ html[lang="en"] .team-card.ru-only { display: none; }
 .mt-spec-h { margin-top: 32px; font-size: 14px; color: rgba(58,58,58,.64); }
 .mt-spec { margin: 12px 0 0; display: grid; gap: 12px; max-width: 640px; }
 .mt-spec div { display: flex; align-items: baseline; gap: 8px; font-size: 17px; line-height: 1.4; }
-.mt-spec dt { flex: 0 0 auto; font-weight: 500; }
-.mt-spec div::before { content: ''; order: 1; flex: 1 1 24px; min-width: 24px; border-bottom: 1px dotted var(--interlace); }
-.mt-spec dd { order: 2; margin: 0; max-width: 60%; text-align: right; color: rgba(58,58,58,.8); }
+.mt-spec dt { flex: 0 0 auto; order: 1; font-weight: 500; }
+.mt-spec dd { order: 3; margin: 0; max-width: 60%; text-align: right; color: rgba(58,58,58,.8); }
 /* климат: фото + три плитки с заголовком и пояснением */
 .mt-clim .cz-photo { padding: 0; overflow: hidden; grid-row: span 2; }
 .mt-clim .cz-photo img { width: 100%; height: 100%; object-fit: cover; }
