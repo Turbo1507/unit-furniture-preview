@@ -14,7 +14,7 @@ window.I18N = {
     /* --- главная: hero --- */
     "hero.title": "Хай-тек мебель собственного производства и интерьеры на Бали",
     "hero.sub": "Создаём мебель для вилл, домов, отелей, ресторанов и outdoor-пространств. От отдельной модели до полной комплектации объекта под ключ.",
-    "hero.cta1": "Получить расчёт", "hero.cta2": "Смотреть каталог", "hero.scroll": "Листайте ↓", "hero.cap": "Sofa Outdoor Type 4, коллекция 2026", "hero.cap1": "Sofa A, коллекция 2026", "hero.cap2": "Bed Type 3, коллекция 2026", "hero.cap3": "Sofa Outdoor Type 4, коллекция 2026", "hero.cap4": "Sofa Outdoor Type 5, коллекция 2026", "doc.title": "UNIT.FURNITURE: авторская мебель и интерьерные решения на Бали",
+    "hero.cta1": "Получить расчёт", "hero.cta2": "Смотреть каталог", "hero.scroll": "Листайте ↓", "hero.cap": "Sofa Outdoor Type 4, коллекция 2026", "hero.cap1": "Sofa A, коллекция 2026", "hero.cap2": "Axis Bed, коллекция 2026", "hero.cap3": "Sofa Outdoor Type 4, коллекция 2026", "hero.cap4": "Sofa Outdoor Type 5, коллекция 2026", "doc.title": "UNIT.FURNITURE: авторская мебель и интерьерные решения на Бали",
     "hero.badge1": "Собственное производство", "hero.badge2": "Кастомизация", "hero.badge3": "Indoor, Outdoor, Commercial",
 
     "mq.1": "Собственное производство", "mq.2": "Кастомизация под объект",
@@ -379,7 +379,7 @@ window.I18N = {
     /* --- home: hero --- */
     "hero.title": "Hi-tech furniture production and interiors in Bali",
     "hero.sub": "We create furniture for villas, homes, hotels, restaurants and outdoor spaces. From a single model to full turnkey furnishing of a property.",
-    "hero.cta1": "Get a quote", "hero.cta2": "View catalog", "hero.scroll": "Scroll ↓", "hero.cap": "Sofa Outdoor Type 4, collection 2026", "hero.cap1": "Sofa A, collection 2026", "hero.cap2": "Bed Type 3, collection 2026", "hero.cap3": "Sofa Outdoor Type 4, collection 2026", "hero.cap4": "Sofa Outdoor Type 5, collection 2026", "doc.title": "UNIT.FURNITURE: designer furniture and interior solutions in Bali",
+    "hero.cta1": "Get a quote", "hero.cta2": "View catalog", "hero.scroll": "Scroll ↓", "hero.cap": "Sofa Outdoor Type 4, collection 2026", "hero.cap1": "Sofa A, collection 2026", "hero.cap2": "Axis Bed, collection 2026", "hero.cap3": "Sofa Outdoor Type 4, collection 2026", "hero.cap4": "Sofa Outdoor Type 5, collection 2026", "doc.title": "UNIT.FURNITURE: designer furniture and interior solutions in Bali",
     "hero.badge1": "In-house production", "hero.badge2": "Customization", "hero.badge3": "Indoor, Outdoor, Commercial",
 
     "mq.1": "In-house production", "mq.2": "Customized for your property",
@@ -737,12 +737,12 @@ window.I18N = {
 /* Каталог: перевод спек-ключей и типовых значений (имена собственные не переводятся) */
 window.SPEC_TR = {
   keys: {
-    'Изголовье': 'Headboard', 'Каркас': 'Frame', 'Цвет': 'Color', 'Производство': 'Made in',
+    'Изголовье': 'Headboard', 'Каркас': 'Frame', 'Цвет': 'Color',
     'Ножки': 'Legs', 'Тип': 'Type', 'Назначение': 'Purpose', 'Варианты': 'Options'
   },
   values: {
     'HMR 18 мм, орех': 'HMR 18 mm, walnut', 'Фанера 18 мм': '18 mm plywood',
-    'Серый': 'Grey', 'IDEFAB, Бали': 'IDEFAB, Bali', 'Китай': 'China', 'Металл': 'Metal',
+    'Серый': 'Grey', 'Металл': 'Metal',
     'Светлый': 'Light', 'Графитовый': 'Graphite', 'Коричневый': 'Brown', 'Чёрно-белый': 'Black and white', 'Зеркальный': 'Mirrored', 'Угловой': 'Corner',
     'Ресепшн, ресторан': 'Reception, restaurant', 'Угловой, модульный': 'Corner, modular',
     'Тиковое дерево': 'Teak wood', 'Синий': 'Blue', 'Тёмно-серый': 'Dark grey',
