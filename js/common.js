@@ -61,8 +61,31 @@ const REQUEST_URL = document.body.dataset.requestUrl || 'contacts.html#form';
 const reqIds = new Set();
 try { JSON.parse(localStorage.getItem('uf_cart') || '[]').forEach(id => { if (productById(id)) reqIds.add(id); }); } catch (e) {}
 
+const reqQty = {};
+try { Object.assign(reqQty, JSON.parse(localStorage.getItem('uf_cart_qty') || '{}')); } catch (e) {}
+const qtyOf = id => Math.max(1, Math.min(99, parseInt(reqQty[id], 10) || 1));
 function persistCart() {
-  try { localStorage.setItem('uf_cart', JSON.stringify([...reqIds])); } catch (e) {}
+  Object.keys(reqQty).forEach(id => { if (!reqIds.has(id)) delete reqQty[id]; });
+  try { localStorage.setItem('uf_cart', JSON.stringify([...reqIds])); localStorage.setItem('uf_cart_qty', JSON.stringify(reqQty)); } catch (e) {}
+}
+function setQty(id, n) {
+  if (n < 1) { reqIds.delete(id); } else { reqQty[id] = Math.min(99, n); }
+  persistCart(); syncRequestUI();
+}
+/* список для заявки: то, что лежит в корзине, с количеством */
+function cartLines() {
+  return [...reqIds].map(id => { const p = productById(id); return { id, name: p.name, cat: p.cat, qty: qtyOf(id) }; });
+}
+function cartText() {
+  return cartLines().map(l => l.name + ' × ' + l.qty).join('\n');
+}
+function plural(n, one, few, many) {
+  const m10 = n % 10, m100 = n % 100;
+  return m10 === 1 && m100 !== 11 ? one : m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14) ? few : many;
+}
+function cartCountLabel() {
+  const n = cartLines().reduce((s, l) => s + l.qty, 0);
+  return (document.documentElement.lang === 'en') ? n + (n === 1 ? ' item' : ' items') : n + ' ' + plural(n, 'позиция', 'позиции', 'позиций');
 }
 function toggleRequest(id) {
   reqIds.has(id) ? reqIds.delete(id) : reqIds.add(id);
@@ -98,7 +121,8 @@ function syncRequestUI() {
   if (reqChips) {
     reqChips.innerHTML = [...reqIds].map(id => {
       const p = productById(id);
-      return `<button type="button" class="chip" data-del="${p.id}">${escapeHtml(trName(p.name))}<span>✕</span></button>`;
+      const q = qtyOf(id);
+      return `<button type="button" class="chip" data-del="${p.id}">${escapeHtml(trName(p.name))}${q > 1 ? ' × ' + q : ''}<span>✕</span></button>`;
     }).join('');
     const prev = document.getElementById('reqCartPreview');
     if (prev) prev.hidden = reqIds.size === 0;
@@ -113,19 +137,39 @@ const cartList = document.getElementById('cartList');
 
 function renderCart() {
   if (!cartList) return;
-  if (reqIds.size === 0) {
-    cartList.innerHTML = `<p class="cart-empty">${t('cart.empty')}</p>`;
+  const empty = reqIds.size === 0;
+  if (cartEl) cartEl.classList.toggle('is-empty', empty);
+  const cnt = document.getElementById('cartCount');
+  if (cnt) cnt.textContent = empty ? '' : cartCountLabel();
+  if (empty) {
+    cartList.innerHTML = `<div class="cart-empty">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 11V8a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v3"/><rect x="3" y="11" width="18" height="6" rx="1.5"/><path d="M4 17v1.5M20 17v1.5"/></svg>
+      <h4>${t('cart.empty_t')}</h4>
+      <p>${t('cart.empty')}</p>
+      <a class="btn btn-line" href="catalog.html">${t('cart.to_catalog')}</a>
+    </div>`;
     return;
   }
   cartList.innerHTML = [...reqIds].map(id => {
     const p = productById(id);
-    const thumb = p.life
-      ? `<img src="${p.life}" alt="${escapeHtml(trName(p.name))}">`
+    const nm = escapeHtml(trName(p.name)), q = qtyOf(id);
+    const thumb = p.img
+      ? `<img src="${p.img}" alt="${nm}">`
       : `<div class="cart-item-ph">${catIcon(p.cat)}</div>`;
     return `<div class="cart-item">
-      ${thumb}
-      <div><div class="cart-item-name">${escapeHtml(trName(p.name))}</div><div class="cart-item-cat">${escapeHtml(catLabel(p.cat))}</div></div>
-      <button type="button" class="cart-item-del" data-del="${p.id}" aria-label="${escapeHtml(t('p.del.aria') + ': ' + trName(p.name))}">✕</button>
+      <a class="cart-item-img" href="product.html?id=${p.id}">${thumb}</a>
+      <div class="cart-item-main">
+        <a class="cart-item-name" href="product.html?id=${p.id}">${nm}</a>
+        <div class="cart-item-cat">${escapeHtml(catLabel(p.cat))}</div>
+        <div class="cart-item-row">
+          <div class="qty" role="group" aria-label="${escapeHtml(t('cart.qty'))}">
+            <button type="button" data-qty="${p.id}" data-d="-1" aria-label="${escapeHtml(t('cart.minus'))}">−</button>
+            <span>${q}</span>
+            <button type="button" data-qty="${p.id}" data-d="1" aria-label="${escapeHtml(t('cart.plus'))}">+</button>
+          </div>
+          <button type="button" class="cart-item-del" data-del="${p.id}" aria-label="${escapeHtml(t('p.del.aria') + ': ' + trName(p.name))}">${t('cart.remove')}</button>
+        </div>
+      </div>
     </div>`;
   }).join('');
 }
@@ -158,6 +202,8 @@ if (cartEl) {
   document.getElementById('cartClose').addEventListener('click', closeCart);
   cartOverlay.addEventListener('click', closeCart);
   cartList.addEventListener('click', e => {
+    const qb = e.target.closest('[data-qty]');
+    if (qb) { setQty(qb.dataset.qty, qtyOf(qb.dataset.qty) + Number(qb.dataset.d)); return; }
     const del = e.target.closest('[data-del]');
     if (del) toggleRequest(del.dataset.del);
   });
@@ -444,7 +490,13 @@ if (form) {
     if (dl && dl.value && dl.value < dl.min) { dl.value = dl.min; }
     setErr(agree, !agree.checked); if (!agree.checked) bad.push(agree);
     if (bad.length) { bad[0].focus(); return; }
-    /* TODO: сюда AJAX → Telegram Bot API, как в unit-bali functions.php */
+    const items = form.querySelector('[name="items"]');
+    if (items) items.value = cartText();
+    const fd = new FormData(form);
+    const lead = { items: cartLines(), page: location.pathname.split('/').pop() || 'index.html', lang: document.documentElement.lang };
+    fd.forEach((v, k) => { if (k !== 'items') lead[k] = typeof v === 'string' ? v.trim() : v; });
+    window.__ufLead = lead;
+    /* TODO: отправка в бот через unitdeveloper.com (как форма Спейса), включить после «да» */
     form.querySelector('.btn-submit').disabled = true;
     document.getElementById('formDone').hidden = false;
   });

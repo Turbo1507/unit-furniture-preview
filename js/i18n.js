@@ -355,7 +355,7 @@ window.I18N = {
     /* --- корзина --- */
     "cart.title": "Корзина заявки",
     "cart.note": "Цен на сайте нет: посчитаем стоимость комплекта под ваш проект после заявки.",
-    "cart.checkout": "Перейти к заявке", "cart.empty": "Пока пусто. Добавьте позиции из каталога.",
+    "cart.checkout": "Получить расчёт", "cart.empty_t": "В заявке пока ничего нет", "cart.empty": "Нажмите + на карточке модели, и она появится здесь", "cart.to_catalog": "Открыть каталог", "cart.remove": "Убрать", "cart.qty": "Количество", "cart.minus": "Меньше", "cart.plus": "Больше",
 
     /* --- футер и мобильная планка --- */
     "ft.desc": "Авторская мебель и интерьерные решения под ключ на Бали.",
@@ -718,7 +718,7 @@ window.I18N = {
     /* --- cart --- */
     "cart.title": "Request cart",
     "cart.note": "There are no prices on the site: we’ll quote the set for your project after the request.",
-    "cart.checkout": "Go to request", "cart.empty": "Empty so far. Add items from the catalog.",
+    "cart.checkout": "Get a quote", "cart.empty_t": "Your request is empty", "cart.empty": "Tap + on a model card and it will appear here", "cart.to_catalog": "Open the catalog", "cart.remove": "Remove", "cart.qty": "Quantity", "cart.minus": "Fewer", "cart.plus": "More",
 
     /* --- footer & mobile bar --- */
     "ft.desc": "Signature furniture and turnkey interior solutions in Bali.",

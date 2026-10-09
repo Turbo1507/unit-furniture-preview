@@ -73,6 +73,7 @@
 
     <form class="form final-form" id="leadForm" novalidate style="scroll-margin-top:96px">
         <span id="form"></span>
+        <input type="hidden" name="items">
         <div class="req-cart-preview" id="reqCartPreview" hidden style="margin:0 0 24px">
           <p class="req-c-label" data-i18n="req.cart_label">В заявке:</p>
           <div id="reqChips" class="req-chips"></div>
@@ -209,7 +210,7 @@
 <div class="qv-overlay" id="cartOverlay" hidden></div>
 <aside class="cart" id="cart" aria-hidden="true">
   <div class="cart-head">
-    <h3 data-i18n="cart.title">Корзина заявки</h3>
+    <div><h3 data-i18n="cart.title">Корзина заявки</h3><p class="cart-count" id="cartCount"></p></div>
     <button class="cart-close" id="cartClose" aria-label="Закрыть">✕</button>
   </div>
   <div class="cart-list" id="cartList"></div>
