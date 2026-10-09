@@ -321,7 +321,7 @@ if (burger && nav) {
       closeNav();
     }
   });
-  nav.addEventListener('click', e => { if (e.target.tagName === 'A') closeNav(); });
+  nav.addEventListener('click', e => { if (e.target.closest('a')) closeNav(); });
 }
 
 /* подсветка текущего раздела в меню */
@@ -357,36 +357,66 @@ function buildCustomSelect(select) {
   btn.innerHTML = `<span class="csel-label"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>`;
   wrap.appendChild(btn);
 
-  const list = document.createElement('ul');
+  const searchable = select.hasAttribute('data-search');
+  const list = document.createElement(searchable ? 'div' : 'ul');
   list.className = 'csel-list';
   wrap.appendChild(list);
+  let opts = list, search = null;
+  if (searchable) {
+    list.classList.add('has-search');
+    search = document.createElement('input');
+    search.type = 'text'; search.className = 'csel-search'; search.autocomplete = 'off'; search.spellcheck = false;
+    opts = document.createElement('ul');
+    opts.className = 'csel-opts';
+    list.append(search, opts);
+  }
 
   function render() {
-    list.innerHTML = '';
-    [...select.options].forEach(o => {
+    opts.innerHTML = '';
+    [...select.options].forEach((o, i) => {
       const li = document.createElement('li');
-      li.className = 'csel-opt' + (o.value === select.value ? ' is-sel' : '');
-      li.textContent = o.textContent;
-      li.dataset.value = o.value;
-      list.appendChild(li);
+      li.className = 'csel-opt' + (i === select.selectedIndex ? ' is-sel' : '');
+      li.textContent = o.dataset.label || o.textContent;
+      li.dataset.i = i;
+      if (o.dataset.search) li.dataset.search = o.dataset.search;
+      opts.appendChild(li);
     });
     const sel = select.options[select.selectedIndex];
     btn.querySelector('.csel-label').textContent = sel ? sel.textContent : '';
+    if (search) { search.placeholder = t('f.cc.search'); search.setAttribute('aria-label', search.placeholder); }
   }
   render();
   wrap._render = render;
+  const filter = () => {
+    const q = search.value.trim().toLowerCase().replace(/^\+/, '');
+    [...opts.children].forEach(li => { li.hidden = !!q && (li.dataset.search || li.textContent.toLowerCase()).indexOf(q) < 0; });
+    opts.scrollTop = 0;
+  };
+  const pick = li => {
+    select.selectedIndex = +li.dataset.i;
+    select.dispatchEvent(new Event('change', { bubbles: true }));
+    render();
+    wrap.classList.remove('open');
+  };
 
   btn.addEventListener('click', () => {
     document.querySelectorAll('.csel.open').forEach(o => { if (o !== wrap) o.classList.remove('open'); });
     wrap.classList.toggle('open');
+    if (search && wrap.classList.contains('open')) {
+      search.value = ''; filter();
+      const cur = opts.querySelector('.is-sel'); if (cur) opts.scrollTop = cur.offsetTop - 48;
+      setTimeout(() => search.focus(), 0);
+    }
   });
+  if (search) {
+    search.addEventListener('input', filter);
+    search.addEventListener('keydown', e => {
+      if (e.key === 'Enter') { e.preventDefault(); const li = [...opts.children].find(x => !x.hidden); if (li) { pick(li); btn.focus(); } }
+    });
+  }
   list.addEventListener('click', e => {
     const li = e.target.closest('.csel-opt');
-    if (!li) return;
-    select.value = li.dataset.value;
-    select.dispatchEvent(new Event('change', { bubbles: true }));
-    render();
-    wrap.classList.remove('open');
+    if (li) pick(li);
   });
   document.addEventListener('click', e => { if (!wrap.contains(e.target)) wrap.classList.remove('open'); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape') wrap.classList.remove('open'); });
@@ -401,6 +431,39 @@ function fillModelSelect() {
   s.value = v;
 }
 fillModelSelect();
+/* код страны: все страны по алфавиту на языке страницы, по умолчанию Индонезия */
+function fillCountrySelect() {
+  const s = document.getElementById('fCc'), rows = window.UF_COUNTRIES;
+  if (!s || !rows) return;
+  const lg = window.__uf_lang === 'en' ? 'en' : 'ru', k = lg === 'en' ? 2 : 1;
+  const prev = s.selectedOptions[0] ? s.selectedOptions[0].dataset.iso : 'ID';
+  s.innerHTML = '';
+  rows.slice().sort((a, b) => a[k].localeCompare(b[k], lg)).forEach(r => {
+    const o = document.createElement('option');
+    o.value = r[3]; o.textContent = r[0] + ' +' + r[3];
+    o.dataset.iso = r[0]; o.dataset.format = r[4] || '';
+    o.dataset.label = r[k] + ' +' + r[3];
+    o.dataset.search = (r[1] + ' ' + r[2] + ' ' + r[0] + ' ' + r[3]).toLowerCase();
+    o.selected = r[0] === prev;
+    s.appendChild(o);
+  });
+}
+fillCountrySelect();
+/* номер разбивается на группы по маске выбранной страны */
+(function phoneMask() {
+  const cc = document.getElementById('fCc'), tel = document.getElementById('fPhone');
+  if (!cc || !tel) return;
+  const fmt = () => {
+    const d = tel.value.replace(/\D+/g, ''), o = cc.selectedOptions[0], p = o && o.dataset.format;
+    if (!p) { tel.value = d; return; }
+    const out = []; let i = 0;
+    p.split('-').map(Number).forEach(g => { if (i < d.length) { out.push(d.slice(i, i + g)); i += g; } });
+    if (i < d.length) out.push(d.slice(i));
+    tel.value = out.join(' ');
+  };
+  tel.addEventListener('input', fmt);
+  cc.addEventListener('change', fmt);
+})();
 function initCustomSelects() { document.querySelectorAll('.filters select, .form select').forEach(buildCustomSelect); }
 function refreshCustomSelectLabels() { document.querySelectorAll('.csel').forEach(w => w._render && w._render()); }
 initCustomSelects();
@@ -431,6 +494,7 @@ window.__uf_onLangChange = function () {
   syncRequestUI();
   syncLegalLinks();
   fillModelSelect();
+  fillCountrySelect();
   refreshCustomSelectLabels();
   refreshFileLabel();
   if (window.__uf_onLangChangePage) window.__uf_onLangChangePage();
@@ -497,7 +561,7 @@ if (form) {
     { const b = !name.value.trim(); setErr(name, b); if (b) bad.push(name); }
     {
       const v = phone.value.trim();
-      const ok = (v.replace(/\D/g, '').length >= 7) || /^@?[A-Za-z][\w.]{3,}$/.test(v);
+      const ok = v.replace(/\D/g, '').length >= 6;
       const msg = document.getElementById('fPhoneErr');
       if (msg) msg.textContent = t(v ? 'f.err.phone2' : 'f.err.phone');
       setErr(phone, !ok); if (!ok) bad.push(phone);
@@ -512,11 +576,13 @@ if (form) {
     const lead = { items: cartLines(), page: location.pathname.split('/').pop() || 'index.html', lang: document.documentElement.lang };
     // галочки «что меняем» и файлы приходят несколькими значениями под одним именем
     fd.forEach((v, k) => {
-      if (k === 'items') return;
+      if (k === 'items' || k === 'cc') return;
       v = typeof v === 'string' ? v.trim() : (v && v.name) || '';
       if (!v) return;
       lead[k] = k in lead ? [].concat(lead[k], v) : v;
     });
+    const cc = document.getElementById('fCc');
+    if (cc && lead.phone) lead.phone = '+' + cc.value + ' ' + lead.phone;
     window.__ufLead = lead;
     /* TODO: отправка в бот через unitdeveloper.com (как форма Спейса), включить после «да» */
     form.querySelector('.btn-submit').disabled = true;
@@ -630,7 +696,7 @@ function renderMixRows(id, mode) {
     const title = t('dir.' + r.dir + '.t');
     const cards = r.ids.map(productById).filter(Boolean).slice(0, 8).map(p => productCard(p, { studio: true }));
     // на телефоне карточка категории всегда первая
-    cards.splice(MIXC_WIDE.matches ? MIXC_POS[k] || 0 : 0, 0, `
+    if (mode !== 'bare' || MIXC_WIDE.matches) cards.splice(MIXC_WIDE.matches ? MIXC_POS[k] || 0 : 0, 0, `
         <a class="dir-card mixc-cat" href="${MIXC_HREF[r.dir] || r.href}"${mode === 'lines' ? '' : ` aria-label="${title}"`}>
           <img src="${r.img}" alt="">
           <span class="mixc-go" aria-hidden="true">${MIXC_GO}</span>
@@ -714,43 +780,59 @@ function renderMixB() {
 }
 
 
-/* ---------- точки под лентами и фото-слайдерами ---------- */
+/* ---------- полоса под лентами и на фото-слайдерах: дорожка, по ней едет отрезок ---------- */
 function addDots(track, mobOnly) {
   if (!track || track.__dots) return;
   const box = document.createElement('div');
-  box.className = 'dots' + (mobOnly ? ' dots-mob' : '');
+  box.className = 'sbar' + (mobOnly ? ' sbar-mob' : '');
+  box.setAttribute('aria-hidden', 'true');
+  box.innerHTML = '<span class="sbar-in"><i></i></span>';
   track.after(box);
   track.__dots = box;
+  const thumb = box.querySelector('i');
   let stops = [];
+  const max = () => track.scrollWidth - track.clientWidth;
+  const rtl = () => getComputedStyle(track).direction === 'rtl';
   const measure = () => {
     const tr = track.getBoundingClientRect(), pad = parseFloat(getComputedStyle(track).scrollPaddingLeft) || 0;
-    const max = track.scrollWidth - track.clientWidth, out = [];
-    if (max < 2) return [0];
+    const m = max(), out = [];
+    if (m < 2) return [0];
     [...track.children].forEach(c => {
       if (!c.getClientRects().length) return;
-      const x = Math.max(0, Math.min(max, c.getBoundingClientRect().left - tr.left + track.scrollLeft - pad));
+      const x = Math.max(0, Math.min(m, c.getBoundingClientRect().left - tr.left + track.scrollLeft - pad));
       if (!out.length || x - out[out.length - 1] > 8) out.push(x);
     });
     return out;
   };
   const sync = () => {
-    const x = track.scrollLeft;
+    const m = max(), x = Math.abs(track.scrollLeft);
+    const part = Math.min(1, track.clientWidth / track.scrollWidth);
+    const pos = m > 0 ? Math.min(1, x / m) : 0;
+    thumb.style.width = (part * 100) + '%';
+    thumb.style.left = ((rtl() ? 1 - pos : pos) * (1 - part) * 100) + '%';
     let k = 0;
     stops.forEach((s, i) => { if (Math.abs(s - x) < Math.abs(stops[k] - x)) k = i; });
-    box.querySelectorAll('button').forEach((b, i) => b.setAttribute('aria-current', i === k ? 'true' : 'false'));
     if (track.__onSlide) track.__onSlide(k);
   };
-  track.__rebuild = () => {
-    stops = measure();
-    box.hidden = stops.length < 2;
-    box.innerHTML = stops.length < 2 ? '' : stops.map((_, i) => `<button type="button" aria-label="${i + 1} / ${stops.length}"><i></i></button>`).join('');
-    sync();
-  };
+  track.__rebuild = () => { stops = measure(); box.hidden = stops.length < 2; sync(); };
   track.__goTo = i => track.scrollTo({ left: stops[i] || 0, behavior: 'smooth' });
-  box.addEventListener('click', e => {
-    const b = e.target.closest('button');
-    if (b) track.__goTo([...box.children].indexOf(b));
+  // полосу можно тянуть и тыкать
+  const seek = (e, smooth) => {
+    const r = box.querySelector('.sbar-in').getBoundingClientRect(), tw = thumb.getBoundingClientRect().width;
+    let p = Math.max(0, Math.min(1, (e.clientX - r.left - tw / 2) / Math.max(1, r.width - tw)));
+    if (rtl()) p = 1 - p;
+    track.scrollTo({ left: (rtl() ? -1 : 1) * p * max(), behavior: smooth ? 'smooth' : 'auto' });
+  };
+  box.addEventListener('pointerdown', e => {
+    box.setPointerCapture(e.pointerId);
+    track.style.scrollSnapType = 'none';
+    box.classList.add('is-drag');
+    seek(e, false);
   });
+  box.addEventListener('pointermove', e => { if (box.hasPointerCapture(e.pointerId)) seek(e, false); });
+  const up = () => { box.classList.remove('is-drag'); track.style.scrollSnapType = ''; };
+  box.addEventListener('pointerup', up);
+  box.addEventListener('pointercancel', up);
   let raf = 0;
   track.addEventListener('scroll', () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(sync); }, { passive: true });
   track.__rebuild();

@@ -678,7 +678,6 @@ h3 { font-size: 20px; font-weight: 600; }
 .reveal.in { opacity: 1; transform: none; }
 .qa .reveal, .qa .hero-title .w { opacity: 1 !important; transform: none !important; transition: none !important; }
 /* position:fixed/sticky «запекается» повторно на полностраничных скриншотах за пределами вьюпорта — на время QA-снимков убираем */
-.qa .mob-cta { display: none !important; }
 .qa .site-header { position: static !important; }
 .qa .hero { margin-top: 0 !important; }
 .qa .roadmap::after { transition: none !important; }
@@ -1104,16 +1103,6 @@ a.pill-tag { text-decoration: none; transition: border-color .2s, color .2s; }
   .bento-main { padding: 28px; }
 }
 
-/* ---------- мобильная закреплённая CTA-планка ---------- */
-.mob-cta {
-  position: fixed; left: 0; right: 0; bottom: 0; z-index: 90;
-  display: none; gap: 10px; padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
-  background: rgba(255,255,255,.92); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
-  border-top: 1px solid var(--interlace);
-}
-.mob-cta .btn { flex: 1; text-align: center; padding: 13px 10px; font-size: 14px; }
-.mob-cta .btn-wa { display: flex; align-items: center; justify-content: center; gap: 8px; border: 1px solid var(--blue); color: var(--white); background: var(--blue); }
-.mob-cta .btn-wa svg { width: 18px; height: 18px; }
 
 /* ---------- футер: слоган ---------- */
 .footer-slogan { margin-top: 14px; font-size: 15px; font-weight: 400; color: rgba(58,58,58,.75); }
@@ -1150,8 +1139,6 @@ a.pill-tag { text-decoration: none; transition: border-color .2s, color .2s; }
   .final-qr { flex-direction: row; }
   .final-side { padding: 32px 20px; }
   .final-form { padding: 32px 20px; }
-  .mob-cta { display: flex; }
-  body { padding-bottom: 66px; }
   /* компактная шапка: лого + язык + корзина + бургер должны влезть в 390 */
   .header-in { gap: 10px; }
   .header-in .logo { font-size: 17px; }
@@ -1180,7 +1167,7 @@ a.pill-tag { text-decoration: none; transition: border-color .2s, color .2s; }
 @media (max-width: 720px) {
   .container { padding: 0 20px; }
   .section { padding: var(--sp-4xl-mobile) 0; }
-  /* -66px = высота закреплённой мобильной CTA-планки, чтобы низ hero не прятался под ней */
+  /* хиро чуть ниже экрана, чтобы был виден край следующего блока */
   .hero { height: calc(100svh - 66px); min-height: 560px; }
   .hero-in { padding-bottom: 48px; }
   .hero-dots, .hero-scroll { display: none; }
@@ -1440,7 +1427,6 @@ h1 .u5, h2 .u5, b .u5, strong .u5 { font-weight: inherit; }
   .home .clim-row h3 { font-size: 18px; }
   .home .clim-row p { font-size: 16px; }
   .final-qr { display: none; }
-  .home.mobcta-off .mob-cta { display: none; }
   .burger::after, .cart-btn::after { inset: -2px; }
 }
 @media (max-width: 720px) {
@@ -1680,7 +1666,6 @@ h3 { font-weight: 500; letter-spacing: -.015em; }
 @media (hover: hover) { .cart-toast button:hover { color: var(--blue); } }
 @media (max-width: 720px) { .cart-toast { left: 16px; right: 16px; bottom: 16px; transform: translateY(16px); justify-content: space-between; max-width: none; }
   .cart-toast.show { transform: none; } }
-@media (max-width: 720px) { .cart-toast { bottom: 88px; } }
 
 /* климат: иконка на белой подложке вместо номера */
 .home .clim-row .clim-arg { grid-template-columns: 48px minmax(0, 1fr); gap: 20px; align-items: start; }
@@ -1975,19 +1960,18 @@ html[lang="en"] .team-card.ru-only { display: none; }
 .pp-track .sl-slide.is-studio { display: flex; align-items: center; justify-content: center; }
 .pp-track .sl-slide.is-studio img { position: static; width: auto; height: auto; max-width: 92%; max-height: 92%; object-fit: contain; }
 
-/* точки: под лентой карточек, а у фото-слайдера поверх кадра */
-.dots { display: flex; justify-content: center; margin-top: 16px; }
-.dots[hidden] { display: none; }
-.dots button { width: 24px; height: 24px; padding: 0; border: 0; background: none; display: grid; place-items: center; cursor: pointer; }
-.dots i { display: block; width: 8px; height: 8px; border-radius: 50%; background: var(--interlace); transition: background .2s; }
-.dots button[aria-current="true"] i { background: var(--graphite); }
-.sl-track + .dots { position: absolute; z-index: 2; left: 50%; bottom: 16px; transform: translateX(-50%); margin: 0; padding: 0 4px; border-radius: var(--r-sm); background: rgba(58,58,58,.32); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
-.sl-track + .dots i { background: rgba(255,255,255,.5); }
-.sl-track + .dots button[aria-current="true"] i { background: var(--white); }
-@media (min-width: 721px) { .dots.dots-mob, .pp-track + .dots { display: none; } }
+/* полоса: под лентой карточек дорожка во всю ширину, у фото-слайдера короткая поверх кадра */
+.sbar { position: relative; display: flex; align-items: center; height: 24px; margin-top: 16px; cursor: pointer; touch-action: none; user-select: none; -webkit-user-select: none; }
+.sbar[hidden] { display: none; }
+.sbar-in { position: relative; flex: 1; height: 2px; border-radius: 2px; background: var(--interlace); }
+.sbar-in i { position: absolute; top: 0; bottom: 0; left: 0; border-radius: 2px; background: var(--graphite); }
+.sl-track + .sbar { position: absolute; z-index: 2; left: 50%; bottom: 16px; width: clamp(64px, 28%, 112px); height: 20px; transform: translateX(-50%); margin: 0; padding: 0 8px; border-radius: var(--r-sm); background: rgba(58,58,58,.32); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+.sl-track + .sbar .sbar-in { background: rgba(255,255,255,.4); }
+.sl-track + .sbar .sbar-in i { background: var(--white); }
+@media (min-width: 721px) { .sbar.sbar-mob, .pp-track + .sbar { display: none; } }
 @media (max-width: 720px) {
   .pp-thumbs { display: none !important; }
-  .mixb-rail .dots, .mixc-rail .dots { margin-top: 12px; }
+  .mixb-rail .sbar, .mixc-rail .sbar { margin-top: 12px; }
   /* проекты на главной: на телефоне лента, а не длинная стопка */
   .home .proj-masonry { columns: auto; display: grid; grid-auto-flow: column; grid-auto-columns: 82%; gap: 12px; margin: 32px -20px 0; padding: 0 20px; scroll-padding: 0 20px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
   .home .proj-masonry::-webkit-scrollbar { display: none; }
@@ -1995,12 +1979,11 @@ html[lang="en"] .team-card.ru-only { display: none; }
   .home .proj-masonry .proj-card img { aspect-ratio: 4 / 5; height: 100%; object-fit: cover; }
 }
 
-/* точки хиро в ряд, как у остальных слайдеров: по центру, на одной линии с подписью */
-.home .hero-dots { flex-direction: row; gap: 0; left: 50%; right: auto; transform: translateX(-50%); bottom: calc(clamp(40px, 7svh, 80px) - 1px); padding: 0 4px; border-radius: var(--r-sm); background: rgba(58,58,58,.32); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
-.home .hero-dots button { width: 24px; height: 24px; display: grid; place-items: center; background: none; border-radius: 0; transform: none; }
-.home .hero-dots button::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,.5); transition: background .2s; }
-.home .hero-dots button.on { background: none; transform: none; }
-.home .hero-dots button.on::before { background: var(--white); }
+/* полоса хиро: по центру, на одной линии с подписью; кнопки слайдов поверх полосы делят её поровну */
+.home .hero-dots { position: absolute; flex-direction: row; gap: 0; left: 50%; right: auto; transform: translateX(-50%); bottom: calc(clamp(40px, 7svh, 80px) - 1px); width: 144px; height: 24px; margin: 0; padding: 0 12px; border-radius: var(--r-sm); background: rgba(58,58,58,.32); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+.home .hero-dots .sbar-in { background: rgba(255,255,255,.4); }
+.home .hero-dots .sbar-in i { background: var(--white); transition: transform .5s var(--ease); }
+.home .hero-dots button { position: absolute; top: -11px; bottom: -11px; height: auto; padding: 0; border-radius: 0; background: none; transform: none; }
 .home .hero-dots button::after { inset: -10px 0; }
 
 /* заявка на кастомизацию: форма в три шага */
@@ -2040,3 +2023,35 @@ html[lang="en"] .team-card.ru-only { display: none; }
 .cz-step:last-of-type { margin-bottom: 32px; }
 .cz-step > .field:last-child { margin-bottom: 0; }
 .cz-form .f-err[hidden] { display: none; }
+
+/* меню на планшете и телефоне: на всю высоту, внизу «Получить расчёт» и WhatsApp */
+.nav-cta { display: none; }
+@media (max-width: 1180px) {
+  .nav { bottom: 0; overflow-y: auto; border-bottom: 0; }
+  .nav-cta { display: flex; gap: 8px; margin-top: auto; padding-top: 24px; padding-bottom: env(safe-area-inset-bottom); }
+  .nav-cta .btn { flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; padding: 0 12px; font-size: 15px; }
+  .nav-cta .btn-wa { border: 1px solid var(--blue); color: var(--white) !important; background: var(--blue); }
+  .nav-cta .btn-blue { color: var(--white) !important; }
+  .nav-cta .btn-wa svg { width: 18px; height: 18px; flex: none; }
+  .nav .nav-cta a { padding: 0 12px; font-size: 15px; }
+}
+
+/* телефон: код страны + номер */
+.phone-row { display: flex; gap: 8px; }
+.phone-row .csel { flex: 0 0 112px; width: auto; }
+.form .phone-row .csel-btn, .final-form .phone-row .csel-btn { min-width: 0; width: 100%; }
+.phone-row input { flex: 1; min-width: 0; }
+.phone-row .csel-label { white-space: nowrap; }
+.csel-list.has-search { width: 320px; max-width: calc(100vw - 40px); padding: 8px; }
+.csel-search { display: block; width: 100%; height: 44px; margin: 0 0 8px; padding: 0 12px; border: 1px solid var(--interlace); border-radius: var(--r-sm); background: var(--white); font: inherit; font-size: 16px; color: var(--graphite); }
+.csel-search:focus { outline: none; border-color: var(--blue); }
+.csel-opts { max-height: 264px; overflow-y: auto; margin: 0; padding: 0; list-style: none; overscroll-behavior: contain; }
+.csel-opts .csel-opt[hidden] { display: none; }
+.cz-form .csel-list.has-search { max-height: none; overflow: visible; }
+
+/* кастомизация на главной: на телефоне сначала варианты, потом заявка */
+@media (max-width: 720px) { .cust-acts .btn-line { order: -1; } }
+/* полоса хиро поверх текстового слоя, иначе клик ловит контейнер */
+.home .hero-dots { z-index: 4; }
+/* список открывается сразу видимым, чтобы поиск получил фокус */
+.csel.open .csel-list { transition: opacity .18s var(--ease), transform .18s var(--ease), visibility 0s; }

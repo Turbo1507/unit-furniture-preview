@@ -9,7 +9,7 @@ window.I18N = {
     /* --- навигация и шапка --- */
     "nav.catalog": "Каталог", "nav.solutions": "Решения", "nav.custom": "Кастомизация",
     "nav.projects": "Проекты", "nav.designers": "Для дизайнеров", "nav.contacts": "Контакты",
-    "nav.materials": "Материалы", "nav.cta": "Получить расчёт", "sl.custom": "под заказ", "sl.drawing": "по вашим чертежам", "cta.direct": "Связаться с менеджером напрямую", "cta.mail": "Почта", "alt.mat.fabric": "Образцы тканей обивки", "pp.custom.cta": "Смотреть варианты кастомизации", "ft.slogan": "Сделано для жизни. Сделано надолго.", "cart.added": "Добавлено в корзину", "cart.removed": "Убрано из корзины", "cart.open": "Открыть корзину", "p.add.aria": "Добавить в корзину", "p.del.aria": "Убрать из корзины", "clg.grid.h": "Модели каталога", "f.err.phone2": "Проверьте номер: нужно не меньше 7 цифр или ник от 4 символов",
+    "nav.materials": "Материалы", "nav.cta": "Получить расчёт", "sl.custom": "под заказ", "sl.drawing": "по вашим чертежам", "cta.direct": "Связаться с менеджером напрямую", "cta.mail": "Почта", "alt.mat.fabric": "Образцы тканей обивки", "pp.custom.cta": "Смотреть варианты кастомизации", "ft.slogan": "Сделано для жизни. Сделано надолго.", "cart.added": "Добавлено в корзину", "cart.removed": "Убрано из корзины", "cart.open": "Открыть корзину", "p.add.aria": "Добавить в корзину", "p.del.aria": "Убрать из корзины", "clg.grid.h": "Модели каталога", "f.err.phone2": "Проверьте номер: не хватает цифр",
 
     /* --- главная: hero --- */
     "hero.title": "Хай-тек мебель собственного производства и интерьеры на Бали",
@@ -30,7 +30,7 @@ window.I18N = {
     "dir.4.t": "Объект под ключ", "dir.4.p": "Комплектация виллы, дома, отеля или ресторана в единой стилистике",
 
     /* --- категории --- */
-    "cats.h2": "<span class='acc'>Каталог</span> мебели",
+    "cats.h2": "<span class='acc'>Категории</span> мебели",
     "cats.lead": "Выберите категорию или отправьте запрос, и мы подберём решение под ваш объект",
     "cat.beds": "Кровати", "cat.sofas": "Диваны", "cat.chairs": "Кресла и стулья",
     "cat.outdoor": "Outdoor", "cat.sunbeds": "Шезлонги", "cat.poufs": "Пуфы",
@@ -340,7 +340,7 @@ window.I18N = {
     "ct.h1": "<span class='acc'>Свяжитесь</span> с нами",
     "ct.sub": "Подберём решение, рассчитаем стоимость и подготовим предложение. Можно отправить фото, план, референсы или выбранные модели.",
     "req.cart_label": "В заявке:",
-    "f.name": "Имя*", "f.phone": "WhatsApp / Telegram*", "f.email": "Email",
+    "f.name": "Имя*", "f.phone": "Номер телефона*", "f.email": "Email", "f.cc.search": "Страна или код",
     "f.object": "Тип объекта", "f.o.any": "Не важно / уточню в сообщении",
     "f.o.villa": "Вилла", "f.o.house": "Дом", "f.o.apt": "Апартаменты", "f.o.hotel": "Отель",
     "f.o.rest": "Ресторан", "f.o.outdoor": "Outdoor-зона", "f.o.design": "Дизайнерский проект",
@@ -353,7 +353,7 @@ window.I18N = {
     "f.file": "Фото / план / референсы",
     "f.file_btn": "Выбрать файлы", "f.file_none": "Файл не выбран", "f.file_one": "Выбран 1 файл", "f.file_many": "Выбрано файлов: {n}",
     "f.agree_link": "Согласен на <a href=\"consent.html\" target=\"_blank\" rel=\"noopener noreferrer\" style=\"color:inherit\">обработку персональных данных</a>",
-    "f.submit": "Отправить заявку", "f.err.name": "Напишите, как к вам обращаться", "f.err.phone": "Оставьте номер или ник, чтобы мы могли ответить", "f.err.email": "Проверьте адрес почты", "f.err.agree": "Отметьте согласие, без него мы не можем принять заявку", "alt.cust": "Кресло UNIT.FURNITURE в интерьере", "alt.band": "Гостиная с мебелью UNIT.FURNITURE", "alt.qr": "QR-код WhatsApp UNIT.FURNITURE", "f.done": "Заявка отправлена. Ответим в ближайшее время.",
+    "f.submit": "Отправить заявку", "f.err.name": "Напишите, как к вам обращаться", "f.err.phone": "Оставьте номер телефона, чтобы мы могли ответить", "f.err.email": "Проверьте адрес почты", "f.err.agree": "Отметьте согласие, без него мы не можем принять заявку", "alt.cust": "Кресло UNIT.FURNITURE в интерьере", "alt.band": "Гостиная с мебелью UNIT.FURNITURE", "alt.qr": "QR-код WhatsApp UNIT.FURNITURE", "f.done": "Заявка отправлена. Ответим в ближайшее время.",
 
     /* --- корзина --- */
     "cart.title": "Корзина",
@@ -375,7 +375,7 @@ window.I18N = {
     /* --- navigation & header --- */
     "nav.catalog": "Catalog", "nav.solutions": "Solutions", "nav.custom": "Customization",
     "nav.projects": "Projects", "nav.designers": "For designers", "nav.contacts": "Contacts",
-    "nav.materials": "Materials", "nav.cta": "Get a quote", "sl.custom": "made to order", "sl.drawing": "to your drawings", "cta.direct": "Contact a manager directly", "cta.mail": "Email", "alt.mat.fabric": "Upholstery fabric samples", "pp.custom.cta": "See customization options", "ft.slogan": "Designed for living. Built to last.", "cart.added": "Added to cart", "cart.removed": "Removed from cart", "cart.open": "Open cart", "p.add.aria": "Add to cart", "p.del.aria": "Remove from cart", "clg.grid.h": "Catalog models", "f.err.phone2": "Check the number: at least 7 digits, or a handle of 4+ characters",
+    "nav.materials": "Materials", "nav.cta": "Get a quote", "sl.custom": "made to order", "sl.drawing": "to your drawings", "cta.direct": "Contact a manager directly", "cta.mail": "Email", "alt.mat.fabric": "Upholstery fabric samples", "pp.custom.cta": "See customization options", "ft.slogan": "Designed for living. Built to last.", "cart.added": "Added to cart", "cart.removed": "Removed from cart", "cart.open": "Open cart", "p.add.aria": "Add to cart", "p.del.aria": "Remove from cart", "clg.grid.h": "Catalog models", "f.err.phone2": "Check the number: some digits are missing",
 
     /* --- home: hero --- */
     "hero.title": "Hi-tech furniture production and interiors in Bali",
@@ -396,7 +396,7 @@ window.I18N = {
     "dir.4.t": "Turnkey property", "dir.4.p": "Furnishing a villa, home, hotel or restaurant in a single style",
 
     /* --- categories --- */
-    "cats.h2": "<span class='acc'>Furniture</span> catalog",
+    "cats.h2": "<span class='acc'>Furniture</span> categories",
     "cats.lead": "Choose a category or send a request, and we will pick a solution for your property",
     "cat.beds": "Beds", "cat.sofas": "Sofas", "cat.chairs": "Chairs & armchairs",
     "cat.outdoor": "Outdoor", "cat.sunbeds": "Sunbeds", "cat.poufs": "Poufs",
@@ -706,7 +706,7 @@ window.I18N = {
     "ct.h1": "<span class='acc'>Contact</span> us",
     "ct.sub": "We’ll pick a solution, quote it and prepare an offer. You can send photos, a floor plan, references or selected models.",
     "req.cart_label": "In your request:",
-    "f.name": "Name*", "f.phone": "WhatsApp / Telegram*", "f.email": "Email",
+    "f.name": "Name*", "f.phone": "Phone number*", "f.email": "Email", "f.cc.search": "Country or code",
     "f.object": "Property type", "f.o.any": "Not sure yet / see message",
     "f.o.villa": "Villa", "f.o.house": "House", "f.o.apt": "Apartment", "f.o.hotel": "Hotel",
     "f.o.rest": "Restaurant", "f.o.outdoor": "Outdoor area", "f.o.design": "Design project",
@@ -719,7 +719,7 @@ window.I18N = {
     "f.file": "Photos / plan / references",
     "f.file_btn": "Choose files", "f.file_none": "No file chosen", "f.file_one": "1 file selected", "f.file_many": "{n} files selected",
     "f.agree_link": "I agree to <a href=\"consent.html\" target=\"_blank\" rel=\"noopener noreferrer\" style=\"color:inherit\">personal data processing</a>",
-    "f.submit": "Send request", "f.err.name": "Tell us how to address you", "f.err.phone": "Leave a number or username so we can reply", "f.err.email": "Check the email address", "f.err.agree": "Please tick the consent box, we can’t accept the request without it", "alt.cust": "UNIT.FURNITURE armchair in an interior", "alt.band": "Living room with UNIT.FURNITURE furniture", "alt.qr": "WhatsApp QR code UNIT.FURNITURE", "f.done": "Request sent. We’ll get back to you shortly.",
+    "f.submit": "Send request", "f.err.name": "Tell us how to address you", "f.err.phone": "Leave your phone number so we can reply", "f.err.email": "Check the email address", "f.err.agree": "Please tick the consent box, we can’t accept the request without it", "alt.cust": "UNIT.FURNITURE armchair in an interior", "alt.band": "Living room with UNIT.FURNITURE furniture", "alt.qr": "WhatsApp QR code UNIT.FURNITURE", "f.done": "Request sent. We’ll get back to you shortly.",
 
     /* --- cart --- */
     "cart.title": "Cart",
@@ -763,7 +763,7 @@ window.NAME_SUFFIX_TR = {
   ', дейбед': ', daybed', ', шезлонг': ', lounger', ', угловой': ', corner'
 };
 
-window.ATTR_EN = { "Язык страницы": "Page language", "Корзина": "Cart", "Меню": "Menu", "Закрыть": "Close", "Хлебные крошки": "Breadcrumbs", "Категория": "Category", "Назначение": "Purpose", "Кровати": "Beds", "Диваны": "Sofas", "Стулья и кресла": "Chairs and armchairs", "Outdoor-мебель": "Outdoor furniture", "Шезлонги": "Sun loungers", "Пуфы": "Poufs", "Подушки и декор": "Pillows and decor", "Коммерческая мебель": "Commercial furniture", "Тумбы": "Nightstands", "Виллы": "Villas", "Дома и апартаменты": "Homes and apartments", "Отели": "Hotels", "Рестораны": "Restaurants", "Outdoor-зоны": "Outdoor areas", "Дизайнерские проекты": "Design projects", "Гостиная с мебелью UNIT.FURNITURE": "Living room with UNIT.FURNITURE furniture", "Текстура тикового дерева": "Teak wood texture", "Фактура ткани": "Fabric texture", "Мягкие элементы и подушки": "Cushions and upholstery", "Столярная работа и фурнитура": "Joinery and hardware", "Спальня с мебелью UNIT": "Bedroom with UNIT furniture", "Гостиная с мебелью UNIT": "Living room with UNIT furniture", "Терраса с outdoor-мебелью UNIT": "Terrace with UNIT outdoor furniture", "Outdoor lounge у бассейна": "Outdoor lounge by the pool", "Reception и lobby": "Reception and lobby", "Ресторанная зона": "Restaurant area", "Интерьер виллы UNIT под ключ": "Turnkey UNIT villa interior", "Цех UNIT.FURNITURE": "UNIT.FURNITURE workshop", "Дерево": "Wood", "Ткани": "Fabrics", "Наполнители": "Fillings", "Фурнитура": "Hardware", "Стройплощадка UNIT.BUILD": "UNIT.BUILD construction site", "Стальные каркасы UNIT.FRAMES": "UNIT.FRAMES steel frames", "Вилла под управлением UNIT.SPACE MANAGEMENT": "A villa managed by UNIT.SPACE MANAGEMENT", "Степан Федосеев": "Stepan Fedoseev", "Анна Орлова": "Anna Orlova", "Работа в цеху UNIT.FURNITURE": "Work in the UNIT.FURNITURE workshop", "Кресло UNIT.FURNITURE в интерьере": "UNIT.FURNITURE armchair in an interior", "Outdoor-мебель у бассейна": "Outdoor furniture by the pool", "Спальня с мебелью UNIT.FURNITURE под размер комнаты": "A bedroom with UNIT.FURNITURE sized to the room", "QR-код WhatsApp UNIT.FURNITURE": "WhatsApp QR code UNIT.FURNITURE" };
+window.ATTR_EN = { "Язык страницы": "Page language", "Код страны": "Country code", "Корзина": "Cart", "Меню": "Menu", "Закрыть": "Close", "Хлебные крошки": "Breadcrumbs", "Категория": "Category", "Назначение": "Purpose", "Кровати": "Beds", "Диваны": "Sofas", "Стулья и кресла": "Chairs and armchairs", "Outdoor-мебель": "Outdoor furniture", "Шезлонги": "Sun loungers", "Пуфы": "Poufs", "Подушки и декор": "Pillows and decor", "Коммерческая мебель": "Commercial furniture", "Тумбы": "Nightstands", "Виллы": "Villas", "Дома и апартаменты": "Homes and apartments", "Отели": "Hotels", "Рестораны": "Restaurants", "Outdoor-зоны": "Outdoor areas", "Дизайнерские проекты": "Design projects", "Гостиная с мебелью UNIT.FURNITURE": "Living room with UNIT.FURNITURE furniture", "Текстура тикового дерева": "Teak wood texture", "Фактура ткани": "Fabric texture", "Мягкие элементы и подушки": "Cushions and upholstery", "Столярная работа и фурнитура": "Joinery and hardware", "Спальня с мебелью UNIT": "Bedroom with UNIT furniture", "Гостиная с мебелью UNIT": "Living room with UNIT furniture", "Терраса с outdoor-мебелью UNIT": "Terrace with UNIT outdoor furniture", "Outdoor lounge у бассейна": "Outdoor lounge by the pool", "Reception и lobby": "Reception and lobby", "Ресторанная зона": "Restaurant area", "Интерьер виллы UNIT под ключ": "Turnkey UNIT villa interior", "Цех UNIT.FURNITURE": "UNIT.FURNITURE workshop", "Дерево": "Wood", "Ткани": "Fabrics", "Наполнители": "Fillings", "Фурнитура": "Hardware", "Стройплощадка UNIT.BUILD": "UNIT.BUILD construction site", "Стальные каркасы UNIT.FRAMES": "UNIT.FRAMES steel frames", "Вилла под управлением UNIT.SPACE MANAGEMENT": "A villa managed by UNIT.SPACE MANAGEMENT", "Степан Федосеев": "Stepan Fedoseev", "Анна Орлова": "Anna Orlova", "Работа в цеху UNIT.FURNITURE": "Work in the UNIT.FURNITURE workshop", "Кресло UNIT.FURNITURE в интерьере": "UNIT.FURNITURE armchair in an interior", "Outdoor-мебель у бассейна": "Outdoor furniture by the pool", "Спальня с мебелью UNIT.FURNITURE под размер комнаты": "A bedroom with UNIT.FURNITURE sized to the room", "QR-код WhatsApp UNIT.FURNITURE": "WhatsApp QR code UNIT.FURNITURE" };
 
 // короткие слова не оставлять в конце строки: приклеиваем к следующему
 const glueShort = (t) => t.replace(/(^|[\s>(«])([A-Za-zА-Яа-яЁё]{1,3}) (?=\S)/g, '$1$2 ').replace(/(^|[\s>(«])([A-Za-zА-Яа-яЁё]{1,3}) (?=\S)/g, '$1$2 ');
