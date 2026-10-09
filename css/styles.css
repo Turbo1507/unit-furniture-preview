@@ -2050,7 +2050,7 @@ html[lang="en"] .team-card.ru-only { display: none; }
 .cz-form .csel-list.has-search { max-height: none; overflow: visible; }
 
 /* кастомизация на главной: на телефоне сначала варианты, потом заявка */
-@media (max-width: 720px) { .cust-acts .btn-line { order: -1; } }
+@media (max-width: 720px) { .cust-acts .btn-line, .acts-nav-first .btn-line, .acts-nav-first .btn-white { order: -1; } }
 /* полоса хиро поверх текстового слоя, иначе клик ловит контейнер */
 .home .hero-dots { z-index: 4; }
 /* список открывается сразу видимым, чтобы поиск получил фокус */
