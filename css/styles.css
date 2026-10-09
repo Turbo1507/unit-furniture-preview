@@ -646,8 +646,8 @@ h3 { font-size: 20px; font-weight: 600; }
 .cart-list { flex: 1; overflow-y: auto; padding: 8px 24px; }
 .cart-item { display: flex; gap: 16px; align-items: flex-start; padding: 16px 0; }
 .cart-item + .cart-item { border-top: 1px solid var(--stone); }
-.cart-item-img { flex: none; display: block; width: 88px; height: 88px; border-radius: var(--r-sm); background: var(--stone); overflow: hidden; }
-.cart-item-img img { width: 100%; height: 100%; object-fit: contain; padding: 8px; }
+.cart-item-img { flex: none; display: block; width: 88px; height: 88px; border-radius: var(--r-sm); background: var(--stone); overflow: hidden; padding: 4px; }
+.cart-item-img img { width: 100%; height: 100%; object-fit: contain; border-radius: calc(var(--r-sm) - 4px); }
 .cart-item-img .cart-item-ph { width: 100%; height: 100%; }
 .cart-item-main { flex: 1; min-width: 0; }
 .cart-item-name { display: block; font-size: 17px; font-weight: 500; line-height: 1.3; color: var(--graphite); text-decoration: none; }
