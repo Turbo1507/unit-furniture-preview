@@ -737,12 +737,12 @@ window.I18N = {
 /* Каталог: перевод спек-ключей и типовых значений (имена собственные не переводятся) */
 window.SPEC_TR = {
   keys: {
-    'Изголовье': 'Headboard', 'Каркас': 'Frame', 'Цвет': 'Color', 'Производство': 'Made in',
+    'Изголовье': 'Headboard', 'Каркас': 'Frame', 'Цвет': 'Color',
     'Ножки': 'Legs', 'Тип': 'Type', 'Назначение': 'Purpose', 'Варианты': 'Options'
   },
   values: {
     'HMR 18 мм, орех': 'HMR 18 mm, walnut', 'Фанера 18 мм': '18 mm plywood',
-    'Серый': 'Grey', 'IDEFAB, Бали': 'IDEFAB, Bali', 'Китай': 'China', 'Металл': 'Metal',
+    'Серый': 'Grey', 'Металл': 'Metal',
     'Светлый': 'Light', 'Графитовый': 'Graphite', 'Коричневый': 'Brown', 'Чёрно-белый': 'Black and white', 'Зеркальный': 'Mirrored', 'Угловой': 'Corner',
     'Ресепшн, ресторан': 'Reception, restaurant', 'Угловой, модульный': 'Corner, modular',
     'Тиковое дерево': 'Teak wood', 'Синий': 'Blue', 'Тёмно-серый': 'Dark grey',
