@@ -436,6 +436,9 @@ document.querySelectorAll('.lang-switch').forEach(sw => {
 (function initLang() {
   let saved = 'ru';
   try { saved = localStorage.getItem('uf_lang') || 'ru'; } catch (e) {}
+  // прошлая версия на этом адресе хранила язык в кавычках ("ru"), без чистки словарь не находится
+  saved = String(saved).replace(/"/g, '');
+  if (saved !== 'en') saved = 'ru';
   const urlLang = new URLSearchParams(location.search).get('lang');
   window.setLang(urlLang === 'en' || urlLang === 'ru' ? urlLang : saved);
 })();

@@ -767,6 +767,7 @@ window.ATTR_EN = { "Язык страницы": "Page language", "Корзина
 const glueShort = (t) => t.replace(/(^|[\s>(«])([A-Za-zА-Яа-яЁё]{1,3}) (?=\S)/g, '$1$2 ').replace(/(^|[\s>(«])([A-Za-zА-Яа-яЁё]{1,3}) (?=\S)/g, '$1$2 ');
 
 window.setLang = function (lang) {
+  lang = lang === 'en' ? 'en' : 'ru';
   const dict = window.I18N[lang] || window.I18N.ru;
   document.documentElement.lang = lang;
   document.querySelectorAll('[data-i18n]').forEach(el => {
