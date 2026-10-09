@@ -129,6 +129,11 @@ function syncRequestUI() {
   }
   renderCart();
 }
+// плашка модели в форме: клик убирает её из корзины
+document.addEventListener('click', e => {
+  const chip = e.target.closest('#reqChips [data-del]');
+  if (chip) toggleRequest(chip.dataset.del);
+});
 
 /* ---------- cart drawer ---------- */
 const cartEl = document.getElementById('cart');
