@@ -1654,7 +1654,7 @@ h3 { font-weight: 500; letter-spacing: -.015em; }
 
 /* столы под заказ: последняя плитка на всю ширину, когда колонок две */
 @media (max-width: 1024px) {
-  .catgrid > .cg-card.cg-custom:last-child:nth-child(odd) { grid-column: 1 / -1; aspect-ratio: 2 / 1; }
+  .catgrid > .cg-card:last-child:nth-child(odd) { grid-column: 1 / -1; aspect-ratio: 2 / 1; }
 }
 
 /* тост корзины */

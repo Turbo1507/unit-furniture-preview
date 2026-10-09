@@ -32,7 +32,7 @@ window.I18N = {
     "cats.lead": "Выберите категорию или отправьте запрос, и мы подберём решение под ваш объект",
     "cat.beds": "Кровати", "cat.sofas": "Диваны", "cat.chairs": "Кресла и стулья",
     "cat.outdoor": "Outdoor", "cat.sunbeds": "Шезлонги", "cat.poufs": "Пуфы",
-    "cat.textile": "Подушки и декор", "cat.commercial": "Коммерческая мебель", "cat.tables": "Столы",
+    "cat.textile": "Подушки и декор", "cat.commercial": "Коммерческая мебель", "cat.tables": "Столы", "cat.nightstands": "Тумбы",
     "cats.beds.n": "3 модели", "cats.sofas.n": "6 моделей", "cats.chairs.n": "9 моделей",
     "cats.outdoor.n": "5 моделей", "cats.sunbeds.n": "2 модели", "cats.poufs.n": "2 модели",
     "cats.textile.n": "3 позиции", "cats.commercial.n": "2 модели", "cats.tables.n": "под заказ",
@@ -185,6 +185,7 @@ window.I18N = {
     "pp.custom.p": "Можно изменить размер, ткань, оттенок дерева и комплектацию под ваш объект. Расскажите о задаче, и мы предложим варианты.",
     "pp.custom.drawing": "Точный чертёж с размерами и образцы материалов пришлём по запросу.",
     "pp.similar": "Похожие модели",
+    "d.nightstands": "Прикроватная тумба <i class='u5'>UNIT.</i>: куб 400 мм в чёрно-белой или зеркальной отделке. Отделку подберём под спальню виллы, дома или отельного номера.",
     "d.beds": "Кровать <i class='u5'>UNIT.</i>: каркас из фанеры 18 мм, изголовья HMR и тик. Размер и обивку адаптируем под спальню виллы, дома или отельного номера.",
     "d.sofas": "Диван <i class='u5'>UNIT.</i> для гостиных, ресепшн и lounge-зон. Ткань, размер и посадку подбираем под пространство и сценарий использования.",
     "d.chairs": "Кресла, стулья и пуфы из тика и металла: обеденные, барные и лаунж. Производство в Джепаре.",
@@ -357,7 +358,7 @@ window.I18N = {
     "cats.lead": "Choose a category or send a request, and we will pick a solution for your property",
     "cat.beds": "Beds", "cat.sofas": "Sofas", "cat.chairs": "Chairs & armchairs",
     "cat.outdoor": "Outdoor", "cat.sunbeds": "Sunbeds", "cat.poufs": "Poufs",
-    "cat.textile": "Pillows & decor", "cat.commercial": "Commercial furniture", "cat.tables": "Tables",
+    "cat.textile": "Pillows & decor", "cat.commercial": "Commercial furniture", "cat.tables": "Tables", "cat.nightstands": "Nightstands",
     "cats.beds.n": "3 models", "cats.sofas.n": "6 models", "cats.chairs.n": "9 models",
     "cats.outdoor.n": "5 models", "cats.sunbeds.n": "2 models", "cats.poufs.n": "2 models",
     "cats.textile.n": "3 items", "cats.commercial.n": "2 models", "cats.tables.n": "made to order",
@@ -510,6 +511,7 @@ window.I18N = {
     "pp.custom.p": "Size, fabric, wood tone and set composition can be changed for your property. Tell us about the task and we’ll suggest options.",
     "pp.custom.drawing": "We’ll send an exact dimensioned drawing and material samples on request.",
     "pp.similar": "Similar models",
+    "d.nightstands": "A <i class='u5'>UNIT.</i> nightstand: a 400 mm cube in a black-and-white or mirrored finish. We match the finish to a villa, home or hotel bedroom.",
     "d.beds": "A <i class='u5'>UNIT.</i> bed: 18 mm plywood frame, HMR and teak headboards. Size and upholstery adapt to a villa, home or hotel room.",
     "d.sofas": "A <i class='u5'>UNIT.</i> sofa for living rooms, receptions and lounge areas. Fabric, size and seat are selected for the space and usage scenario.",
     "d.chairs": "Armchairs, chairs and poufs in teak and metal: dining, bar and lounge. Made in Jepara.",
@@ -663,7 +665,7 @@ window.SPEC_TR = {
   values: {
     'HMR 18 мм, орех': 'HMR 18 mm, walnut', 'Фанера 18 мм': '18 mm plywood',
     'Серый': 'Grey', 'IDEFAB, Бали': 'IDEFAB, Bali', 'Китай': 'China', 'Металл': 'Metal',
-    'Светлый': 'Light', 'Графитовый': 'Graphite', 'Коричневый': 'Brown', 'Угловой': 'Corner',
+    'Светлый': 'Light', 'Графитовый': 'Graphite', 'Коричневый': 'Brown', 'Чёрно-белый': 'Black and white', 'Зеркальный': 'Mirrored', 'Угловой': 'Corner',
     'Ресепшн, ресторан': 'Reception, restaurant', 'Угловой, модульный': 'Corner, modular',
     'Тиковое дерево': 'Teak wood', 'Джепара': 'Jepara', 'Синий': 'Blue', 'Тёмно-серый': 'Dark grey',
     'A — оранжевый, B — тёмный': 'A — orange, B — dark',
@@ -674,7 +676,7 @@ window.SPEC_TR = {
 window.CAT_LABEL_KEY = {
   beds: 'cat.beds', sofas: 'cat.sofas', chairs: 'cat.chairs', outdoor: 'cat.outdoor',
   textile: 'cat.textile', sunbeds: 'cat.sunbeds', poufs: 'cat.poufs',
-  commercial: 'cat.commercial', tables: 'cat.tables'
+  commercial: 'cat.commercial', tables: 'cat.tables', nightstands: 'cat.nightstands'
 };
 window.NAME_SUFFIX_TR = {
   ', пуф': ', pouf', ', барный': ', bar', ', оттоманка': ', ottoman',

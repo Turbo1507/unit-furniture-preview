@@ -119,6 +119,16 @@ window.PRODUCTS = [
     name: 'Pillows Sofa Outdoor', img: 'v2/assets/c26/p-pillows-outdoor-a.jpg',
     dims: '—',
     specs: { 'Варианты': 'A: синий, B: серый' } },
+
+  // Тумбы
+  { id: 'nakasL', cat: 'nightstands', env: 'indoor', use: ['home', 'villa', 'hotel'],
+    name: 'Bed Nakas L', img: 'v2/assets/c26/p-bed-nakas-l.jpg', life: 'v2/assets/c26/life-nightstands.jpg',
+    dims: '400 × 400 × 400 мм',
+    specs: { 'Цвет': 'Чёрно-белый' } },
+  { id: 'nakasR', cat: 'nightstands', env: 'indoor', use: ['home', 'villa', 'hotel'],
+    name: 'Bed Nakas R', img: 'v2/assets/c26/p-bed-nakas-r.jpg', life: 'v2/assets/c26/life-nightstands-2.jpg',
+    dims: '400 × 400 × 400 мм',
+    specs: { 'Цвет': 'Зеркальный' } },
 ];
 
 /* Категории витрины каталога (ТЗ, блок 3): ключи i18n + счётчик моделей.
@@ -132,7 +142,7 @@ window.CATEGORIES = [
   { id: 'poufs',      img: 'assets/n/cat-poufs.jpg' },
   { id: 'textile',    img: 'assets/n/cat-pillows.jpg' },
   { id: 'commercial', img: 'v2/assets/c26/life-sofa-reception.jpg' },
-  { id: 'tables',     img: 'assets/n/cat-tables.jpg', custom: true },
+  { id: 'nightstands', img: 'v2/assets/c26/life-nightstands.jpg' },
 ];
 
 /* Каталог на главной: ряды по категориям, как у divan.ru */
