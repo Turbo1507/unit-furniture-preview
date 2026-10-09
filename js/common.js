@@ -391,6 +391,16 @@ function buildCustomSelect(select) {
   document.addEventListener('click', e => { if (!wrap.contains(e.target)) wrap.classList.remove('open'); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape') wrap.classList.remove('open'); });
 }
+/* модели в заявке на кастомизацию: из каталога, названия на языке страницы */
+function fillModelSelect() {
+  const s = document.getElementById('fModel');
+  if (!s) return;
+  const v = s.value;
+  s.querySelectorAll('option[data-id]').forEach(o => o.remove());
+  (window.PRODUCTS || []).forEach(p => { const o = document.createElement('option'); o.value = p.id; o.dataset.id = p.id; o.textContent = trName(p.name); s.appendChild(o); });
+  s.value = v;
+}
+fillModelSelect();
 function initCustomSelects() { document.querySelectorAll('.filters select, .form select').forEach(buildCustomSelect); }
 function refreshCustomSelectLabels() { document.querySelectorAll('.csel').forEach(w => w._render && w._render()); }
 initCustomSelects();
@@ -420,6 +430,7 @@ refreshFileLabel();
 window.__uf_onLangChange = function () {
   syncRequestUI();
   syncLegalLinks();
+  fillModelSelect();
   refreshCustomSelectLabels();
   refreshFileLabel();
   if (window.__uf_onLangChangePage) window.__uf_onLangChangePage();
@@ -499,7 +510,13 @@ if (form) {
     if (items) items.value = cartText();
     const fd = new FormData(form);
     const lead = { items: cartLines(), page: location.pathname.split('/').pop() || 'index.html', lang: document.documentElement.lang };
-    fd.forEach((v, k) => { if (k !== 'items') lead[k] = typeof v === 'string' ? v.trim() : v; });
+    // галочки «что меняем» и файлы приходят несколькими значениями под одним именем
+    fd.forEach((v, k) => {
+      if (k === 'items') return;
+      v = typeof v === 'string' ? v.trim() : (v && v.name) || '';
+      if (!v) return;
+      lead[k] = k in lead ? [].concat(lead[k], v) : v;
+    });
     window.__ufLead = lead;
     /* TODO: отправка в бот через unitdeveloper.com (как форма Спейса), включить после «да» */
     form.querySelector('.btn-submit').disabled = true;
@@ -508,10 +525,34 @@ if (form) {
 }
 
 // ссылка вида contacts.html?object=villa сразу выбирает тип объекта в форме
-(() => {
-  const sel = document.getElementById('fObject'), v = new URLSearchParams(location.search).get('object');
+function pickObject(v) {
+  const sel = document.getElementById('fObject');
   const o = sel && v && sel.querySelector('option[data-i18n="f.o.' + v + '"]');
-  if (o) o.selected = true;
+  if (!o) return;
+  o.selected = true;
+  const w = sel.closest('.csel'); if (w && w._render) w._render();
+}
+pickObject(new URLSearchParams(location.search).get('object'));
+
+/* заявка на кастомизацию: модель или своя идея, модель из ссылки товара, карточки объектов на этой же странице */
+(() => {
+  const f = document.querySelector('.cz-form');
+  if (!f) return;
+  const field = document.getElementById('czModelField'), note = document.getElementById('czIdeaNote'), sel = document.getElementById('fModel');
+  const sync = () => {
+    const idea = f.querySelector('[name="base"]:checked').value === 'idea';
+    field.hidden = idea; note.hidden = !idea;
+    if (idea) { sel.value = ''; const w = sel.closest('.csel'); if (w && w._render) w._render(); }
+  };
+  f.querySelectorAll('[name="base"]').forEach(r => r.addEventListener('change', sync));
+  const m = new URLSearchParams(location.search).get('model');
+  if (m && sel.querySelector('option[value="' + m + '"]')) { sel.value = m; const w = sel.closest('.csel'); if (w && w._render) w._render(); }
+  sync();
+  document.querySelectorAll('a[href^="customization.html?object="]').forEach(a => a.addEventListener('click', e => {
+    e.preventDefault();
+    pickObject(new URLSearchParams(a.getAttribute('href').split('?')[1].split('#')[0]).get('object'));
+    document.getElementById('form').scrollIntoView({ behavior: 'smooth' });
+  }));
 })();
 
 // бенто на телефоне: рядом только плитки с одинаковым числом строк, остальные во всю ширину

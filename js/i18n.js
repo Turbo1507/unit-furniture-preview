@@ -280,6 +280,7 @@ window.I18N = {
     "cz.s5.t": "Расчёт", "cz.s5.p": "Готовим индивидуальный расчёт",
     "cz.s6.t": "Производство", "cz.s6.p": "Запускаем изделия в производство на Бали",
     "cz.cta": "Получить расчёт", "cz.cta2": "Смотреть каталог",
+    "czf.h2": "Запрос на кастомизацию", "czf.lead": "Расскажите, что взять за основу и что изменить. Подготовим варианты и расчёт", "czf.s1": "За основу", "czf.s2": "Что меняем", "czf.s3": "Контакты", "czf.base.model": "Модель из каталога", "czf.base.idea": "Своя идея по референсу", "czf.model": "Модель", "czf.model.ph": "Выберите модель", "czf.idea.note": "Приложите фото или ссылку на референс на следующем шаге", "czf.c1": "Размеры", "czf.c2": "Ткань", "czf.c3": "Цвет", "czf.c4": "Оттенок дерева", "czf.c5": "Модули", "czf.c6": "Посадка", "czf.c7": "Комплект", "czf.c8": "Фурнитура", "czf.c9": "Indoor / Outdoor", "czf.dims": "Размеры, если знаете, мм", "czf.d.l": "Длина", "czf.d.w": "Ширина", "czf.d.h": "Высота", "czf.files": "Фото, план или референсы", "czf.link_ph": "или ссылка: Pinterest, Google Drive", "czf.msg": "Комментарий", "czf.msg_ph": "Например: Axis Sofa на 40 см длиннее, ткань светлее, для открытой террасы",
 
     /* --- страница материалов --- */
     "mt.h1": "Материалы и <span class='acc'>производство на Бали</span>",
@@ -645,6 +646,7 @@ window.I18N = {
     "cz.s5.t": "Quote", "cz.s5.p": "We prepare an individual quote",
     "cz.s6.t": "Production", "cz.s6.p": "We start production in Bali",
     "cz.cta": "Get a quote", "cz.cta2": "View catalog",
+    "czf.h2": "Customization request", "czf.lead": "Tell us what to start from and what to change. We’ll prepare options and a quote", "czf.s1": "Starting point", "czf.s2": "What to change", "czf.s3": "Contacts", "czf.base.model": "A model from the catalog", "czf.base.idea": "My own idea from a reference", "czf.model": "Model", "czf.model.ph": "Choose a model", "czf.idea.note": "Attach a photo or a reference link in the next step", "czf.c1": "Size", "czf.c2": "Fabric", "czf.c3": "Color", "czf.c4": "Wood shade", "czf.c5": "Modules", "czf.c6": "Seating", "czf.c7": "Set", "czf.c8": "Hardware", "czf.c9": "Indoor / Outdoor", "czf.dims": "Size, if you know it, mm", "czf.d.l": "Length", "czf.d.w": "Width", "czf.d.h": "Height", "czf.files": "Photos, plan or references", "czf.link_ph": "or a link: Pinterest, Google Drive", "czf.msg": "Comment", "czf.msg_ph": "For example: Axis Sofa 40 cm longer, lighter fabric, for an open terrace",
 
     /* --- materials page --- */
     "mt.h1": "Materials and <span class='acc'>production in Bali</span>",
