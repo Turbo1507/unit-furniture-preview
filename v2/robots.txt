@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /mix.html
+
+Sitemap: https://turbo1507.github.io/unit-furniture-preview/v2/sitemap.xml

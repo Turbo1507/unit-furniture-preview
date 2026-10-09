@@ -71,7 +71,7 @@ function renderProjects() {
   const list = (window.PROJECTS || []).slice(0, 6);
   projGrid.innerHTML = list.map(pr => {
     return `<a class="proj-card" href="projects.html"><span class="tile-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg></span>
-      <img src="${pr.img}" alt="${escapeHtml(t('proj.' + pr.id + '.t'))}" loading="lazy">
+      <img src="${pr.img}" alt="${escapeHtml(t('proj.' + pr.id + '.t'))}">
       <div class="proj-in"><h3>${t('proj.' + pr.id + '.t')}</h3><p>${t('proj.' + pr.id + '.p')}</p></div>
     </a>`;
   }).join('');

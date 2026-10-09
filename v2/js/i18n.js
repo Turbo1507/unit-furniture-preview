@@ -4,6 +4,8 @@
 
 window.I18N = {
   ru: {
+    "pj.grid.h": "Фото проектов", "ct.form.h": "Форма заявки",
+    "legal.back": "← На сайт",
     /* --- навигация и шапка --- */
     "nav.catalog": "Каталог", "nav.solutions": "Решения", "nav.custom": "Кастомизация",
     "nav.projects": "Проекты", "nav.designers": "Для дизайнеров", "nav.contacts": "Контакты",
@@ -353,9 +355,9 @@ window.I18N = {
     "f.submit": "Отправить заявку", "f.err.name": "Напишите, как к вам обращаться", "f.err.phone": "Оставьте номер или ник, чтобы мы могли ответить", "f.err.email": "Проверьте адрес почты", "f.err.agree": "Отметьте согласие, без него мы не можем принять заявку", "alt.cust": "Кресло UNIT.FURNITURE в интерьере", "alt.band": "Гостиная с мебелью UNIT.FURNITURE", "alt.qr": "QR-код WhatsApp UNIT.FURNITURE", "f.done": "Заявка отправлена. Ответим в ближайшее время.",
 
     /* --- корзина --- */
-    "cart.title": "Корзина заявки",
+    "cart.title": "Корзина",
     "cart.note": "Цен на сайте нет: посчитаем стоимость комплекта под ваш проект после заявки.",
-    "cart.checkout": "Получить расчёт", "cart.empty_t": "В заявке пока ничего нет", "cart.empty": "Нажмите + на карточке модели, и она появится здесь", "cart.to_catalog": "Открыть каталог", "cart.remove": "Убрать", "cart.qty": "Количество", "cart.minus": "Меньше", "cart.plus": "Больше",
+    "cart.checkout": "Получить расчёт", "cart.empty_t": "В корзине пока ничего нет", "cart.empty": "Нажмите + на карточке модели, и она появится здесь", "cart.to_catalog": "Открыть каталог", "cart.remove": "Убрать", "cart.qty": "Количество", "cart.minus": "Меньше", "cart.plus": "Больше",
 
     /* --- футер и мобильная планка --- */
     "ft.desc": "Авторская мебель и интерьерные решения под ключ на Бали.",
@@ -367,6 +369,8 @@ window.I18N = {
   },
 
   en: {
+    "pj.grid.h": "Project photos", "ct.form.h": "Request form",
+    "legal.back": "← Back to site",
     /* --- navigation & header --- */
     "nav.catalog": "Catalog", "nav.solutions": "Solutions", "nav.custom": "Customization",
     "nav.projects": "Projects", "nav.designers": "For designers", "nav.contacts": "Contacts",
@@ -402,7 +406,7 @@ window.I18N = {
 
     /* --- home: solutions --- */
     "feat.h2": "<span class='acc'>Popular</span> models", "feat.lead": "Models from the 2026 catalog. We adapt sizes, fabrics and colors to your property.", "feat.living": "For the living room", "feat.bedroom": "For the bedroom", "feat.chairs": "Armchairs and chairs", "feat.outdoor": "For terrace and pool", "feat.more": "All models", "feat.all": "View full catalog",
-    "sol.h2": "<span class='acc'>Ready</span> interior solutions",
+    "sol.h2": "<span class='acc'>Ready-made</span> interior solutions",
     "sol.lead": "We assemble furniture for a specific space: from a bedroom to a fully furnished villa.",
     "sol.bedroom.t": "Bedroom", "sol.bedroom.p": "Bed, nightstands, armchair, pouf, textiles.",
     "sol.living.t": "Living room", "sol.living.p": "Sofa, armchairs, coffee table, soft elements.",
@@ -413,21 +417,21 @@ window.I18N = {
 
     /* --- home: customization --- */
     "cust.h2": "<span class='acc'>Customized</span> for your property",
-    "cust.lead": "Sizes, fabrics, colors and set composition adapt to the task of the space",
+    "cust.lead": "We adapt sizes, fabrics, colors and the set to how the space is used",
     "cust.hub.t": "Your property", "cust.hub.p": "An individual solution for a villa, home, hotel or restaurant.",
     "cust.size.t": "Sizes", "cust.size.p": "We adapt length, width, height, seat and configuration.",
     "cust.fabric.t": "Fabrics", "cust.fabric.p": "We select textures for indoor and outdoor spaces.",
     "cust.color.t": "Colors", "cust.color.p": "We choose wood tones, upholstery and accents.",
-    "cust.set.t": "Set composition", "cust.set.p": "From a single model to a complete package.",
+    "cust.set.t": "Full set", "cust.set.p": "From a single model to a complete package.",
     "cust.cta": "Discuss customization",
 
     /* --- home: materials --- */
     "mat.h2": "Materials made <span class='acc'>for life in Bali</span>",
     "mat.lead": "<i class='u5'>UNIT.</i>FURNITURE is designed for humidity, sun, active use and the specifics of a tropical climate",
-    "mat.wood.t": "Wood", "mat.wood.p": "We select materials for the purpose of the piece and its operating conditions",
+    "mat.wood.t": "Wood", "mat.wood.p": "We choose wood for what the piece does and where it will stand",
     "mat.fabric.t": "Fabrics", "mat.fabric.p": "Textures for bedrooms, living rooms, terraces, hotels and restaurants",
-    "mat.fill.t": "Fillings", "mat.fill.p": "Soft elements are engineered to keep comfort and shape",
-    "mat.hw.t": "Hardware", "mat.hw.p": "Reliable structural solutions built for durability",
+    "mat.fill.t": "Fillings", "mat.fill.p": "Cushions and upholstery keep their comfort and shape",
+    "mat.hw.t": "Hardware", "mat.hw.p": "Reliable joints and hardware built to last",
 
     /* --- home: climate --- */
     "clim.h2": "<span class='acc'>Humidity</span> and daily use",
@@ -447,7 +451,7 @@ window.I18N = {
     "proj.pr2.t": "Villa bedroom", "proj.pr2.p": "Bedroom: bed, textiles",
     "proj.pr3.t": "Villa terrace", "proj.pr3.p": "Outdoor sofas and side tables",
     "proj.pr4.t": "Poolside lounge", "proj.pr4.p": "Loungers by the pool",
-    "proj.pr5.t": "Living room", "proj.pr5.p": "Soft zone: sofa, cushions",
+    "proj.pr5.t": "Living room", "proj.pr5.p": "Lounge corner: sofa, cushions",
     "proj.pr6.t": "Resort terrace", "proj.pr6.p": "Outdoor lounge for guests",
     "proj.pr7.t": "Reception", "proj.pr7.p": "Lobby: sofas and armchairs",
     "proj.pr8.t": "Restaurant", "proj.pr8.p": "Restaurant seating area",
@@ -455,7 +459,7 @@ window.I18N = {
     /* --- designers (home block) --- */
     "alt.cz.bed": "A bedroom with UNIT.FURNITURE sized to the room",
     "prod.h2": "Our own <span class='acc'>production</span> in Bali",
-    "prod.lead": "We make the furniture ourselves and answer for every piece from drawing to shipping",
+    "prod.lead": "We make the furniture ourselves and take responsibility for every piece, from drawing to shipping",
     "prod.1.t": "No middlemen",
     "prod.1.p": "You agree price, timing and changes directly with the workshop",
     "prod.3.t": "Already in real projects",
@@ -484,7 +488,7 @@ window.I18N = {
     "co.d.s": "Development company",
     "co.d.p": "The group’s parent company: shapes the concept and runs the full cycle, from project and construction to handover and property management",
     "co.u.s": "Furniture factory",
-    "co.u.p": "Case and upholstered furniture, solid doors and panoramic windows for <i class='u5'>UNIT.</i> homes",
+    "co.u.p": "Cabinet and upholstered furniture, solid doors and panoramic windows for <i class='u5'>UNIT.</i> homes",
     "alt.co.u": "UNIT.FURNITURE workshop",
     "mt.use": "Where we use it",
     "mt.w.r1t": "Teak",
@@ -518,7 +522,7 @@ window.I18N = {
     "mt.pr.2t": "Fabrication",
     "mt.pr.2p": "Cutting and machining on our own equipment",
     "mt.pr.3t": "Assembly and upholstery",
-    "mt.pr.3p": "Frames and soft elements are assembled in our workshop",
+    "mt.pr.3p": "Frames and upholstery are assembled in our workshop",
     "mt.pr.4t": "Acceptance",
     "mt.pr.4p": "Geometry, finish, seams and stability checked before shipping",
     "alt.mt.pr2": "Work in the UNIT.FURNITURE workshop",
@@ -527,7 +531,7 @@ window.I18N = {
     "des.p": "A production partner in Bali for interior projects, villas, hotels and commercial spaces",
     "des.li1": "Work from references, drawings and specifications",
     "des.li2": "Adaptation of sizes, fabrics and materials to the project",
-    "des.li3": "Property furnishing and individual quotes",
+    "des.li3": "Furnishing whole properties, with individual quotes",
     "des.cta1": "Become a partner", "des.cta2": "See terms for designers",
 
     /* --- how to order --- */
@@ -582,38 +586,38 @@ window.I18N = {
     "pp.price": "Pricing is calculated individually on request",
     "pp.consult": "Get a consultation",
     "pp.custom.t": "Customization",
-    "pp.custom.p": "Size, fabric, wood tone and set composition can be changed for your property. Tell us about the task and we’ll suggest options.",
+    "pp.custom.p": "Size, fabric, wood tone and the set can be changed for your property. Tell us what you need and we’ll suggest options.",
     "pp.custom.drawing": "We’ll send an exact dimensioned drawing and material samples on request.",
     "pp.similar": "Similar models",
     "d.nightstands": "A <i class='u5'>UNIT.</i> nightstand: a 400 mm cube in a black-and-white or mirrored finish. We match the finish to a villa, home or hotel bedroom.",
     "d.beds": "A <i class='u5'>UNIT.</i> bed: 18 mm plywood frame, HMR and teak headboards. Size and upholstery adapt to a villa, home or hotel room.",
-    "d.sofas": "A <i class='u5'>UNIT.</i> sofa for living rooms, receptions and lounge areas. Fabric, size and seat are selected for the space and usage scenario.",
+    "d.sofas": "A <i class='u5'>UNIT.</i> sofa for living rooms, receptions and lounge areas. Fabric, size and seat are chosen for the space and how it will be used.",
     "d.chairs": "Armchairs, chairs and poufs in teak and metal: dining, bar and lounge. Made in Bali.",
     "d.outdoor": "An outdoor model in teak with water-resistant textile: made for sun, rain and daily poolside use.",
     "d.textile": "Decorative pillows and textiles matching <i class='u5'>UNIT.</i> models for a finished interior.",
 
     /* --- solutions page --- */
-    "sl.h1": "<span class='acc'>Ready</span> interior solutions",
+    "sl.h1": "<span class='acc'>Ready-made</span> interior solutions",
     "sl.sub": "We furnish a specific space: from a bedroom to a whole villa, hotel or restaurant. Sizes, fabrics and composition adapt to it.",
     "sl.includes": "May include:",
-    "sl.bedroom.t": "Bedroom", "sl.bedroom.p": "A ready solution for a villa, home, apartment or hotel room",
+    "sl.bedroom.t": "Bedroom", "sl.bedroom.p": "A ready-made solution for a villa, home, apartment or hotel room",
     "sl.bedroom.i1": "Bed", "sl.bedroom.i2": "Nightstands", "sl.bedroom.i3": "Armchair",
     "sl.bedroom.i4": "Pouf", "sl.bedroom.i5": "Textiles", "sl.bedroom.i6": "Decorative pillows",
     "sl.bedroom.cta": "Get a bedroom set",
-    "sl.living.t": "Living room", "sl.living.p": "A soft zone for living and hosting, in one style with the rest of the home",
+    "sl.living.t": "Living room", "sl.living.p": "A comfortable space for living and hosting, in one style with the rest of the home",
     "sl.living.i1": "Sofa", "sl.living.i2": "Armchairs", "sl.living.i3": "Coffee table",
-    "sl.living.i4": "Soft elements", "sl.living.i5": "Decorative pillows",
+    "sl.living.i4": "Upholstered pieces", "sl.living.i5": "Decorative pillows",
     "sl.living.cta": "Get a living room set",
     "sl.terrace.t": "Terrace", "sl.terrace.p": "Outdoor furniture for the terrace and pool area. Made for sun, humidity and daily use.",
     "sl.terrace.i1": "Outdoor sofas", "sl.terrace.i2": "Side tables", "sl.terrace.i3": "Outdoor cushions", "sl.terrace.i4": "Armchairs",
     "sl.terrace.cta": "Get a terrace set",
-    "sl.lounge.t": "Outdoor lounge", "sl.lounge.p": "A rest area by the pool or in the garden: loungers, daybeds and low furniture for a relaxed scenario",
+    "sl.lounge.t": "Outdoor lounge", "sl.lounge.p": "A place to rest by the pool or in the garden: loungers, daybeds and low furniture to unwind on",
     "sl.lounge.i1": "Loungers", "sl.lounge.i2": "Daybeds", "sl.lounge.i3": "Side tables", "sl.lounge.i4": "Outdoor textiles",
     "sl.lounge.cta": "Get a lounge set",
     "sl.reception.t": "Reception and lobby", "sl.reception.p": "The guest’s first impression: furniture for reception, waiting and lounge areas of hotels and complexes",
     "sl.reception.i1": "Waiting sofas", "sl.reception.i2": "Armchairs", "sl.reception.i3": "Side tables", "sl.reception.i4": "Decor and textiles",
     "sl.reception.cta": "Get a solution",
-    "sl.restaurant.t": "Restaurant area", "sl.restaurant.p": "Seating, bar stools and soft zones that withstand a daily flow of guests",
+    "sl.restaurant.t": "Restaurant area", "sl.restaurant.p": "Seating, bar stools and lounge corners that withstand a daily flow of guests",
     "sl.restaurant.i1": "Chairs", "sl.restaurant.i2": "Bar stools", "sl.restaurant.i3": "Sofas", "sl.restaurant.i4": "Tables to order",
     "sl.restaurant.cta": "Get a solution",
     "sl.turnkey.t": "Full property furnishing",
@@ -629,15 +633,15 @@ window.I18N = {
     "cz.what.h2": "What can be <span class='acc'>changed</span>",
     "cz.w1": "Sizes: length, width, height", "cz.w2": "Upholstery fabrics and textures", "cz.w3": "Colors and accents",
     "cz.w4": "Wood tones", "cz.w5": "Module configuration", "cz.w6": "Seat height and softness",
-    "cz.w7": "Set composition", "cz.w8": "Hardware", "cz.w9": "Indoor or outdoor materials",
+    "cz.w7": "What goes into the set", "cz.w8": "Hardware", "cz.w9": "Indoor or outdoor materials",
     "cz.obj.h2": "For which <span class='acc'>properties</span>",
     "cz.o1": "Villas", "cz.o2": "Homes and apartments", "cz.o3": "Hotels",
     "cz.o4": "Restaurants", "cz.o5": "Outdoor areas", "cz.o6": "Design projects",
     "cz.how.h2": "How <span class='acc'>customization</span> works",
     "cz.s1.t": "Request", "cz.s1.p": "You send a request: photos, a plan or references",
-    "cz.s2.t": "Task", "cz.s2.p": "We clarify the space, usage scenario and timeline",
+    "cz.s2.t": "Brief", "cz.s2.p": "We clarify the space, how it will be used and the timeline",
     "cz.s3.t": "Materials", "cz.s3.p": "We select wood, fabrics and finishes",
-    "cz.s4.t": "Adaptation", "cz.s4.p": "We adapt the model to sizes and the task",
+    "cz.s4.t": "Adaptation", "cz.s4.p": "We adapt the model to your sizes and needs",
     "cz.s5.t": "Quote", "cz.s5.p": "We prepare an individual quote",
     "cz.s6.t": "Production", "cz.s6.p": "We start production in Bali",
     "cz.cta": "Get a quote", "cz.cta2": "View catalog",
@@ -649,18 +653,18 @@ window.I18N = {
     "mt.wood.p": "Most models are built on teak: a dense species that lives outdoors and withstands Bali humidity. Frames use 18 mm plywood and HMR panels, no thin structures.",
     "mt.wood.t1": "Teak", "mt.wood.t2": "18 mm plywood", "mt.wood.t3": "HMR panels",
     "mt.fabric.t": "Fabrics",
-    "mt.fabric.p": "Textures are chosen per scenario. Soft for bedrooms and living rooms, heavy-duty for hotels and restaurants, water-resistant for terraces and pools.",
+    "mt.fabric.p": "Textures are chosen by use. Soft for bedrooms and living rooms, heavy-duty for hotels and restaurants, water-resistant for terraces and pools.",
     "mt.fabric.t1": "Indoor", "mt.fabric.t2": "Outdoor", "mt.fabric.t3": "Contract fabrics",
     "mt.fill.t": "Fillings",
-    "mt.fill.p": "Soft elements keep their comfort, shape and look even with daily rental turnover and active use",
+    "mt.fill.p": "Cushions and upholstery keep their comfort, shape and look even with daily rental turnover and active use",
     "mt.hw.t": "Hardware",
-    "mt.hw.p": "Reliable structural solutions and proven hardware, so the furniture lasts and stays comfortable",
+    "mt.hw.p": "Reliable joints and proven hardware, so the furniture lasts and stays comfortable",
     "mt.clim.t": "Humidity and outdoor",
-    "mt.clim.p": "Materials are chosen for the operating conditions: humid climate, sun, open terraces. The outdoor line uses teak and water-resistant textile.",
+    "mt.clim.p": "Materials are chosen for where the furniture will live: humid climate, sun, open terraces. The outdoor line uses teak and water-resistant textile.",
     "mt.qc.t": "Quality control",
     "mt.qc.p": "Made at our own factory in Bali. Every piece passes <i class='u5'>UNIT.</i> acceptance before shipping: geometry, finish, seams, stability.",
     "mt.cta.h2": "Tell us about <span class='acc'>your property</span>",
-    "mt.cta.p": "We’ll select materials and solutions for the climate, usage scenario and budget",
+    "mt.cta.p": "We’ll select materials and solutions for the climate, how the space is used and your budget",
 
     /* --- projects page --- */
     "pj.h1": "Furniture in <span class='acc'>real</span> properties",
@@ -716,9 +720,9 @@ window.I18N = {
     "f.submit": "Send request", "f.err.name": "Tell us how to address you", "f.err.phone": "Leave a number or username so we can reply", "f.err.email": "Check the email address", "f.err.agree": "Please tick the consent box, we can’t accept the request without it", "alt.cust": "UNIT.FURNITURE armchair in an interior", "alt.band": "Living room with UNIT.FURNITURE furniture", "alt.qr": "WhatsApp QR code UNIT.FURNITURE", "f.done": "Request sent. We’ll get back to you shortly.",
 
     /* --- cart --- */
-    "cart.title": "Request cart",
+    "cart.title": "Cart",
     "cart.note": "There are no prices on the site: we’ll quote the set for your project after the request.",
-    "cart.checkout": "Get a quote", "cart.empty_t": "Your request is empty", "cart.empty": "Tap + on a model card and it will appear here", "cart.to_catalog": "Open the catalog", "cart.remove": "Remove", "cart.qty": "Quantity", "cart.minus": "Fewer", "cart.plus": "More",
+    "cart.checkout": "Get a quote", "cart.empty_t": "Your cart is empty", "cart.empty": "Tap + on a model card and it will appear here", "cart.to_catalog": "Open the catalog", "cart.remove": "Remove", "cart.qty": "Quantity", "cart.minus": "Fewer", "cart.plus": "More",
 
     /* --- footer & mobile bar --- */
     "ft.desc": "Signature furniture and turnkey interior solutions in Bali.",
@@ -757,6 +761,8 @@ window.NAME_SUFFIX_TR = {
   ', дейбед': ', daybed', ', шезлонг': ', lounger', ', угловой': ', corner'
 };
 
+window.ATTR_EN = { "Язык страницы": "Page language", "Корзина": "Cart", "Меню": "Menu", "Закрыть": "Close", "Хлебные крошки": "Breadcrumbs", "Категория": "Category", "Назначение": "Purpose", "Кровати": "Beds", "Диваны": "Sofas", "Стулья и кресла": "Chairs and armchairs", "Outdoor-мебель": "Outdoor furniture", "Шезлонги": "Sun loungers", "Пуфы": "Poufs", "Подушки и декор": "Pillows and decor", "Коммерческая мебель": "Commercial furniture", "Тумбы": "Nightstands", "Виллы": "Villas", "Дома и апартаменты": "Homes and apartments", "Отели": "Hotels", "Рестораны": "Restaurants", "Outdoor-зоны": "Outdoor areas", "Дизайнерские проекты": "Design projects", "Гостиная с мебелью UNIT.FURNITURE": "Living room with UNIT.FURNITURE furniture", "Текстура тикового дерева": "Teak wood texture", "Фактура ткани": "Fabric texture", "Мягкие элементы и подушки": "Cushions and upholstery", "Столярная работа и фурнитура": "Joinery and hardware", "Спальня с мебелью UNIT": "Bedroom with UNIT furniture", "Гостиная с мебелью UNIT": "Living room with UNIT furniture", "Терраса с outdoor-мебелью UNIT": "Terrace with UNIT outdoor furniture", "Outdoor lounge у бассейна": "Outdoor lounge by the pool", "Reception и lobby": "Reception and lobby", "Ресторанная зона": "Restaurant area", "Интерьер виллы UNIT под ключ": "Turnkey UNIT villa interior", "Цех UNIT.FURNITURE": "UNIT.FURNITURE workshop", "Дерево": "Wood", "Ткани": "Fabrics", "Наполнители": "Fillings", "Фурнитура": "Hardware", "Стройплощадка UNIT.BUILD": "UNIT.BUILD construction site", "Стальные каркасы UNIT.FRAMES": "UNIT.FRAMES steel frames", "Вилла под управлением UNIT.SPACE MANAGEMENT": "A villa managed by UNIT.SPACE MANAGEMENT", "Степан Федосеев": "Stepan Fedoseev", "Анна Орлова": "Anna Orlova", "Работа в цеху UNIT.FURNITURE": "Work in the UNIT.FURNITURE workshop", "Кресло UNIT.FURNITURE в интерьере": "UNIT.FURNITURE armchair in an interior", "Outdoor-мебель у бассейна": "Outdoor furniture by the pool", "Спальня с мебелью UNIT.FURNITURE под размер комнаты": "A bedroom with UNIT.FURNITURE sized to the room", "QR-код WhatsApp UNIT.FURNITURE": "WhatsApp QR code UNIT.FURNITURE" };
+
 // короткие слова не оставлять в конце строки: приклеиваем к следующему
 const glueShort = (t) => t.replace(/(^|[\s>(«])([A-Za-zА-Яа-яЁё]{1,3}) (?=\S)/g, '$1$2 ').replace(/(^|[\s>(«])([A-Za-zА-Яа-яЁё]{1,3}) (?=\S)/g, '$1$2 ');
 
@@ -771,7 +777,21 @@ window.setLang = function (lang) {
     const key = el.getAttribute('data-i18n-alt');
     if (dict[key] != null) el.alt = dict[key].replace(/<[^>]+>/g, '');
   });
-  if (dict['doc.title'] && document.body.classList.contains('home')) document.title = dict['doc.title'];
+  const AT = window.ATTR_EN;
+  document.querySelectorAll('[aria-label], img[alt]').forEach(el => {
+    [['aria-label', 'ruAria'], ['alt', 'ruAlt']].forEach(([a, k]) => {
+      if (!el.hasAttribute(a) || (a === 'alt' && el.hasAttribute('data-i18n-alt'))) return;
+      const ru = el.dataset[k] || el.getAttribute(a);
+      if (!AT[ru]) return;
+      el.dataset[k] = ru;
+      el.setAttribute(a, lang === 'en' ? AT[ru] : ru);
+    });
+  });
+  // заголовок вкладки и описание: английский вариант лежит в data-en
+  const tt = document.querySelector('title'), md = document.querySelector('meta[name="description"]');
+  if (tt && tt.dataset.en) { if (!tt.dataset.ru) tt.dataset.ru = document.title; document.title = lang === 'en' ? tt.dataset.en : tt.dataset.ru; }
+  else if (dict['doc.title'] && document.body.classList.contains('home')) document.title = dict['doc.title'];
+  if (md && md.dataset.en) { if (!md.dataset.ru) md.dataset.ru = md.content; md.content = lang === 'en' ? md.dataset.en : md.dataset.ru; }
   document.querySelectorAll('[data-i18n-ph]').forEach(el => {
     const key = el.getAttribute('data-i18n-ph');
     if (dict[key] != null) el.placeholder = dict[key];
