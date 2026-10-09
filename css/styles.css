@@ -1917,3 +1917,36 @@ html[lang="en"] .team-card.ru-only { display: none; }
 }
 .prod-text .section-lead { max-width: 600px; }
 .final-contacts a:last-child { border-bottom: 0; }
+
+/* материалы: где применяем, пункт слева, значение справа через точки */
+.mt-spec-h { margin-top: 32px; font-size: 14px; color: rgba(58,58,58,.64); }
+.mt-spec { margin: 12px 0 0; display: grid; gap: 12px; max-width: 640px; }
+.mt-spec div { display: flex; align-items: baseline; gap: 8px; font-size: 17px; line-height: 1.4; }
+.mt-spec dt { flex: 0 0 auto; font-weight: 500; }
+.mt-spec div::before { content: ''; order: 1; flex: 1 1 24px; min-width: 24px; border-bottom: 1px dotted var(--interlace); }
+.mt-spec dd { order: 2; margin: 0; max-width: 60%; text-align: right; color: rgba(58,58,58,.8); }
+/* климат: фото + три плитки с заголовком и пояснением */
+.mt-clim .cz-photo { padding: 0; overflow: hidden; grid-row: span 2; }
+.mt-clim .cz-photo img { width: 100%; height: 100%; object-fit: cover; }
+.mt-clim .cz-tile > span:last-child { display: flex; flex-direction: column; gap: 8px; }
+.mt-clim .cz-tile b { font-weight: 500; }
+.mt-clim .cz-tile small { font-size: 16px; font-weight: 400; line-height: 1.4; color: rgba(58,58,58,.8); text-wrap: pretty; }
+.mt-pr-photos { display: grid; grid-template-rows: 3fr 2fr; gap: 24px; }
+.mt-pr-photos .prod-photo { min-height: 0; }
+@media (min-width: 1025px) { .mt-pr-photos { min-height: 640px; } }
+@media (max-width: 1024px) {
+  .mt-clim .cz-photo { grid-row: auto; grid-column: 1 / -1; aspect-ratio: 16 / 9; }
+  .mt-pr-photos { grid-template-rows: none; grid-template-columns: 3fr 2fr; }
+  .mt-pr-photos .prod-photo { aspect-ratio: 4 / 5; }
+}
+@media (max-width: 720px) {
+  .mt-spec div { font-size: 16px; }
+  .mt-spec dd { max-width: 62%; }
+  .mt-clim .cz-photo { aspect-ratio: 4 / 3; }
+  .mt-clim .cz-tile small { font-size: 14px; }
+  .mt-pr-photos { gap: 8px; }
+}
+/* на телефоне кнопка кастомизации во всю ширину блока, от края под иконкой */
+@media (max-width: 720px) {
+  .pp-custom .pp-custom-link { width: calc(100% + 60px); margin-left: -60px; }
+}
