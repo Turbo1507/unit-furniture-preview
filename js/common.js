@@ -812,55 +812,39 @@ function renderMixB() {
 function addDots(track, mobOnly) {
   if (!track || track.__dots) return;
   const box = document.createElement('div');
-  box.className = 'sbar' + (mobOnly ? ' sbar-mob' : '');
-  box.setAttribute('aria-hidden', 'true');
-  box.innerHTML = '<span class="sbar-in"><i></i></span>';
+  box.className = 'dots' + (mobOnly ? ' dots-mob' : '');
   track.after(box);
   track.__dots = box;
-  const thumb = box.querySelector('i');
   let stops = [];
-  const max = () => track.scrollWidth - track.clientWidth;
-  const rtl = () => getComputedStyle(track).direction === 'rtl';
   const measure = () => {
     const tr = track.getBoundingClientRect(), pad = parseFloat(getComputedStyle(track).scrollPaddingLeft) || 0;
-    const m = max(), out = [];
-    if (m < 2) return [0];
+    const max = track.scrollWidth - track.clientWidth, out = [];
+    if (max < 2) return [0];
     [...track.children].forEach(c => {
       if (!c.getClientRects().length) return;
-      const x = Math.max(0, Math.min(m, c.getBoundingClientRect().left - tr.left + track.scrollLeft - pad));
+      const x = Math.max(0, Math.min(max, c.getBoundingClientRect().left - tr.left + track.scrollLeft - pad));
       if (!out.length || x - out[out.length - 1] > 8) out.push(x);
     });
     return out;
   };
   const sync = () => {
-    const m = max(), x = Math.abs(track.scrollLeft);
-    const part = Math.min(1, track.clientWidth / track.scrollWidth);
-    const pos = m > 0 ? Math.min(1, x / m) : 0;
-    thumb.style.width = (part * 100) + '%';
-    thumb.style.left = ((rtl() ? 1 - pos : pos) * (1 - part) * 100) + '%';
+    const x = track.scrollLeft;
     let k = 0;
     stops.forEach((s, i) => { if (Math.abs(s - x) < Math.abs(stops[k] - x)) k = i; });
+    box.querySelectorAll('button').forEach((b, i) => b.setAttribute('aria-current', i === k ? 'true' : 'false'));
     if (track.__onSlide) track.__onSlide(k);
   };
-  track.__rebuild = () => { stops = measure(); box.hidden = stops.length < 2; sync(); };
-  track.__goTo = i => track.scrollTo({ left: stops[i] || 0, behavior: 'smooth' });
-  // полосу можно тянуть и тыкать
-  const seek = (e, smooth) => {
-    const r = box.querySelector('.sbar-in').getBoundingClientRect(), tw = thumb.getBoundingClientRect().width;
-    let p = Math.max(0, Math.min(1, (e.clientX - r.left - tw / 2) / Math.max(1, r.width - tw)));
-    if (rtl()) p = 1 - p;
-    track.scrollTo({ left: (rtl() ? -1 : 1) * p * max(), behavior: smooth ? 'smooth' : 'auto' });
+  track.__rebuild = () => {
+    stops = measure();
+    box.hidden = stops.length < 2;
+    box.innerHTML = stops.length < 2 ? '' : stops.map((_, i) => `<button type="button" aria-label="${i + 1} / ${stops.length}"><i></i></button>`).join('');
+    sync();
   };
-  box.addEventListener('pointerdown', e => {
-    box.setPointerCapture(e.pointerId);
-    track.style.scrollSnapType = 'none';
-    box.classList.add('is-drag');
-    seek(e, false);
+  track.__goTo = i => track.scrollTo({ left: stops[i] || 0, behavior: 'smooth' });
+  box.addEventListener('click', e => {
+    const b = e.target.closest('button');
+    if (b) track.__goTo([...box.children].indexOf(b));
   });
-  box.addEventListener('pointermove', e => { if (box.hasPointerCapture(e.pointerId)) seek(e, false); });
-  const up = () => { box.classList.remove('is-drag'); track.style.scrollSnapType = ''; };
-  box.addEventListener('pointerup', up);
-  box.addEventListener('pointercancel', up);
   let raf = 0;
   track.addEventListener('scroll', () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(sync); }, { passive: true });
   track.__rebuild();

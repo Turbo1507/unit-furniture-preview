@@ -1961,17 +1961,19 @@ html[lang="en"] .team-card.ru-only { display: none; }
 .pp-track .sl-slide.is-studio img { position: static; width: auto; height: auto; max-width: 92%; max-height: 92%; object-fit: contain; }
 
 /* полоса: под лентой карточек дорожка во всю ширину, у фото-слайдера короткая поверх кадра */
-.sbar { position: relative; display: flex; align-items: center; height: 24px; margin-top: 16px; cursor: pointer; touch-action: none; user-select: none; -webkit-user-select: none; }
-.sbar[hidden] { display: none; }
-.sbar-in { position: relative; flex: 1; height: 2px; border-radius: 2px; background: var(--interlace); }
-.sbar-in i { position: absolute; top: 0; bottom: 0; left: 0; border-radius: 2px; background: var(--graphite); }
-.sl-track + .sbar { position: absolute; z-index: 2; left: 50%; bottom: 16px; width: clamp(64px, 28%, 112px); height: 20px; transform: translateX(-50%); margin: 0; padding: 0 8px; border-radius: var(--r-sm); background: rgba(58,58,58,.32); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
-.sl-track + .sbar .sbar-in { background: rgba(255,255,255,.4); }
-.sl-track + .sbar .sbar-in i { background: var(--white); }
-@media (min-width: 721px) { .sbar.sbar-mob, .pp-track + .sbar { display: none; } }
+.dots { display: flex; justify-content: center; margin-top: 16px; }
+.dots[hidden] { display: none; }
+.dots button { width: 16px; height: 24px; padding: 0; border: 0; background: none; display: grid; place-items: center; cursor: pointer; }
+.dots i { display: block; width: 6px; height: 6px; border-radius: 50%; background: var(--interlace); transition: background .2s; }
+.dots button[aria-current="true"] i { background: var(--graphite); }
+.sl-track + .dots { position: absolute; z-index: 2; left: 50%; bottom: 16px; transform: translateX(-50%); margin: 0; padding: 0 4px; border-radius: var(--r-sm); background: rgba(58,58,58,.32); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+.sl-track + .dots button { height: 20px; }
+.sl-track + .dots i { background: rgba(255,255,255,.5); }
+.sl-track + .dots button[aria-current="true"] i { background: var(--white); }
+@media (min-width: 721px) { .dots.dots-mob, .pp-track + .dots { display: none; } }
 @media (max-width: 720px) {
   .pp-thumbs { display: none !important; }
-  .mixb-rail .sbar, .mixc-rail .sbar { margin-top: 12px; }
+  .mixb-rail .dots, .mixc-rail .dots { margin-top: 12px; }
   /* проекты на главной: на телефоне лента, а не длинная стопка */
   .home .proj-masonry { columns: auto; display: grid; grid-auto-flow: column; grid-auto-columns: 82%; gap: 12px; margin: 32px -20px 0; padding: 0 20px; scroll-padding: 0 20px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
   .home .proj-masonry::-webkit-scrollbar { display: none; }
@@ -1980,10 +1982,11 @@ html[lang="en"] .team-card.ru-only { display: none; }
 }
 
 /* полоса хиро: по центру, на одной линии с подписью; кнопки слайдов поверх полосы делят её поровну */
-.home .hero-dots { position: absolute; flex-direction: row; gap: 0; left: 50%; right: auto; transform: translateX(-50%); bottom: calc(clamp(40px, 7svh, 80px) - 1px); width: 144px; height: 24px; margin: 0; padding: 0 12px; border-radius: var(--r-sm); background: rgba(58,58,58,.32); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
-.home .hero-dots .sbar-in { background: rgba(255,255,255,.4); }
-.home .hero-dots .sbar-in i { background: var(--white); transition: transform .5s var(--ease); }
-.home .hero-dots button { position: absolute; top: -11px; bottom: -11px; height: auto; padding: 0; border-radius: 0; background: none; transform: none; }
+.home .hero-dots { position: absolute; flex-direction: row; gap: 0; left: 50%; right: auto; transform: translateX(-50%); bottom: calc(clamp(40px, 7svh, 80px) - 1px); margin: 0; padding: 0 4px; border-radius: var(--r-sm); background: rgba(58,58,58,.32); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+.home .hero-dots button { width: 16px; height: 24px; display: grid; place-items: center; padding: 0; background: none; border-radius: 0; transform: none; }
+.home .hero-dots button::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,.5); transition: background .2s; }
+.home .hero-dots button.on { background: none; transform: none; }
+.home .hero-dots button.on::before { background: var(--white); }
 .home .hero-dots button::after { inset: -10px 0; }
 
 /* заявка на кастомизацию: форма в три шага */

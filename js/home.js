@@ -23,17 +23,13 @@ const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const heroSlides = document.querySelectorAll('.hero-slide');
 const heroDots = document.getElementById('heroDots');
 if (heroSlides.length > 1 && heroDots) {
-  heroDots.classList.add('sbar');
-  heroDots.innerHTML = '<span class="sbar-in"><i></i>' + [...heroSlides].map((_, i) => `<button type="button" data-i="${i}" aria-label="${i + 1} / ${heroSlides.length}" style="left:${i * 100 / heroSlides.length}%;width:${100 / heroSlides.length}%"></button>`).join('') + '</span>';
-  const heroThumb = heroDots.querySelector('i');
-  heroThumb.style.width = (100 / heroSlides.length) + '%';
+  heroDots.innerHTML = [...heroSlides].map((_, i) => `<button type="button" data-i="${i}" aria-label="${i + 1} / ${heroSlides.length}"${i === 0 ? ' class="on"' : ''}></button>`).join('');
   const heroCap = document.querySelector('.hero-cap');
   let heroIdx = 0;
   function showHeroSlide(i) {
     heroIdx = i;
     heroSlides.forEach((s, si) => s.classList.toggle('on', si === i));
-    heroDots.querySelectorAll('button').forEach((b, bi) => b.setAttribute('aria-current', bi === i ? 'true' : 'false'));
-    heroThumb.style.transform = 'translateX(' + (i * 100) + '%)';
+    heroDots.querySelectorAll('button').forEach((b, bi) => { b.classList.toggle('on', bi === i); b.setAttribute('aria-current', bi === i ? 'true' : 'false'); });
     const key = heroSlides[i].dataset.cap;
     const dict = window.I18N && window.I18N[window.__uf_lang || 'ru'];
     if (heroCap && key && dict && dict[key]) { heroCap.setAttribute('data-i18n', key); heroCap.innerHTML = dict[key]; }
