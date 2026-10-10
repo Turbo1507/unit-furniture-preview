@@ -29,7 +29,7 @@ if (heroSlides.length > 1 && heroDots) {
   function showHeroSlide(i) {
     heroIdx = i;
     heroSlides.forEach((s, si) => s.classList.toggle('on', si === i));
-    heroDots.querySelectorAll('button').forEach((b, bi) => b.classList.toggle('on', bi === i));
+    heroDots.querySelectorAll('button').forEach((b, bi) => { b.classList.toggle('on', bi === i); b.setAttribute('aria-current', bi === i ? 'true' : 'false'); });
     const key = heroSlides[i].dataset.cap;
     const dict = window.I18N && window.I18N[window.__uf_lang || 'ru'];
     if (heroCap && key && dict && dict[key]) { heroCap.setAttribute('data-i18n', key); heroCap.innerHTML = dict[key]; }
@@ -85,13 +85,3 @@ window.__uf_onLangChangePage = function () {
   renderProjects();
 };
 
-/* мобильная планка с кнопкой не нужна, пока видно хиро, форму или футер */
-const mobCta = document.querySelector('.mob-cta');
-if (mobCta && 'IntersectionObserver' in window) {
-  const seen = new Set();
-  const mo = new IntersectionObserver(es => {
-    es.forEach(e => (e.isIntersecting ? seen.add(e.target) : seen.delete(e.target)));
-    document.body.classList.toggle('mobcta-off', seen.size > 0);
-  });
-  [document.getElementById('top-hero'), document.getElementById('final'), document.querySelector('.site-footer')].forEach(el => el && mo.observe(el));
-}

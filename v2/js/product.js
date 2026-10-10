@@ -2,6 +2,7 @@
 
 const params = new URLSearchParams(location.search);
 const product = productById(params.get('id')) || window.PRODUCTS[0];
+document.querySelectorAll('.pp-custom-link').forEach(a => { a.href = 'customization.html?model=' + product.id + '#form'; });
 
 const ppMain = document.getElementById('ppMain');
 const ppImg = document.getElementById('ppImg');

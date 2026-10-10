@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title data-en="Hi-tech furniture and interiors in Bali | UNIT.FURNITURE">Хай-тек мебель и интерьеры на Бали | UNIT.FURNITURE</title>
 <meta name="description" content="Хай-тек мебель собственного производства на Бали: кровати, диваны, кресла, outdoor. От одной модели до комплектации виллы, отеля или ресторана под ключ." data-en="Hi-tech furniture made in our own workshop in Bali: beds, sofas, armchairs, outdoor. From a single piece to furnishing a whole villa, hotel or restaurant.">
-<link rel="stylesheet" href="css/styles.css?v=671fcc6">
+<link rel="stylesheet" href="css/styles.css?v=e4729c8">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <!-- seo -->
 <link rel="canonical" href="https://turbo1507.github.io/unit-furniture-preview/v2/">
@@ -41,6 +41,13 @@
       <a href="projects.html" data-i18n="nav.projects">Проекты</a>
       <a href="designers.html" data-i18n="nav.designers">Для дизайнеров</a>
       <a href="contacts.html" data-i18n="nav.contacts">Контакты</a>
+      <div class="nav-cta">
+    <a class="btn btn-blue" href="#final" data-i18n="mob.cta">Получить расчёт</a>
+    <a class="btn btn-wa" href="https://wa.me/6281139600008" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.7-1.2A9 9 0 1 0 12 3z"/><path d="M8.5 9.5c.5 2.5 3.5 5.5 6 6l1.5-1.5-2-1.5-1 .7c-1-.5-2.2-1.7-2.7-2.7l.7-1-1.5-2z"/></svg>
+      WhatsApp
+    </a>
+      </div>
     </nav>
     <div class="header-cta">
       <div class="lang-mini lang-switch" aria-label="Язык страницы">
@@ -82,7 +89,7 @@
 <!-- ===== БЛОК 2: категории каталога ===== -->
 <section class="section" id="categories">
   <div class="container">
-    <h2 data-i18n="cats.h2"><span class="acc">Каталог</span> мебели</h2>
+    <h2 data-i18n="cats.h2"><span class="acc">Категории</span> мебели</h2>
     <p class="section-lead" data-i18n="cats.lead">Выберите категорию или отправьте запрос, и мы подберём решение под ваш объект</p>
     <div class="catgrid">
       <a class="cg-card" href="catalog.html?cat=beds"><span class="tile-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg></span>
@@ -128,10 +135,9 @@
 <!-- ===== БЛОК 3: направления + ряды моделей (фото направления слева, ряд листается) ===== -->
 <section class="section section-gray" id="featured">
   <div class="container">
-    <h2 data-i18n="feat.h2"><span class="acc">Популярные</span> модели</h2>
-    <p class="section-lead" data-i18n="feat.lead">Модели из каталога 2026. Размеры, ткани и цвета адаптируем под ваш объект.</p>
+    <h2 class="vh feat-h2" data-i18n="feat.h2"><span class="acc">Популярные</span> модели</h2>
     <div class="mixb-rows" id="mixRowsB" data-wide="heads"></div>
-    <div class="hero-actions sect-cta">
+    <div class="hero-actions acts-nav-first sect-cta">
       <a class="btn btn-blue" href="#final" data-i18n="sol.cta">Подобрать решение под мой объект</a>
       <a class="btn btn-line" href="catalog.html" data-i18n="feat.all">Смотреть весь каталог</a>
     </div>
@@ -168,8 +174,8 @@
       <li class="cz-tile"><span class="clim-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 20.5h17"/><path d="M5 20.5v-8.5l5.5-4.5 5.5 4.5v8.5"/><path d="M9 20.5v-4.5h3v4.5"/><circle cx="18.5" cy="5.5" r="2"/></svg></span><span data-i18n="cz.w9">Материалы под&nbsp;indoor или outdoor</span></li>
       <li class="cz-photo is-wide"><img src="assets/c26/design-2.jpg" alt="Спальня с мебелью UNIT.FURNITURE под размер комнаты" data-i18n-alt="alt.cz.bed"></li>
     </ul>
-    <div class="hero-actions sect-cta">
-      <a class="btn btn-blue" href="#final" data-i18n="cust.cta">Обсудить кастомизацию</a>
+    <div class="hero-actions sect-cta cust-acts">
+      <a class="btn btn-blue" href="customization.html#form" data-i18n="cust.cta">Обсудить кастомизацию</a>
       <a class="btn btn-line" href="customization.html" data-i18n="pp.custom.cta">Смотреть варианты кастомизации</a>
     </div>
   </div>
@@ -235,6 +241,10 @@
     <div class="co-group">
       <div class="co-group-head"><h3><i class="u5">UNIT.</i>DEVELOPER</h3><span class="co-sub" data-i18n="co.d.s">Девелоперская компания</span><p data-i18n="co.d.p">Головная компания группы: разрабатывает концепцию и ведёт весь цикл, от проекта и стройки до сдачи ключей и управления недвижимостью</p></div>
       <div class="co-grid">
+        <article class="co-card is-us">
+          <div class="co-in"><h3><i class="u5">UNIT.</i>FURNITURE</h3><span class="co-sub" data-i18n="co.u.s">Мебельная фабрика</span><p data-i18n="co.u.p">Корпусная и мягкая мебель, двери и панорамные окна для домов <i class="u5">UNIT.</i></p></div>
+          <div class="co-photo"><img src="assets/co/ud-sys-furniture.jpg" alt="Цех UNIT.FURNITURE" data-i18n-alt="alt.co.u"></div>
+        </article>
         <article class="co-card">
           <div class="co-in"><h3><i class="u5">UNIT.</i>BUILD</h3><span class="co-sub" data-i18n="co.b.s">Строительная компания</span><p data-i18n="co.b.p">Лицензированный подрядчик: разрешения и регламентная документация PBG / SLF</p></div>
           <div class="co-photo"><img src="assets/co/ud-sys-build.jpg" alt="Стройплощадка UNIT.BUILD" data-i18n-alt="alt.co.b"></div>
@@ -242,10 +252,6 @@
         <article class="co-card">
           <div class="co-in"><h3><i class="u5">UNIT.</i>FRAMES</h3><span class="co-sub" data-i18n="co.f.s">Завод стальных каркасов</span><p data-i18n="co.f.p">Автоматизированное производство модульных стальных конструкций по технологии Prefab для домов <i class="u5">UNIT.</i></p></div>
           <div class="co-photo"><img src="assets/co/ud-sys-frames.jpg" alt="Стальные каркасы UNIT.FRAMES" data-i18n-alt="alt.co.f"></div>
-        </article>
-        <article class="co-card is-us">
-          <div class="co-in"><h3><i class="u5">UNIT.</i>FURNITURE</h3><span class="co-sub" data-i18n="co.u.s">Мебельная фабрика</span><p data-i18n="co.u.p">Корпусная и мягкая мебель, двери и панорамные окна для домов <i class="u5">UNIT.</i></p></div>
-          <div class="co-photo"><img src="assets/co/ud-sys-furniture.jpg" alt="Цех UNIT.FURNITURE" data-i18n-alt="alt.co.u"></div>
         </article>
         <article class="co-card">
           <div class="co-in"><h3><i class="u5">UNIT.</i>SPACE MANAGEMENT</h3><span class="co-sub" data-i18n="co.m.s">Управляющая компания</span><p data-i18n="co.m.p">Управление недвижимостью и F&amp;B на Бали больше 10 лет: все процессы под ключ без участия инвестора</p></div>
@@ -288,7 +294,7 @@
         <span data-i18n="des.li3">Комплектация объекта и индивидуальный расчёт</span>
       </li>
     </ul>
-    <div class="hero-actions band-cta">
+    <div class="hero-actions acts-nav-first band-cta">
       <a class="btn btn-blue" href="#final" data-i18n="des.cta1">Стать партнёром</a>
       <a class="btn btn-white" href="designers.html" data-i18n="des.cta2">Смотреть условия для дизайнеров</a>
     </div>
@@ -359,9 +365,9 @@
         </div>
         <div class="field-row">
           <div class="field">
-            <label for="fPhone" data-i18n="f.phone">WhatsApp / Telegram*</label>
-            <input id="fPhone" name="phone" type="tel" autocomplete="tel" required aria-describedby="fPhoneErr">
-            <p class="f-err" id="fPhoneErr" data-i18n="f.err.phone" hidden>Оставьте номер или ник, чтобы мы могли ответить</p>
+            <label for="fPhone" data-i18n="f.phone">Номер телефона*</label>
+            <div class="phone-row"><select id="fCc" name="cc" data-search aria-label="Код страны"><option value="62" data-iso="ID" selected>ID +62</option></select><input id="fPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel-national" required aria-describedby="fPhoneErr"></div>
+            <p class="f-err" id="fPhoneErr" data-i18n="f.err.phone" hidden>Оставьте номер телефона, чтобы мы могли ответить</p>
           </div>
           <div class="field">
             <label for="fEmail" data-i18n="f.email">Email</label>
@@ -472,14 +478,6 @@
   </div>
 </footer>
 
-<!-- ===== мобильная CTA-планка ===== -->
-<div class="mob-cta">
-  <a class="btn btn-blue" href="#final" data-i18n="mob.cta">Получить расчёт</a>
-  <a class="btn btn-wa" href="https://wa.me/6281139600008" target="_blank" rel="noopener noreferrer">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.7-1.2A9 9 0 1 0 12 3z"/><path d="M8.5 9.5c.5 2.5 3.5 5.5 6 6l1.5-1.5-2-1.5-1 .7c-1-.5-2.2-1.7-2.7-2.7l.7-1-1.5-2z"/></svg>
-    WhatsApp
-  </a>
-</div>
 
 <!-- ===== CART ===== -->
 <div class="qv-overlay" id="cartOverlay" hidden></div>
@@ -495,9 +493,10 @@
   </div>
 </aside>
 
-<script src="js/i18n.js?v=671fcc6"></script>
-<script src="js/data.js?v=671fcc6"></script>
-<script src="js/common.js?v=671fcc6"></script>
-<script src="js/home.js?v=671fcc6"></script>
+<script src="js/i18n.js?v=e4729c8"></script>
+<script src="js/data.js?v=e4729c8"></script>
+<script src="js/countries.js?v=e4729c8"></script>
+<script src="js/common.js?v=e4729c8"></script>
+<script src="js/home.js?v=e4729c8"></script>
 </body>
 </html>
