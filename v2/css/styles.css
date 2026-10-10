@@ -2067,3 +2067,17 @@ html[lang="en"] .team-card.ru-only { display: none; }
 @media (max-width: 1024px) {
   .mt-pr-photos .prod-photo + .prod-photo { aspect-ratio: auto; height: 100%; }
 }
+
+/* точки хиро: без подложки, в правом нижнем углу по краю подписи; подпись над ними */
+.home .hero-dots { left: auto; right: calc(max(40px, (100% - var(--container)) / 2 + 40px) - 5px); bottom: calc(clamp(40px, 7svh, 80px) - 9px); transform: none; padding: 0; border-radius: 0; background: none; -webkit-backdrop-filter: none; backdrop-filter: none; filter: drop-shadow(0 0 3px rgba(0,0,0,.35)); }
+.home .hero-cap { bottom: calc(clamp(40px, 7svh, 80px) + 32px); }
+
+/* хиро главной на телефоне на весь экран, текст компактнее, чтобы было видно фото */
+@media (max-width: 720px) {
+  .home .hero { height: auto; min-height: 100svh; max-height: none; }
+  .home .hero-in { gap: 12px; padding: 96px 20px 32px; }
+  .home .hero-title { font-size: 30px; line-height: 1.08; }
+  .home .hero-lead { font-size: 16px; }
+  .hero-chip { margin-bottom: 4px; }
+  .home .hero-actions { margin-top: 16px; gap: 12px; }
+}
