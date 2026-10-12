@@ -764,7 +764,7 @@ const MIXB_WIDE = matchMedia('(min-width: 721px)');
 function renderMixB() {
   const el = document.getElementById('mixRowsB');
   if (!el) return;
-  if (!el.dataset.mq) { el.dataset.mq = 1; MIXB_WIDE.addEventListener('change', () => { renderMixB(); syncAddButtons(); }); }
+  if (!el.dataset.mq) { el.dataset.mq = 1; MIXB_WIDE.addEventListener('change', () => { renderMixB(); syncAddButtons(); initDots(); }); }
   // на главной на ПК вариант В (названия над рядами), на телефоне Б
   const wide = el.dataset.wide && MIXB_WIDE.matches;
   el.className = wide ? 'mixc-rows is-' + el.dataset.wide : 'mixb-rows';
@@ -849,11 +849,50 @@ function addDots(track, mobOnly) {
   track.addEventListener('scroll', () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(sync); }, { passive: true });
   track.__rebuild();
 }
+/* под рядами моделей в блоке 3 главной вместо точек полоса: дорожка, по ней едет отрезок */
+function addBar(track, mobOnly) {
+  if (!track || track.__dots) return;
+  const box = document.createElement('div');
+  box.className = 'sbar' + (mobOnly ? ' sbar-mob' : '');
+  box.setAttribute('aria-hidden', 'true');
+  box.innerHTML = '<span class="sbar-in"><i></i></span>';
+  track.after(box);
+  track.__dots = box;
+  const thumb = box.querySelector('i');
+  const max = () => track.scrollWidth - track.clientWidth;
+  const rtl = () => getComputedStyle(track).direction === 'rtl';
+  const sync = () => {
+    const m = max(), part = Math.min(1, track.clientWidth / track.scrollWidth);
+    const pos = m > 0 ? Math.min(1, Math.abs(track.scrollLeft) / m) : 0;
+    thumb.style.width = (part * 100) + '%';
+    thumb.style.left = ((rtl() ? 1 - pos : pos) * (1 - part) * 100) + '%';
+  };
+  track.__rebuild = () => { box.hidden = max() < 2; sync(); };
+  // полосу можно тянуть и тыкать
+  const seek = e => {
+    const r = box.querySelector('.sbar-in').getBoundingClientRect(), tw = thumb.getBoundingClientRect().width;
+    let p = Math.max(0, Math.min(1, (e.clientX - r.left - tw / 2) / Math.max(1, r.width - tw)));
+    if (rtl()) p = 1 - p;
+    track.scrollTo({ left: (rtl() ? -1 : 1) * p * max() });
+  };
+  box.addEventListener('pointerdown', e => {
+    box.setPointerCapture(e.pointerId);
+    track.style.scrollSnapType = 'none';
+    seek(e);
+  });
+  box.addEventListener('pointermove', e => { if (box.hasPointerCapture(e.pointerId)) seek(e); });
+  const up = () => { track.style.scrollSnapType = ''; };
+  box.addEventListener('pointerup', up);
+  box.addEventListener('pointercancel', up);
+  let raf = 0;
+  track.addEventListener('scroll', () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(sync); }, { passive: true });
+  track.__rebuild();
+}
 // var, а не const: initDots зовётся из setLang раньше, чем сюда дойдёт файл
 var DOT_TRACKS = [['.sl-track', 0], ['.home .mat-strip', 1], ['.co-grid', 1], ['.home #projGrid', 1], ['.mixb-track', 1], ['.mixc-track', 1]];
 function initDots() {
   if (!DOT_TRACKS) return;
-  DOT_TRACKS.forEach(([sel, mob]) => document.querySelectorAll(sel).forEach(tr => addDots(tr, mob)));
+  DOT_TRACKS.forEach(([sel, mob]) => document.querySelectorAll(sel).forEach(tr => (tr.closest('#featured') ? addBar : addDots)(tr, mob)));
 }
 function rebuildDots() {
   if (!DOT_TRACKS) return;

@@ -1971,6 +1971,13 @@ html[lang="en"] .team-card.ru-only { display: none; }
 .sl-track + .dots i { background: rgba(255,255,255,.5); }
 .sl-track + .dots button[aria-current="true"] i { background: var(--white); }
 @media (min-width: 721px) { .dots.dots-mob, .pp-track + .dots { display: none; } }
+/* блок 3 главной: под рядами моделей полоса */
+.sbar { position: relative; display: flex; align-items: center; height: 24px; margin-top: 16px; cursor: pointer; touch-action: none; user-select: none; -webkit-user-select: none; }
+.sbar[hidden] { display: none; }
+.sbar-in { position: relative; flex: 1; height: 2px; border-radius: 2px; background: var(--interlace); }
+.sbar-in i { position: absolute; top: 0; bottom: 0; left: 0; border-radius: 2px; background: var(--graphite); }
+@media (min-width: 721px) { .sbar.sbar-mob { display: none; } }
+@media (max-width: 720px) { .mixb-rail .sbar, .mixc-rail .sbar { margin-top: 12px; } }
 @media (max-width: 720px) {
   .pp-thumbs { display: none !important; }
   .mixb-rail .dots, .mixc-rail .dots { margin-top: 12px; }
