@@ -892,7 +892,7 @@ function addBar(track, mobOnly) {
 var DOT_TRACKS = [['.sl-track', 0], ['.home .mat-strip', 1], ['.co-grid', 1], ['.home #projGrid', 1], ['.mixb-track', 1], ['.mixc-track', 1]];
 function initDots() {
   if (!DOT_TRACKS) return;
-  DOT_TRACKS.forEach(([sel, mob]) => document.querySelectorAll(sel).forEach(tr => (tr.closest('#featured') ? addBar : addDots)(tr, mob)));
+  DOT_TRACKS.forEach(([sel, mob]) => document.querySelectorAll(sel).forEach(tr => tr.closest('#featured') ? addBar(tr, 0) : addDots(tr, mob)));
 }
 function rebuildDots() {
   if (!DOT_TRACKS) return;

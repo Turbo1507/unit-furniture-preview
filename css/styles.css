@@ -1976,7 +1976,14 @@ html[lang="en"] .team-card.ru-only { display: none; }
 .sbar[hidden] { display: none; }
 .sbar-in { position: relative; flex: 1; height: 2px; border-radius: 2px; background: var(--interlace); }
 .sbar-in i { position: absolute; top: 0; bottom: 0; left: 0; border-radius: 2px; background: var(--graphite); }
-@media (min-width: 721px) { .sbar.sbar-mob { display: none; } }
+.sbar-in i { transition: background-color .2s; }
+@media (hover: hover) { .sbar:hover .sbar-in i { background: var(--blue); } }
+@media (min-width: 721px) {
+  .sbar.sbar-mob { display: none; }
+  .mixc-rail .sbar { margin-top: 24px; }
+  /* стрелки по центру карточек, а не всего ряда с полосой */
+  .mixc-rail:has(.sbar:not([hidden])) .mixb-arr { top: calc(50% - 48px); }
+}
 @media (max-width: 720px) { .mixb-rail .sbar, .mixc-rail .sbar { margin-top: 12px; } }
 @media (max-width: 720px) {
   .pp-thumbs { display: none !important; }
