@@ -665,7 +665,20 @@ h3 { font-size: 20px; font-weight: 600; }
 .cart-item-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 12px; }
 .qty { display: inline-flex; align-items: center; height: 40px; border: 1px solid var(--interlace); border-radius: var(--r-sm); }
 .qty button { width: 40px; height: 38px; border: 0; background: none; font: inherit; font-size: 18px; color: var(--graphite); cursor: pointer; }
-.qty span { min-width: 24px; text-align: center; font-size: 15px; font-weight: 500; font-variant-numeric: tabular-nums; }
+.qty input { width: 32px; height: 38px; padding: 0; border: 0; background: none; text-align: center; font: inherit; font-size: 16px; font-weight: 500; font-variant-numeric: tabular-nums; color: var(--graphite); }
+.qty input:focus { outline: none; }
+.qty:focus-within { border-color: var(--graphite); }
+.qty button:disabled { color: rgba(58,58,58,.3); cursor: default; }
+.form-ok { padding: 48px; background: var(--white); }
+.form-ok:focus { outline: none; }
+.form-ok h3 { font-size: 24px; }
+.form-ok p { margin-top: 16px; font-size: 16px; line-height: 1.5; color: rgba(58,58,58,.8); }
+.pp-missing { max-width: 720px; padding: 40px 0 16px; }
+.pp-missing p { margin-top: 16px; font-size: 18px; line-height: 1.5; color: rgba(58,58,58,.8); }
+.pp-missing .btn { margin-top: 32px; }
+.form-ok-actions { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 32px; }
+.contact-grid .form-ok { border: 1px solid var(--interlace); border-radius: var(--r-md); }
+@media (max-width: 720px) { .form-ok { padding: 32px 20px; } .form-ok-actions { flex-direction: column; } .form-ok-actions .btn { width: 100%; } }
 .cart-item-del { min-height: 40px; padding: 0; border: 0; background: none; font: inherit; font-size: 14px; color: rgba(58,58,58,.64); cursor: pointer; }
 @media (hover: hover) {
   .cart-item-name:hover { color: var(--blue); }
@@ -1666,7 +1679,7 @@ h3 { font-weight: 500; letter-spacing: -.015em; }
 }
 
 /* тост корзины */
-.cart-toast { position: fixed; z-index: 90; left: 50%; bottom: 24px; transform: translate(-50%, 16px); opacity: 0; pointer-events: none;
+.cart-toast { position: fixed; z-index: 160; left: 50%; bottom: 24px; transform: translate(-50%, 16px); opacity: 0; pointer-events: none;
   display: flex; align-items: center; gap: 16px; padding: 8px 8px 8px 20px; background: var(--graphite); color: var(--white);
   border-radius: var(--r-md); font-size: 15px; transition: opacity .2s, transform .2s; max-width: calc(100% - 32px); }
 .cart-toast.show { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; }

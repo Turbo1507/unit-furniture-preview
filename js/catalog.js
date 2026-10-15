@@ -23,6 +23,14 @@ function applyFilters() {
   );
   renderProductsInto(productsEl, list, { studio: true });
   emptyEl.hidden = list.length > 0;
+  syncURL(env, use);
+}
+// фильтры живут в адресе: «назад» из карточки и ссылка коллеге открывают ту же подборку
+function syncURL(env, use) {
+  const q = new URLSearchParams(location.search);
+  [['cat', currentCat], ['env', env], ['use', use]].forEach(([k, v]) => { if (v === 'all') q.delete(k); else q.set(k, v); });
+  const qs = q.toString();
+  history.replaceState(null, '', location.pathname + (qs ? '?' + qs : '') + location.hash);
 }
 function activateTab(cat) {
   currentCat = cat;
@@ -48,7 +56,9 @@ if (resetBtn) resetBtn.addEventListener('click', () => {
   const q = new URLSearchParams(location.search);
   const cat = q.get('cat');
   const env = q.get('env');
+  const use = q.get('use');
   if (env === 'indoor' || env === 'outdoor') fltEnv.value = env;
+  if (use && [...fltUse.options].some(o => o.value === use)) fltUse.value = use;
   if (cat && [...fltCat.options].some(o => o.value === cat)) currentCat = cat;
   fltCat.value = currentCat;
   refreshCustomSelectLabels();
