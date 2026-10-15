@@ -673,6 +673,21 @@ h3 { font-size: 20px; font-weight: 600; }
 .form-ok:focus { outline: none; }
 .form-ok h3 { font-size: 24px; }
 .form-ok p { margin-top: 16px; font-size: 16px; line-height: 1.5; color: rgba(58,58,58,.8); }
+.f-send-err { margin-top: 16px; font-size: 15px; line-height: 1.4; color: #c62828; }
+.faq-head { position: sticky; top: 96px; }
+.faq details + details { border-top: 1px solid var(--interlace); }
+.faq summary { display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; padding: 24px 0; cursor: pointer; list-style: none; font-size: 20px; font-weight: 500; line-height: 1.3; }
+.faq details:first-child summary { padding-top: 0; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq-ic { flex: 0 0 24px; width: 24px; height: 24px; transition: transform .2s; }
+.faq details[open] .faq-ic { transform: rotate(180deg); }
+.faq summary:hover { color: var(--blue); }
+.faq details p { max-width: 64ch; padding-bottom: 24px; font-size: 17px; line-height: 1.45; color: rgba(58,58,58,.8); }
+@media (max-width: 1024px) { .faq-head { position: static; } .how .faq { margin-top: 32px; } }
+@media (max-width: 720px) {
+  .faq summary { padding: 16px 0; font-size: 18px; }
+  .faq details p { padding-bottom: 16px; font-size: 16px; }
+}
 .pp-missing { max-width: 720px; padding: 40px 0 16px; }
 .pp-missing p { margin-top: 16px; font-size: 18px; line-height: 1.5; color: rgba(58,58,58,.8); }
 .pp-missing .btn { margin-top: 32px; }

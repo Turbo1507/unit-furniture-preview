@@ -114,6 +114,7 @@ function syncAddButtons() {
 }
 function syncRequestUI() {
   syncAddButtons();
+  if (window.__ufPickScope) window.__ufPickScope();
   const reqCountIcon = document.getElementById('reqCountIcon');
   if (reqCountIcon) {
     reqCountIcon.hidden = reqIds.size === 0;
@@ -574,6 +575,12 @@ document.querySelectorAll('.lang-switch').forEach(sw => {
 })();
 syncRequestUI();
 
+(() => {
+  const q = new URLSearchParams(location.search), u = {};
+  ['utm_campaign', 'utm_content'].forEach(k => { if (q.get(k)) u[k] = q.get(k); });
+  if (Object.keys(u).length) try { sessionStorage.setItem('uf_utm', JSON.stringify(u)); } catch (e) {}
+})();
+
 /* ---------- форма заявки (index + contacts) ---------- */
 const form = document.getElementById('leadForm');
 if (form) {
@@ -590,11 +597,31 @@ if (form) {
   }
   const scopeSel = document.getElementById('fScope');
   const bulkNote = document.getElementById('bulkNote');
-  if (scopeSel && bulkNote) {
-    const syncBulkNote = () => { bulkNote.hidden = scopeSel.value !== scopeSel.options[scopeSel.options.length - 1].value; };
-    scopeSel.addEventListener('change', syncBulkNote);
+  const syncBulkNote = () => { if (scopeSel && bulkNote) bulkNote.hidden = scopeSel.value !== scopeSel.options[scopeSel.options.length - 1].value; };
+  if (scopeSel) {
+    scopeSel.addEventListener('change', e => { if (e.isTrusted) scopeSel.dataset.touched = '1'; syncBulkNote(); });
     syncBulkNote();
   }
+  if (fTopic) fTopic.addEventListener('change', e => { if (e.isTrusted) fTopic.dataset.touched = '1'; });
+  // объём и «что подобрать» берём из корзины, пока человек сам их не выбрал
+  window.__ufPickScope = () => {
+    const lines = cartLines();
+    if (!lines.length) return;
+    const total = lines.reduce((a, l) => a + l.qty, 0);
+    const pick = (sel, key) => {
+      const o = sel.querySelector('option[data-i18n="' + key + '"]');
+      if (!o || o.selected) return;
+      o.selected = true;
+      const w = sel.closest('.csel'); if (w && w._render) w._render();
+    };
+    if (scopeSel && !scopeSel.dataset.touched) {
+      pick(scopeSel, total >= 20 ? 'f.sc.bulk' : lines.length === 1 && total === 1 ? 'f.sc.item' : 'f.sc.zone');
+      syncBulkNote();
+    }
+    const cats = [...new Set(lines.map(l => l.cat))];
+    if (fTopic && !fTopic.dataset.touched && window.CAT_LABEL_KEY) pick(fTopic, cats.length === 1 && window.CAT_LABEL_KEY[cats[0]] ? window.CAT_LABEL_KEY[cats[0]] : 'opt.all');
+  };
+  window.__ufPickScope();
   const dl = document.getElementById('fDeadline');
   if (dl) { const d = new Date(); d.setMinutes(d.getMinutes() - d.getTimezoneOffset()); dl.min = d.toISOString().slice(0, 10); }
   const setErr = (f, bad) => {
@@ -625,23 +652,70 @@ if (form) {
     if (dl && dl.value && dl.value < dl.min) { dl.value = dl.min; }
     setErr(agree, !agree.checked); if (!agree.checked) bad.push(agree);
     if (bad.length) { bad[0].focus(); return; }
-    const items = form.querySelector('[name="items"]');
-    if (items) items.value = cartText();
-    const fd = new FormData(form);
-    const lead = { items: cartLines(), page: location.pathname.split('/').pop() || 'index.html', lang: document.documentElement.lang };
-    // галочки «что меняем» и файлы приходят несколькими значениями под одним именем
-    fd.forEach((v, k) => {
-      if (k === 'items' || k === 'cc') return;
-      v = typeof v === 'string' ? v.trim() : (v && v.name) || '';
-      if (!v) return;
-      lead[k] = k in lead ? [].concat(lead[k], v) : v;
-    });
-    const cc = document.getElementById('fCc');
-    if (cc && lead.phone) lead.phone = '+' + cc.value + ' ' + lead.phone;
-    window.__ufLead = lead;
-    /* TODO: отправка в бот через unitdeveloper.com (как форма Спейса), включить после «да» */
-    showFormOk(lead.items.length);
+    if (sending) return;
+    const btn = form.querySelector('.btn-submit');
+    const fd = buildLead();
+    // запрос на кастомизацию корзину не забирает, поэтому и не чистит её
+    const n = form.querySelector('[name="kind"][value="custom"]') ? 0 : cartLines().length;
+    sending = true; btn.disabled = true; btn.textContent = t('f.sending'); sendErr.hidden = true;
+    fetch(LEAD_URL, { method: 'POST', body: fd })
+      .then(r => r.json().catch(() => ({})).then(j => { if (!r.ok || !j.ok) throw new Error(j.error || r.status); }))
+      .then(() => showFormOk(n))
+      .catch(() => { sendErr.hidden = false; })
+      .finally(() => { sending = false; btn.disabled = false; btn.textContent = t('f.submit'); });
   });
+  const LEAD_URL = 'https://unitdeveloper.com/wp-json/unit/v1/furniture-lead';
+  let sending = false;
+  const sendErr = document.createElement('p');
+  sendErr.className = 'f-send-err'; sendErr.setAttribute('role', 'alert'); sendErr.hidden = true;
+  sendErr.dataset.i18n = 'f.err.send'; sendErr.textContent = t('f.err.send');
+  form.querySelector('.btn-submit').after(sendErr);
+  // ловушка для ботов: человек её не видит и не заполняет
+  const trap = document.createElement('input');
+  trap.type = 'text'; trap.name = 'website'; trap.tabIndex = -1; trap.autocomplete = 'off';
+  // в обёртке: правила полей формы растягивают сам input на всю ширину
+  const trapBox = document.createElement('div');
+  trapBox.className = 'vh'; trapBox.setAttribute('aria-hidden', 'true');
+  trapBox.appendChild(trap); form.appendChild(trapBox);
+  // в группу заявка уходит по-русски, на каком бы языке ни заполняли
+  const ru = el => { const k = el && el.dataset.i18n; return (k && window.I18N && window.I18N.ru[k]) || (el ? el.textContent.trim() : ''); };
+  const val = id => { const el = document.getElementById(id); return el ? el.value.trim() : ''; };
+  const opt = id => { const el = document.getElementById(id); return el && el.selectedIndex >= 0 ? ru(el.options[el.selectedIndex]) : ''; };
+  function buildLead() {
+    const fd = new FormData();
+    const custom = !!form.querySelector('[name="kind"][value="custom"]');
+    const cc = document.getElementById('fCc');
+    fd.append('kind', custom ? 'custom' : 'order');
+    fd.append('name', val('fName'));
+    fd.append('phone', (cc ? '+' + cc.value + ' ' : '') + val('fPhone'));
+    fd.append('email', val('fEmail'));
+    fd.append('message', val('fMsg') || (form.querySelector('textarea') ? form.querySelector('textarea').value.trim() : ''));
+    fd.append('lang', document.documentElement.lang === 'en' ? 'EN' : 'RU');
+    fd.append('page', location.href.split('#')[0]);
+    fd.append('website', trap.value);
+    const q = new URLSearchParams(location.search);
+    let utm = {};
+    try { utm = JSON.parse(sessionStorage.getItem('uf_utm') || '{}'); } catch (e) {}
+    ['utm_campaign', 'utm_content'].forEach(k => fd.append(k, q.get(k) || utm[k] || ''));
+    fd.append('object', opt('fObject'));
+    if (custom) {
+      const idea = (form.querySelector('[name="base"]:checked') || {}).value === 'idea';
+      const m = document.getElementById('fModel');
+      fd.append('base', idea ? 'Своя идея по референсу' : 'Модель: ' + (m && m.value ? m.options[m.selectedIndex].textContent.trim() : 'не выбрана'));
+      fd.append('changes', [...form.querySelectorAll('[name="change"]:checked')].map(c => ru(c.parentElement.querySelector('[data-i18n]'))).join(', '));
+      const d = ['length', 'width', 'height'].map(k => { const el = form.querySelector('[name="' + k + '"]'); return el ? el.value.trim() : ''; });
+      fd.append('dims', d.some(Boolean) ? d.map(x => x || '?').join(' × ') : '');
+      fd.append('link', (form.querySelector('[name="link"]') || {}).value || '');
+      const files = document.getElementById('fFile');
+      if (files) [...files.files].slice(0, 5).forEach(f => fd.append('file[]', f, f.name));
+    } else {
+      fd.append('items', cartText());
+      fd.append('topic', opt('fTopic'));
+      fd.append('scope', opt('fScope'));
+      fd.append('deadline', val('fDeadline'));
+    }
+    return fd;
+  }
   // после заявки форма пустая, корзина чистая, а на её месте понятный экран «что дальше»
   function showFormOk(n) {
     let ok = document.getElementById('formOk');
