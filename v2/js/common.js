@@ -641,6 +641,10 @@ addLeaders();
 let lastW = innerWidth;
 addEventListener('resize', () => { requestAnimationFrame(() => { lastW = innerWidth; }); });
 function onWidth(fn) { addEventListener('resize', () => { if (innerWidth !== lastW) fn(); }); }
+// высоту экрана фиксируем в px: панель Telegram/Safari при сворачивании не должна менять высоту хиро
+const setVh = () => document.documentElement.style.setProperty('--vh', (innerHeight / 100) + 'px');
+setVh();
+onWidth(setVh);
 
 function fitLeaders() {
   document.querySelectorAll('.leaders > li > b, .mt-spec dd').forEach(b => {

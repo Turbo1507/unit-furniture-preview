@@ -7,6 +7,8 @@
 @font-face { font-family: "UF Helvetica Neue"; src: url("../fonts/helvetica-neue-700.woff2") format("woff2"); font-weight: 700; font-display: swap; }
 
 :root {
+  /* высота экрана в px, ставит common.js при загрузке: в Telegram svh меняется вместе с панелью и хиро прыгает */
+  --vh: 1vh;
   --white: #FFFFFF;
   --graphite: #3A3A3A;
   --stone: #F0F0F0;
@@ -48,6 +50,7 @@
   --sp-4xl-mobile: 72px; /* .section на ≤720px — полный 120 избыточен на маленьком экране */
   --sp-lead: 20px; /* заголовок → лид-параграф (page-sub, section-lead) */
 }
+@supports (height: 1svh) { :root { --vh: 1svh; } }
 
 /* ---------- utility-классы отступов: вместо разрозненных inline style="margin-top:Npx" ---------- */
 .mt-md { margin-top: var(--sp-md) !important; }
@@ -172,7 +175,7 @@ h3 { font-size: 20px; font-weight: 600; }
 .hero {
   position: relative;
   margin-top: -73px; /* хедер прозрачный поверх hero, фото уходит под шапку */
-  height: 100vh; height: 100svh; min-height: 620px;
+  height: 100vh; height: calc(var(--vh) * 100); min-height: 620px;
   overflow: hidden;
   display: flex; align-items: flex-end;
 }
@@ -1172,7 +1175,7 @@ a.pill-tag { text-decoration: none; transition: border-color .2s, color .2s; }
   .container { padding: 0 20px; }
   .section { padding: var(--sp-4xl-mobile) 0; }
   /* хиро чуть ниже экрана, чтобы был виден край следующего блока */
-  .hero { height: calc(100svh - 66px); min-height: 560px; }
+  .hero { height: calc(calc(var(--vh) * 100) - 66px); min-height: 560px; }
   .hero-in { padding-bottom: 48px; }
   .hero-dots, .hero-scroll { display: none; }
   .hero-badges { display: none; }
@@ -1229,13 +1232,13 @@ a.pill-tag { text-decoration: none; transition: border-color .2s, color .2s; }
 .cart-btn { border: 0; }
 .cart-btn svg { width: 22px; height: 22px; }
 
-.home .hero { margin-top: -65px; height: 100svh; min-height: 600px; max-height: 980px; align-items: flex-end; }
-.home .hero-in { display: grid; gap: 16px; justify-items: start; padding: 0 40px clamp(40px, 7svh, 80px); }
+.home .hero { margin-top: -65px; height: calc(var(--vh) * 100); min-height: 600px; max-height: 980px; align-items: flex-end; }
+.home .hero-in { display: grid; gap: 16px; justify-items: start; padding: 0 40px clamp(40px, calc(var(--vh) * 7), 80px); }
 .hero-chip { display: inline-flex; align-items: center; min-height: 32px; padding: 4px 12px; margin-bottom: 8px; border-radius: var(--r-sm); background: var(--white); color: var(--graphite); font-size: 14px; font-weight: 500; }
 .home .hero-title { font-size: clamp(36px, 4.6vw, 64px); font-weight: 500; line-height: 1.04; letter-spacing: -.03em; max-width: 26ch; text-wrap: balance; }
 .hero-lead { font-size: clamp(17px, .45vw + 13.5px, 20px); line-height: 1.35; color: var(--white); max-width: 68ch; }
 .home .hero-actions { margin-top: 24px; }
-.hero-cap { position: absolute; z-index: 3; right: max(40px, (100% - var(--container)) / 2 + 40px); bottom: clamp(40px, 7svh, 80px); max-width: 24ch; text-align: right; font-size: 14px; line-height: 1.55; color: rgba(255,255,255,.86); }
+.hero-cap { position: absolute; z-index: 3; right: max(40px, (100% - var(--container)) / 2 + 40px); bottom: clamp(40px, calc(var(--vh) * 7), 80px); max-width: 24ch; text-align: right; font-size: 14px; line-height: 1.55; color: rgba(255,255,255,.86); }
 .home .hero-dots { right: 32px; bottom: 32px; }
 
 /* секция: сверху 96, h2 → подзаголовок 16, подзаголовок → контент 48, контент → кнопки 48 */
@@ -1295,7 +1298,7 @@ a.pill-tag { text-decoration: none; transition: border-color .2s, color .2s; }
 @media (max-width: 900px) { .hero-cap { display: none; } }
 @media (max-width: 720px) {
   .nav { top: 64px; padding: 8px 20px 16px; }
-  .home .hero { height: calc(100svh - 66px); }
+  .home .hero { height: calc(calc(var(--vh) * 100) - 66px); }
   .home .hero-in { padding: 0 20px 40px; }
   .home .section { padding: 56px 0; }
   .home .section-lead + * { margin-top: 32px; }
@@ -2000,7 +2003,7 @@ html[lang="en"] .team-card.ru-only { display: none; }
 }
 
 /* полоса хиро: по центру, на одной линии с подписью; кнопки слайдов поверх полосы делят её поровну */
-.home .hero-dots { position: absolute; flex-direction: row; gap: 0; left: 50%; right: auto; transform: translateX(-50%); bottom: calc(clamp(40px, 7svh, 80px) - 1px); margin: 0; padding: 0 4px; border-radius: var(--r-sm); background: rgba(58,58,58,.32); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+.home .hero-dots { position: absolute; flex-direction: row; gap: 0; left: 50%; right: auto; transform: translateX(-50%); bottom: calc(clamp(40px, calc(var(--vh) * 7), 80px) - 1px); margin: 0; padding: 0 4px; border-radius: var(--r-sm); background: rgba(58,58,58,.32); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
 .home .hero-dots button { width: 16px; height: 24px; display: grid; place-items: center; padding: 0; background: none; border-radius: 0; transform: none; }
 .home .hero-dots button::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,.5); transition: background .2s; }
 .home .hero-dots button.on { background: none; transform: none; }
@@ -2093,12 +2096,12 @@ html[lang="en"] .team-card.ru-only { display: none; }
 }
 
 /* точки хиро: без подложки, в правом нижнем углу по краю подписи; подпись над ними */
-.home .hero-dots { left: auto; right: calc(max(40px, (100% - var(--container)) / 2 + 40px) - 5px); bottom: calc(clamp(40px, 7svh, 80px) - 9px); transform: none; padding: 0; border-radius: 0; background: none; -webkit-backdrop-filter: none; backdrop-filter: none; filter: drop-shadow(0 0 3px rgba(0,0,0,.35)); }
-.home .hero-cap { bottom: calc(clamp(40px, 7svh, 80px) + 32px); }
+.home .hero-dots { left: auto; right: calc(max(40px, (100% - var(--container)) / 2 + 40px) - 5px); bottom: calc(clamp(40px, calc(var(--vh) * 7), 80px) - 9px); transform: none; padding: 0; border-radius: 0; background: none; -webkit-backdrop-filter: none; backdrop-filter: none; filter: drop-shadow(0 0 3px rgba(0,0,0,.35)); }
+.home .hero-cap { bottom: calc(clamp(40px, calc(var(--vh) * 7), 80px) + 32px); }
 
 /* хиро главной на телефоне на весь экран, текст компактнее, чтобы было видно фото */
 @media (max-width: 720px) {
-  .home .hero { height: auto; min-height: 100svh; max-height: none; }
+  .home .hero { height: auto; min-height: calc(var(--vh) * 100); max-height: none; }
   .home .hero-in { gap: 12px; padding: 96px 20px 32px; }
   .home .hero-title { font-size: 30px; line-height: 1.08; }
   .home .hero-lead { font-size: 16px; }
