@@ -164,7 +164,7 @@ h3 { font-size: 20px; font-weight: 600; }
 }
 .btn-blue { background: var(--blue); color: var(--white); }
 .btn-line { border-color: var(--white); color: var(--graphite); background: var(--white); }
-/* белая кнопка на белом не видна, там остаётся рамка */
+/* на светлом фоне (белом и сером) навигационная кнопка контуром, как в макетах */
 .btn-line.on-white { border-color: var(--graphite); background: transparent; }
 @media (hover: hover) {
   .btn-blue:hover { background: transparent; border-color: var(--blue); color: var(--blue); }
