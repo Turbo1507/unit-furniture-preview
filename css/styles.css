@@ -237,8 +237,6 @@ h3 { font-size: 20px; font-weight: 600; }
 
 /* ---------- marquee ---------- */
 .marquee {
-  border-top: 1px solid var(--interlace);
-  border-bottom: 1px solid var(--interlace);
   overflow: hidden; white-space: nowrap;
   padding: 18px 0;
 }
@@ -1409,7 +1407,7 @@ h1 .u5, h2 .u5, b .u5, strong .u5 { font-weight: inherit; }
 .f-err { margin-top: 8px; font-size: 14px; line-height: 1.4; color: #C4320A; }
 .final-form .agree + .f-err { margin: -16px 0 24px; }
 
-.home .clim-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px 40px; margin-top: 48px; padding-top: 48px; border-top: 1px solid var(--interlace); }
+.home .clim-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px 40px; margin-top: 64px; }
 .home .clim-row .clim-arg { grid-template-columns: 48px 1fr; gap: 16px; }
 .home .clim-row .clim-num { font-size: 20px; font-weight: 500; line-height: 1.3; padding: 0; }
 .home .clim-row h3 { font-size: 20px; font-weight: 500; line-height: 1.3; }
@@ -1771,7 +1769,7 @@ h3 { font-weight: 500; letter-spacing: -.015em; }
 /* песочница, вариант В: карточка категории в ленте моделей */
 .mixc-rows { display: grid; gap: 48px; }
 .mixc-row { min-width: 0; }
-.mixc-rows:not(.is-heads) .mixc-row + .mixc-row { padding-top: 48px; border-top: 1px solid var(--interlace); }
+.mixc-rows:not(.is-heads) .mixc-row + .mixc-row { padding-top: 48px; }
 .mixc-sep { margin-bottom: 24px; font-size: 28px; font-weight: 700; line-height: 1.2; }
 .products.mixc-track { --c: calc((100% - 72px) / 4.5); margin: 0; display: flex; gap: 24px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
 .mixc-track::-webkit-scrollbar { display: none; }
@@ -2014,7 +2012,7 @@ html[lang="en"] .team-card.ru-only { display: none; }
 .cz-req .final-side { align-items: flex-start; min-height: 0; }
 .cz-req .final-side-in h2 { font-weight: 700; }
 .cz-step { border: 0; padding: 0; margin: 0 0 40px; min-width: 0; }
-.cz-step + .cz-step { padding-top: 40px; border-top: 1px solid var(--interlace); }
+.cz-step + .cz-step { padding-top: 40px; }
 .cz-step legend { display: flex; align-items: baseline; gap: 16px; padding: 0; margin-bottom: 24px; font-size: 20px; font-weight: 500; line-height: 1.3; color: var(--graphite); }
 .cz-step legend .n { font-size: 20px; font-weight: 500; color: var(--blue); font-variant-numeric: tabular-nums; }
 .cz-base { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 8px; margin-bottom: 24px; }
