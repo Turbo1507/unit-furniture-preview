@@ -57,6 +57,8 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+/* свайп у края ленты не тащит страницу и не листает назад в Telegram */
+.mixb-track, .mixc-track, .mat-strip, .co-grid, #projGrid, .pp-track, .pp-thumbs, .sl-track { overscroll-behavior-x: contain; }
 a, button, label, summary { -webkit-tap-highlight-color: transparent; }
 /* кнопки и поля не наследуют шрифт сами, браузер ставит Arial */
 button, input, select, textarea { font-family: inherit; }
@@ -68,7 +70,7 @@ body {
   background: var(--white);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
-  overflow-x: clip;
+  overflow-x: hidden; overflow-x: clip;
 }
 
 img { display: block; max-width: 100%; }
@@ -108,6 +110,8 @@ h3 { font-size: 20px; font-weight: 600; }
 .site-header.is-transparent {
   background: transparent; border-bottom-color: transparent;
 }
+/* в Telegram и Safari над шапкой при резинке и сворачивании панели была щель с контентом: тянем заливку вверх */
+.site-header::before { content: ""; position: absolute; left: 0; right: 0; bottom: 100%; height: 100vh; background: inherit; pointer-events: none; }
 .site-header.is-transparent .logo,
 .site-header.is-transparent .nav a,
 .site-header.is-transparent .cart-btn,
@@ -156,10 +160,12 @@ h3 { font-size: 20px; font-weight: 600; }
   transition: background .3s var(--ease), color .3s var(--ease), border-color .3s var(--ease);
 }
 .btn-blue { background: var(--blue); color: var(--white); }
-.btn-blue:hover { background: var(--graphite); }
-.btn-line { border-color: var(--graphite); color: var(--graphite); background: transparent; }
+.btn-line { border-color: var(--white); color: var(--graphite); background: var(--white); }
+/* белая кнопка на белом не видна, там остаётся рамка */
+.btn-line.on-white { border-color: var(--graphite); background: transparent; }
 @media (hover: hover) {
-  .btn-line:hover { background: var(--blue); border-color: var(--blue); color: var(--white); }
+  .btn-blue:hover { background: transparent; border-color: var(--blue); color: var(--blue); }
+  .btn-line:hover { background: transparent; border-color: var(--graphite); color: var(--graphite); }
 }
 
 /* ---------- hero: карусель из нескольких интерьеров, текст у нижнего края (реф) ---------- */
@@ -2049,6 +2055,7 @@ html[lang="en"] .team-card.ru-only { display: none; }
   .nav-cta .btn { flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; padding: 0 12px; font-size: 15px; }
   .nav-cta .btn-wa { border: 1px solid var(--blue); color: var(--white) !important; background: var(--blue); }
   .nav-cta .btn-blue { color: var(--white) !important; }
+  @media (hover: hover) { .nav-cta .btn-blue:hover { color: var(--blue) !important; } }
   .nav-cta .btn-wa svg { width: 18px; height: 18px; flex: none; }
   .nav .nav-cta a { padding: 0 12px; font-size: 15px; }
 }
@@ -2059,7 +2066,7 @@ html[lang="en"] .team-card.ru-only { display: none; }
 .form .phone-row .csel-btn, .final-form .phone-row .csel-btn { min-width: 0; width: 100%; }
 .phone-row input { flex: 1; min-width: 0; }
 .phone-row .csel-label { white-space: nowrap; }
-.csel-list.has-search { width: 320px; max-width: calc(100vw - 40px); padding: 8px; }
+.csel-list.has-search { width: 320px; max-width: calc(100vw - 48px); padding: 8px; }
 .csel-search { display: block; width: 100%; height: 44px; margin: 0 0 8px; padding: 0 12px; border: 1px solid var(--interlace); border-radius: var(--r-sm); background: var(--white); font: inherit; font-size: 16px; color: var(--graphite); }
 .csel-search:focus { outline: none; border-color: var(--blue); }
 .csel-opts { max-height: 264px; overflow-y: auto; margin: 0; padding: 0; list-style: none; overscroll-behavior: contain; }
@@ -2075,7 +2082,12 @@ html[lang="en"] .team-card.ru-only { display: none; }
 
 /* блок 3 главной: на телефоне заголовок есть, подзаголовка нет */
 @media (max-width: 720px) {
-  #featured .feat-h2 { position: static; width: auto; height: auto; margin: 0 0 32px; overflow: visible; clip: auto; white-space: normal; }
+  #featured .feat-h2 { position: static; width: auto; height: auto; margin: 0 0 40px; overflow: visible; clip: auto; white-space: normal; }
+  /* как в Figma 03.6: только ленты с полосами, без фото категорий */
+  #featured .mixb-rows { gap: 32px; }
+  #featured .mixb-row { gap: 0; }
+  #featured .mixb-photo { display: none; }
+  #featured .hero-actions.sect-cta { margin-top: 32px; }
 }
 /* путь изделия на телефоне: второе фото той же высоты, что первое */
 @media (max-width: 1024px) {
@@ -2093,5 +2105,5 @@ html[lang="en"] .team-card.ru-only { display: none; }
   .home .hero-title { font-size: 30px; line-height: 1.08; }
   .home .hero-lead { font-size: 16px; }
   .hero-chip { margin-bottom: 4px; }
-  .home .hero-actions { margin-top: 16px; gap: 12px; }
+  .home .hero .hero-actions { margin-top: 16px; gap: 12px; }
 }
