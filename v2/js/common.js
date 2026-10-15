@@ -151,7 +151,7 @@ function renderCart() {
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 11V8a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v3"/><rect x="3" y="11" width="18" height="6" rx="1.5"/><path d="M4 17v1.5M20 17v1.5"/></svg>
       <h4>${t('cart.empty_t')}</h4>
       <p>${t('cart.empty')}</p>
-      <a class="btn btn-line" href="catalog.html">${t('cart.to_catalog')}</a>
+      <a class="btn btn-line on-white" href="catalog.html">${t('cart.to_catalog')}</a>
     </div>`;
     return;
   }
@@ -637,6 +637,11 @@ function addLeaders() {
 }
 addLeaders();
 /* точки тянутся до текста: перенесённое значение ужимаем до самой длинной строки */
+// в Telegram и Safari resize летит при каждом сворачивании панели, пересчитываем только при смене ширины
+let lastW = innerWidth;
+addEventListener('resize', () => { requestAnimationFrame(() => { lastW = innerWidth; }); });
+function onWidth(fn) { addEventListener('resize', () => { if (innerWidth !== lastW) fn(); }); }
+
 function fitLeaders() {
   document.querySelectorAll('.leaders > li > b, .mt-spec dd').forEach(b => {
     b.style.width = '';
@@ -656,7 +661,7 @@ function fitLeaders() {
   });
 }
 let fitT;
-addEventListener('resize', () => { cancelAnimationFrame(fitT); fitT = requestAnimationFrame(fitLeaders); });
+onWidth(() => { cancelAnimationFrame(fitT); fitT = requestAnimationFrame(fitLeaders); });
 if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitLeaders);
 
 function fitBento() {
@@ -680,7 +685,7 @@ function fitBento() {
     if (ph.length) { ph[0].style.order = 0; ph[ph.length - 1].style.order = n + 1; }
   });
 }
-addEventListener('resize', fitBento);
+onWidth(fitBento);
 document.fonts && document.fonts.ready.then(fitBento);
 fitBento();
 
@@ -926,7 +931,7 @@ initPhotoSliders();
 window.addEventListener('DOMContentLoaded', initDots);
 window.addEventListener('load', rebuildDots);
 let dotsTimer = 0;
-window.addEventListener('resize', () => { clearTimeout(dotsTimer); dotsTimer = setTimeout(rebuildDots, 150); });
+onWidth(() => { clearTimeout(dotsTimer); dotsTimer = setTimeout(rebuildDots, 150); });
 
 /* ссылка с #якорем: после догрузки фото и шрифтов страница могла уехать, ставим блок на место ещё раз */
 if (location.hash.length > 1) {
