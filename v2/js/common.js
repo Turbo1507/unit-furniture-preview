@@ -83,9 +83,11 @@ function plural(n, one, few, many) {
   const m10 = n % 10, m100 = n % 100;
   return m10 === 1 && m100 !== 11 ? one : m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14) ? few : many;
 }
+// бейдж в шапке считает модели, поэтому и тут сначала модели, потом штуки
 function cartCountLabel() {
-  const n = cartLines().reduce((s, l) => s + l.qty, 0);
-  return (document.documentElement.lang === 'en') ? n + (n === 1 ? ' item' : ' items') : n + ' ' + plural(n, 'позиция', 'позиции', 'позиций');
+  const m = reqIds.size, n = cartLines().reduce((s, l) => s + l.qty, 0);
+  if (document.documentElement.lang === 'en') return m + (m === 1 ? ' model' : ' models') + (n > m ? ', ' + n + ' pcs' : '');
+  return m + ' ' + plural(m, 'модель', 'модели', 'моделей') + (n > m ? ', ' + n + ' шт.' : '');
 }
 function toggleRequest(id) {
   reqIds.has(id) ? reqIds.delete(id) : reqIds.add(id);
@@ -112,6 +114,7 @@ function syncAddButtons() {
 }
 function syncRequestUI() {
   syncAddButtons();
+  if (window.__ufPickScope) window.__ufPickScope();
   const reqCountIcon = document.getElementById('reqCountIcon');
   if (reqCountIcon) {
     reqCountIcon.hidden = reqIds.size === 0;
@@ -168,8 +171,8 @@ function renderCart() {
         <div class="cart-item-cat">${escapeHtml(catLabel(p.cat))}</div>
         <div class="cart-item-row">
           <div class="qty" role="group" aria-label="${escapeHtml(t('cart.qty'))}">
-            <button type="button" data-qty="${p.id}" data-d="-1" aria-label="${escapeHtml(t('cart.minus'))}">−</button>
-            <span>${q}</span>
+            <button type="button" data-qty="${p.id}" data-d="-1" aria-label="${escapeHtml(t('cart.minus'))}"${q <= 1 ? ' disabled' : ''}>−</button>
+            <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" value="${q}" data-qin="${p.id}" aria-label="${escapeHtml(t('cart.qty') + ': ' + trName(p.name))}">
             <button type="button" data-qty="${p.id}" data-d="1" aria-label="${escapeHtml(t('cart.plus'))}">+</button>
           </div>
           <button type="button" class="cart-item-del" data-del="${p.id}" aria-label="${escapeHtml(t('p.del.aria') + ': ' + trName(p.name))}">${t('cart.remove')}</button>
@@ -208,10 +211,19 @@ if (cartEl) {
   cartOverlay.addEventListener('click', closeCart);
   cartList.addEventListener('click', e => {
     const qb = e.target.closest('[data-qty]');
-    if (qb) { setQty(qb.dataset.qty, qtyOf(qb.dataset.qty) + Number(qb.dataset.d)); return; }
+    if (qb) { setQty(qb.dataset.qty, Math.max(1, qtyOf(qb.dataset.qty) + Number(qb.dataset.d))); return; }
     const del = e.target.closest('[data-del]');
-    if (del) toggleRequest(del.dataset.del);
+    if (del) removeWithUndo(del.dataset.del);
   });
+  // число можно вписать руками: 60 стульев не надо набирать плюсом
+  cartList.addEventListener('change', e => {
+    const inp = e.target.closest('[data-qin]');
+    if (!inp) return;
+    const n = parseInt(inp.value.replace(/\D/g, ''), 10);
+    setQty(inp.dataset.qin, Math.max(1, Math.min(99, n || 1)));
+  });
+  cartList.addEventListener('keydown', e => { if (e.key === 'Enter' && e.target.closest('[data-qin]')) e.target.blur(); });
+  cartList.addEventListener('focusin', e => { if (e.target.closest('[data-qin]')) e.target.select(); });
   document.getElementById('cartCheckout').addEventListener('click', () => {
     closeCart();
     if (REQUEST_URL.startsWith('#')) {
@@ -259,23 +271,46 @@ function renderProductsInto(el, list, opt) {
   syncAddButtons();
 }
 let toastT;
-function cartToast(on) {
+let toastUndo = null;
+function cartToast(on, undo) {
   let el = document.getElementById('cartToast');
   if (!el) {
     el = document.createElement('div');
     el.id = 'cartToast'; el.className = 'cart-toast'; el.setAttribute('role', 'status');
     document.body.appendChild(el);
-    el.addEventListener('click', e => { if (e.target.closest('button')) { el.classList.remove('show'); openCart(); } });
+    el.addEventListener('click', e => {
+      const b = e.target.closest('button'); if (!b) return;
+      el.classList.remove('show');
+      if (b.dataset.undo && toastUndo) { toastUndo(); toastUndo = null; } else openCart();
+    });
   }
-  el.innerHTML = `<span>${t(on ? 'cart.added' : 'cart.removed')}: ${reqIds.size}</span><button type="button">${t('cart.open')}</button>`;
+  toastUndo = undo || null;
+  el.innerHTML = undo
+    ? `<span>${t('cart.removed')}</span><button type="button" data-undo="1">${t('cart.undo')}</button>`
+    : `<span>${t(on ? 'cart.added' : 'cart.removed')}: ${reqIds.size}</span><button type="button">${t('cart.open')}</button>`;
   el.classList.add('show');
   clearTimeout(toastT);
   toastT = setTimeout(() => el.classList.remove('show'), 4000);
 }
 document.addEventListener('click', e => {
   const add = e.target.closest('.p-add');
-  if (add) { e.preventDefault(); e.stopPropagation(); toggleRequest(add.dataset.add); cartToast(reqIds.has(add.dataset.add)); }
+  if (add) {
+    e.preventDefault(); e.stopPropagation();
+    if (reqIds.has(add.dataset.add)) removeWithUndo(add.dataset.add);
+    else { toggleRequest(add.dataset.add); cartToast(true); }
+  }
 });
+// убрали по ошибке: модель возвращается вместе с количеством и на прежнее место
+function removeWithUndo(id) {
+  const order = [...reqIds], q = qtyOf(id);
+  reqIds.delete(id); persistCart(); syncRequestUI();
+  cartToast(false, () => {
+    const rest = [...reqIds]; reqIds.clear();
+    order.forEach(x => { if (x === id || rest.includes(x)) reqIds.add(x); });
+    rest.forEach(x => reqIds.add(x));
+    reqQty[id] = q; persistCart(); syncRequestUI();
+  });
+}
 
 /* ---------- scroll progress ---------- */
 const bar = document.getElementById('scrollBar');
@@ -341,6 +376,7 @@ if (burger && nav) {
     }
   });
   nav.addEventListener('click', e => { if (e.target.closest('a')) closeNav(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && nav.classList.contains('open')) { closeNav(); burger.focus(); } });
 }
 
 /* подсветка текущего раздела в меню */
@@ -539,6 +575,12 @@ document.querySelectorAll('.lang-switch').forEach(sw => {
 })();
 syncRequestUI();
 
+(() => {
+  const q = new URLSearchParams(location.search), u = {};
+  ['utm_campaign', 'utm_content'].forEach(k => { if (q.get(k)) u[k] = q.get(k); });
+  if (Object.keys(u).length) try { sessionStorage.setItem('uf_utm', JSON.stringify(u)); } catch (e) {}
+})();
+
 /* ---------- форма заявки (index + contacts) ---------- */
 const form = document.getElementById('leadForm');
 if (form) {
@@ -555,11 +597,31 @@ if (form) {
   }
   const scopeSel = document.getElementById('fScope');
   const bulkNote = document.getElementById('bulkNote');
-  if (scopeSel && bulkNote) {
-    const syncBulkNote = () => { bulkNote.hidden = scopeSel.value !== scopeSel.options[scopeSel.options.length - 1].value; };
-    scopeSel.addEventListener('change', syncBulkNote);
+  const syncBulkNote = () => { if (scopeSel && bulkNote) bulkNote.hidden = scopeSel.value !== scopeSel.options[scopeSel.options.length - 1].value; };
+  if (scopeSel) {
+    scopeSel.addEventListener('change', e => { if (e.isTrusted) scopeSel.dataset.touched = '1'; syncBulkNote(); });
     syncBulkNote();
   }
+  if (fTopic) fTopic.addEventListener('change', e => { if (e.isTrusted) fTopic.dataset.touched = '1'; });
+  // объём и «что подобрать» берём из корзины, пока человек сам их не выбрал
+  window.__ufPickScope = () => {
+    const lines = cartLines();
+    if (!lines.length) return;
+    const total = lines.reduce((a, l) => a + l.qty, 0);
+    const pick = (sel, key) => {
+      const o = sel.querySelector('option[data-i18n="' + key + '"]');
+      if (!o || o.selected) return;
+      o.selected = true;
+      const w = sel.closest('.csel'); if (w && w._render) w._render();
+    };
+    if (scopeSel && !scopeSel.dataset.touched) {
+      pick(scopeSel, total >= 20 ? 'f.sc.bulk' : lines.length === 1 && total === 1 ? 'f.sc.item' : 'f.sc.zone');
+      syncBulkNote();
+    }
+    const cats = [...new Set(lines.map(l => l.cat))];
+    if (fTopic && !fTopic.dataset.touched && window.CAT_LABEL_KEY) pick(fTopic, cats.length === 1 && window.CAT_LABEL_KEY[cats[0]] ? window.CAT_LABEL_KEY[cats[0]] : 'opt.all');
+  };
+  window.__ufPickScope();
   const dl = document.getElementById('fDeadline');
   if (dl) { const d = new Date(); d.setMinutes(d.getMinutes() - d.getTimezoneOffset()); dl.min = d.toISOString().slice(0, 10); }
   const setErr = (f, bad) => {
@@ -590,24 +652,94 @@ if (form) {
     if (dl && dl.value && dl.value < dl.min) { dl.value = dl.min; }
     setErr(agree, !agree.checked); if (!agree.checked) bad.push(agree);
     if (bad.length) { bad[0].focus(); return; }
-    const items = form.querySelector('[name="items"]');
-    if (items) items.value = cartText();
-    const fd = new FormData(form);
-    const lead = { items: cartLines(), page: location.pathname.split('/').pop() || 'index.html', lang: document.documentElement.lang };
-    // галочки «что меняем» и файлы приходят несколькими значениями под одним именем
-    fd.forEach((v, k) => {
-      if (k === 'items' || k === 'cc') return;
-      v = typeof v === 'string' ? v.trim() : (v && v.name) || '';
-      if (!v) return;
-      lead[k] = k in lead ? [].concat(lead[k], v) : v;
-    });
-    const cc = document.getElementById('fCc');
-    if (cc && lead.phone) lead.phone = '+' + cc.value + ' ' + lead.phone;
-    window.__ufLead = lead;
-    /* TODO: отправка в бот через unitdeveloper.com (как форма Спейса), включить после «да» */
-    form.querySelector('.btn-submit').disabled = true;
-    document.getElementById('formDone').hidden = false;
+    if (sending) return;
+    const btn = form.querySelector('.btn-submit');
+    const fd = buildLead();
+    // запрос на кастомизацию корзину не забирает, поэтому и не чистит её
+    const n = form.querySelector('[name="kind"][value="custom"]') ? 0 : cartLines().length;
+    sending = true; btn.disabled = true; btn.textContent = t('f.sending'); sendErr.hidden = true;
+    fetch(LEAD_URL, { method: 'POST', body: fd })
+      .then(r => r.json().catch(() => ({})).then(j => { if (!r.ok || !j.ok) throw new Error(j.error || r.status); }))
+      .then(() => showFormOk(n))
+      .catch(() => { sendErr.hidden = false; })
+      .finally(() => { sending = false; btn.disabled = false; btn.textContent = t('f.submit'); });
   });
+  const LEAD_URL = 'https://unitdeveloper.com/wp-json/unit/v1/furniture-lead';
+  let sending = false;
+  const sendErr = document.createElement('p');
+  sendErr.className = 'f-send-err'; sendErr.setAttribute('role', 'alert'); sendErr.hidden = true;
+  sendErr.dataset.i18n = 'f.err.send'; sendErr.textContent = t('f.err.send');
+  form.querySelector('.btn-submit').after(sendErr);
+  // ловушка для ботов: человек её не видит и не заполняет
+  const trap = document.createElement('input');
+  trap.type = 'text'; trap.name = 'website'; trap.tabIndex = -1; trap.autocomplete = 'off';
+  // в обёртке: правила полей формы растягивают сам input на всю ширину
+  const trapBox = document.createElement('div');
+  trapBox.className = 'vh'; trapBox.setAttribute('aria-hidden', 'true');
+  trapBox.appendChild(trap); form.appendChild(trapBox);
+  // в группу заявка уходит по-русски, на каком бы языке ни заполняли
+  const ru = el => { const k = el && el.dataset.i18n; return (k && window.I18N && window.I18N.ru[k]) || (el ? el.textContent.trim() : ''); };
+  const val = id => { const el = document.getElementById(id); return el ? el.value.trim() : ''; };
+  const opt = id => { const el = document.getElementById(id); return el && el.selectedIndex >= 0 ? ru(el.options[el.selectedIndex]) : ''; };
+  function buildLead() {
+    const fd = new FormData();
+    const custom = !!form.querySelector('[name="kind"][value="custom"]');
+    const cc = document.getElementById('fCc');
+    fd.append('kind', custom ? 'custom' : 'order');
+    fd.append('name', val('fName'));
+    fd.append('phone', (cc ? '+' + cc.value + ' ' : '') + val('fPhone'));
+    fd.append('email', val('fEmail'));
+    fd.append('message', val('fMsg') || (form.querySelector('textarea') ? form.querySelector('textarea').value.trim() : ''));
+    fd.append('lang', document.documentElement.lang === 'en' ? 'EN' : 'RU');
+    fd.append('page', location.href.split('#')[0]);
+    fd.append('website', trap.value);
+    const q = new URLSearchParams(location.search);
+    let utm = {};
+    try { utm = JSON.parse(sessionStorage.getItem('uf_utm') || '{}'); } catch (e) {}
+    ['utm_campaign', 'utm_content'].forEach(k => fd.append(k, q.get(k) || utm[k] || ''));
+    fd.append('object', opt('fObject'));
+    if (custom) {
+      const idea = (form.querySelector('[name="base"]:checked') || {}).value === 'idea';
+      const m = document.getElementById('fModel');
+      fd.append('base', idea ? 'Своя идея по референсу' : 'Модель: ' + (m && m.value ? m.options[m.selectedIndex].textContent.trim() : 'не выбрана'));
+      fd.append('changes', [...form.querySelectorAll('[name="change"]:checked')].map(c => ru(c.parentElement.querySelector('[data-i18n]'))).join(', '));
+      const d = ['length', 'width', 'height'].map(k => { const el = form.querySelector('[name="' + k + '"]'); return el ? el.value.trim() : ''; });
+      fd.append('dims', d.some(Boolean) ? d.map(x => x || '?').join(' × ') : '');
+      fd.append('link', (form.querySelector('[name="link"]') || {}).value || '');
+      const files = document.getElementById('fFile');
+      if (files) [...files.files].slice(0, 5).forEach(f => fd.append('file[]', f, f.name));
+    } else {
+      fd.append('items', cartText());
+      fd.append('topic', opt('fTopic'));
+      fd.append('scope', opt('fScope'));
+      fd.append('deadline', val('fDeadline'));
+    }
+    return fd;
+  }
+  // после заявки форма пустая, корзина чистая, а на её месте понятный экран «что дальше»
+  function showFormOk(n) {
+    let ok = document.getElementById('formOk');
+    if (!ok) {
+      ok = document.createElement('div');
+      ok.id = 'formOk'; ok.className = 'form-ok'; ok.tabIndex = -1; ok.setAttribute('role', 'status');
+      form.after(ok);
+      ok.addEventListener('click', e => {
+        if (!e.target.closest('[data-again]')) return;
+        ok.hidden = true; form.hidden = false;
+        const first = form.querySelector('input:not([type=hidden]):not([type=radio]):not([type=checkbox])'); if (first) first.focus();
+      });
+    }
+    ok.innerHTML = `<h3>${t('f.ok.t')}</h3><p>${t(n ? 'f.ok.items' : 'f.ok.p')}</p>
+      <div class="form-ok-actions"><a class="btn btn-blue" href="catalog.html">${t('f.ok.catalog')}</a><button type="button" class="btn btn-line on-white" data-again="1">${t('f.ok.again')}</button></div>`;
+    form.reset();
+    form.querySelectorAll('.err').forEach(x => setErr(x, false));
+    refreshCustomSelectLabels();
+    form.querySelectorAll('[name="base"]:checked').forEach(r => r.dispatchEvent(new Event('change', { bubbles: true })));
+    if (n) { reqIds.clear(); persistCart(); syncRequestUI(); }
+    form.hidden = true; ok.hidden = false;
+    ok.scrollIntoView({ block: 'center', behavior: 'instant' });
+    ok.focus({ preventScroll: true });
+  }
 }
 
 // ссылка вида contacts.html?object=villa сразу выбирает тип объекта в форме

@@ -2,6 +2,8 @@
 
 const params = new URLSearchParams(location.search);
 const product = productById(params.get('id')) || window.PRODUCTS[0];
+// по битой ссылке не подсовываем первую модель: говорим, что её нет, и ведём в каталог
+const missing = !productById(params.get('id'));
 document.querySelectorAll('.pp-custom-link').forEach(a => { a.href = 'customization.html?model=' + product.id + '#form'; });
 
 const ppMain = document.getElementById('ppMain');
@@ -121,3 +123,20 @@ window.__uf_onLangChangePage = function () {
   renderInfo();
   renderProductsInto(document.getElementById('similarGrid'), similar, { studio: true });
 };
+
+if (missing) {
+  const grid = document.querySelector('#product .pp-grid');
+  grid.style.display = 'none';
+  const box = document.createElement('div');
+  box.className = 'pp-missing';
+  grid.after(box);
+  const draw = () => {
+    box.innerHTML = `<h1>${t('pp.missing.t')}</h1><p>${t('pp.missing.p')}</p><a class="btn btn-blue" href="catalog.html">${t('pp.missing.cta')}</a>`;
+    document.title = t('pp.missing.t') + ' | UNIT.FURNITURE';
+    const c = document.getElementById('crumbs'); if (c) c.style.display = 'none';
+  };
+  draw();
+  const prev = window.__uf_onLangChangePage;
+  window.__uf_onLangChangePage = function () { prev(); draw(); };
+  const m = document.createElement('meta'); m.name = 'robots'; m.content = 'noindex'; document.head.appendChild(m);
+}
