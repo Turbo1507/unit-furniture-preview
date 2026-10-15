@@ -642,7 +642,7 @@ h3 { font-size: 20px; font-weight: 600; }
 .cart.open { transform: translateX(0); }
 .cart-head {
   display: flex; align-items: center; justify-content: space-between;
-  padding: 24px 24px 20px; border-bottom: 1px solid var(--stone);
+  padding: 24px 24px 20px;
 }
 .cart-head h3 { font-size: 20px; }
 .cart-count { margin-top: 4px; font-size: 14px; color: rgba(58,58,58,.64); }
@@ -677,7 +677,7 @@ h3 { font-size: 20px; font-weight: 600; }
 .cart-empty p { max-width: 280px; font-size: 15px; line-height: 1.5; color: rgba(58,58,58,.8); }
 .cart-empty .btn { margin-top: 16px; }
 .cart.is-empty .cart-foot { display: none; }
-.cart-foot { padding: 20px 24px 24px; border-top: 1px solid var(--stone); }
+.cart-foot { padding: 20px 24px 24px; }
 .cart-foot p { font-size: 13px; font-weight: 400; margin-bottom: 14px; color: rgba(58,58,58,.8); }
 .cart-foot .btn { width: 100%; text-align: center; border: 0; }
 
