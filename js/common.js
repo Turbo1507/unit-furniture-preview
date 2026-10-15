@@ -293,13 +293,27 @@ if (bar) {
   }, { passive: true });
 }
 
-/* ---------- reveal on scroll ---------- */
-const io = new IntersectionObserver(entries => {
-  entries.forEach(en => {
-    if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+/* ---------- reveal on scroll ----------
+   Блоки секций (кроме хиро) плавно поднимаются при прокрутке. Что уже на экране
+   при загрузке, не прячем; элементы со своим transform не трогаем. */
+if (!QA && 'IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(en => {
+      if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+    });
+  }, { rootMargin: '0px 0px -8% 0px' });
+  const vh = window.innerHeight;
+  document.querySelectorAll('section.section > .container, section.band > .container').forEach(box => {
+    let i = 0;
+    [...box.children].forEach(el => {
+      if (el.getBoundingClientRect().top < vh || getComputedStyle(el).transform !== 'none') return;
+      el.classList.add('reveal');
+      el.style.transitionDelay = Math.min(i++, 3) * 80 + 'ms';
+      io.observe(el);
+    });
   });
-}, { threshold: 0.12 });
-document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  document.documentElement.classList.add('rv');
+}
 
 /* ---------- burger ---------- */
 const burger = document.getElementById('burger');
