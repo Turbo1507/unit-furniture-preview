@@ -114,7 +114,6 @@ function syncAddButtons() {
 }
 function syncRequestUI() {
   syncAddButtons();
-  if (window.__ufPickScope) window.__ufPickScope();
   const reqCountIcon = document.getElementById('reqCountIcon');
   if (reqCountIcon) {
     reqCountIcon.hidden = reqIds.size === 0;
@@ -502,6 +501,7 @@ function fillCountrySelect() {
     o.dataset.label = r[k] + ' +' + r[3];
     o.dataset.search = (r[1] + ' ' + r[2] + ' ' + r[0] + ' ' + r[3]).toLowerCase();
     o.selected = r[0] === prev;
+    o.defaultSelected = r[0] === 'ID'; // после сброса формы снова Индонезия, а не первая страна списка
     s.appendChild(o);
   });
 }
@@ -586,46 +586,6 @@ syncRequestUI();
 /* ---------- форма заявки (index + contacts) ---------- */
 const form = document.getElementById('leadForm');
 if (form) {
-  /* подстановка «Что нужно подобрать» из последней модели, положенной в корзину на странице товара */
-  const fTopic = document.getElementById('fTopic');
-  if (fTopic) {
-    let lastCat = null;
-    try { lastCat = localStorage.getItem('uf_last_topic'); } catch (e) {}
-    if (lastCat && window.CAT_LABEL_KEY && window.CAT_LABEL_KEY[lastCat]) {
-      const opt = fTopic.querySelector(`[data-i18n="${window.CAT_LABEL_KEY[lastCat]}"]`);
-      if (opt) opt.selected = true;
-      try { localStorage.removeItem('uf_last_topic'); } catch (e) {}
-    }
-  }
-  const scopeSel = document.getElementById('fScope');
-  const bulkNote = document.getElementById('bulkNote');
-  const syncBulkNote = () => { if (scopeSel && bulkNote) bulkNote.hidden = scopeSel.value !== scopeSel.options[scopeSel.options.length - 1].value; };
-  if (scopeSel) {
-    scopeSel.addEventListener('change', e => { if (e.isTrusted) scopeSel.dataset.touched = '1'; syncBulkNote(); });
-    syncBulkNote();
-  }
-  if (fTopic) fTopic.addEventListener('change', e => { if (e.isTrusted) fTopic.dataset.touched = '1'; });
-  // объём и «что подобрать» берём из корзины, пока человек сам их не выбрал
-  window.__ufPickScope = () => {
-    const lines = cartLines();
-    if (!lines.length) return;
-    const total = lines.reduce((a, l) => a + l.qty, 0);
-    const pick = (sel, key) => {
-      const o = sel.querySelector('option[data-i18n="' + key + '"]');
-      if (!o || o.selected) return;
-      o.selected = true;
-      const w = sel.closest('.csel'); if (w && w._render) w._render();
-    };
-    if (scopeSel && !scopeSel.dataset.touched) {
-      pick(scopeSel, total >= 20 ? 'f.sc.bulk' : lines.length === 1 && total === 1 ? 'f.sc.item' : 'f.sc.zone');
-      syncBulkNote();
-    }
-    const cats = [...new Set(lines.map(l => l.cat))];
-    if (fTopic && !fTopic.dataset.touched && window.CAT_LABEL_KEY) pick(fTopic, cats.length === 1 && window.CAT_LABEL_KEY[cats[0]] ? window.CAT_LABEL_KEY[cats[0]] : 'opt.all');
-  };
-  window.__ufPickScope();
-  const dl = document.getElementById('fDeadline');
-  if (dl) { const d = new Date(); d.setMinutes(d.getMinutes() - d.getTimezoneOffset()); dl.min = d.toISOString().slice(0, 10); }
   const setErr = (f, bad) => {
     f.classList.toggle('err', bad);
     f.setAttribute('aria-invalid', bad ? 'true' : 'false');
@@ -639,7 +599,6 @@ if (form) {
     e.preventDefault();
     const name = document.getElementById('fName');
     const phone = document.getElementById('fPhone');
-    const email = document.getElementById('fEmail');
     const agree = document.getElementById('fAgree');
     const bad = [];
     { const b = !name.value.trim(); setErr(name, b); if (b) bad.push(name); }
@@ -650,8 +609,6 @@ if (form) {
       if (msg) msg.textContent = t(v ? 'f.err.phone2' : 'f.err.phone');
       setErr(phone, !ok); if (!ok) bad.push(phone);
     }
-    if (email) { const b = !!email.value.trim() && !email.checkValidity(); setErr(email, b); if (b) bad.push(email); }
-    if (dl && dl.value && dl.value < dl.min) { dl.value = dl.min; }
     setErr(agree, !agree.checked); if (!agree.checked) bad.push(agree);
     if (bad.length) { bad[0].focus(); return; }
     if (sending) return;
@@ -682,7 +639,6 @@ if (form) {
   // в группу заявка уходит по-русски, на каком бы языке ни заполняли
   const ru = el => { const k = el && el.dataset.i18n; return (k && window.I18N && window.I18N.ru[k]) || (el ? el.textContent.trim() : ''); };
   const val = id => { const el = document.getElementById(id); return el ? el.value.trim() : ''; };
-  const opt = id => { const el = document.getElementById(id); return el && el.selectedIndex >= 0 ? ru(el.options[el.selectedIndex]) : ''; };
   function buildLead() {
     const fd = new FormData();
     const custom = !!form.querySelector('[name="kind"][value="custom"]');
@@ -690,16 +646,13 @@ if (form) {
     fd.append('kind', custom ? 'custom' : 'order');
     fd.append('name', val('fName'));
     fd.append('phone', (cc ? '+' + cc.value + ' ' : '') + val('fPhone'));
-    fd.append('email', val('fEmail'));
     fd.append('message', val('fMsg') || (form.querySelector('textarea') ? form.querySelector('textarea').value.trim() : ''));
     fd.append('lang', document.documentElement.lang === 'en' ? 'EN' : 'RU');
-    fd.append('page', location.href.split('#')[0]);
     fd.append('website', trap.value);
     const q = new URLSearchParams(location.search);
     let utm = {};
     try { utm = JSON.parse(sessionStorage.getItem('uf_utm') || '{}'); } catch (e) {}
     ['utm_campaign', 'utm_content'].forEach(k => fd.append(k, q.get(k) || utm[k] || ''));
-    fd.append('object', opt('fObject'));
     if (custom) {
       const idea = (form.querySelector('[name="base"]:checked') || {}).value === 'idea';
       const m = document.getElementById('fModel');
@@ -712,9 +665,6 @@ if (form) {
       if (files) [...files.files].slice(0, 5).forEach(f => fd.append('file[]', f, f.name));
     } else {
       fd.append('items', cartText());
-      fd.append('topic', opt('fTopic'));
-      fd.append('scope', opt('fScope'));
-      fd.append('deadline', val('fDeadline'));
     }
     return fd;
   }
@@ -744,16 +694,6 @@ if (form) {
   }
 }
 
-// ссылка вида contacts.html?object=villa сразу выбирает тип объекта в форме
-function pickObject(v) {
-  const sel = document.getElementById('fObject');
-  const o = sel && v && sel.querySelector('option[data-i18n="f.o.' + v + '"]');
-  if (!o) return;
-  o.selected = true;
-  const w = sel.closest('.csel'); if (w && w._render) w._render();
-}
-pickObject(new URLSearchParams(location.search).get('object'));
-
 /* заявка на кастомизацию: модель или своя идея, модель из ссылки товара, карточки объектов на этой же странице */
 (() => {
   const f = document.querySelector('.cz-form');
@@ -770,7 +710,6 @@ pickObject(new URLSearchParams(location.search).get('object'));
   sync();
   document.querySelectorAll('a[href^="customization.html?object="]').forEach(a => a.addEventListener('click', e => {
     e.preventDefault();
-    pickObject(new URLSearchParams(a.getAttribute('href').split('?')[1].split('#')[0]).get('object'));
     document.getElementById('form').scrollIntoView({ behavior: 'smooth' });
   }));
 })();

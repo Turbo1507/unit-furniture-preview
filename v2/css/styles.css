@@ -1356,6 +1356,9 @@ a.pill-tag { text-decoration: none; transition: border-color .2s, color .2s; }
 .home .band-in { padding: 96px 40px; }
 .home .final-panel { border: 1px solid var(--interlace); }
 .home .final-side { align-items: flex-start; min-height: 0; }
+/* форма короче фото-колонки: держим её по центру белой карточки, а не пустоту под кнопкой */
+.home .final-panel { background: var(--white); }
+.home .final-form { align-self: center; }
 @media (max-width: 720px) {
   .home .band-in { padding: 56px 20px; }
 }
