@@ -118,14 +118,10 @@ h3 { font-size: 20px; font-weight: 600; }
 .site-header.is-transparent .logo,
 .site-header.is-transparent .nav a,
 .site-header.is-transparent .cart-btn,
-.site-header.is-transparent .lang-mini button {
+.site-header.is-transparent .lang-dd-btn {
   color: var(--white);
 }
-.site-header.is-transparent .cart-btn,
-.site-header.is-transparent .lang-mini {
-  border-color: rgba(255,255,255,.4);
-}
-.site-header.is-transparent .lang-mini button.is-active { background: rgba(255,255,255,.18); color: var(--white); }
+.site-header.is-transparent .cart-btn { border-color: rgba(255,255,255,.4); }
 .site-header.is-transparent .burger span { background: var(--white); }
 .header-in {
   display: flex; align-items: center; justify-content: space-between;
@@ -569,16 +565,6 @@ h3 { font-size: 20px; font-weight: 600; }
 .footer-legal { display: flex; gap: 36px; color: rgba(58,58,58,.8); font-size: 14px; }
 .footer-legal a { color: inherit; text-decoration: none; }
 @media (hover: hover) { .footer-legal a:hover { color: var(--blue); } }
-.footer-col .lang-h { margin-top: 32px; }
-.lang-switch { display: flex; gap: 4px; }
-.lang-switch button {
-  font-family: inherit; font-size: 14px; font-weight: 400;
-  background: transparent; border: 1px solid var(--interlace); border-radius: var(--r-pill);
-  color: rgba(58,58,58,.8); padding: 8px 16px; cursor: pointer;
-  transition: color .2s, border-color .2s, background .2s;
-}
-.lang-switch button.is-active { color: var(--white); background: var(--graphite); border-color: var(--graphite); }
-@media (hover: hover) { .lang-switch button:hover:not(.is-active) { border-color: var(--graphite); color: var(--graphite); } }
 
 /* ---------- quick view ---------- */
 .qv-overlay {
@@ -729,13 +715,32 @@ html.rv .reveal.in { opacity: 1; transform: none; }
 
 /* ---------- шапка: язык + активный пункт ---------- */
 .nav a.is-here { color: var(--blue); }
-.lang-mini { display: flex; gap: 2px; border: 1px solid var(--interlace); border-radius: var(--r-pill); padding: 2px; }
-.lang-mini button {
-  font-family: inherit; font-size: 12px; font-weight: 500;
-  background: transparent; border: 0; border-radius: var(--r-pill);
-  color: rgba(58,58,58,.8); padding: 6px 10px; cursor: pointer;
+/* выбор языка: в закрытом виде код и стрелка, список с родными названиями */
+.lang-dd { position: relative; }
+.lang-dd-btn {
+  display: flex; align-items: center; gap: 4px; height: 44px; padding: 0 8px;
+  font-family: inherit; font-size: 14px; font-weight: 500; color: var(--graphite);
+  background: none; border: 0; border-radius: var(--r-sm); cursor: pointer;
+  transition: color .2s;
 }
-.lang-mini button.is-active { color: var(--white); background: var(--graphite); }
+.lang-dd-btn svg { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 1.5; transition: transform .2s; }
+.lang-dd-btn[aria-expanded="true"] svg { transform: rotate(180deg); }
+.lang-dd-list {
+  position: absolute; top: calc(100% + 8px); right: 0; z-index: 60;
+  min-width: 216px; margin: 0; padding: 8px 0; list-style: none;
+  background: var(--white); border: 1px solid var(--interlace); border-radius: var(--r-sm);
+}
+.lang-dd-list[hidden] { display: none; }
+.lang-dd-list a {
+  display: flex; align-items: center; min-height: 44px; padding: 0 16px;
+  font-size: 15px; font-weight: 400; color: var(--graphite); text-decoration: none; white-space: nowrap;
+}
+.lang-dd-list a[aria-current] { color: var(--blue); font-weight: 500; }
+.lang-dd-list a:focus-visible { outline: 2px solid var(--blue); outline-offset: -2px; }
+@media (hover: hover) {
+  .lang-dd-btn:hover, .lang-dd-list a:hover { color: var(--blue); }
+  .site-header.is-transparent .lang-dd-btn:hover { color: var(--white); opacity: .8; }
+}
 
 /* ---------- герой внутренних страниц ---------- */
 .page-hero { padding: 88px 0 0; }
@@ -1179,7 +1184,6 @@ a.pill-tag { text-decoration: none; transition: border-color .2s, color .2s; }
   .header-in { gap: 10px; }
   .header-in .logo { font-size: 17px; }
   .header-cta { gap: 8px; }
-  .lang-mini button { padding: 5px 8px; font-size: 11px; }
   .cart-btn { width: 40px; height: 40px; }
   .burger { width: 36px; height: 36px; }
   .burger span { margin: 5px 7px; }
@@ -1252,12 +1256,6 @@ a.pill-tag { text-decoration: none; transition: border-color .2s, color .2s; }
 .nav { gap: 24px; margin-right: auto; }
 .nav a { font-size: 14px; font-weight: 500; padding: 12px 0; }
 .header-cta { gap: 8px; }
-.lang-mini { border: 0; padding: 0; gap: 0; }
-.lang-mini button { min-width: 44px; height: 44px; padding: 0; font-size: 14px; font-weight: 500; color: inherit; opacity: .6; border-radius: var(--r-sm); }
-.lang-mini button.is-active { background: none; color: inherit; opacity: 1; }
-.site-header.is-transparent .lang-mini button.is-active { background: none; }
-.header-cta .lang-mini { color: var(--graphite); }
-.site-header.is-transparent .header-cta .lang-mini { color: var(--white); }
 .cart-btn { border: 0; }
 .cart-btn svg { width: 22px; height: 22px; }
 
@@ -1452,10 +1450,8 @@ h1 .u5, h2 .u5, b .u5, strong .u5 { font-weight: inherit; }
 .p-add { width: 44px; height: 44px; }
 .cart-close { width: 44px; height: 44px; }
 .tab { min-height: 44px; }
-#langSwitch button { min-height: 44px; min-width: 52px; }
-.burger, .cart-btn, .lang-mini button, .hero-dots button { position: relative; }
-.burger::after, .cart-btn::after, .lang-mini button::after { content: ''; position: absolute; inset: -4px; }
-.lang-mini button::after { inset: -10px -2px; }
+.burger, .cart-btn, .hero-dots button { position: relative; }
+.burger::after, .cart-btn::after { content: ''; position: absolute; inset: -4px; }
 .hero-dots button::after { content: ''; position: absolute; inset: -9px; }
 
 @media (max-width: 1024px) {
@@ -2141,3 +2137,15 @@ html[lang="en"] .team-card.ru-only { display: none; }
   .hero-chip { margin-bottom: 4px; }
   .home .hero .hero-actions { margin-top: 16px; gap: 12px; }
 }
+
+/* шапка на узком десктопе: длинные пункты на французском и др. не переносим, ужимаем зазоры */
+.nav a, .header-cta .btn { white-space: nowrap; }
+@media (min-width: 1181px) and (max-width: 1360px) {
+  .header-in { gap: 24px; }
+  .nav { gap: 16px; }
+}
+
+/* длинные слова (нидерландский, итальянский, русский): заголовок на 360 чуть мельче, в новых языках перенос по слогам, крайний случай рвём слово, а не выпускаем за край */
+@media (max-width: 400px) { .page-hero h1, .page-hero h1.brand-h1 { font-size: min(36px, 9.4vw); } }
+.final-side h2 { overflow-wrap: break-word; }
+html:not([lang="en"]):not([lang="ru"]) :is(.final-side h2, .cz-tile > span, .cz-tile small) { hyphens: auto; hyphenate-limit-chars: 12 5 5; }

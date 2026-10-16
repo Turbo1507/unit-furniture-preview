@@ -17,7 +17,7 @@ const photos = (() => {
   if (product.img) a.push({ src: product.img });
   const key = (product.img || '').replace(/^.*\/p-|\.jpg$/g, '');
   const SI = window.SHOT_ITEMS || {};
-  Object.keys(SI).forEach(k => { if (SI[k].includes(key)) a.push({ src: 'assets/c26/proj-' + k + '.jpg', life: true }); });
+  Object.keys(SI).forEach(k => { if (SI[k].includes(key)) a.push({ src: UF_ROOT + 'assets/c26/proj-' + k + '.jpg', life: true }); });
   return a;
 })();
 
@@ -52,12 +52,14 @@ function seoProduct() {
   const can = document.querySelector('link[rel="canonical"]');
   if (!can) return;
   const base = can.href.replace(/[^/]*$/, ''), url = base + 'product?id=' + product.id;
-  const abs = src => base + src.replace(/^v2\//, '');
-  const name = trName(product.name);
-  const desc = (catLabel(product.cat) + '. ' + t('d.' + product.cat)).replace(/<[^>]+>/g, '').replace(/\s+/g, ' ');
+  const xd = document.querySelector('link[hreflang="x-default"]');
+  const root = (xd ? xd.href : base).replace(/[^/]*$/, '');
+  const abs = src => root + src.replace(/^(\.\.\/)+/, '').replace(/^v2\//, '');
+  const name = trName(product.name, 'en');
+  const desc = (t(window.CAT_LABEL_KEY[product.cat], 'en') + '. ' + t('d.' + product.cat, 'en')).replace(/<[^>]+>/g, '').replace(/\s+/g, ' ');
   const set = (sel, v) => { const m = document.querySelector(sel); if (m) m.setAttribute(sel.startsWith('link') ? 'href' : 'content', v); };
   can.href = url;
-  set('link[hreflang="ru"]', url); set('link[hreflang="x-default"]', url); set('link[hreflang="en"]', url + '&lang=en');
+  document.querySelectorAll('link[hreflang]').forEach(l => { l.href = l.href.split('?')[0] + '?id=' + product.id; });
   set('meta[name="description"]', desc);
   set('meta[property="og:url"]', url); set('meta[property="og:title"]', name); set('meta[property="og:description"]', desc);
   if (photos.length) set('meta[property="og:image"]', abs(photos[0].src));
@@ -74,7 +76,7 @@ function seoProduct() {
 }
 
 function renderInfo() {
-  document.title = trName(product.name) + ' | UNIT.FURNITURE';
+  document.title = trName(product.name, 'en') + ' | UNIT.FURNITURE';
   ppTrack.querySelectorAll('img').forEach(im => { im.alt = trName(product.name); });
   document.getElementById('crumbs').innerHTML =
     `<a href="index.html">${t('crumb.home')}</a><span>/</span>` +
@@ -131,7 +133,7 @@ if (missing) {
   grid.after(box);
   const draw = () => {
     box.innerHTML = `<h1>${t('pp.missing.t')}</h1><p>${t('pp.missing.p')}</p><a class="btn btn-blue" href="catalog.html">${t('pp.missing.cta')}</a>`;
-    document.title = t('pp.missing.t') + ' | UNIT.FURNITURE';
+    document.title = t('pp.missing.t', 'en') + ' | UNIT.FURNITURE';
     const c = document.getElementById('crumbs'); if (c) c.style.display = 'none';
   };
   draw();

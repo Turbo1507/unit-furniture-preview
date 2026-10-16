@@ -12,11 +12,13 @@ const QA = navigator.webdriver || /[?&]qa=1/.test(location.search);
 if (QA) document.documentElement.classList.add('qa');
 
 /* ---------- i18n helpers ---------- */
-function t(key) {
-  const lang = window.__uf_lang || 'ru';
-  const dict = (window.I18N && window.I18N[lang]) || {};
-  return dict[key] != null ? dict[key] : key;
+function t(key, lang) {
+  lang = lang || window.__uf_lang || document.documentElement.lang || 'en';
+  const I = window.I18N || {};
+  const v = I[lang] && I[lang][key] != null ? I[lang][key] : I.en && I.en[key];
+  return v != null ? v : key;
 }
+const curLang = () => window.__uf_lang || document.documentElement.lang || 'en';
 function catLabel(cat) { return t(window.CAT_LABEL_KEY[cat] || cat); }
 
 /* иконки-заглушки для карточек без готового фото (студийные снимки ещё не сделаны) */
@@ -34,22 +36,25 @@ function catIcon(cat) {
 function photoPlaceholder(cat) {
   return `<div class="p-placeholder">${catIcon(cat)}<span>${t('ph.soon')}</span></div>`;
 }
+// спецификации и суффиксы названий: свой перевод языка, если нет, английский
+const trTable = (T, lang) => (T && (T[lang] || T.en)) || {};
 function trSpecKey(k) {
-  if ((window.__uf_lang || 'ru') === 'ru') return k;
-  return (window.SPEC_TR.keys[k]) || k;
+  const lang = curLang();
+  return lang === 'ru' ? k : trTable(window.SPEC_TR, lang).keys[k] || window.SPEC_TR.en.keys[k] || k;
 }
 function trSpecVal(v) {
-  if ((window.__uf_lang || 'ru') === 'ru') return v;
-  return (window.SPEC_TR.values[v]) || v;
+  const lang = curLang();
+  return lang === 'ru' ? v : trTable(window.SPEC_TR, lang).values[v] || window.SPEC_TR.en.values[v] || v;
 }
 function trDims(d) {
   if (d === '—') return t('p.dims_unknown');
-  return (window.__uf_lang || 'ru') === 'en' ? d.replace(' мм', '\u00a0mm') : d.replace(' мм', '\u00a0мм');
+  return /^(ru|uk)$/.test(curLang()) ? d.replace(' мм', '\u00a0мм') : d.replace(' мм', '\u00a0mm');
 }
-function trName(name) {
-  if ((window.__uf_lang || 'ru') !== 'en') return name;
+function trName(name, lang) {
+  lang = lang || curLang();
+  if (lang === 'ru') return name;
   let out = name;
-  Object.entries(window.NAME_SUFFIX_TR).forEach(([ru, en]) => { out = out.replace(ru, en); });
+  Object.entries(trTable(window.NAME_SUFFIX_TR, lang)).forEach(([ru, tr]) => { out = out.replace(ru, tr); });
   return out;
 }
 function productById(id) { return (window.PRODUCTS || []).find(p => p.id === id); }
@@ -86,8 +91,10 @@ function plural(n, one, few, many) {
 // бейдж в шапке считает модели, поэтому и тут сначала модели, потом штуки
 function cartCountLabel() {
   const m = reqIds.size, n = cartLines().reduce((s, l) => s + l.qty, 0);
-  if (document.documentElement.lang === 'en') return m + (m === 1 ? ' model' : ' models') + (n > m ? ', ' + n + ' pcs' : '');
-  return m + ' ' + plural(m, 'модель', 'модели', 'моделей') + (n > m ? ', ' + n + ' шт.' : '');
+  const lang = curLang();
+  if (lang === 'ru') return m + ' ' + plural(m, 'модель', 'модели', 'моделей') + (n > m ? ', ' + n + ' шт.' : '');
+  const k = 'cnt.model.' + new Intl.PluralRules(lang).select(m);
+  return m + ' ' + (t(k) !== k ? t(k) : t('cnt.model.other')) + (n > m ? ', ' + n + ' ' + t('cnt.pcs') : '');
 }
 function toggleRequest(id) {
   reqIds.has(id) ? reqIds.delete(id) : reqIds.add(id);
@@ -491,14 +498,18 @@ fillModelSelect();
 function fillCountrySelect() {
   const s = document.getElementById('fCc'), rows = window.UF_COUNTRIES;
   if (!s || !rows) return;
-  const lg = window.__uf_lang === 'en' ? 'en' : 'ru', k = lg === 'en' ? 2 : 1;
+  // RU и EN названия из таблицы, остальные языки браузер называет сам
+  const lg = curLang(), k = lg === 'ru' ? 1 : 2;
+  let dn = null;
+  if (lg !== 'ru' && lg !== 'en') try { dn = new Intl.DisplayNames([lg], { type: 'region' }); } catch (e) {}
+  const nm = r => { if (dn) try { return dn.of(r[0]) || r[k]; } catch (e) {} return r[k]; };
   const prev = s.selectedOptions[0] ? s.selectedOptions[0].dataset.iso : 'ID';
   s.innerHTML = '';
-  rows.slice().sort((a, b) => a[k].localeCompare(b[k], lg)).forEach(r => {
+  rows.slice().sort((a, b) => nm(a).localeCompare(nm(b), lg)).forEach(r => {
     const o = document.createElement('option');
     o.value = r[3]; o.textContent = r[0] + ' +' + r[3];
     o.dataset.iso = r[0]; o.dataset.format = r[4] || '';
-    o.dataset.label = r[k] + ' +' + r[3];
+    o.dataset.label = nm(r) + ' +' + r[3];
     o.dataset.search = (r[1] + ' ' + r[2] + ' ' + r[0] + ' ' + r[3]).toLowerCase();
     o.selected = r[0] === prev;
     o.defaultSelected = r[0] === 'ID'; // после сброса формы снова Индонезия, а не первая страна списка
@@ -525,15 +536,6 @@ function initCustomSelects() { document.querySelectorAll('.filters select, .form
 function refreshCustomSelectLabels() { document.querySelectorAll('.csel').forEach(w => w._render && w._render()); }
 initCustomSelects();
 
-/* ---------- ссылки на юр.страницы: открывать на текущем языке сайта ---------- */
-function syncLegalLinks() {
-  const lang = window.__uf_lang || 'ru';
-  document.querySelectorAll('a[href^="consent.html"], a[href^="legal.html"]').forEach(a => {
-    const [path, hash] = a.getAttribute('href').split('#');
-    const file = path.split('?')[0];
-    a.setAttribute('href', `${file}?lang=${lang}${hash ? '#' + hash : ''}`);
-  });
-}
 
 /* ---------- кастомная кнопка загрузки файла: браузер не переводит "Выбрать файлы" по lang сайта ---------- */
 function refreshFileLabel() {
@@ -546,10 +548,9 @@ function refreshFileLabel() {
 document.getElementById('fFile') && document.getElementById('fFile').addEventListener('change', refreshFileLabel);
 refreshFileLabel();
 
-/* ---------- language switch (шапка + футер) ---------- */
+/* ---------- язык: у каждого свой адрес, выбор в куки ---------- */
 window.__uf_onLangChange = function () {
   syncRequestUI();
-  syncLegalLinks();
   fillModelSelect();
   fillCountrySelect();
   refreshCustomSelectLabels();
@@ -560,21 +561,36 @@ window.__uf_onLangChange = function () {
   initDots();
   rebuildDots();
 };
-document.querySelectorAll('.lang-switch').forEach(sw => {
-  sw.addEventListener('click', e => {
-    const b = e.target.closest('[data-lang]');
-    if (b) window.setLang(b.dataset.lang);
+(function langMenu() {
+  const dd = document.querySelector('.lang-dd');
+  if (!dd) return;
+  const btn = dd.querySelector('.lang-dd-btn'), list = dd.querySelector('.lang-dd-list');
+  const links = [...list.querySelectorAll('a')];
+  const open = (on, kbd) => {
+    btn.setAttribute('aria-expanded', on ? 'true' : 'false'); list.hidden = !on;
+    if (on && kbd) (list.querySelector('[aria-current]') || links[0]).focus();
+  };
+  // фокус в список только с клавиатуры, иначе после клика мышью висит обводка
+  btn.addEventListener('click', e => open(list.hidden, e.detail === 0));
+  document.addEventListener('click', e => { if (!list.hidden && !dd.contains(e.target)) open(false); });
+  dd.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && !list.hidden) { open(false); btn.focus(); return; }
+    if (e.key === 'ArrowDown' && list.hidden && e.target === btn) { e.preventDefault(); open(true, true); return; }
+    const i = links.indexOf(document.activeElement);
+    if (i < 0) return;
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); links[(i + (e.key === 'ArrowDown' ? 1 : links.length - 1)) % links.length].focus(); }
+    if (e.key === 'Home' || e.key === 'End') { e.preventDefault(); links[e.key === 'Home' ? 0 : links.length - 1].focus(); }
   });
-});
-(function initLang() {
-  let saved = 'ru';
-  try { saved = localStorage.getItem('uf_lang') || 'ru'; } catch (e) {}
-  // прошлая версия на этом адресе хранила язык в кавычках ("ru"), без чистки словарь не находится
-  saved = String(saved).replace(/"/g, '');
-  if (saved !== 'en') saved = 'ru';
-  const urlLang = new URLSearchParams(location.search).get('lang');
-  window.setLang(urlLang === 'en' || urlLang === 'ru' ? urlLang : saved);
+  // выбор запоминаем на год, параметры адреса и якорь переносим на ту же страницу другого языка
+  list.addEventListener('click', e => {
+    const a = e.target.closest('a[hreflang]');
+    if (!a) return;
+    document.cookie = 'uf_lang=' + a.hreflang + '; path=/; max-age=31536000; SameSite=Lax';
+    const q = location.search.replace(/([?&])lang=[a-z]{2}(&|$)/, '$1').replace(/[?&]$/, '');
+    a.href = a.href.split(/[?#]/)[0] + q + location.hash;
+  });
 })();
+window.setLang(document.documentElement.lang || 'en');
 syncRequestUI();
 
 (() => {
@@ -647,7 +663,7 @@ if (form) {
     fd.append('name', val('fName'));
     fd.append('phone', (cc ? '+' + cc.value + ' ' : '') + val('fPhone'));
     fd.append('message', val('fMsg') || (form.querySelector('textarea') ? form.querySelector('textarea').value.trim() : ''));
-    fd.append('lang', document.documentElement.lang === 'en' ? 'EN' : 'RU');
+    fd.append('lang', (document.documentElement.lang || 'en').toUpperCase());
     fd.append('website', trap.value);
     const q = new URLSearchParams(location.search);
     let utm = {};
@@ -762,13 +778,16 @@ function fitBento() {
     ul.querySelectorAll('.cz-photo').forEach(p => { p.style.order = ''; });
     if (!matchMedia('(max-width: 720px)').matches) return;
     const lines = tiles.map(t => { const s = t.lastElementChild; return Math.round(s.getBoundingClientRect().height / parseFloat(getComputedStyle(s).lineHeight)); });
+    // слово длиннее половины ширины (бывает в нидерландском и др.) — такую плитку ставим на всю ширину
+    const long = tiles.map(t => [t.lastElementChild, ...t.lastElementChild.children].some(s => s.scrollWidth > s.clientWidth + 1));
     // пару берём ближайшую дальше по списку, порядок меняем через order; фото коллажа остаются первым и последним
     const used = new Set();
     let n = 0;
     tiles.forEach((t, i) => {
       if (used.has(i)) return;
       used.add(i); t.style.order = ++n;
-      const j = tiles.findIndex((u, k) => k > i && !used.has(k) && lines[k] === lines[i]);
+      if (long[i]) { t.classList.add('m-full'); return; }
+      const j = tiles.findIndex((u, k) => k > i && !used.has(k) && !long[k] && lines[k] === lines[i]);
       if (j < 0) { t.classList.add('m-full'); return; }
       used.add(j); tiles[j].style.order = ++n;
     });
@@ -782,9 +801,9 @@ fitBento();
 
 /* ---------- направления + ряды моделей (главная, mix.html) ---------- */
 const MIX_ROWS = [
-  { dir: 1, img: 'assets/n/dir-home.jpg', href: 'catalog.html', ids: ['sofaAna', 'bed3', 'sofaObs', 'ch7', 'bed1', 'ch8', 'sofaA', 'ch4'] },
-  { dir: 2, rev: true, img: 'assets/n/dir-outdoor.jpg', href: 'catalog.html?env=outdoor', ids: ['out4', 'out5', 'out3', 'out1', 'out2', 'pilOut'] },
-  { dir: 3, img: 'assets/n/dir-commercial.jpg', href: 'catalog.html?cat=commercial', ids: ['sofaRec', 'ch6', 'ch1', 'ch2', 'ch3', 'ch9', 'ch5'] },
+  { dir: 1, img: UF_ROOT + 'assets/n/dir-home.jpg', href: 'catalog.html', ids: ['sofaAna', 'bed3', 'sofaObs', 'ch7', 'bed1', 'ch8', 'sofaA', 'ch4'] },
+  { dir: 2, rev: true, img: UF_ROOT + 'assets/n/dir-outdoor.jpg', href: 'catalog.html?env=outdoor', ids: ['out4', 'out5', 'out3', 'out1', 'out2', 'pilOut'] },
+  { dir: 3, img: UF_ROOT + 'assets/n/dir-commercial.jpg', href: 'catalog.html?cat=commercial', ids: ['sofaRec', 'ch6', 'ch1', 'ch2', 'ch3', 'ch9', 'ch5'] },
 ];
 const mixCards = (ids, n) => ids.map(productById).filter(Boolean).slice(0, n).map(p => productCard(p, { studio: true })).join('');
 

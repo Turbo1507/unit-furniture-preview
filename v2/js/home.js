@@ -31,7 +31,7 @@ if (heroSlides.length > 1 && heroDots) {
     heroSlides.forEach((s, si) => s.classList.toggle('on', si === i));
     heroDots.querySelectorAll('button').forEach((b, bi) => { b.classList.toggle('on', bi === i); b.setAttribute('aria-current', bi === i ? 'true' : 'false'); });
     const key = heroSlides[i].dataset.cap;
-    const dict = window.I18N && window.I18N[window.__uf_lang || 'ru'];
+    const dict = { [key]: t(key) };
     if (heroCap && key && dict && dict[key]) { heroCap.setAttribute('data-i18n', key); heroCap.innerHTML = dict[key]; }
   }
   heroDots.addEventListener('click', e => {
