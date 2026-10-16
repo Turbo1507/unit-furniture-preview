@@ -51,7 +51,7 @@ if (photos.length) {
 function seoProduct() {
   const can = document.querySelector('link[rel="canonical"]');
   if (!can) return;
-  const base = can.href.replace(/[^/]*$/, ''), url = base + 'product.html?id=' + product.id;
+  const base = can.href.replace(/[^/]*$/, ''), url = base + 'product?id=' + product.id;
   const abs = src => base + src.replace(/^v2\//, '');
   const name = trName(product.name);
   const desc = (catLabel(product.cat) + '. ' + t('d.' + product.cat)).replace(/<[^>]+>/g, '').replace(/\s+/g, ' ');
@@ -68,8 +68,8 @@ function seoProduct() {
       brand: { '@type': 'Brand', name: 'UNIT.FURNITURE' }, manufacturer: { '@id': base + '#org' } },
     { '@type': 'BreadcrumbList', itemListElement: [
       { '@type': 'ListItem', position: 1, name: t('crumb.home'), item: base },
-      { '@type': 'ListItem', position: 2, name: t('nav.catalog'), item: base + 'catalog.html' },
-      { '@type': 'ListItem', position: 3, name: catLabel(product.cat), item: base + 'catalog.html?cat=' + product.cat },
+      { '@type': 'ListItem', position: 2, name: t('nav.catalog'), item: base + 'catalog' },
+      { '@type': 'ListItem', position: 3, name: catLabel(product.cat), item: base + 'catalog?cat=' + product.cat },
       { '@type': 'ListItem', position: 4, name, item: url }] }] });
 }
 

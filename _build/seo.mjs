@@ -9,7 +9,7 @@ import { fileURLToPath } from 'url';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..') + '/';
 const SITE = (process.argv[2] || 'https://turbo1507.github.io/unit-furniture-preview/v2/').replace(/\/?$/, '/');
 const OG = SITE + 'og.jpg';
-const PHONE = '+62 811 3960 0008', MAIL = 'info@unitdeveloper.com', IG = 'https://www.instagram.com/unit.developer/';
+const PHONE = '+62 813 3917 731', MAIL = 'info@unitdeveloper.com', IG = 'https://www.instagram.com/unit.developer/';
 
 const PAGES = {
   index: {
@@ -52,7 +52,8 @@ const PAGES = {
 };
 
 const attr = s => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
-const urlOf = p => SITE + (p === 'index' ? '' : p + '.html');
+// nginx на домене отдаёт страницы без .html (с .html уводит 301), canonical сразу чистый
+const urlOf = p => SITE + (p === 'index' ? '' : p);
 const enUrl = u => u + (u.includes('?') ? '&' : '?') + 'lang=en';
 
 const ORG = {
@@ -109,7 +110,7 @@ for (const [p, m] of Object.entries(PAGES)) {
 const win = {};
 vm.runInNewContext(fs.readFileSync(ROOT + 'js/data.js', 'utf8'), { window: win });
 const urls = Object.entries(PAGES).filter(([, m]) => !m.noindex && !m.product).map(([p]) => urlOf(p))
-  .concat((win.PRODUCTS || []).map(p => SITE + 'product.html?id=' + p.id));
+  .concat((win.PRODUCTS || []).map(p => SITE + 'product?id=' + p.id));
 const xml = u => u.replace(/&/g, '&amp;');
 fs.writeFileSync(ROOT + 'sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">

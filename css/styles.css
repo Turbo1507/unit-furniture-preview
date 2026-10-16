@@ -2077,11 +2077,12 @@ html[lang="en"] .team-card.ru-only { display: none; }
 .cz-step > .field:last-child { margin-bottom: 0; }
 .cz-form .f-err[hidden] { display: none; }
 
-/* меню на планшете и телефоне: на всю высоту, внизу «Получить расчёт» и WhatsApp */
+/* меню на планшете и телефоне: на всю высоту, «Получить расчёт» и WhatsApp сразу под пунктами */
 .nav-cta { display: none; }
 @media (max-width: 1180px) {
   .nav { bottom: 0; overflow-y: auto; border-bottom: 0; }
-  .nav-cta { display: flex; gap: 8px; margin-top: auto; padding-top: 24px; padding-bottom: env(safe-area-inset-bottom); }
+  /* 20 + нижние 12 у последнего пункта = 32 от текста до кнопок */
+  .nav-cta { display: flex; gap: 8px; padding-top: 20px; padding-bottom: env(safe-area-inset-bottom); }
   .nav-cta .btn { flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; padding: 0 12px; font-size: 15px; }
   .nav-cta .btn-wa { border: 1px solid var(--blue); color: var(--white) !important; background: var(--blue); }
   .nav-cta .btn-blue { color: var(--white) !important; }

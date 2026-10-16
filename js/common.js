@@ -381,10 +381,12 @@ if (burger && nav) {
 
 /* подсветка текущего раздела в меню */
 (function markActiveNav() {
-  const page = location.pathname.split('/').pop() || 'index.html';
+  // на домене nginx отдаёт адреса без .html, поэтому сравниваем имена без него
+  const name = p => p.split('/').pop().replace(/\.html$/, '') || 'index';
+  const page = name(location.pathname);
   document.querySelectorAll('.nav a').forEach(a => {
-    const href = a.getAttribute('href') || '';
-    if (href.split('#')[0] === page) a.classList.add('is-here');
+    const href = (a.getAttribute('href') || '').split(/[#?]/)[0];
+    if (href && name(href) === page) a.classList.add('is-here');
   });
 })();
 
