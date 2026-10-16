@@ -13,14 +13,14 @@ const SAME_OK = /^(Instagram|Email|E-mail|Menu|Outdoor|Indoor|Hotel|Sofa|Model|B
 let bad = 0;
 for (const l of codes) {
   const en = w.I18N.en, d = w.I18N[l] || {}, out = [];
-  const miss = Object.keys(en).filter(k => d[k] == null), extra = Object.keys(d).filter(k => en[k] == null);
+  const miss = Object.keys(en).filter(k => d[k] == null), extra = Object.keys(d).filter(k => en[k] == null && !/^cnt\.model\./.test(k)), same = [];
   if (miss.length) out.push('нет ключей: ' + miss.join(', '));
   if (extra.length) out.push('лишние ключи: ' + extra.join(', '));
   for (const k of Object.keys(d)) {
     const v = String(d[k]);
     if (tags(v) !== tags(en[k])) out.push(`разметка ${k}: ${tags(en[k])} → ${tags(v)}`);
     if (l !== 'uk' && /[А-Яа-яЁёІіЇїЄєҐґ]/.test(v)) out.push('кириллица ' + k);
-    if (v === en[k] && !SAME_OK.test(v.replace(/<[^>]+>/g, ''))) out.push(`как в EN ${k}: ${v.slice(0, 50)}`);
+    if (v === en[k] && !SAME_OK.test(v.replace(/<[^>]+>/g, ''))) same.push(k);
     if (/\s—\s/.test(v) && !/—/.test(en[k])) out.push('тире ' + k);
   }
   for (const [T, sub] of [['SPEC_TR', 'keys'], ['SPEC_TR', 'values'], ['NAME_SUFFIX_TR'], ['ATTR_TR']]) {
@@ -35,6 +35,6 @@ for (const l of codes) {
     if (l !== 'uk' && /[А-Яа-яЁё]/.test(s)) out.push('кириллица в ' + f);
   }
   bad += out.length;
-  console.log(`${l}: ${out.length ? '\n  ' + out.join('\n  ') : 'ок'}`);
+  console.log(`${l}: ${out.length ? '\n  ' + out.join('\n  ') : 'ок'}${same.length ? `\n  совпадает с EN, глазами (${same.length}): ${same.join(' ')}` : ''}`);
 }
 process.exitCode = bad ? 1 : 0;

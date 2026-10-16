@@ -2137,3 +2137,10 @@ html[lang="en"] .team-card.ru-only { display: none; }
   .hero-chip { margin-bottom: 4px; }
   .home .hero .hero-actions { margin-top: 16px; gap: 12px; }
 }
+
+/* шапка на узком десктопе: длинные пункты на французском и др. не переносим, ужимаем зазоры */
+.nav a, .header-cta .btn { white-space: nowrap; }
+@media (min-width: 1181px) and (max-width: 1360px) {
+  .header-in { gap: 24px; }
+  .nav { gap: 16px; }
+}
