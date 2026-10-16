@@ -930,6 +930,21 @@ function addDots(track, mobOnly) {
   box.className = 'dots' + (mobOnly ? ' dots-mob' : '');
   track.after(box);
   track.__dots = box;
+  // на фото-слайдерах ещё стрелки по бокам, иначе неясно, что кадры листаются
+  let arrows = null;
+  if (track.classList.contains('sl-track')) {
+    const arr = (cls, d, lbl) => { const b = document.createElement('button'); b.type = 'button'; b.className = 'sl-arr ' + cls; b.setAttribute('aria-label', lbl); b.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="${d}"/></svg>`; return b; };
+    arrows = [arr('is-prev', 'M15 5l-7 7 7 7', '←'), arr('is-next', 'M9 5l7 7-7 7', '→')];
+    box.after(...arrows);
+    arrows.forEach((b, dir) => b.addEventListener('click', e => {
+      // слайдер бывает внутри карточки-ссылки: стрелка листает, а не открывает
+      e.preventDefault(); e.stopPropagation();
+      const x = track.scrollLeft;
+      let k = 0;
+      stops.forEach((s, i) => { if (Math.abs(s - x) < Math.abs(stops[k] - x)) k = i; });
+      track.__goTo(Math.max(0, Math.min(stops.length - 1, k + (dir ? 1 : -1))));
+    }));
+  }
   let stops = [];
   const measure = () => {
     const tr = track.getBoundingClientRect(), pad = parseFloat(getComputedStyle(track).scrollPaddingLeft) || 0;
@@ -947,11 +962,13 @@ function addDots(track, mobOnly) {
     let k = 0;
     stops.forEach((s, i) => { if (Math.abs(s - x) < Math.abs(stops[k] - x)) k = i; });
     box.querySelectorAll('button').forEach((b, i) => b.setAttribute('aria-current', i === k ? 'true' : 'false'));
+    if (arrows) { arrows[0].disabled = k === 0; arrows[1].disabled = k >= stops.length - 1; }
     if (track.__onSlide) track.__onSlide(k);
   };
   track.__rebuild = () => {
     stops = measure();
     box.hidden = stops.length < 2;
+    if (arrows) arrows.forEach(b => { b.hidden = stops.length < 2; });
     box.innerHTML = stops.length < 2 ? '' : stops.map((_, i) => `<button type="button" aria-label="${i + 1} / ${stops.length}"><i></i></button>`).join('');
     sync();
   };
