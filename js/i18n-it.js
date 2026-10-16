@@ -444,7 +444,7 @@ window.I18N.it = {
 "cz.s6.p":"Avviamo la produzione a Bali",
 "cz.cta":"Richiedi un preventivo",
 "cz.cta2":"Vedi il catalogo",
-"czf.h2":"Richiesta di personalizzazione",
+"czf.h2":"Richiesta su misura",
 "czf.lead":"Diteci da cosa partire e cosa cambiare. Prepareremo opzioni e preventivo",
 "czf.s1":"Punto di partenza",
 "czf.s2":"Cosa cambiamo",

@@ -778,13 +778,16 @@ function fitBento() {
     ul.querySelectorAll('.cz-photo').forEach(p => { p.style.order = ''; });
     if (!matchMedia('(max-width: 720px)').matches) return;
     const lines = tiles.map(t => { const s = t.lastElementChild; return Math.round(s.getBoundingClientRect().height / parseFloat(getComputedStyle(s).lineHeight)); });
+    // слово длиннее половины ширины (бывает в нидерландском и др.) — такую плитку ставим на всю ширину
+    const long = tiles.map(t => [t.lastElementChild, ...t.lastElementChild.children].some(s => s.scrollWidth > s.clientWidth + 1));
     // пару берём ближайшую дальше по списку, порядок меняем через order; фото коллажа остаются первым и последним
     const used = new Set();
     let n = 0;
     tiles.forEach((t, i) => {
       if (used.has(i)) return;
       used.add(i); t.style.order = ++n;
-      const j = tiles.findIndex((u, k) => k > i && !used.has(k) && lines[k] === lines[i]);
+      if (long[i]) { t.classList.add('m-full'); return; }
+      const j = tiles.findIndex((u, k) => k > i && !used.has(k) && !long[k] && lines[k] === lines[i]);
       if (j < 0) { t.classList.add('m-full'); return; }
       used.add(j); tiles[j].style.order = ++n;
     });

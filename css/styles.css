@@ -2144,3 +2144,8 @@ html[lang="en"] .team-card.ru-only { display: none; }
   .header-in { gap: 24px; }
   .nav { gap: 16px; }
 }
+
+/* длинные слова (нидерландский, итальянский, русский): заголовок на 360 чуть мельче, в новых языках перенос по слогам, крайний случай рвём слово, а не выпускаем за край */
+@media (max-width: 400px) { .page-hero h1, .page-hero h1.brand-h1 { font-size: min(36px, 9.4vw); } }
+.final-side h2 { overflow-wrap: break-word; }
+html:not([lang="en"]):not([lang="ru"]) :is(.final-side h2, .cz-tile > span, .cz-tile small) { hyphens: auto; hyphenate-limit-chars: 12 5 5; }
