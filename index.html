@@ -24,7 +24,7 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"FurnitureStore","@id":"https://unit.furniture/#org","name":"UNIT.FURNITURE","url":"https://unit.furniture/","logo":"https://unit.furniture/favicon.svg","image":"https://unit.furniture/og.jpg","telephone":"+62 813 3917 731","email":"info@unitdeveloper.com","sameAs":["https://www.instagram.com/unit.developer/"],"areaServed":"Bali, Indonesia","address":{"@type":"PostalAddress","streetAddress":"Jalan Pantai Nyanyi, Beraban","addressLocality":"Kediri, Tabanan","addressRegion":"Bali","postalCode":"80351","addressCountry":"ID"},"parentOrganization":{"@type":"Organization","name":"UNIT.DEVELOPER","url":"https://unitdeveloper.com/"}},{"@type":"WebSite","@id":"https://unit.furniture/#site","name":"UNIT.FURNITURE","url":"https://unit.furniture/","inLanguage":["ru","en"],"publisher":{"@id":"https://unit.furniture/#org"}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"FurnitureStore","@id":"https://unit.furniture/#org","name":"UNIT.FURNITURE","url":"https://unit.furniture/","logo":"https://unit.furniture/favicon.svg","image":"https://unit.furniture/og.jpg","telephone":"+62 813 3917 731","email":"hello@unit.furniture","sameAs":["https://www.instagram.com/unit.furniture/"],"areaServed":"Bali, Indonesia","address":{"@type":"PostalAddress","streetAddress":"Jalan Pantai Nyanyi, Beraban","addressLocality":"Kediri, Tabanan","addressRegion":"Bali","postalCode":"80351","addressCountry":"ID"},"parentOrganization":{"@type":"Organization","name":"UNIT.DEVELOPER","url":"https://unitdeveloper.com/"}},{"@type":"WebSite","@id":"https://unit.furniture/#site","name":"UNIT.FURNITURE","url":"https://unit.furniture/","inLanguage":["ru","en"],"publisher":{"@id":"https://unit.furniture/#org"}}]}</script>
 <!-- /seo -->
 </head>
 <body class="home" data-request-url="#final">
@@ -358,11 +358,11 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.7-1.2A9 9 0 1 0 12 3z"/><path d="M8.5 9.5c.5 2.5 3.5 5.5 6 6l1.5-1.5-2-1.5-1 .7c-1-.5-2.2-1.7-2.7-2.7l.7-1-1.5-2z"/></svg>
               WhatsApp
             </a>
-            <a href="mailto:info@unitdeveloper.com">
+            <a href="mailto:hello@unit.furniture">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
-              info@unitdeveloper.com
+              hello@unit.furniture
             </a>
-            <a href="https://www.instagram.com/unit.developer" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.instagram.com/unit.furniture" target="_blank" rel="noopener noreferrer">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
               Instagram
             </a>
@@ -380,67 +380,18 @@
           <p class="req-c-label" data-i18n="req.cart_label">В заявке:</p>
           <div id="reqChips" class="req-chips"></div>
         </div>
-        <div class="field">
-          <label for="fName" data-i18n="f.name">Имя*</label>
-          <input id="fName" name="name" type="text" autocomplete="name" required aria-describedby="fNameErr">
-          <p class="f-err" id="fNameErr" data-i18n="f.err.name" hidden>Напишите, как к вам обращаться</p>
-        </div>
         <div class="field-row">
+          <div class="field">
+            <label for="fName" data-i18n="f.name">Имя*</label>
+            <input id="fName" name="name" type="text" autocomplete="name" required aria-describedby="fNameErr">
+            <p class="f-err" id="fNameErr" data-i18n="f.err.name" hidden>Напишите, как к вам обращаться</p>
+          </div>
           <div class="field">
             <label for="fPhone" data-i18n="f.phone">Номер телефона*</label>
             <div class="phone-row"><select id="fCc" name="cc" data-search aria-label="Код страны"><option value="62" data-iso="ID" selected>ID +62</option></select><input id="fPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel-national" required aria-describedby="fPhoneErr"></div>
             <p class="f-err" id="fPhoneErr" data-i18n="f.err.phone" hidden>Оставьте номер телефона, чтобы мы могли ответить</p>
           </div>
-          <div class="field">
-            <label for="fEmail" data-i18n="f.email">Email</label>
-            <input id="fEmail" name="email" type="email" autocomplete="email" aria-describedby="fEmailErr">
-            <p class="f-err" id="fEmailErr" data-i18n="f.err.email" hidden>Проверьте адрес почты</p>
-          </div>
         </div>
-        <div class="field-row">
-          <div class="field">
-            <label for="fObject" data-i18n="f.object">Тип объекта</label>
-            <select id="fObject" name="object">
-              <option data-i18n="f.o.any" selected>Не важно / уточню в сообщении</option>
-              <option data-i18n="f.o.villa">Вилла</option>
-              <option data-i18n="f.o.house">Дом</option>
-              <option data-i18n="f.o.apt">Апартаменты</option>
-              <option data-i18n="f.o.hotel">Отель</option>
-              <option data-i18n="f.o.rest">Ресторан</option>
-              <option data-i18n="f.o.outdoor">Outdoor-зона</option>
-              <option data-i18n="f.o.design">Дизайнерский проект</option>
-              <option data-i18n="opt.other">Другое</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="fTopic" data-i18n="f.topic">Что нужно подобрать</label>
-            <select id="fTopic" name="topic">
-              <option data-i18n="opt.all">Комплектация объекта целиком</option>
-              <option data-i18n="cat.beds">Кровати</option>
-              <option data-i18n="cat.sofas">Диваны</option>
-              <option data-i18n="cat.chairs">Кресла и стулья</option>
-              <option data-i18n="cat.outdoor">Outdoor</option>
-              <option data-i18n="cat.textile">Подушки и декор</option>
-              <option data-i18n="opt.other">Другое</option>
-            </select>
-          </div>
-        </div>
-        <div class="field-row">
-          <div class="field">
-            <label for="fScope" data-i18n="f.scope">Объём заказа</label>
-            <select id="fScope" name="scope">
-              <option data-i18n="f.sc.item">Одна позиция</option>
-              <option data-i18n="f.sc.zone">Комплект на зону / комнату</option>
-              <option data-i18n="f.sc.full">Весь объект целиком</option>
-              <option data-i18n="f.sc.bulk">Несколько юнитов / опт</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="fDeadline" data-i18n="f.deadline">Нужна к дате (если есть)</label>
-            <input id="fDeadline" name="deadline" type="date">
-          </div>
-        </div>
-        <p class="field-note" id="bulkNote" hidden data-i18n="f.bulk_note">При заказе от нескольких юнитов фиксируем единую цену пакета и закрепляем отдельного менеджера.</p>
         <div class="field">
           <label for="fMsg" data-i18n="f.msg">Сообщение</label>
           <textarea id="fMsg" name="message" rows="3" data-i18n-ph="f.msg_ph" placeholder="Например: вилла 3 спальни, нужны кровати и аутдор к декабрю"></textarea>
@@ -489,9 +440,9 @@
       </div>
     </div>
     <div class="footer-social">
-      <a href="https://www.instagram.com/unit.developer" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
+      <a href="https://www.instagram.com/unit.furniture" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
       <a href="https://wa.me/628133917731" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.7-1.2A9 9 0 1 0 12 3z"/><path d="M8.5 9.5c.5 2.5 3.5 5.5 6 6l1.5-1.5-2-1.5-1 .7c-1-.5-2.2-1.7-2.7-2.7l.7-1-1.5-2z"/></svg></a>
-      <a href="mailto:info@unitdeveloper.com" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></a>
+      <a href="mailto:hello@unit.furniture" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></a>
     </div>
   </div>
   <div class="container footer-bottom">

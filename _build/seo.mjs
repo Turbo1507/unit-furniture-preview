@@ -9,7 +9,7 @@ import { fileURLToPath } from 'url';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..') + '/';
 const SITE = (process.argv[2] || 'https://turbo1507.github.io/unit-furniture-preview/v2/').replace(/\/?$/, '/');
 const OG = SITE + 'og.jpg';
-const PHONE = '+62 813 3917 731', MAIL = 'info@unitdeveloper.com', IG = 'https://www.instagram.com/unit.developer/';
+const PHONE = '+62 813 3917 731', MAIL = 'hello@unit.furniture', IG = 'https://www.instagram.com/unit.furniture/';
 
 const PAGES = {
   index: {
