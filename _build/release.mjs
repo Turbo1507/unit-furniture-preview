@@ -127,7 +127,7 @@ function legalFor(s, p, l) {
   const enBlock = s.slice(en, end).trim().replace(' hidden>', '>');
   const frag = path.join(SRC, '_build', 'legal', `${p}.${l}.html`);
   const block = l === 'ru' ? s.slice(ru, en).trim() : l === 'en' ? enBlock
-    : fs.existsSync(frag) ? `<div class="lang-block" data-lang-block="${l}">\n${fs.readFileSync(frag, 'utf8').trim()}\n</div>` : enBlock;
+    : fs.existsSync(frag) ? `<div class="lang-block" data-lang-block="${l}">\n  ${fs.readFileSync(frag, 'utf8').trim().replace(/>([^<]+)</g, (m, t) => '>' + glue(t, l) + '<')}\n</div>` : enBlock;
   s = s.slice(0, ru) + block.replace(/ id="en"/, '') + '\n' + s.slice(end);
   // прежние скрипты переключали блоки по ?lang= и localStorage, теперь язык задан адресом
   return s.replace(/<script>\r?\n\(function \(\) \{\r?\n  var params[\s\S]*?<\/script>\r?\n/, '').replace(/<script>\r?\nwindow\.__uf_onLangChangePage[\s\S]*?<\/script>\r?\n/, '');
