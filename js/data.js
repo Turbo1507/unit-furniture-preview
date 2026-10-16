@@ -197,3 +197,11 @@ window.SHOT_ITEMS = {
   '53_63_374':  ['bed-nakas-l'],
   '53_800_374': ['awan-scandi'],
 };
+
+// страницы языков лежат в папках (/fr/…), картинкам нужен путь от корня
+(function () {
+  const R = window.UF_ROOT || '';
+  if (!R) return;
+  const fix = o => { for (const k in o) { const v = o[k]; if (typeof v === 'string' && /^(v2\/)?assets\//.test(v)) o[k] = R + v; else if (v && typeof v === 'object') fix(v); } };
+  ['PRODUCTS', 'CATEGORIES', 'FEATURED', 'SOLUTIONS', 'PROJECTS'].forEach(n => { if (window[n]) fix(window[n]); });
+})();

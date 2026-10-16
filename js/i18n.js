@@ -1,9 +1,13 @@
-/* UNIT.FURNITURE — i18n RU/EN. Паттерн unitdeveloper.com:
-   window.I18N словарь, data-i18n / data-i18n-ph атрибуты,
-   window.setLang(lang), переключатели в шапке и футере, localStorage. */
+/* UNIT.FURNITURE: словарь. RU и EN здесь, остальные языки в js/i18n-<код>.js.
+   У каждого языка свой адрес (/ = EN, /ru/, /fr/…), страницу на нужном языке собирает _build/release.mjs,
+   а setLang только доводит то, что дорисовал скрипт. */
+window.UF_ROOT = (typeof document !== 'undefined' && document.documentElement.getAttribute('data-root')) || '';
+window.UF_LANGS = [['en', 'English'], ['ru', 'Русский'], ['id', 'Bahasa Indonesia'], ['fr', 'Français'], ['es', 'Español'], ['uk', 'Українська'], ['it', 'Italiano'], ['tr', 'Türkçe'], ['nl', 'Nederlands']];
+
 
 window.I18N = {
   ru: {
+    "lang.label": "Язык", "cnt.pcs": "шт.",
     "pj.grid.h": "Фото проектов", "ct.form.h": "Форма заявки",
     "legal.back": "← На сайт",
     /* --- навигация и шапка --- */
@@ -370,6 +374,7 @@ window.I18N = {
   },
 
   en: {
+    "lang.label": "Language", "cnt.model.one": "model", "cnt.model.other": "models", "cnt.pcs": "pcs",
     "pj.grid.h": "Project photos", "ct.form.h": "Request form",
     "legal.back": "← Back to site",
     /* --- navigation & header --- */
@@ -737,7 +742,7 @@ window.I18N = {
 };
 
 /* Каталог: перевод спек-ключей и типовых значений (имена собственные не переводятся) */
-window.SPEC_TR = {
+window.SPEC_TR = { en: {
   keys: {
     'Изголовье': 'Headboard', 'Каркас': 'Frame', 'Цвет': 'Color',
     'Ножки': 'Legs', 'Тип': 'Type', 'Назначение': 'Purpose', 'Варианты': 'Options'
@@ -752,57 +757,54 @@ window.SPEC_TR = {
     'A — серый меланж, B — графит': 'A — grey melange, B — graphite',
     'A — синий, B — серый': 'A — blue, B — grey'
   }
-};
+} };
 window.CAT_LABEL_KEY = {
   beds: 'cat.beds', sofas: 'cat.sofas', chairs: 'cat.chairs', outdoor: 'cat.outdoor',
   textile: 'cat.textile', sunbeds: 'cat.sunbeds', poufs: 'cat.poufs',
   commercial: 'cat.commercial', tables: 'cat.tables', nightstands: 'cat.nightstands'
 };
-window.NAME_SUFFIX_TR = {
+window.NAME_SUFFIX_TR = { en: {
   ', пуф': ', pouf', ', барный': ', bar', ', оттоманка': ', ottoman',
   ', дейбед': ', daybed', ', шезлонг': ', lounger', ', угловой': ', corner'
-};
+} };
 
-window.ATTR_EN = { "Длина, мм": "Length, mm", "Ширина, мм": "Width, mm", "Высота, мм": "Height, mm", "Ссылка на референсы": "Link to references", "Язык страницы": "Page language", "Код страны": "Country code", "Корзина": "Cart", "Меню": "Menu", "Закрыть": "Close", "Хлебные крошки": "Breadcrumbs", "Категория": "Category", "Назначение": "Purpose", "Кровати": "Beds", "Диваны": "Sofas", "Стулья и кресла": "Chairs and armchairs", "Outdoor-мебель": "Outdoor furniture", "Шезлонги": "Sun loungers", "Пуфы": "Poufs", "Подушки и декор": "Pillows and decor", "Коммерческая мебель": "Commercial furniture", "Тумбы": "Nightstands", "Виллы": "Villas", "Дома и апартаменты": "Homes and apartments", "Отели": "Hotels", "Рестораны": "Restaurants", "Outdoor-зоны": "Outdoor areas", "Дизайнерские проекты": "Design projects", "Гостиная с мебелью UNIT.FURNITURE": "Living room with UNIT.FURNITURE furniture", "Текстура тикового дерева": "Teak wood texture", "Фактура ткани": "Fabric texture", "Мягкие элементы и подушки": "Cushions and upholstery", "Столярная работа и фурнитура": "Joinery and hardware", "Спальня с мебелью UNIT": "Bedroom with UNIT furniture", "Гостиная с мебелью UNIT": "Living room with UNIT furniture", "Терраса с outdoor-мебелью UNIT": "Terrace with UNIT outdoor furniture", "Outdoor lounge у бассейна": "Outdoor lounge by the pool", "Reception и lobby": "Reception and lobby", "Ресторанная зона": "Restaurant area", "Интерьер виллы UNIT под ключ": "Turnkey UNIT villa interior", "Цех UNIT.FURNITURE": "UNIT.FURNITURE workshop", "Дерево": "Wood", "Ткани": "Fabrics", "Наполнители": "Fillings", "Фурнитура": "Hardware", "Стройплощадка UNIT.BUILD": "UNIT.BUILD construction site", "Стальные каркасы UNIT.FRAMES": "UNIT.FRAMES steel frames", "Вилла под управлением UNIT.SPACE MANAGEMENT": "A villa managed by UNIT.SPACE MANAGEMENT", "Степан Федосеев": "Stepan Fedoseev", "Анна Орлова": "Anna Orlova", "Работа в цеху UNIT.FURNITURE": "Work in the UNIT.FURNITURE workshop", "Кресло UNIT.FURNITURE в интерьере": "UNIT.FURNITURE armchair in an interior", "Outdoor-мебель у бассейна": "Outdoor furniture by the pool", "Спальня с мебелью UNIT.FURNITURE под размер комнаты": "A bedroom with UNIT.FURNITURE sized to the room", "QR-код WhatsApp UNIT.FURNITURE": "WhatsApp QR code UNIT.FURNITURE" };
+window.ATTR_TR = { en: { "Длина, мм": "Length, mm", "Ширина, мм": "Width, mm", "Высота, мм": "Height, mm", "Ссылка на референсы": "Link to references", "Язык страницы": "Page language", "Код страны": "Country code", "Корзина": "Cart", "Меню": "Menu", "Закрыть": "Close", "Хлебные крошки": "Breadcrumbs", "Категория": "Category", "Назначение": "Purpose", "Кровати": "Beds", "Диваны": "Sofas", "Стулья и кресла": "Chairs and armchairs", "Outdoor-мебель": "Outdoor furniture", "Шезлонги": "Sun loungers", "Пуфы": "Poufs", "Подушки и декор": "Pillows and decor", "Коммерческая мебель": "Commercial furniture", "Тумбы": "Nightstands", "Виллы": "Villas", "Дома и апартаменты": "Homes and apartments", "Отели": "Hotels", "Рестораны": "Restaurants", "Outdoor-зоны": "Outdoor areas", "Дизайнерские проекты": "Design projects", "Гостиная с мебелью UNIT.FURNITURE": "Living room with UNIT.FURNITURE furniture", "Текстура тикового дерева": "Teak wood texture", "Фактура ткани": "Fabric texture", "Мягкие элементы и подушки": "Cushions and upholstery", "Столярная работа и фурнитура": "Joinery and hardware", "Спальня с мебелью UNIT": "Bedroom with UNIT furniture", "Гостиная с мебелью UNIT": "Living room with UNIT furniture", "Терраса с outdoor-мебелью UNIT": "Terrace with UNIT outdoor furniture", "Outdoor lounge у бассейна": "Outdoor lounge by the pool", "Reception и lobby": "Reception and lobby", "Ресторанная зона": "Restaurant area", "Интерьер виллы UNIT под ключ": "Turnkey UNIT villa interior", "Цех UNIT.FURNITURE": "UNIT.FURNITURE workshop", "Дерево": "Wood", "Ткани": "Fabrics", "Наполнители": "Fillings", "Фурнитура": "Hardware", "Стройплощадка UNIT.BUILD": "UNIT.BUILD construction site", "Стальные каркасы UNIT.FRAMES": "UNIT.FRAMES steel frames", "Вилла под управлением UNIT.SPACE MANAGEMENT": "A villa managed by UNIT.SPACE MANAGEMENT", "Степан Федосеев": "Stepan Fedoseev", "Анна Орлова": "Anna Orlova", "Работа в цеху UNIT.FURNITURE": "Work in the UNIT.FURNITURE workshop", "Кресло UNIT.FURNITURE в интерьере": "UNIT.FURNITURE armchair in an interior", "Outdoor-мебель у бассейна": "Outdoor furniture by the pool", "Спальня с мебелью UNIT.FURNITURE под размер комнаты": "A bedroom with UNIT.FURNITURE sized to the room", "QR-код WhatsApp UNIT.FURNITURE": "WhatsApp QR code UNIT.FURNITURE" } };
 
-// короткие слова не оставлять в конце строки: приклеиваем к следующему
-const glueShort = (t) => t.replace(/(^|[\s>(«])([A-Za-zА-Яа-яЁё]{1,3}) (?=\S)/g, '$1$2 ').replace(/(^|[\s>(«])([A-Za-zА-Яа-яЁё]{1,3}) (?=\S)/g, '$1$2 ');
+// короткие слова не оставлять в конце строки: приклеиваем к следующему; во французском ещё неразрывный пробел перед : ; ? !
+function glueShort(t, lang) {
+  const g = s => s.replace(/(^|[\s>(«])(\p{L}{1,3}) (?=\S)/gu, '$1$2\u00a0');
+  t = g(g(t));
+  if (lang === 'fr') t = t.replace(/ ([:;?!»])/g, '\u00a0$1').replace(/« /g, '«\u00a0');
+  return t;
+}
+window.glueShort = glueShort;
 
 window.setLang = function (lang) {
-  lang = lang === 'en' ? 'en' : 'ru';
-  const dict = window.I18N[lang] || window.I18N.ru;
+  if (!window.I18N[lang]) lang = 'en';
+  const dict = Object.assign({}, window.I18N.en, window.I18N[lang]);
   document.documentElement.lang = lang;
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
-    if (dict[key] != null) el.innerHTML = glueShort(dict[key]);
+    if (dict[key] != null) el.innerHTML = glueShort(dict[key], lang);
   });
   document.querySelectorAll('[data-i18n-alt]').forEach(el => {
     const key = el.getAttribute('data-i18n-alt');
     if (dict[key] != null) el.alt = dict[key].replace(/<[^>]+>/g, '');
   });
-  const AT = window.ATTR_EN;
+  const AT = (window.ATTR_TR || {})[lang] || {};
   document.querySelectorAll('[aria-label], img[alt]').forEach(el => {
     [['aria-label', 'ruAria'], ['alt', 'ruAlt']].forEach(([a, k]) => {
       if (!el.hasAttribute(a) || (a === 'alt' && el.hasAttribute('data-i18n-alt'))) return;
       const ru = el.dataset[k] || el.getAttribute(a);
-      if (!AT[ru]) return;
+      if (lang === 'ru' || !AT[ru]) return;
       el.dataset[k] = ru;
-      el.setAttribute(a, lang === 'en' ? AT[ru] : ru);
+      el.setAttribute(a, AT[ru]);
     });
   });
-  // заголовок вкладки и описание: английский вариант лежит в data-en
-  const tt = document.querySelector('title'), md = document.querySelector('meta[name="description"]');
-  if (tt && tt.dataset.en) { if (!tt.dataset.ru) tt.dataset.ru = document.title; document.title = lang === 'en' ? tt.dataset.en : tt.dataset.ru; }
-  else if (dict['doc.title'] && document.body.classList.contains('home')) document.title = dict['doc.title'];
-  if (md && md.dataset.en) { if (!md.dataset.ru) md.dataset.ru = md.content; md.content = lang === 'en' ? md.dataset.en : md.dataset.ru; }
   document.querySelectorAll('[data-i18n-ph]').forEach(el => {
     const key = el.getAttribute('data-i18n-ph');
     if (dict[key] != null) el.placeholder = dict[key];
   });
-  document.querySelectorAll('[data-lang]').forEach(b => {
-    b.classList.toggle('is-active', b.dataset.lang === lang);
-  });
   window.__uf_lang = lang;
-  try { localStorage.setItem('uf_lang', lang); } catch (e) {}
   if (window.__uf_onLangChange) window.__uf_onLangChange(lang);
 };
