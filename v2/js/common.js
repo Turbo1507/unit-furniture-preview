@@ -593,10 +593,46 @@ window.__uf_onLangChange = function () {
 window.setLang(document.documentElement.lang || 'en');
 syncRequestUI();
 
-(() => {
+/* ---------- куки: язык и корзина нужны всегда, метку рекламной ссылки храним только с согласия ---------- */
+const consentOf = () => (document.cookie.match(/(?:^|; )uf_consent=(all|min)/) || [])[1] || '';
+const utmNow = (() => {
   const q = new URLSearchParams(location.search), u = {};
   ['utm_campaign', 'utm_content'].forEach(k => { if (q.get(k)) u[k] = q.get(k); });
-  if (Object.keys(u).length) try { sessionStorage.setItem('uf_utm', JSON.stringify(u)); } catch (e) {}
+  return u;
+})();
+function keepUtm() {
+  try {
+    if (consentOf() !== 'all') sessionStorage.removeItem('uf_utm');
+    else if (Object.keys(utmNow).length) sessionStorage.setItem('uf_utm', JSON.stringify(utmNow));
+  } catch (e) {}
+}
+keepUtm();
+(function cookieBar() {
+  let bar = null;
+  const show = () => {
+    if (bar) return;
+    bar = document.createElement('section');
+    bar.className = 'ck-bar';
+    bar.setAttribute('aria-label', t('ck.aria'));
+    // ссылка относительная: из /ru/ ведёт на русский документ
+    bar.innerHTML = `<p>${glueShort(t('ck.text'))} <a href="consent.html#cookies">${t('ck.more')}</a></p>
+      <div class="ck-btns"><button type="button" class="ck-btn" data-v="all">${t('ck.ok')}</button><button type="button" class="ck-btn" data-v="min">${t('ck.min')}</button></div>`;
+    bar.addEventListener('click', e => {
+      const b = e.target.closest('[data-v]');
+      if (!b) return;
+      document.cookie = 'uf_consent=' + b.dataset.v + '; path=/; max-age=15552000; SameSite=Lax';
+      keepUtm();
+      bar.remove(); bar = null;
+    });
+    document.body.prepend(bar);
+  };
+  document.querySelectorAll('.footer-legal').forEach(f => {
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'ck-open'; b.textContent = t('ft.cookies');
+    b.addEventListener('click', show);
+    f.appendChild(b);
+  });
+  if (!consentOf()) show();
 })();
 
 /* ---------- форма заявки (index + contacts) ---------- */
@@ -668,7 +704,7 @@ if (form) {
     const q = new URLSearchParams(location.search);
     let utm = {};
     try { utm = JSON.parse(sessionStorage.getItem('uf_utm') || '{}'); } catch (e) {}
-    ['utm_campaign', 'utm_content'].forEach(k => fd.append(k, q.get(k) || utm[k] || ''));
+    ['utm_campaign', 'utm_content'].forEach(k => fd.append(k, consentOf() === 'all' ? q.get(k) || utm[k] || '' : ''));
     if (custom) {
       const idea = (form.querySelector('[name="base"]:checked') || {}).value === 'idea';
       const m = document.getElementById('fModel');

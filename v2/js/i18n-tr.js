@@ -1,4 +1,10 @@
 window.I18N.tr = {
+"ck.text":"Site, dilinizi ve sepetinizi tarayıcıda saklar. Reklam bağlantısının etiketi yalnızca onayınızla kaydedilir.",
+"ck.more":"Ayrıntılar",
+"ck.ok":"Kabul et",
+"ck.min":"Yalnızca gerekli",
+"ft.cookies":"Çerez ayarları",
+"ck.aria":"Bu sitede çerezler",
 "lang.label":"Dil",
 "cnt.model.one":"model",
 "cnt.model.other":"model",

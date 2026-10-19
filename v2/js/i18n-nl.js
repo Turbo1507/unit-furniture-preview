@@ -1,4 +1,10 @@
 window.I18N.nl = {
+"ck.text":"De site bewaart je taal en winkelwagen in de browser. De tag van de advertentielink bewaren we alleen met je toestemming.",
+"ck.more":"Meer info",
+"ck.ok":"Accepteren",
+"ck.min":"Weigeren",
+"ft.cookies":"Cookie-instellingen",
+"ck.aria":"Cookies op deze site",
 "lang.label":"Taal",
 "cnt.model.one":"model",
 "cnt.model.other":"modellen",

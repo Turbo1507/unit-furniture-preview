@@ -1,4 +1,10 @@
 window.I18N.es = {
+"ck.text":"El sitio guarda su idioma y su carrito en el navegador. La etiqueta del enlace publicitario solo se guarda con su consentimiento.",
+"ck.more":"Más información",
+"ck.ok":"Aceptar",
+"ck.min":"Solo necesarias",
+"ft.cookies":"Configuración de cookies",
+"ck.aria":"Cookies en este sitio",
 "lang.label":"Idioma",
 "cnt.model.one":"modelo",
 "cnt.model.many":"modelos",

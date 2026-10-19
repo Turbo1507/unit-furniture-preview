@@ -1,4 +1,10 @@
 window.I18N.id = {
+"ck.text":"Situs menyimpan bahasa dan keranjang Anda di browser. Tag tautan iklan tempat Anda datang hanya disimpan dengan persetujuan Anda.",
+"ck.more":"Selengkapnya",
+"ck.ok":"Terima",
+"ck.min":"Hanya yang diperlukan",
+"ft.cookies":"Pengaturan cookie",
+"ck.aria":"Cookie di situs ini",
 "lang.label":"Bahasa",
 "cnt.model.one":"model",
 "cnt.model.other":"model",
