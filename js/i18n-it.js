@@ -1,4 +1,10 @@
 window.I18N.it = {
+"ck.text":"Il sito conserva nel browser la lingua e il carrello. Il tag del link pubblicitario viene salvato solo con il vostro consenso.",
+"ck.more":"Dettagli",
+"ck.ok":"Accetta",
+"ck.min":"Solo necessari",
+"ft.cookies":"Impostazioni cookie",
+"ck.aria":"Cookie su questo sito",
 "lang.label":"Lingua",
 "cnt.model.one":"modello",
 "cnt.model.many":"modelli",

@@ -7,6 +7,7 @@ window.UF_LANGS = [['en', 'English'], ['ru', 'Русский'], ['id', 'Bahasa I
 
 window.I18N = {
   ru: {
+    "ck.text": "Сайт хранит в браузере язык и корзину. Метку рекламной ссылки, по которой вы пришли, запомним только с вашего согласия.", "ck.more": "Подробнее", "ck.ok": "Принять", "ck.min": "Только необходимые", "ft.cookies": "Настройки куки", "ck.aria": "Куки на сайте",
     "lang.label": "Язык", "cnt.pcs": "шт.",
     "pj.grid.h": "Фото проектов", "ct.form.h": "Форма заявки",
     "legal.back": "← На сайт",
@@ -374,6 +375,7 @@ window.I18N = {
   },
 
   en: {
+    "ck.text": "The site keeps your language and cart in the browser. The tag of the ad link you came from is stored only with your consent.", "ck.more": "Details", "ck.ok": "Accept", "ck.min": "Necessary only", "ft.cookies": "Cookie settings", "ck.aria": "Cookies on this site",
     "lang.label": "Language", "cnt.model.one": "model", "cnt.model.other": "models", "cnt.pcs": "pcs",
     "pj.grid.h": "Project photos", "ct.form.h": "Request form",
     "legal.back": "← Back to site",

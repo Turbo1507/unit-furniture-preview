@@ -1,4 +1,10 @@
 window.I18N.fr = {
+"ck.text":"Le site garde votre langue et votre panier dans le navigateur. Le tag du lien publicitaire n’est enregistré qu’avec votre accord.",
+"ck.more":"En savoir plus",
+"ck.ok":"Accepter",
+"ck.min":"Refuser",
+"ft.cookies":"Paramètres des cookies",
+"ck.aria":"Cookies sur ce site",
 "lang.label":"Langue",
 "cnt.model.one":"modèle",
 "cnt.model.many":"modèles",
