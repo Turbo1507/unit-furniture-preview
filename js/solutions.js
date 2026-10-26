@@ -7,7 +7,7 @@ function renderSolutionModels() {
     list.querySelectorAll(':scope > li').forEach((li, k) => {
       const ids = sol.items[k];
       const links = Array.isArray(ids) ? ids.map(productById).filter(Boolean)
-        .map(p => `<a href="product.html?id=${p.id}">${escapeHtml(trName(p.name))}</a>`) : [];
+        .map(p => `<a href="${prodHref(p)}">${escapeHtml(trName(p.name))}</a>`) : [];
       let b = li.querySelector(':scope > b');
       if (!b) { b = document.createElement('b'); li.appendChild(b); }
       b.innerHTML = links.length ? links.join(', ') : t(ids === 'drawing' ? 'sl.drawing' : 'sl.custom');

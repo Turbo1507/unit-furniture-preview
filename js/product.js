@@ -1,9 +1,16 @@
 /* UNIT.FURNITURE — страница товара: рендер по ?id= из data.js */
 
 const params = new URLSearchParams(location.search);
-const product = productById(params.get('id')) || window.PRODUCTS[0];
+// у статичной страницы модели id вписан при сборке, старые ссылки product?id= ведут на неё
+const pid = window.UF_PID || params.get('id');
+const product = productById(pid) || window.PRODUCTS[0];
 // по битой ссылке не подсовываем первую модель: говорим, что её нет, и ведём в каталог
-const missing = !productById(params.get('id'));
+const missing = !productById(pid);
+if (!window.UF_PID && !missing && document.documentElement.hasAttribute('data-static')) {
+  params.delete('id');
+  const q = params.toString();
+  location.replace(prodHref(product) + (q ? '?' + q : '') + location.hash);
+}
 document.querySelectorAll('.pp-custom-link').forEach(a => { a.href = 'customization.html?model=' + product.id + '#form'; });
 
 const ppMain = document.getElementById('ppMain');
@@ -50,8 +57,8 @@ if (photos.length) {
 /* для поисковиков и превью ссылки: адрес, описание и разметка этой модели */
 function seoProduct() {
   const can = document.querySelector('link[rel="canonical"]');
-  if (!can) return;
-  const base = can.href.replace(/[^/]*$/, ''), url = base + 'product?id=' + product.id;
+  if (!can || window.UF_PID) return;
+  const base = can.href.replace(/[^/]*$/, ''), url = base + 'products/' + product.slug;
   const xd = document.querySelector('link[hreflang="x-default"]');
   const root = (xd ? xd.href : base).replace(/[^/]*$/, '');
   const abs = src => root + src.replace(/^(\.\.\/)+/, '').replace(/^v2\//, '');
@@ -59,7 +66,7 @@ function seoProduct() {
   const desc = (t(window.CAT_LABEL_KEY[product.cat], 'en') + '. ' + t('d.' + product.cat, 'en')).replace(/<[^>]+>/g, '').replace(/\s+/g, ' ');
   const set = (sel, v) => { const m = document.querySelector(sel); if (m) m.setAttribute(sel.startsWith('link') ? 'href' : 'content', v); };
   can.href = url;
-  document.querySelectorAll('link[hreflang]').forEach(l => { l.href = l.href.split('?')[0] + '?id=' + product.id; });
+  document.querySelectorAll('link[hreflang]').forEach(l => { l.href = l.href.replace(/product(\?.*)?$/, 'products/' + product.slug); });
   set('meta[name="description"]', desc);
   set('meta[property="og:url"]', url); set('meta[property="og:title"]', name); set('meta[property="og:description"]', desc);
   if (photos.length) set('meta[property="og:image"]', abs(photos[0].src));

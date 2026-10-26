@@ -35,13 +35,14 @@ const PAGES = {
   projects: { t: 'Our furniture in real projects | UNIT.FURNITURE', crumb: 'nav.projects', d: 'UNIT.FURNITURE in real interiors: villas, outdoor areas and commercial spaces by UNIT in Bali.' },
   designers: { t: 'For interior designers and architects | UNIT.FURNITURE', crumb: 'nav.designers', d: 'UNIT.FURNITURE is a production partner for interior designers and architects in Bali: furniture from our catalog, your references, drawings and specs.' },
   contacts: { t: 'Contacts | UNIT.FURNITURE', crumb: 'nav.contacts', d: 'Contact UNIT.FURNITURE: WhatsApp, email, Instagram, request form. Bali, Indonesia.' },
-  product: { t: 'Model | UNIT.FURNITURE', d: 'UNIT.FURNITURE furniture model: specifications, materials, customization. Price on request.', product: true },
+  product: { t: 'Model | UNIT.FURNITURE', d: 'UNIT.FURNITURE furniture model: specifications, materials, customization. Price on request.', product: true, noindex: true },
   legal: { t: 'Legal information | UNIT.FURNITURE', noindex: true, legal: true },
   consent: { t: 'Personal data processing consent | UNIT.FURNITURE', noindex: true, legal: true }
 };
 const PHONE = '+62 813 3917 731', MAIL = 'hello@unit.furniture', IG = 'https://www.instagram.com/unit.furniture/';
 const OG = SITE + 'og.jpg';
-const pageUrl = (l, p) => SITE + (l === 'en' ? '' : l + '/') + (p === 'index' ? '' : p);
+const pageUrl = (l, p) => SITE + (l === 'en' ? '' : l + '/') + p;
+const prodUrl = (l, pr) => SITE + (l === 'en' ? '' : l + '/') + 'products/' + pr.slug;
 const attr = s => String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
 const plain = s => String(s).replace(/<[^>]+>/g, '').replace(/&nbsp;| /g, ' ').replace(/\s+/g, ' ').trim();
 
@@ -76,9 +77,9 @@ function translate(html, l) {
 
 /* ---------- выбор языка в шапке ---------- */
 const fileOf = p => p === 'index' ? '' : p + '.html';
-function langMenu(p, l, R) {
+function langMenu(p, l, R, pr) {
   const dict = dictOf(l);
-  const href = x => (R + (x === 'en' ? '' : x + '/') + fileOf(p)) || './';
+  const href = x => (R + (x === 'en' ? '' : x + '/') + (pr ? 'products/' + pr.slug + '.html' : fileOf(p))) || './';
   return `<div class="lang-dd">
         <button type="button" class="lang-dd-btn" aria-expanded="false" aria-controls="langList" aria-label="${attr(dict['lang.label'])}: ${attr(NATIVE[l])}"><span>${l.toUpperCase()}</span><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></button>
         <ul class="lang-dd-list" id="langList" hidden>
@@ -88,7 +89,7 @@ ${LANGS.map(x => `          <li><a href="${href(x)}" hreflang="${x}" lang="${x}"
 }
 
 /* язык по ссылке ?lang= и по куки (только на английском корне), ботов не уводим */
-const redirect = `<script>(function(){var d=document.documentElement,R=d.getAttribute('data-root')||'',L=/^(${LANGS.join('|')})$/;if(/bot|crawl|spider|slurp|lighthouse|headless|preview/i.test(navigator.userAgent))return;var w=(location.search.match(/[?&]lang=([a-z]{2})/)||[])[1];if(!w&&!R){var m=document.cookie.match(/(?:^|;\\s*)uf_lang=([a-z]{2})/);w=m&&m[1]}if(!w||w===d.lang||!L.test(w))return;var p=location.pathname,i=p.lastIndexOf('/'),dir=p.slice(0,i+1),f=p.slice(i+1);if(R)dir=dir.replace(/[^\\/]+\\/$/,'');var s=location.search.replace(/([?&])lang=[a-z]{2}&?/,'$1').replace(/[?&]$/,'');location.replace(dir+(w==='en'?'':w+'/')+f+s+location.hash)})();</script>`;
+const redirect = `<script>(function(){var d=document.documentElement,R=d.getAttribute('data-root')||'',L=/^(${LANGS.join('|')})$/;if(/bot|crawl|spider|slurp|lighthouse|headless|preview/i.test(navigator.userAgent))return;var w=(location.search.match(/[?&]lang=([a-z]{2})/)||[])[1];if(!w&&!R){var m=document.cookie.match(/(?:^|;\\s*)uf_lang=([a-z]{2})/);w=m&&m[1]}if(!w||w===d.lang||!L.test(w))return;var S=d.getAttribute('data-sub')||'',p=location.pathname,i=p.lastIndexOf('/'),dir=p.slice(0,i+1),f=p.slice(i+1);if(S)dir=dir.slice(0,-S.length);if(R)dir=dir.replace(/[^\\/]+\\/$/,'');var s=location.search.replace(/([?&])lang=[a-z]{2}&?/,'$1').replace(/[?&]$/,'');location.replace(dir+(w==='en'?'':w+'/')+S+f+s+location.hash)})();</script>`;
 
 function seoBlock(p, l, nl) {
   const m = PAGES[p], dict = dictOf(l), url = pageUrl(l, p);
@@ -140,6 +141,57 @@ const subdir = s => s
   .replace(/url\((['"]?)(assets\/)/g, 'url($1../$2')
   .replace(/(data-slides=")([^"]+)/g, (m, a, v) => a + v.split('|').map(x => /^(https?:|\.\.\/)/.test(x) ? x : '../' + x).join('|'));
 
+/* ---------- страницы моделей ---------- */
+const pv = {};
+vm.runInNewContext(fs.readFileSync(path.join(SRC, 'js/data.js'), 'utf8'), { window: pv });
+const PRODUCTS = pv.PRODUCTS || [];
+const nameOf = (pr, l) => { let n = pr.name; if (l !== 'ru') Object.entries(win.NAME_SUFFIX_TR[l] || win.NAME_SUFFIX_TR.en).forEach(([a, b]) => { n = n.replace(a, b); }); return n; };
+const absImg = src => SITE + src.replace(/^v2\//, '');
+const enDims = d => d && d !== '—' ? d.replace(' мм', ' mm') : '';
+function prodMeta(pr) {
+  const en = dictOf('en'), name = nameOf(pr, 'en'), cat = plain(en[win.CAT_LABEL_KEY[pr.cat]] || pr.cat);
+  const dims = enDims(pr.dims);
+  return { name, cat, t: name + ' | UNIT.FURNITURE',
+    d: `${name}, ${cat.toLowerCase()} by UNIT.FURNITURE, made in Bali.${dims ? ' Size ' + dims + '.' : ''} Custom sizes and fabrics, price on request.` };
+}
+function prodSeo(pr, l, nl) {
+  const m = prodMeta(pr), dict = dictOf(l), url = prodUrl(l, pr);
+  const imgs = [pr.life, pr.img].filter(Boolean).map(absImg);
+  const ld = { '@context': 'https://schema.org', '@graph': [
+    { '@type': 'Product', name: m.name, description: m.d, url, sku: pr.slug, category: m.cat, image: imgs,
+      brand: { '@type': 'Brand', name: 'UNIT.FURNITURE' }, manufacturer: { '@id': SITE + '#org' } },
+    { '@type': 'BreadcrumbList', itemListElement: [
+      { '@type': 'ListItem', position: 1, name: plain(dict['crumb.home']), item: pageUrl(l, 'index') },
+      { '@type': 'ListItem', position: 2, name: plain(dict['nav.catalog']), item: pageUrl(l, 'catalog') },
+      { '@type': 'ListItem', position: 3, name: plain(dict[win.CAT_LABEL_KEY[pr.cat]] || pr.cat), item: pageUrl(l, 'catalog') + '?cat=' + pr.cat },
+      { '@type': 'ListItem', position: 4, name: nameOf(pr, l), item: url }] }] };
+  return ['<!-- seo -->',
+    `<link rel="canonical" href="${url}">`,
+    ...LANGS.map(x => `<link rel="alternate" hreflang="${x}" href="${prodUrl(x, pr)}">`),
+    `<link rel="alternate" hreflang="x-default" href="${prodUrl('en', pr)}">`,
+    `<meta name="theme-color" content="#ffffff">`,
+    `<meta property="og:type" content="product">`,
+    `<meta property="og:site_name" content="UNIT.FURNITURE">`,
+    `<meta property="og:locale" content="${LOCALE[l]}">`,
+    `<meta property="og:url" content="${url}">`,
+    `<meta property="og:title" content="${attr(m.name)}">`,
+    `<meta property="og:description" content="${attr(m.d)}">`,
+    `<meta property="og:image" content="${imgs[0] || OG}">`,
+    `<meta name="twitter:card" content="summary_large_image">`,
+    `<script type="application/ld+json">${JSON.stringify(ld)}</script>`,
+    '<!-- /seo -->'].join(nl);
+}
+// то, что product.js рисует сам, вписываем сразу: заголовок, категория, описание, первое фото
+function prodBody(s, pr, l) {
+  const dict = dictOf(l), name = nameOf(pr, l), first = pr.life || pr.img || '';
+  const fill = (id, v) => { const re = new RegExp(`(<([a-z0-9]+)[^>]*\\sid="${id}"[^>]*>)(</\\2>)`); if (!re.test(s)) throw new Error('нет #' + id); s = s.replace(re, (m, a, t, b) => a + v + b); };
+  fill('ppName', name.replace(/&/g, '&amp;').replace(/</g, '&lt;'));
+  fill('ppCat', plain(dict[win.CAT_LABEL_KEY[pr.cat]] || ''));
+  fill('ppDesc', glue(dict['d.' + pr.cat] || '', l));
+  s = s.replace(/<img id="ppImg" src="" alt="">/, () => `<img id="ppImg" src="${(l === 'en' ? '' : '../') + first.replace(/^v2\//, '')}" alt="${attr(name)}">`);
+  return s;
+}
+
 /* ---------- сборка ---------- */
 let pagesOut = 0;
 LANGS.filter(l => l !== 'en').forEach(l => fs.rmSync(path.join(OUT, l), { recursive: true, force: true }));
@@ -158,11 +210,33 @@ for (const p of Object.keys(PAGES)) {
     // замены функциями: в скриптах есть $1, строкой их бы съел replace
     if (!PAGES[p].noindex) s = s.replace(/(<link rel="icon"[^>]*>)\r?\n/, (m, a) => a + nl + seoBlock(p, l, nl) + nl);
     s = s.replace(/<meta name="viewport"[^>]*>/, m => m + nl + redirect);
-    s = s.replace('<!--lang-->', () => langMenu(p, l, R));
     if (l !== 'en' && l !== 'ru') s = s.replace(/(<script src="js\/i18n\.js[^"]*"><\/script>)/, `$1${nl}<script src="js/i18n-${l}.js"></script>`);
     if (R) s = subdir(s);
     const dir = path.join(OUT, R ? l : '');
     fs.mkdirSync(dir, { recursive: true });
+    if (PAGES[p].product) {
+      // шаблон остаётся для старых ссылок product?id=, он переводит на страницу модели
+      fs.writeFileSync(path.join(dir, p + '.html'), s.replace('<!--lang-->', () => langMenu(p, l, R))
+        .replace(/<html lang="([^"]*)"/, '<html lang="$1" data-static')
+        .replace(/(<meta name="viewport"[^>]*>)/, (m, a) => a + nl + '<meta name="robots" content="noindex, follow">'));
+      pagesOut++;
+      fs.mkdirSync(path.join(dir, 'products'), { recursive: true });
+      for (const pr of PRODUCTS) {
+        const m = prodMeta(pr);
+        let q = prodBody(s, pr, l)
+          .replace('<!--lang-->', () => langMenu(p, l, R, pr))
+          .replace(/<html lang="([^"]*)"/, '<html lang="$1" data-sub="products/"')
+          .replace(/<head>/, () => '<head>' + nl + '<base href="../">')
+          .replace(/<title[^>]*>[\s\S]*?<\/title>/, () => `<title>${attr(m.t)}</title>`)
+          .replace(/<meta name="description"[^>]*>/, () => `<meta name="description" content="${attr(m.d)}">`)
+          .replace(/(<link rel="icon"[^>]*>)\r?\n/, (x, a) => a + nl + prodSeo(pr, l, nl) + nl)
+          .replace(/(<script src="(?:\.\.\/)?js\/product\.js)/, (x, a) => `<script>window.UF_PID='${pr.id}'</script>${nl}${a}`);
+        fs.writeFileSync(path.join(dir, 'products', pr.slug + '.html'), q);
+        pagesOut++;
+      }
+      continue;
+    }
+    s = s.replace('<!--lang-->', () => langMenu(p, l, R));
     fs.writeFileSync(path.join(dir, p + '.html'), s);
     pagesOut++;
   }
@@ -191,17 +265,49 @@ copyNew(path.join(SRC, 'assets'), path.join(OUT, 'assets'));
 /* версия в адресе css/js/QR по содержимому: после выкладки браузер не берёт старый файл из кеша */
 const ver = {};
 const v = p => ver[p] ??= createHash('md5').update(fs.readFileSync(path.join(OUT, p))).digest('hex').slice(0, 8);
-for (const dir of ['', ...LANGS.filter(l => l !== 'en')]) for (const f of fs.readdirSync(path.join(OUT, dir)).filter(f => f.endsWith('.html'))) {
+/* размеры фото в разметке: место под картинку занято до загрузки, вёрстка не прыгает */
+const dimCache = {};
+function imgSize(fp) {
+  if (fp in dimCache) return dimCache[fp];
+  let r = null;
+  try {
+    const b = fs.readFileSync(fp);
+    if (b[0] === 0x89 && b[1] === 0x50) r = [b.readUInt32BE(16), b.readUInt32BE(20)];
+    else if (b[0] === 0xFF && b[1] === 0xD8) {
+      for (let i = 2; i < b.length - 9;) {
+        if (b[i] !== 0xFF) { i++; continue; }
+        const mk = b[i + 1];
+        if (mk >= 0xC0 && mk <= 0xCF && mk !== 0xC4 && mk !== 0xC8 && mk !== 0xCC) { r = [b.readUInt16BE(i + 7), b.readUInt16BE(i + 5)]; break; }
+        i += 2 + b.readUInt16BE(i + 2);
+      }
+    } else if (b.toString('ascii', 0, 4) === 'RIFF' && b.toString('ascii', 8, 12) === 'WEBP') {
+      const t = b.toString('ascii', 12, 16);
+      if (t === 'VP8 ') r = [b.readUInt16LE(26) & 0x3fff, b.readUInt16LE(28) & 0x3fff];
+      else if (t === 'VP8L') { const n = b.readUInt32LE(21); r = [(n & 0x3fff) + 1, ((n >> 14) & 0x3fff) + 1]; }
+      else if (t === 'VP8X') r = [1 + b.readUIntLE(24, 3), 1 + b.readUIntLE(27, 3)];
+    }
+  } catch (e) {}
+  return (dimCache[fp] = r);
+}
+const withSizes = (html, dir) => html.replace(/<img\b[^>]*>/g, tag => {
+  if (/\swidth=/.test(tag)) return tag;
+  const m = tag.match(/\ssrc="([^"?#]+)/);
+  if (!m || /^(https?:|data:|\/\/)/.test(m[1]) || /\.svg$/i.test(m[1])) return tag;
+  const wh = imgSize(path.join(dir, m[1]));
+  return wh ? tag.replace(/^<img/, `<img width="${wh[0]}" height="${wh[1]}"`) : tag;
+});
+const htmlDirs = ['', ...LANGS.filter(l => l !== 'en')].flatMap(d => [d, path.join(d, 'products')]).filter(d => fs.existsSync(path.join(OUT, d)));
+for (const dir of htmlDirs) for (const f of fs.readdirSync(path.join(OUT, dir)).filter(f => f.endsWith('.html'))) {
   const fp = path.join(OUT, dir, f);
-  fs.writeFileSync(fp, fs.readFileSync(fp, 'utf8').replace(/((?:href|src)=")((?:\.\.\/)?)((?:css|js)\/[\w.-]+\.(?:css|js)|assets\/qr-wa\.png)(?:\?v=\w+)?"/g, (m, a, up, p) => a + up + p + '?v=' + v(p) + '"'));
+  // у страниц моделей <base href="../">: пути считаются от папки языка
+  const baseDir = path.join(OUT, path.basename(dir) === 'products' ? path.dirname(dir) : dir);
+  fs.writeFileSync(fp, withSizes(fs.readFileSync(fp, 'utf8'), baseDir).replace(/((?:href|src)=")((?:\.\.\/)?)((?:css|js)\/[\w.-]+\.(?:css|js)|assets\/qr-wa\.png)(?:\?v=\w+)?"/g, (m, a, up, p) => a + up + p + '?v=' + v(p) + '"'));
 }
 
 /* карта сайта и robots */
-const pv = {};
-vm.runInNewContext(fs.readFileSync(path.join(SRC, 'js/data.js'), 'utf8'), { window: pv });
 const xml = u => u.replace(/&/g, '&amp;');
 const entries = Object.entries(PAGES).filter(([, m]) => !m.noindex && !m.product).map(([p]) => l => pageUrl(l, p))
-  .concat((pv.PRODUCTS || []).map(pr => l => pageUrl(l, 'product') + '?id=' + pr.id));
+  .concat(PRODUCTS.map(pr => l => prodUrl(l, pr)));
 const alts = f => LANGS.map(x => `<xhtml:link rel="alternate" hreflang="${x}" href="${xml(f(x))}"/>`).join('') + `<xhtml:link rel="alternate" hreflang="x-default" href="${xml(f('en'))}"/>`;
 fs.writeFileSync(path.join(OUT, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
