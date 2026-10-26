@@ -76,7 +76,7 @@ body {
   overflow-x: hidden; overflow-x: clip;
 }
 
-img { display: block; max-width: 100%; }
+img { display: block; max-width: 100%; height: auto; }
 
 .container { max-width: var(--container); margin: 0 auto; padding: 0 40px; }
 
@@ -483,7 +483,7 @@ h3 { font-size: 20px; font-weight: 600; }
   background: var(--stone);
   border-radius: var(--r-sm); padding: 12px 14px; margin: -8px 0 20px;
 }
-.file-upload { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.file-upload { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
 .file-upload-input {
   position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
   overflow: hidden; clip: rect(0,0,0,0); border: 0;
@@ -2052,8 +2052,7 @@ html[lang="en"] .team-card.ru-only { display: none; }
 .cz-req .final-panel { border: 1px solid var(--interlace); box-shadow: none; }
 .cz-req .final-side { align-items: flex-start; min-height: 0; }
 .cz-req .final-side-in h2 { font-weight: 700; }
-.cz-step { border: 0; padding: 0; margin: 0 0 40px; min-width: 0; }
-.cz-step + .cz-step { padding-top: 40px; }
+.cz-step { border: 0; padding: 0; margin: 0 0 48px; min-width: 0; }
 .cz-step legend { display: flex; align-items: baseline; gap: 16px; padding: 0; margin-bottom: 24px; font-size: 20px; font-weight: 500; line-height: 1.3; color: var(--graphite); }
 .cz-step legend .n { font-size: 20px; font-weight: 500; color: var(--blue); font-variant-numeric: tabular-nums; }
 .cz-base { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 8px; margin-bottom: 24px; }
@@ -2073,8 +2072,7 @@ html[lang="en"] .team-card.ru-only { display: none; }
 .cz-form label.agree { margin-bottom: 0; }
 .cz-form .agree + .f-err { margin: 8px 0 0; }
 @media (max-width: 720px) {
-  .cz-step { margin-bottom: 32px; }
-  .cz-step + .cz-step { padding-top: 32px; }
+  .cz-step { margin-bottom: 40px; }
   .cz-step legend { margin-bottom: 16px; }
   .cz-dims { gap: 8px; }
 }
@@ -2083,7 +2081,9 @@ html[lang="en"] .team-card.ru-only { display: none; }
 .cz-step > legend + * { clear: both; }
 .cz-form .file-upload-btn { display: inline-flex; align-items: center; line-height: 1; }
 .cz-step:last-of-type { margin-bottom: 32px; }
-.cz-step > .field:last-child { margin-bottom: 0; }
+.cz-step > .field:last-child, .cz-step > .field-note:last-child { margin-bottom: 0; }
+/* скрытая подсказка в конце шага не должна оставлять отступ поля над следующим шагом */
+.cz-step > .field:has(+ [hidden]:last-child) { margin-bottom: 0; }
 .cz-form .f-err[hidden] { display: none; }
 
 /* меню на планшете и телефоне: на всю высоту, «Получить расчёт» и WhatsApp сразу под пунктами */

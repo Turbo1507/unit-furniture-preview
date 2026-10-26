@@ -57,7 +57,9 @@ function trName(name, lang) {
   Object.entries(trTable(window.NAME_SUFFIX_TR, lang)).forEach(([ru, tr]) => { out = out.replace(ru, tr); });
   return out;
 }
-function productById(id) { return (window.PRODUCTS || []).find(p => p.id === id); }
+function productById(id) { return (window.PRODUCTS || []).find(p => p.id === id || p.slug === id); }
+// у каждой модели своя страница /products/<slug>; на домене адреса без .html, локально и в превью с ним
+function prodHref(p) { return 'products/' + p.slug + (/\.html$/.test(location.pathname) || location.protocol === 'file:' ? '.html' : ''); }
 
 /* куда ведёт «оформить заявку» с этой страницы (index: #request, остальные: contacts.html#form) */
 const REQUEST_URL = document.body.dataset.requestUrl || 'contacts.html#form';
@@ -171,9 +173,9 @@ function renderCart() {
       ? `<img src="${p.img}" alt="${nm}">`
       : `<div class="cart-item-ph">${catIcon(p.cat)}</div>`;
     return `<div class="cart-item">
-      <a class="cart-item-img" href="product.html?id=${p.id}">${thumb}</a>
+      <a class="cart-item-img" href="${prodHref(p)}">${thumb}</a>
       <div class="cart-item-main">
-        <a class="cart-item-name" href="product.html?id=${p.id}">${nm}</a>
+        <a class="cart-item-name" href="${prodHref(p)}">${nm}</a>
         <div class="cart-item-cat">${escapeHtml(catLabel(p.cat))}</div>
         <div class="cart-item-row">
           <div class="qty" role="group" aria-label="${escapeHtml(t('cart.qty'))}">
@@ -253,7 +255,7 @@ function productCard(p, opt = {}) {
   ].join('');
   return `
   <article class="product" data-id="${p.id}">
-    <a class="p-media${photo && studio ? ' is-studio-bg' : ''}" href="product.html?id=${p.id}" aria-label="${escapeHtml(trName(p.name))}">
+    <a class="p-media${photo && studio ? ' is-studio-bg' : ''}" href="${prodHref(p)}" aria-label="${escapeHtml(trName(p.name))}">
       ${photo
         ? `<img class="p-photo${studio ? ' is-studio' : ''}${p.cat === 'textile' ? ' is-small' : ''}" src="${photo}" alt="${escapeHtml(trName(p.name))}" loading="lazy">`
         : photoPlaceholder(p.cat)}
@@ -262,12 +264,12 @@ function productCard(p, opt = {}) {
     </a>
     <div class="p-meta">
       <div class="p-cat-row"><span class="p-cat">${escapeHtml(catLabel(p.cat))}</span></div>
-      <h3 class="p-name"><a href="product.html?id=${p.id}">${escapeHtml(trName(p.name))}</a></h3>
+      <h3 class="p-name"><a href="${prodHref(p)}">${escapeHtml(trName(p.name))}</a></h3>
       <p class="p-dims">${escapeHtml(trDims(p.dims))}</p>
       <div class="p-tags">${tags}</div>
       <div class="p-foot">
         <span class="p-price">${t('p.price')}</span>
-        <a class="p-link" href="product.html?id=${p.id}">${t('p.more')}</a>
+        <a class="p-link" href="${prodHref(p)}">${t('p.more')}</a>
       </div>
     </div>
   </article>`;
@@ -877,7 +879,7 @@ function renderMixRows(id, mode) {
     // на телефоне карточка категории всегда первая
     if (mode !== 'bare' || MIXC_WIDE.matches) cards.splice(MIXC_WIDE.matches ? MIXC_POS[k] || 0 : 0, 0, `
         <a class="dir-card mixc-cat" href="${MIXC_HREF[r.dir] || r.href}"${mode === 'lines' ? '' : ` aria-label="${title}"`}>
-          <img src="${r.img}" alt="">
+          <img src="${r.img}" alt="${title}">
           <span class="mixc-go" aria-hidden="true">${MIXC_GO}</span>
           <div class="dir-in">
             ${mode === 'lines' ? `<h3>${title}</h3>` : ''}
@@ -927,7 +929,7 @@ function renderMixB() {
     return `
     <div class="mixb-row${rev ? ' is-rev' : ''}">
       <a class="dir-card mixb-photo" href="${r.href}"><span class="tile-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg></span>
-        <img src="${r.img}" alt="" loading="lazy">
+        <img src="${r.img}" alt="${t('dir.' + r.dir + '.t')}" loading="lazy">
         <div class="dir-in">
           <h3>${t('dir.' + r.dir + '.t')}</h3>
           <p>${glueShort(t('dir.' + r.dir + '.p'))}</p>

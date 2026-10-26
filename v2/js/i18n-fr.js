@@ -537,7 +537,7 @@ window.I18N.fr = {
 "dz.s6.p":"Expédition et installation sur place",
 "dz.cta1":"Obtenir un devis",
 "dz.cta2":"Nous écrire sur WhatsApp",
-"ct.h1":"<span class='acc'>Contactez</span>-nous",
+"ct.h1":"<span class='acc'>Contactez-nous</span>",
 "ct.sub":"Nous trouverons une solution, la chiffrerons et préparerons une offre. Vous pouvez envoyer des photos, un plan, des références ou les modèles choisis.",
 "req.cart_label":"Dans votre demande :",
 "f.name":"Nom*",
