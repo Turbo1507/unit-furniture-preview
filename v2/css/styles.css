@@ -1995,6 +1995,8 @@ html[lang="en"] .team-card.ru-only { display: none; }
 .pp-track .sl-slide.is-life img { max-width: none; max-height: none; }
 .pp-track .sl-slide.is-studio { display: flex; align-items: center; justify-content: center; }
 .pp-track .sl-slide.is-studio img { position: static; width: auto; height: auto; max-width: 92%; max-height: 92%; object-fit: contain; }
+/* мелкие вырезки текстиля: белый фон снимка растворяется в сером, кадр крупнее натурального */
+.pp-track .sl-slide.is-small img { height: min(56%, 360px); max-width: 80%; mix-blend-mode: multiply; }
 
 /* полоса: под лентой карточек дорожка во всю ширину, у фото-слайдера короткая поверх кадра */
 .dots { display: flex; justify-content: center; margin-top: 16px; }

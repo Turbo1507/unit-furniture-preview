@@ -755,9 +755,9 @@ window.SPEC_TR = { en: {
     'Светлый': 'Light', 'Графитовый': 'Graphite', 'Коричневый': 'Brown', 'Чёрно-белый': 'Black and white', 'Зеркальный': 'Mirrored', 'Угловой': 'Corner',
     'Ресепшн, ресторан': 'Reception, restaurant', 'Угловой, модульный': 'Corner, modular',
     'Тиковое дерево': 'Teak wood', 'Синий': 'Blue', 'Тёмно-серый': 'Dark grey',
-    'A — оранжевый, B — тёмный': 'A — orange, B — dark',
-    'A — серый меланж, B — графит': 'A — grey melange, B — graphite',
-    'A — синий, B — серый': 'A — blue, B — grey'
+    'A: оранжевый, B: тёмный': 'A: orange, B: dark',
+    'A: серый меланж, B: графит': 'A: grey melange, B: graphite',
+    'A: синий, B: серый': 'A: blue, B: grey'
   }
 } };
 window.CAT_LABEL_KEY = {

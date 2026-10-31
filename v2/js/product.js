@@ -20,8 +20,10 @@ const ppThumbs = document.getElementById('ppThumbs');
 /* галерея как в v2: интерьер, предметный снимок, кадры проектов с этой моделью */
 const photos = (() => {
   const a = [];
+  if (product.real) a.push({ src: product.real, life: true });
   if (product.life) a.push({ src: product.life, life: true });
   if (product.img) a.push({ src: product.img });
+  if (product.img2) a.push({ src: product.img2 });
   const key = (product.img || '').replace(/^.*\/p-|\.jpg$/g, '');
   const SI = window.SHOT_ITEMS || {};
   Object.keys(SI).forEach(k => { if (SI[k].includes(key)) a.push({ src: UF_ROOT + 'assets/c26/proj-' + k + '.jpg', life: true }); });
@@ -35,7 +37,7 @@ function markThumb(i) {
 }
 if (photos.length) {
   ppMain.innerHTML = '';
-  ppTrack.innerHTML = photos.map(ph => `<div class="sl-slide ${ph.life ? 'is-life' : 'is-studio'}"><img src="${ph.src}" alt=""></div>`).join('');
+  ppTrack.innerHTML = photos.map(ph => `<div class="sl-slide ${ph.life ? 'is-life' : 'is-studio'}${!ph.life && product.cat === 'textile' ? ' is-small' : ''}"><img src="${ph.src}" alt=""></div>`).join('');
   ppMain.appendChild(ppTrack);
   ppTrack.__onSlide = markThumb;
   ppThumbs.innerHTML = photos.map((ph, i) =>
