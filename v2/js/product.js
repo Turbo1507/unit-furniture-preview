@@ -20,10 +20,10 @@ const ppThumbs = document.getElementById('ppThumbs');
 /* галерея как в v2: интерьер, предметный снимок, кадры проектов с этой моделью */
 const photos = (() => {
   const a = [];
-  if (product.real) a.push({ src: product.real, life: true });
-  if (product.life) a.push({ src: product.life, life: true });
-  if (product.img) a.push({ src: product.img });
-  if (product.img2) a.push({ src: product.img2 });
+  const studio = [product.img, product.img2].filter(Boolean).map(src => ({ src }));
+  const life = product.life ? [{ src: product.life, life: true }] : [];
+  /* у текстиля сначала снимки на белом, интерьер последним */
+  a.push(...(product.cat === 'textile' ? studio.concat(life) : life.concat(studio)));
   const key = (product.img || '').replace(/^.*\/p-|\.jpg$/g, '');
   const SI = window.SHOT_ITEMS || {};
   Object.keys(SI).forEach(k => { if (SI[k].includes(key)) a.push({ src: UF_ROOT + 'assets/c26/proj-' + k + '.jpg', life: true }); });
