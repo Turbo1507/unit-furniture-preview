@@ -20,6 +20,7 @@ const ppThumbs = document.getElementById('ppThumbs');
 /* галерея как в v2: интерьер, предметный снимок, кадры проектов с этой моделью */
 const photos = (() => {
   const a = [];
+  if (product.real) a.push({ src: product.real, life: true });
   if (product.life) a.push({ src: product.life, life: true });
   if (product.img) a.push({ src: product.img });
   if (product.img2) a.push({ src: product.img2 });

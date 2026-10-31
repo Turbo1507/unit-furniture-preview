@@ -108,15 +108,15 @@ window.PRODUCTS = [
 
   // Текстиль и декор
   { id: 'pilAna', slug: 'pillows-sofa-anatholy', cat: 'textile', env: 'indoor', use: ['home', 'villa'], fabric: true, tags: ['decor'],
-    name: 'Pillows Sofa Anatholy', img: 'v2/assets/c26/p-pillows-anatholy-a.jpg', img2: 'v2/assets/c26/p-pillows-anatholy-b.jpg', life: 'v2/assets/c26/life-sofa-anatholy.jpg',
+    name: 'Pillows Sofa Anatholy', img: 'v2/assets/c26/p-pillows-anatholy-a.jpg', img2: 'v2/assets/c26/p-pillows-anatholy-b.jpg', real: 'v2/assets/c26/real-pillows-anatholy.jpg', life: 'v2/assets/c26/life-sofa-anatholy.jpg',
     dims: '—',
     specs: { 'Варианты': 'A: оранжевый, B: тёмный' } },
   { id: 'pilObs', slug: 'pillows-sofa-obsidian', cat: 'textile', env: 'indoor', use: ['home', 'villa'], fabric: true, tags: ['decor'],
-    name: 'Pillows Sofa Obsidian', img: 'v2/assets/c26/p-pillows-obsidian-a.jpg', img2: 'v2/assets/c26/p-pillows-obsidian-b.jpg', life: 'v2/assets/c26/life-sofa-obsidian.jpg',
+    name: 'Pillows Sofa Obsidian', img: 'v2/assets/c26/p-pillows-obsidian-a.jpg', img2: 'v2/assets/c26/p-pillows-obsidian-b.jpg', real: 'v2/assets/c26/real-pillows-obsidian.jpg', life: 'v2/assets/c26/life-sofa-obsidian.jpg',
     dims: '—',
     specs: { 'Варианты': 'A: серый меланж, B: графит' } },
   { id: 'pilOut', slug: 'pillows-sofa-outdoor', cat: 'textile', env: 'outdoor', use: ['home', 'villa', 'hotel'], fabric: true, tags: ['decor'],
-    name: 'Pillows Sofa Outdoor', img: 'v2/assets/c26/p-pillows-outdoor-a.jpg', img2: 'v2/assets/c26/p-pillows-outdoor-b.jpg', life: 'v2/assets/c26/life-outdoor-sofa.jpg',
+    name: 'Pillows Sofa Outdoor', img: 'v2/assets/c26/p-pillows-outdoor-a.jpg', img2: 'v2/assets/c26/p-pillows-outdoor-b.jpg', real: 'v2/assets/c26/real-pillows-outdoor.jpg', life: 'v2/assets/c26/life-outdoor-sofa.jpg',
     dims: '—',
     specs: { 'Варианты': 'A: синий, B: серый' } },
 

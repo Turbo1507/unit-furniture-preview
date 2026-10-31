@@ -156,7 +156,7 @@ function prodMeta(pr) {
 }
 function prodSeo(pr, l, nl) {
   const m = prodMeta(pr), dict = dictOf(l), url = prodUrl(l, pr);
-  const imgs = [pr.life, pr.img].filter(Boolean).map(absImg);
+  const imgs = [pr.real, pr.life, pr.img].filter(Boolean).map(absImg);
   const ld = { '@context': 'https://schema.org', '@graph': [
     { '@type': 'Product', name: m.name, description: m.d, url, sku: pr.slug, category: m.cat, image: imgs,
       brand: { '@type': 'Brand', name: 'UNIT.FURNITURE' }, manufacturer: { '@id': SITE + '#org' } },
@@ -183,7 +183,7 @@ function prodSeo(pr, l, nl) {
 }
 // то, что product.js рисует сам, вписываем сразу: заголовок, категория, описание, первое фото
 function prodBody(s, pr, l) {
-  const dict = dictOf(l), name = nameOf(pr, l), first = pr.life || pr.img || '';
+  const dict = dictOf(l), name = nameOf(pr, l), first = pr.real || pr.life || pr.img || '';
   const fill = (id, v) => { const re = new RegExp(`(<([a-z0-9]+)[^>]*\\sid="${id}"[^>]*>)(</\\2>)`); if (!re.test(s)) throw new Error('нет #' + id); s = s.replace(re, (m, a, t, b) => a + v + b); };
   fill('ppName', name.replace(/&/g, '&amp;').replace(/</g, '&lt;'));
   fill('ppCat', plain(dict[win.CAT_LABEL_KEY[pr.cat]] || ''));
