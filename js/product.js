@@ -94,7 +94,8 @@ function renderInfo() {
     `<span>${escapeHtml(trName(product.name))}</span>`;
   document.getElementById('ppCat').textContent = catLabel(product.cat);
   document.getElementById('ppName').textContent = trName(product.name);
-  document.getElementById('ppDesc').innerHTML = glueShort(t('d.' + product.cat));
+  const own = ((window.I18N || {})[curLang()] || {})['pd.' + product.slug];
+  document.getElementById('ppDesc').innerHTML = glueShort(own || t('d.' + product.cat));
   document.getElementById('ppPrice').innerHTML = t('pp.price');
 
   const tags = [

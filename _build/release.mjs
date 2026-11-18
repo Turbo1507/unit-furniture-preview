@@ -187,7 +187,8 @@ function prodBody(s, pr, l) {
   const fill = (id, v) => { const re = new RegExp(`(<([a-z0-9]+)[^>]*\\sid="${id}"[^>]*>)(</\\2>)`); if (!re.test(s)) throw new Error('нет #' + id); s = s.replace(re, (m, a, t, b) => a + v + b); };
   fill('ppName', name.replace(/&/g, '&amp;').replace(/</g, '&lt;'));
   fill('ppCat', plain(dict[win.CAT_LABEL_KEY[pr.cat]] || ''));
-  fill('ppDesc', glue(dict['d.' + pr.cat] || '', l));
+  // своё описание модели, если оно переведено на этот язык; иначе общий текст категории
+  fill('ppDesc', glue((win.I18N[l] || {})['pd.' + pr.slug] || dict['d.' + pr.cat] || '', l));
   s = s.replace(/<img id="ppImg" src="" alt="">/, () => `<img id="ppImg" src="${(l === 'en' ? '' : '../') + first.replace(/^v2\//, '')}" alt="${attr(name)}">`);
   return s;
 }
