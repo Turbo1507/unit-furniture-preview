@@ -1989,6 +1989,8 @@ html[lang="en"] .team-card.ru-only { display: none; }
 
 /* фото-слайдер: лента кадров внутри рамки фото, точки поверх снизу */
 .sl-track { position: absolute; inset: 0; display: flex; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; -webkit-overflow-scrolling: touch; }
+/* при дробной ширине прокрутка округляется до пикселя, и край соседнего слайда виден полоской; лишнее срезает overflow у .pp-main */
+.pp-main .pp-track { right: auto; width: round(up, 100%, 1px); }
 .sl-track::-webkit-scrollbar { display: none; }
 .sl-slide { position: relative; flex: 0 0 100%; scroll-snap-align: start; scroll-snap-stop: always; }
 .sl-slide img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
