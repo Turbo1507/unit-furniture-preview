@@ -40,6 +40,23 @@ if (photos.length) {
   ppTrack.innerHTML = photos.map(ph => `<div class="sl-slide ${ph.life ? 'is-life' : 'is-studio'}${!ph.life && product.cat === 'textile' ? ' is-small' : ''}"><img src="${ph.src}" alt=""></div>`).join('');
   ppMain.appendChild(ppTrack);
   ppTrack.__onSlide = markThumb;
+  // фото на однотонном фоне: подложка слайда берёт цвет фона снимка, иначе вокруг белого кадра серые поля
+  ppTrack.querySelectorAll('.sl-slide.is-studio img').forEach(img => {
+    const paint = () => {
+      try {
+        const c = document.createElement('canvas'), n = 24;
+        c.width = c.height = n;
+        const x = c.getContext('2d', { willReadFrequently: true });
+        x.drawImage(img, 0, 0, n, n);
+        const px = [[0, 0], [n - 1, 0], [0, n - 1], [n - 1, n - 1], [n >> 1, 0], [n >> 1, n - 1]].map(([a, b]) => x.getImageData(a, b, 1, 1).data);
+        if (px.some(p => p[3] < 250)) return; // прозрачный PNG — подложку не трогаем
+        const avg = [0, 1, 2].map(k => Math.round(px.reduce((s, p) => s + p[k], 0) / px.length));
+        if (px.some(p => [0, 1, 2].some(k => Math.abs(p[k] - avg[k]) > 12))) return; // фон неоднородный
+        img.parentElement.style.backgroundColor = `rgb(${avg.join(',')})`;
+      } catch (e) {}
+    };
+    img.complete && img.naturalWidth ? paint() : img.addEventListener('load', paint, { once: true });
+  });
   ppThumbs.innerHTML = photos.map((ph, i) =>
     `<button type="button" data-i="${i}"${i === 0 ? ' class="on"' : ''} aria-label="${i + 1} / ${photos.length}"><img src="${ph.src}" alt=""${ph.life ? '' : ' class="studio"'}></button>`).join('');
   ppThumbs.addEventListener('click', e => {
