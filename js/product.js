@@ -48,7 +48,7 @@ if (photos.length) {
         c.width = c.height = n;
         const x = c.getContext('2d', { willReadFrequently: true });
         x.drawImage(img, 0, 0, n, n);
-        const px = [[0, 0], [n - 1, 0], [0, n - 1], [n - 1, n - 1], [n >> 1, 0], [n >> 1, n - 1]].map(([a, b]) => x.getImageData(a, b, 1, 1).data);
+        const px = [[0, 0], [n - 1, 0], [0, n - 1], [n - 1, n - 1]].map(([a, b]) => x.getImageData(a, b, 1, 1).data);
         if (px.some(p => p[3] < 250)) return; // прозрачный PNG — подложку не трогаем
         const avg = [0, 1, 2].map(k => Math.round(px.reduce((s, p) => s + p[k], 0) / px.length));
         if (px.some(p => [0, 1, 2].some(k => Math.abs(p[k] - avg[k]) > 12))) return; // фон неоднородный
