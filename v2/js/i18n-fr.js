@@ -620,7 +620,7 @@ window.I18N.fr = {
 "cart.plus":"Plus",
 "ft.desc":"Mobilier signature et solutions d’intérieur clés en main à Bali.",
 "ft.menu":"Menu",
-"ft.links":"Liens utiles",
+"ft.links":"Liens utiles","ft.projects":"Projets UNIT.",
 "ft.catalog":"Télécharger le catalogue (PDF)",
 "ft.pd":"Consentement aux données personnelles",
 "ft.legal":"Informations légales de l’entreprise",

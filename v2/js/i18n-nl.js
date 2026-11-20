@@ -619,7 +619,7 @@ window.I18N.nl = {
 "cart.plus":"Meer",
 "ft.desc":"Designmeubels en complete interieuroplossingen op Bali.",
 "ft.menu":"Menu",
-"ft.links":"Belangrijke links",
+"ft.links":"Belangrijke links","ft.projects":"Projecten van UNIT.",
 "ft.catalog":"Catalogus downloaden (PDF)",
 "ft.pd":"Toestemming voor verwerking van persoonsgegevens",
 "ft.legal":"Juridische informatie van het bedrijf",

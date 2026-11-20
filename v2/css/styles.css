@@ -527,7 +527,7 @@ h3 { font-size: 20px; font-weight: 600; }
   padding: clamp(48px, 6vw, 80px) 0 36px;
 }
 .footer-inner {
-  display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, 1.2fr) auto;
+  display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, 1.2fr) minmax(0, 1fr) auto;
   gap: 40px;
 }
 .footer-brand .logo { font-size: 28px; }

@@ -620,7 +620,7 @@ window.I18N.it = {
 "cart.plus":"Più",
 "ft.desc":"Mobili d’autore e soluzioni d’interni chiavi in mano a Bali.",
 "ft.menu":"Menu",
-"ft.links":"Link utili",
+"ft.links":"Link utili","ft.projects":"Progetti UNIT.",
 "ft.catalog":"Scarica il catalogo (PDF)",
 "ft.pd":"Consenso al trattamento dei dati personali",
 "ft.legal":"Informazioni legali della società",

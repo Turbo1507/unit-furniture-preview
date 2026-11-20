@@ -619,7 +619,7 @@ window.I18N.tr = {
 "cart.plus":"Artır",
 "ft.desc":"Bali’de tasarım mobilyalar ve anahtar teslim iç mekân çözümleri.",
 "ft.menu":"Menü",
-"ft.links":"Önemli bağlantılar",
+"ft.links":"Önemli bağlantılar","ft.projects":"UNIT. projeleri",
 "ft.catalog":"Kataloğu indir (PDF)",
 "ft.pd":"Kişisel verilerin işlenmesine onay",
 "ft.legal":"Şirketin yasal bilgileri",
