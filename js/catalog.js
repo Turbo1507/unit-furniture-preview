@@ -21,7 +21,7 @@ function applyFilters() {
     (env === 'all' || p.env === env) &&
     (use === 'all' || (p.use || []).includes(use))
   );
-  renderProductsInto(productsEl, list, { studio: true });
+  renderProductsInto(productsEl, list, { studio: true, eager: 4 });
   emptyEl.hidden = list.length > 0;
   syncURL(env, use);
 }

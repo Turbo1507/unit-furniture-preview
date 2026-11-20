@@ -11,6 +11,10 @@ import { fileURLToPath } from 'url';
 const SRC = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = path.resolve(process.argv[2] || '');
 const SITE = (process.argv[3] || 'https://unit.furniture/').replace(/\/?$/, '/');
+/* внутренние ссылки без .html: сервер отвечает на catalog.html редиректом 301 на /catalog,
+   а Google должен сразу видеть канонический адрес (GitHub Pages чистые адреса тоже отдаёт) */
+const cleanLinks = h => h.replace(/(<a\b[^>]*\bhref=")((?:\.\.\/)*)((?:[\w-]+\/)*)([\w-]+)\.html(?=[?#"])/g,
+  (m, a, up, dir, name) => a + up + dir + (name === 'index' ? (up || dir ? '' : './') : name));
 if (!process.argv[2] || !fs.existsSync(OUT)) throw new Error('папка выкладки не найдена: ' + OUT);
 
 const ALL = ['en', 'ru', 'id', 'fr', 'es', 'uk', 'it', 'tr', 'nl'];
@@ -189,6 +193,13 @@ function prodBody(s, pr, l) {
   fill('ppCat', plain(dict[win.CAT_LABEL_KEY[pr.cat]] || ''));
   // своё описание модели, если оно переведено на этот язык; иначе общий текст категории
   fill('ppDesc', glue((win.I18N[l] || {})['pd.' + pr.slug] || dict['d.' + pr.cat] || '', l));
+  // таблица характеристик сразу в HTML (те же правила перевода, что в trSpecKey/trSpecVal/trDims из common.js)
+  const ST = win.SPEC_TR || {}, tbl = (ST[l] || ST.en || { keys: {}, values: {} });
+  const sk = k => l === 'ru' ? k : tbl.keys[k] || ST.en.keys[k] || k;
+  const sv = v => l === 'ru' ? v : tbl.values[v] || ST.en.values[v] || v;
+  const dims = pr.dims === '—' ? dict['p.dims_unknown'] : pr.dims.replace(' мм', /^(ru|uk)$/.test(l) ? ' мм' : ' mm');
+  const esc = v => String(v).replace(/&/g, '&amp;').replace(/</g, '&lt;');
+  fill('ppSpecs', [[dict['qv.dims'], dims], ...Object.entries(pr.specs || {}).map(([k, v]) => [sk(k), sv(v)])].map(([k, v]) => `<tr><td>${esc(k)}</td><td>${esc(v)}</td></tr>`).join(''));
   s = s.replace(/<img id="ppImg" src="" alt="">/, () => `<img id="ppImg" src="${(l === 'en' ? '' : '../') + first.replace(/^v2\//, '')}" alt="${attr(name)}">`);
   return s;
 }
@@ -302,7 +313,7 @@ for (const dir of htmlDirs) for (const f of fs.readdirSync(path.join(OUT, dir)).
   const fp = path.join(OUT, dir, f);
   // у страниц моделей <base href="../">: пути считаются от папки языка
   const baseDir = path.join(OUT, path.basename(dir) === 'products' ? path.dirname(dir) : dir);
-  fs.writeFileSync(fp, withSizes(fs.readFileSync(fp, 'utf8'), baseDir).replace(/((?:href|src)=")((?:\.\.\/)?)((?:css|js)\/[\w.-]+\.(?:css|js)|assets\/qr-wa\.png)(?:\?v=\w+)?"/g, (m, a, up, p) => a + up + p + '?v=' + v(p) + '"'));
+  fs.writeFileSync(fp, cleanLinks(withSizes(fs.readFileSync(fp, 'utf8'), baseDir).replace(/((?:href|src)=")((?:\.\.\/)?)((?:css|js)\/[\w.-]+\.(?:css|js)|assets\/qr-wa\.png)(?:\?v=\w+)?"/g, (m, a, up, p) => a + up + p + '?v=' + v(p) + '"')));
 }
 
 /* карта сайта и robots */
@@ -317,3 +328,11 @@ ${entries.flatMap(f => LANGS.map(l => `  <url><loc>${xml(f(l))}</loc>${alts(f)}<
 `);
 fs.writeFileSync(path.join(OUT, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${SITE}sitemap.xml\n`);
 console.log(`release: языки ${LANGS.join(' ')}, страниц ${pagesOut}, новых картинок ${added}, в карте сайта ${entries.length * LANGS.length}, сайт ${SITE}`);
+
+/* SEO-проверка сборки: при 🔴 выкладывать нельзя */
+import('child_process').then(({ spawnSync }) => {
+  const pc = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../../_seo/precheck.mjs');
+  if (!fs.existsSync(pc)) return console.log('precheck.mjs не найден, SEO-проверка пропущена');
+  const r = spawnSync(process.execPath, [pc, OUT, SITE], { stdio: 'inherit' });
+  if (r.status) { console.error('\nSEO-проверка нашла 🔴: не выкладывать, пока не исправлено'); process.exitCode = 1; }
+});
