@@ -257,7 +257,7 @@ function productCard(p, opt = {}) {
   <article class="product" data-id="${p.id}">
     <a class="p-media${photo && studio ? ' is-studio-bg' : ''}" href="${prodHref(p)}" aria-label="${escapeHtml(trName(p.name))}">
       ${photo
-        ? `<img class="p-photo${studio ? ' is-studio' : ''}${p.cat === 'textile' ? ' is-small' : ''}" src="${photo}" alt="${escapeHtml(trName(p.name))}" loading="lazy">`
+        ? `<img class="p-photo${studio ? ' is-studio' : ''}${p.cat === 'textile' ? ' is-small' : ''}" src="${photo}" alt="${escapeHtml(trName(p.name))}" loading="${opt.eager ? 'eager' : 'lazy'}"${opt.first ? ' fetchpriority="high"' : ''}>`
         : photoPlaceholder(p.cat)}
       ${teak ? `<span class="p-badge">${escapeHtml(t('badge.teak'))}</span>` : ''}
       <button class="p-add" data-add="${p.id}" type="button">+</button>
@@ -275,7 +275,8 @@ function productCard(p, opt = {}) {
   </article>`;
 }
 function renderProductsInto(el, list, opt) {
-  el.innerHTML = list.map(p => productCard(p, opt)).join('');
+  // первый ряд каталога виден сразу: без ленивой загрузки
+  el.innerHTML = list.map((p, i) => productCard(p, { ...opt, eager: i < ((opt && opt.eager) || 0), first: i === 0 && (opt && opt.eager) })).join('');
   syncAddButtons();
 }
 let toastT;

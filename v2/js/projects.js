@@ -17,10 +17,10 @@ function markWide() {
 }
 addEventListener('resize', markWide);
 function renderProjects() {
-  projGrid.innerHTML = projSorted().map(pr => {
+  projGrid.innerHTML = projSorted().map((pr, i) => {
     const hidden = projFilterVal !== 'all' && pr.type !== projFilterVal && pr.place !== projFilterVal;
     return `<div class="proj-card${hidden ? ' hide' : ''}">
-      <img src="${pr.img}" alt="${escapeHtml(t('proj.' + pr.id + '.t'))}" loading="lazy">
+      <img src="${pr.img}" alt="${escapeHtml(t('proj.' + pr.id + '.t'))}" loading="${i < 2 ? 'eager' : 'lazy'}"${i === 0 ? ' fetchpriority="high"' : ''}>
       <div class="proj-in"><h3>${t('proj.' + pr.id + '.t')}</h3><p>${t('proj.' + pr.id + '.p')}</p></div>
     </div>`;
   }).join('');
