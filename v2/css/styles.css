@@ -553,6 +553,12 @@ h3 { font-size: 20px; font-weight: 600; }
   .footer-social a:hover { background: var(--blue); border-color: var(--blue); color: #fff; }
 }
 .footer-social svg { width: 22px; height: 22px; }
+/* планшет: пяти колонкам тесно, бренд и соцсети строкой сверху, ссылки в три колонки */
+@media (min-width: 721px) and (max-width: 1100px) {
+  .footer-inner { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 40px; }
+  .footer-brand { grid-column: 1 / 3; grid-row: 1; }
+  .footer-social { grid-column: 3; grid-row: 1; justify-self: end; }
+}
 .footer-bottom {
   display: flex; justify-content: space-between; align-items: center;
   flex-wrap: wrap; gap: 16px;
