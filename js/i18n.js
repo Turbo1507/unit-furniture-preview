@@ -863,6 +863,8 @@ window.setLang = function (lang) {
     const key = el.getAttribute('data-i18n-ph');
     if (dict[key] != null) el.placeholder = dict[key];
   });
+  // ссылки из текстов словаря (consent.html в форме) на домене без .html, как и остальные
+  if (!(/\.html$/.test(location.pathname) || location.protocol === 'file:')) document.querySelectorAll('a[href*=".html"]').forEach(a => { const h = a.getAttribute('href'); if (!/^[a-z]+:|^\/\//i.test(h)) a.setAttribute('href', h.replace(/\.html(?=[?#]|$)/, '')); });
   window.__uf_lang = lang;
   if (window.__uf_onLangChange) window.__uf_onLangChange(lang);
 };

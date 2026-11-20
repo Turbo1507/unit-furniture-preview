@@ -59,10 +59,12 @@ function trName(name, lang) {
 }
 function productById(id) { return (window.PRODUCTS || []).find(p => p.id === id || p.slug === id); }
 // у каждой модели своя страница /products/<slug>; на домене адреса без .html, локально и в превью с ним
-function prodHref(p) { return 'products/' + p.slug + (/\.html$/.test(location.pathname) || location.protocol === 'file:' ? '.html' : ''); }
+/* на домене и Pages адреса без .html (сервер отвечает на .html редиректом), локальный файл и старые адреса — с .html */
+const HX = /\.html$/.test(location.pathname) || location.protocol === 'file:' ? '.html' : '';
+function prodHref(p) { return 'products/' + p.slug + HX; }
 
 /* куда ведёт «оформить заявку» с этой страницы (index: #request, остальные: contacts.html#form) */
-const REQUEST_URL = document.body.dataset.requestUrl || 'contacts.html#form';
+const REQUEST_URL = (document.body.dataset.requestUrl || 'contacts.html#form').replace(/\.html(?=[?#]|$)/, HX);
 
 /* ---------- корзина заявки: persist в localStorage, работает на всех страницах ---------- */
 const reqIds = new Set();
@@ -162,7 +164,7 @@ function renderCart() {
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 11V8a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v3"/><rect x="3" y="11" width="18" height="6" rx="1.5"/><path d="M4 17v1.5M20 17v1.5"/></svg>
       <h4>${t('cart.empty_t')}</h4>
       <p>${t('cart.empty')}</p>
-      <a class="btn btn-line on-white" href="catalog.html">${t('cart.to_catalog')}</a>
+      <a class="btn btn-line on-white" href="catalog${HX}">${t('cart.to_catalog')}</a>
     </div>`;
     return;
   }
@@ -618,7 +620,7 @@ keepUtm();
     bar.className = 'ck-bar';
     bar.setAttribute('aria-label', t('ck.aria'));
     // ссылка относительная: из /ru/ ведёт на русский документ
-    bar.innerHTML = `<p>${glueShort(t('ck.text'))} <a href="consent.html#cookies">${t('ck.more')}</a></p>
+    bar.innerHTML = `<p>${glueShort(t('ck.text'))} <a href="consent${HX}#cookies">${t('ck.more')}</a></p>
       <div class="ck-btns"><button type="button" class="ck-btn" data-v="all">${t('ck.ok')}</button><button type="button" class="ck-btn" data-v="min">${t('ck.min')}</button></div>`;
     bar.addEventListener('click', e => {
       const b = e.target.closest('[data-v]');
@@ -737,7 +739,7 @@ if (form) {
       });
     }
     ok.innerHTML = `<h3>${t('f.ok.t')}</h3><p>${t(n ? 'f.ok.items' : 'f.ok.p')}</p>
-      <div class="form-ok-actions"><a class="btn btn-blue" href="catalog.html">${t('f.ok.catalog')}</a><button type="button" class="btn btn-line on-white" data-again="1">${t('f.ok.again')}</button></div>`;
+      <div class="form-ok-actions"><a class="btn btn-blue" href="catalog${HX}">${t('f.ok.catalog')}</a><button type="button" class="btn btn-line on-white" data-again="1">${t('f.ok.again')}</button></div>`;
     form.reset();
     form.querySelectorAll('.err').forEach(x => setErr(x, false));
     refreshCustomSelectLabels();
@@ -763,7 +765,7 @@ if (form) {
   const m = new URLSearchParams(location.search).get('model');
   if (m && sel.querySelector('option[value="' + m + '"]')) { sel.value = m; const w = sel.closest('.csel'); if (w && w._render) w._render(); }
   sync();
-  document.querySelectorAll('a[href^="customization.html?object="]').forEach(a => a.addEventListener('click', e => {
+  document.querySelectorAll('a[href^="customization.html?object="], a[href^="customization?object="]').forEach(a => a.addEventListener('click', e => {
     e.preventDefault();
     document.getElementById('form').scrollIntoView({ behavior: 'smooth' });
   }));
@@ -840,9 +842,9 @@ fitBento();
 
 /* ---------- направления + ряды моделей (главная, mix.html) ---------- */
 const MIX_ROWS = [
-  { dir: 1, img: UF_ROOT + 'assets/n/dir-home.jpg', href: 'catalog.html', ids: ['sofaAna', 'bed3', 'sofaObs', 'ch7', 'bed1', 'ch8', 'sofaA', 'ch4'] },
-  { dir: 2, rev: true, img: UF_ROOT + 'assets/n/dir-outdoor.jpg', href: 'catalog.html?env=outdoor', ids: ['out4', 'out5', 'out3', 'out1', 'out2', 'pilOut'] },
-  { dir: 3, img: UF_ROOT + 'assets/n/dir-commercial.jpg', href: 'catalog.html?cat=commercial', ids: ['sofaRec', 'ch6', 'ch1', 'ch2', 'ch3', 'ch9', 'ch5'] },
+  { dir: 1, img: UF_ROOT + 'assets/n/dir-home.jpg', href: 'catalog' + HX, ids: ['sofaAna', 'bed3', 'sofaObs', 'ch7', 'bed1', 'ch8', 'sofaA', 'ch4'] },
+  { dir: 2, rev: true, img: UF_ROOT + 'assets/n/dir-outdoor.jpg', href: 'catalog' + HX + '?env=outdoor', ids: ['out4', 'out5', 'out3', 'out1', 'out2', 'pilOut'] },
+  { dir: 3, img: UF_ROOT + 'assets/n/dir-commercial.jpg', href: 'catalog' + HX + '?cat=commercial', ids: ['sofaRec', 'ch6', 'ch1', 'ch2', 'ch3', 'ch9', 'ch5'] },
 ];
 const mixCards = (ids, n) => ids.map(productById).filter(Boolean).slice(0, n).map(p => productCard(p, { studio: true })).join('');
 
@@ -865,7 +867,7 @@ function renderMixA() {
 
 /* В: карточка категории стоит в ленте среди моделей и листается вместе с ними */
 const MIXC_POS = [0, 2, 1];
-const MIXC_HREF = { 1: 'catalog.html?env=indoor' };
+const MIXC_HREF = { 1: 'catalog' + HX + '?env=indoor' };
 const MIXC_GO = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg>';
 const MIXC_ARR = (cls, d, lbl) => `<button class="mixb-arr ${cls}" type="button" aria-label="${lbl}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="${d}"/></svg></button>`;
 /* sep: названия над рядами и линии между рядами; lines: название в карточке, только линии; heads: названия над рядами без линий */
