@@ -55,7 +55,7 @@ function renderFeatured() {
     <div class="feat-row">
       <div class="feat-head">
         <h3>${t('feat.' + r.room)}</h3>
-        <a class="feat-more" href="catalog.html?cat=${r.cat}">${t('feat.more')}</a>
+        <a class="feat-more" href="catalog${HX}?cat=${r.cat}">${t('feat.more')}</a>
       </div>
       <div class="products feat-grid">${r.ids.map(productById).filter(Boolean).map(p => productCard(p, { studio: true })).join('')}</div>
     </div>`).join('');
@@ -70,7 +70,7 @@ function renderProjects() {
   if (!projGrid) return;
   const list = (window.PROJECTS || []).slice(0, 6);
   projGrid.innerHTML = list.map(pr => {
-    return `<a class="proj-card" href="projects.html"><span class="tile-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg></span>
+    return `<a class="proj-card" href="projects${HX}"><span class="tile-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg></span>
       <img src="${pr.img}" alt="${escapeHtml(t('proj.' + pr.id + '.t'))}">
       <div class="proj-in"><h3>${t('proj.' + pr.id + '.t')}</h3><p>${t('proj.' + pr.id + '.p')}</p></div>
     </a>`;

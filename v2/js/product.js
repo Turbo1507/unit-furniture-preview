@@ -11,7 +11,7 @@ if (!window.UF_PID && !missing && document.documentElement.hasAttribute('data-st
   const q = params.toString();
   location.replace(prodHref(product) + (q ? '?' + q : '') + location.hash);
 }
-document.querySelectorAll('.pp-custom-link').forEach(a => { a.href = 'customization.html?model=' + product.id + '#form'; });
+document.querySelectorAll('.pp-custom-link').forEach(a => { a.href = 'customization' + HX + '?model=' + product.id + '#form'; });
 
 const ppMain = document.getElementById('ppMain');
 const ppImg = document.getElementById('ppImg');
@@ -105,9 +105,9 @@ function renderInfo() {
   document.title = trName(product.name, 'en') + ' | UNIT.FURNITURE';
   ppTrack.querySelectorAll('img').forEach(im => { im.alt = trName(product.name); });
   document.getElementById('crumbs').innerHTML =
-    `<a href="index.html">${t('crumb.home')}</a><span>/</span>` +
-    `<a href="catalog.html">${t('nav.catalog')}</a><span>/</span>` +
-    `<a href="catalog.html?cat=${product.cat}">${catLabel(product.cat)}</a><span>/</span>` +
+    `<a href="${HX ? 'index.html' : './'}">${t('crumb.home')}</a><span>/</span>` +
+    `<a href="catalog${HX}">${t('nav.catalog')}</a><span>/</span>` +
+    `<a href="catalog${HX}?cat=${product.cat}">${catLabel(product.cat)}</a><span>/</span>` +
     `<span>${escapeHtml(trName(product.name))}</span>`;
   document.getElementById('ppCat').textContent = catLabel(product.cat);
   document.getElementById('ppName').textContent = trName(product.name);
@@ -159,7 +159,7 @@ if (missing) {
   box.className = 'pp-missing';
   grid.after(box);
   const draw = () => {
-    box.innerHTML = `<h1>${t('pp.missing.t')}</h1><p>${t('pp.missing.p')}</p><a class="btn btn-blue" href="catalog.html">${t('pp.missing.cta')}</a>`;
+    box.innerHTML = `<h1>${t('pp.missing.t')}</h1><p>${t('pp.missing.p')}</p><a class="btn btn-blue" href="catalog${HX}">${t('pp.missing.cta')}</a>`;
     document.title = t('pp.missing.t', 'en') + ' | UNIT.FURNITURE';
     const c = document.getElementById('crumbs'); if (c) c.style.display = 'none';
   };
