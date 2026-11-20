@@ -619,7 +619,7 @@ window.I18N.id = {
 "cart.plus":"Tambah",
 "ft.desc":"Furnitur khas dan solusi interior siap pakai di Bali.",
 "ft.menu":"Menu",
-"ft.links":"Tautan penting",
+"ft.links":"Tautan penting","ft.projects":"Proyek UNIT.",
 "ft.catalog":"Unduh katalog (PDF)",
 "ft.pd":"Persetujuan data pribadi",
 "ft.legal":"Informasi hukum perusahaan",

@@ -395,7 +395,7 @@ window.I18N = {
 
     /* --- футер и мобильная планка --- */
     "ft.desc": "Авторская мебель и интерьерные решения под ключ на Бали.",
-    "ft.menu": "Меню", "ft.links": "Важные ссылки", "ft.catalog": "Скачать каталог (PDF)",
+    "ft.menu": "Меню", "ft.links": "Важные ссылки", "ft.projects": "Проекты UNIT.", "ft.catalog": "Скачать каталог (PDF)",
     "ft.pd": "Согласие на обработку ПД", "ft.legal": "Юр. информация о компании",
     "ft.lang": "Язык страницы", "ft.privacy": "Политика конфиденциальности",
     "ft.line": "<i class='u5'>UNIT.</i>FURNITURE: авторская мебель и интерьерные решения на Бали",
@@ -791,7 +791,7 @@ window.I18N = {
 
     /* --- footer & mobile bar --- */
     "ft.desc": "Signature furniture and turnkey interior solutions in Bali.",
-    "ft.menu": "Menu", "ft.links": "Important links", "ft.catalog": "Download catalog (PDF)",
+    "ft.menu": "Menu", "ft.links": "Important links", "ft.projects": "UNIT. projects", "ft.catalog": "Download catalog (PDF)",
     "ft.pd": "Personal data consent", "ft.legal": "Company legal information",
     "ft.lang": "Page language", "ft.privacy": "Privacy Policy",
     "ft.line": "<i class='u5'>UNIT.</i>FURNITURE: signature furniture and interior solutions in Bali",
